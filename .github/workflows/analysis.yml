@@ -1,0 +1,38 @@
+name: SonarQube Scan
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  sonarqube-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use .NET Core SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.x'
+
+      - name: Install Composer
+        run: |
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+      - name: Install SonarScanner
+        run: |
+          export PATH="$HOME/.dotnet/tools:$PATH"
+          dotnet tool install --global dotnet-sonarscanner
+          export SONARSCANNER_MSBUILD_VERSION=$(dotnet-sonarscanner --version)
+          echo "Installed DotNet SonarScanner: $SONARSCANNER_MSBUILD_VERSION"
+      - name: Install Magento 2 Dependencies
+        run: composer install
+
+      - name: SonarQube Scan
+        run: |
+          sonar-scanner \
+            -Dsonar.host.url=http://sonarqube.kcspl.in:9000/ \
+            -Dsonar.login=4bfeceb86030431b89e0f94ac01e996405e8f016  \
+            -Dsonar.projectKey=QulityGateTest 
