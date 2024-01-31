@@ -1,0 +1,108 @@
+<?php
+/** @var $block \Capgemini\OrderView\Block\Payments */
+$limit = $block->getRequest()->getParam('limit') ?? $block::INITIAL_LIMIT;
+$page = $this->getRequest()->getParam('p') ?? 1;
+$payments = $block->getPayments($page, $limit);
+$customerId = $block->getCustomerId();
+$searchbal = '';
+if($this->getRequest()->getParam('search'))
+{
+    $searchbal = $this->getRequest()->getParam('search');
+}
+?>
+<div class="order-control-container">
+    <div class="filter-container top-filter-container">
+       <?= $block->getBlockHtml('capgemini.filter.dropdown'); ?>
+       <?= $block->getBlockHtml('capgemini.filter.modal'); ?> 
+    </div>
+</div>
+<?php if ($payments && count($payments)):?>
+    <div class="table-wrapper orders-history data-grid-wrap orderspages">
+        <table class="data-grid table table-order-items history">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Payments')) ?></caption>
+            <thead>
+            <th scope="col" class="data-grid-th col id" data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".paymentidupsort","upsorturl":"<?= $block->getUrl('orderview/payments/history',['sort_by'=>'PaymentID_asc','account_id'=>$customerId])?>"},{"classname":".paymentiddescort","upsorturl":"<?= $block->getUrl('orderview/payments/history',['sort_by'=>'PaymentID_desc','account_id'=>$customerId])?>"}]}}'>
+            <span class="th-wrap"> 
+                        <span class="th-label">        
+            <?= $block->escapeHtml(__('Payment No')) ?></span>
+                <span class="sort-wrap">
+                <span data-sort="asc" class="paymentidupsort ascsort PaymentID_desc "></span>
+                    <span data-sort="desc" class="paymentiddescort descsort PaymentID_asc active"></span>
+                    </span>
+                    </span>
+                </th>
+            <th scope="col" class="data-grid-th col purchase"><?= $block->escapeHtml(__('Payment Amount')) ?></th>
+            <th scope="col" class="data-grid-th col date" data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".paymentdateupsort","upsorturl":"<?= $block->getUrl('orderview/payments/history',['sort_by'=>'PaymentDate_asc','account_id'=>$customerId])?>"},{"classname":".paymentdatedescort","upsorturl":"<?= $block->getUrl('orderview/payments/history',['sort_by'=>'PaymentDate_desc','account_id'=>$customerId])?>"}]}}'>
+                <span class="th-wrap"> 
+                        <span class="th-label"><?= $block->escapeHtml(__('Payment Date')) ?></span>
+                <span class="sort-wrap">
+                <span data-sort="asc" class="paymentdateupsort ascsort PaymentDate_desc "></span>
+                    <span data-sort="desc" class="paymentdatedescort descsort PaymentDate_asc active"></span>
+                    </span>
+                    </span></th>
+            <th scope="col" class="data-grid-th col total"><?= $block->escapeHtml(__('Paid By')) ?></th>
+            <th scope="col" class="data-grid-th col total"><?= $block->escapeHtml(__('Check No./Ref No.')) ?></th>
+
+            </thead>
+            <tbody>
+                <?php foreach ($payments as $payment): ?>
+                    <tr class="order-row data-row">
+                    <td nowrap data-th="<?= $block->escapeHtmlAttr(__('Payment No')) ?>" class="col id"><?= $payment['paymentId'] ?></td>
+                    <td nowrap data-th="<?= $block->escapeHtmlAttr(__('Payment Amount')) ?>" class="col id"><?= $block->getPrice($payment['amount']); ?></td>
+                    <td nowrap data-th="<?= $block->escapeHtmlAttr(__('Payment Date')) ?>" class="col id"><?= $payment['created_at'] ?></td>
+                    <td nowrap data-th="<?= $block->escapeHtmlAttr(__('Paid By')) ?>" class="col id"><?= $payment['paymentMethod'] ?></td>
+                    <td nowrap data-th="<?= $block->escapeHtmlAttr(__('CheckNo/Ref No')) ?>" class="col id"><?= $payment['referenceId'] ?></td>
+
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if (count($payments)): ?>
+         <div class="order-products-toolbar toolbar bottom"><?= $block->getChildBlock('salespad_order_list_pager')->setLimit($limit)->setCollection($payments)->toHtml() ?></div>
+    <?php endif; ?>
+<?php  else: ?>
+    <?php if ($this->getRequest()->getParam('search')) : ?>
+         <div class="message info empty"><span><?= $block->escapeHtml(__('Sorry we couldn\'t find what you are looking for. Please be sure you enter a valid Payment or Check number')) ?></span></div>
+    <?php else : ?>
+         <div class="message info empty"><span><?= $block->escapeHtml(__('No payment records were found for this account.')) ?></span></div>
+    <?php endif; ?>
+<?php endif; ?>
+
+<script>
+    require(['jquery'], function ($) {
+        //simulate close btn
+        if ($('.message.info.empty').length) {
+            $('.action.close').click(function () {
+                $('.message.info.empty').hide();
+            })
+        }
+    })
+</script>
+<script>
+require(['jquery', 'Capgemini_OrderView/js/widget/sortable-table'], function($) {
+
+$('.sortable-table').sortableTable();
+
+$(document).ready(function(){
+
+    var url = window.location.href;
+var sortType = "";
+
+var match = url.match(/\/sort_by\/([^\/]+)/);
+if (match && match[1]) {
+sortType = match[1];
+}
+
+console.log(sortType);
+const element = document.querySelector("." + sortType);
+    if(sortType){
+      //  console.log(element);
+        element.classList.add("active");
+        console.log(element.nextSibling.nextElementSibling);
+        element.nextSibling.nextElementSibling.classList.remove("active");
+    }
+});
+
+});
+</script>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ *
+ * Created By : Nirav Modi
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../Magento/Backend/etc/menu.xsd">
+    <menu>
+        <add id="Kcs_Pacjson::view" title="Kcs Pacjson" module="Kcs_Pacjson" sortOrder="10" resource="Kcs_Pacjson::view"/>
+        <add id="Kcs_Pacjson::grid" title="Manage Pacjson Records" module="Kcs_Pacjson" sortOrder="9" parent="Kcs_Pacjson::view" action="pacjson/grid/index" resource="Kcs_Pacjson::view"/>
+    </menu>
+</config>

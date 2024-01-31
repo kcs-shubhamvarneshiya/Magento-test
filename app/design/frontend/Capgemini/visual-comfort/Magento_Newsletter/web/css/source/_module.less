@@ -1,0 +1,219 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    //  Newsletter subscription
+    .block.newsletter {
+        margin-bottom: @indent__xl;
+
+      .title {
+        height: 25px;
+        font-family: @font-proxima-nova;
+        font-size: 20px;
+        font-weight: normal;
+
+        font-style: normal;
+        line-height: 1.25;
+        letter-spacing: 0.7px;
+        color: @color-gray-800;
+        display: block;
+      }
+      .content {
+        max-width: 367px;
+
+        .copy {
+          font-family: @font-proxima-nova;
+          font-size: 12px;
+          font-weight: normal;
+
+          font-style: normal;
+          line-height: 1.57;
+          letter-spacing: 0.6px;
+          color: @color-gray-700;
+          padding-bottom: 20px;
+        }
+        .social-icons {
+          padding-top: 60px;
+          font-size: 20px;
+          color: @color-gray-900;
+
+          .instagram::after {
+            content: '\e92d';
+            font-family: @font-vc-icons;
+            float: left;
+            padding-right: 25px;
+          }
+          .pinterest::after {
+            content: '\e931';
+            font-family: @font-vc-icons;
+            float: left;
+            padding-right: 25px;
+          }
+          .houzz::after {
+            content: '\e92e';
+            font-family: @font-vc-icons;
+            float: left;
+            padding-right: 25px;
+          }
+          .facebook::after {
+            content: '\e932';
+            font-family: @font-vc-icons;
+            float: left;
+            padding-right: 25px;
+          }
+          .twitter::after {
+            content: '\e92f';
+            font-family: @font-vc-icons;
+            float: left;
+            padding-right: 25px;
+          }
+          .linkedin::after {
+            content: '\e92c';
+            font-family: @font-vc-icons;
+            float: left;
+            padding-right: 25px;
+          }
+        }
+      }
+
+      .form.subscribe {
+            display: table;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .fieldset {
+            display: table-cell;
+            margin: 0;
+            padding: 0;
+            vertical-align: top;
+        }
+
+        .field {
+            margin: 0;
+
+            .control {
+                display: block;
+
+                &:before {
+                    position: absolute;
+                }
+            }
+        }
+
+        input {
+            margin: 0;
+            padding-left: 20px;
+            width: 249px;
+            height:50px;
+        }
+
+        .label {
+            &:extend(.abs-visually-hidden all);
+        }
+
+        .action.subscribe {
+            border-radius: 0;
+            margin-left: -11px;
+            padding: 18px 27px;
+            background-color: @color-gray-900;
+            font-family: @font-proxima-nova;
+            font-size: 12px;
+            text-align: center;
+            text-transform: uppercase;
+            width: 111px;
+            height: 50px;
+            white-space: nowrap;
+            &.primary {
+                background-repeat: no-repeat !important;
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .block.newsletter {
+        max-width: 50%;
+        width: max-content;
+
+        .content {
+          .signup-form {
+              width: 400px;
+            .newsletter {
+              .control {
+                label {
+                  margin: 0;
+                }
+
+                input {
+                  &::placeholder {
+                    text-transform: capitalize;
+                      .font-proxima-nova(1rem, 1.2rem);
+                      color: #999999;
+                      letter-spacing: 0.75px;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .field {
+            margin-right: 0;
+
+            .control {
+                width: 100%;
+            }
+        }
+
+        .action.subscribe {
+            border-radius: 3px;
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+  .block.newsletter {
+    text-align: center;
+    max-width: 100%;
+
+    .content {
+      max-width: 100%;
+
+      .signup-form {
+        max-width: 290px;
+        display: inline-block;
+        text-align: center;
+
+        input {
+          width: 190px;
+        }
+
+        .action.subscribe {
+          width: 100px;
+        }
+      }
+
+      .social-icons {
+        max-width: 100%;
+        padding-top: 20px;
+        display: inline-block;
+      }
+    }
+  }
+}

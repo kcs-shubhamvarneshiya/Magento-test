@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="quote_convert_item">
+            <field name="custom_height_price">
+                <aspect name="to_order_item"/>
+            </field>
+            <field name="custom_height_value">
+                <aspect name="to_order_item"/>
+            </field>
+            <field name="custom_height_cost">
+                <aspect name="to_order_item"/>
+            </field>
+        </fieldset>
+    </scope>
+</config>

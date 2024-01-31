@@ -1,0 +1,48 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+
+/** @var \Lyonscg\CircaLighting\ViewModel\WebsiteSwitcher $viewModel */
+$viewModel = $block->getData('viewModel');
+$storeDataUsedInTemplate = $viewModel->getStoreDataUsedInTemplate();
+$currentStoreCode = $viewModel->getCurrentStoreCode();
+$defaultStoreCode = $viewModel->getDefaultStoreCode();
+foreach ($storeDataUsedInTemplate as $storeCode => $data) {
+    switch ($data['uppercase']) {
+        case "US":
+            $fullName = "United States";
+            break;
+        case "UK":
+            $fullName = "United Kingdom";
+            break;
+        case "EU":
+            $fullName = "European Union";
+            break;
+        case "CN":
+            $fullName = "China";
+            break;
+        default:
+            $fullName = "";
+            break;
+    }
+
+    $storeDataUsedInTemplate[$storeCode]['fullName'] = $fullName;
+}
+?>
+<div class="locations-dropdown">
+    <span class="action toggle"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          data-mage-init='{"dropdown":{}}'>
+        <div class="flag flag<?= $storeDataUsedInTemplate[$currentStoreCode]['uppercase'] ?? $storeDataUsedInTemplate[$defaultStoreCode]['uppercase'] ?>"></div>
+     </span>
+    <ul class="dropdown" data-target="dropdown">
+        <?php foreach ($storeDataUsedInTemplate as $data): ?>
+            <li>
+                <?= $data['link'] ?>
+                    <div class="flag flag<?= $data['uppercase'] ?>"></div>
+                    <span><?= $data['fullName'] ?> (<?= $data['uppercase'] ?>)</span>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

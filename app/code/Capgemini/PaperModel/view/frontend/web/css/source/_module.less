@@ -1,0 +1,43 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    #paper-model-error-modal {
+        display: none;
+    }
+    .modals-wrapper {
+        .paper-model-error-modal {
+            top: 120px;
+        }
+    }
+    .additional_block {
+        &.additional-paper-model {
+            .additional_block_inner {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+        }
+        .action {
+            &.primary {
+                &.tocart{
+                    span {
+                        &:before {
+                            content: '\e912';
+                            font-family: 'circa-icons';
+                            font-size: 16px;
+                            margin-right: 10px;
+                        ;
+                        }
+                    }
+                }
+            }
+        }
+        .paper-model {
+            border: solid 1px @color-gray-400;
+        }
+        .paper-model-preview {
+            margin-top: 30px;
+        }
+    }
+}

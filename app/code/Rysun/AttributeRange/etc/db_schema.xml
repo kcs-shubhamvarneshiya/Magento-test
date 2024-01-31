@@ -1,0 +1,16 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="rysun_attributerange_attributerange" resource="default" engine="innodb" comment="rysun_attributerange_attributerange Table">
+		<column xsi:type="int" name="attributerange_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="attributerange_id"/>
+		</constraint>
+		<column name="attribute_range_desc" nullable="false" xsi:type="varchar" comment="Range Description" length="255"/>
+		<column name="attribute_code" nullable="false" xsi:type="varchar" comment="attribute_id" length="255"/>
+		<column name="attribute_code_new" nullable="false" xsi:type="varchar" comment="attribute_id" length="255"/>
+		<column name="min_value" nullable="false" xsi:type="varchar" comment="min_value" length="255"/>
+		<column name="max_value" nullable="false" xsi:type="varchar" comment="max_value" length="255"/>
+		<column name="sort_order" nullable="true" xsi:type="varchar" comment="sort_order" length="255"/>
+		<column name="sql_serv_id" nullable="true" xsi:type="varchar" comment="sql_serv_id" length="255"/>
+	</table>
+</schema>

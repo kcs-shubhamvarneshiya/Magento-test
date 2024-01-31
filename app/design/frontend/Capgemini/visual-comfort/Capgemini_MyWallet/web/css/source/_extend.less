@@ -1,0 +1,331 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .account {
+        &.mywallet-customer-index {
+            .block-my-wallet {
+                .block-title.wallet {
+                    display: none;
+                }
+            }
+
+            #saved-payment-methods {
+                .payment-method-item {
+                    border: 1px solid @color-gray-400;
+                    padding: 18px 21px 25px;
+                    box-sizing: border-box;
+                    margin-bottom: 20px;
+                    line-height: 1.57;
+
+                    a {
+                        text-decoration: underline;
+                        margin-top: 20px;
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+
+        &.mywallet-customer-add {
+            .column.main .block:not(.widget) .block-title {
+                font-size: 24px;
+                border: none;
+                font-family: 'GoudyOldSty-Reg', serif;
+                line-height: 1.25;
+                padding: 0;
+                margin-bottom: 15px;
+            }
+
+            .cc-types-img {
+                img {
+                    padding-right: 7px;
+                }
+            }
+
+            .block-edit-card {
+                .my-wallet-billing-tip {
+                    margin-top: 15px;
+
+                    a {
+                        text-decoration: underline;
+                    }
+                }
+
+                .label {
+                    text-transform: none;
+                    font-weight: 600;
+                    font-size: 14px;
+                    letter-spacing: normal;
+                    margin-top: 20px;
+                }
+
+                .cc-data-container {
+                    .lib-vendor-prefix-display(flex);
+                    justify-content: space-between;
+
+                    .cc-data {
+                        width: ~'calc((100% / 3) - 7px)';
+                    }
+                }
+
+                .checkbox-field {
+                    overflow: hidden;
+
+                    .label {
+                        text-transform: none;
+                        font-weight: 600;
+                    }
+                }
+
+                .actions {
+                    clear:both;
+                    padding-top: 18px;
+                }
+            }
+        }
+    }
+
+    .mywallet-customer-index {
+        .modals-wrapper {
+            .modal-popup {
+                .modal-inner-wrap {
+                    .modal-header {
+                        .modal-title {
+                            text-transform: capitalize;
+                        }
+                    }
+
+                    .modal-footer {
+                        .action-primary.action-accept {
+                            float: left;
+                        }
+
+                        .action-secondary.action-dismiss {
+                            float: right;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .account {
+        &.mywallet-customer-index {
+            .block-my-wallet {
+                .block-content {
+                    #saved-payment-methods {
+                        .payment-method-item {
+
+                            .method-card-img {
+                                height: 30px;
+                                width: 47px;
+                                float: right;
+
+                                &.Visa {
+                                    background: url('@{baseDir}/images/cc-types.png') repeat-x 0 0;
+                                }
+
+                                &.MasterCard {
+                                    background: url('@{baseDir}/images/cc-types.png') repeat-x 100% 0;
+                                }
+
+                                &.Discover {
+                                    background: url('@{baseDir}/images/cc-types.png') repeat-x 94px 0;
+                                }
+
+                                &.AmericanExpress {
+                                    background: url('@{baseDir}/images/cc-types.png') repeat-x 141px 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .account {
+        &.mywallet-customer-index {
+            .block-my-wallet {
+                .block-content {
+                    #saved-payment-methods {
+                        .lib-css(flex-flow, row wrap);
+                        .payment-method-item {
+                            height: 175px;
+                            margin: 0 31px 29px 0;
+                            padding: 13px 20px 25px 21px;
+                            border: solid 1px #e3e3e3;
+                            .lib-css(width, 300px);
+                        }
+                    }
+                }
+
+                .btn-secondary.add {
+                    max-width: 240px;
+                    width: 240px;
+                }
+            }
+
+            #saved-payment-methods {
+                .lib-vendor-prefix-display(flex);
+                flex-wrap: wrap;
+
+                .payment-method-item {
+                    width: ~'calc((100% / 4) - 22px)';
+                    margin-bottom: 30px;
+                }
+            }
+        }
+
+        &.mywallet-customer-add {
+            .column.main .block:not(.widget) .block-title {
+                margin-bottom: 25px;
+            }
+
+            .block-edit-card {
+                max-width: 50%;
+
+                .cc-data-container {
+                    .cc-data {
+                        width: ~'calc((100% / 3) - 20px)';
+                    }
+                }
+
+                .actions {
+                    .lib-vendor-prefix-display(flex);
+
+                    .create {
+                        width: 245px;
+                        margin-right: 30px;
+                    }
+
+                    .cancel {
+                        max-width: 160px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .account {
+        &.mywallet-customer-index {
+            h1.page-title {
+                font-size: 26px;
+                text-align: left;
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.23;
+                letter-spacing: normal;
+                color: @color-gray-800;
+            }
+
+            .block-my-wallet {
+                border: 0;
+                padding: 0;
+
+                .block-title.wallet {
+                    display: none;
+                }
+
+                .block-content {
+                    #saved-payment-methods {
+                        .payment-method-item {
+                            .method-card-img {
+                                float: right;
+                            }
+                        }
+                    }
+
+                    .actions {
+                        .action.add {
+                            margin-bottom: 40px;
+                        }
+                    }
+                }
+            }
+
+            .actions {
+                padding-bottom: 50px;
+            }
+        }
+
+        &.mywallet-customer-add {
+            .page-main .page-title-wrapper .page-title {
+                margin: 7px 0 25px;
+            }
+
+            .cc-types-img {
+                margin-bottom: 10px;
+            }
+
+            .block-edit-card {
+                .actions {
+                    padding-bottom: 60px;
+
+                    .create {
+                        margin-bottom: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    .mywallet-customer-index {
+        .modals-wrapper {
+            .modal-popup {
+                .modal-inner-wrap {
+                    .modal-header {
+                        margin: 0;
+                        padding: 20px 20px 10px !important;
+                    }
+
+                    .modal-footer {
+                        padding-top: 0;
+                        padding-bottom: 0;
+                        padding-left: 3rem;
+                        padding-right: 3rem;
+                        margin-top: 70px;
+
+                        .action-primary.action-accept {
+                            float: none;
+                            width: 100%;
+                            margin-bottom: 15px;
+                            top: -80px;
+                            position: relative;
+                        }
+
+                        .action-secondary.action-dismiss {
+                            float: none;
+                            width: 100%;
+                            top: 30px;
+                            position: relative;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

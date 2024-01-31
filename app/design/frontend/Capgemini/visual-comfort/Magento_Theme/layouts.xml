@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page_layouts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/PageLayout/etc/layouts.xsd">
+    <layout id="custom-category">
+        <label translate="true">Custom Main Category layout</label>
+    </layout>
+    <layout id="custom-cms-showroom-details">
+        <label translate="true">CMS Page Showroom details layout</label>
+    </layout>
+    <layout id="custom-cms-designer-landing">
+        <label translate="true">CMS Page Designer landing layout</label>
+    </layout>
+    <layout id="tech-lighting-category-browse-subcategory">
+        <label translate="true">Tech Lighting Category Browse with Subcategories Layout</label>
+    </layout>
+    <layout id="tech-lighting-category-browse-banner">
+        <label translate="true">Tech Lighting Category Browse with Banner Layout</label>
+    </layout>
+    <layout id="tech-lighting-category-browse-no-banner">
+        <label translate="true">Tech Lighting Category Browse with No Banner Layout</label>
+    </layout>
+    <layout id="architectural-main-category">
+        <label translate="true">Architectural Main Landing Page</label>
+    </layout>
+    <layout id="architectural-new-category">
+        <label translate="true">Architectural Category Layout Product Base</label>
+    </layout>
+    <layout id="architectural-sub-category">
+        <label translate="true">Architectural Category Layout Platform Base</label>
+    </layout>
+    <layout id="architectural-product-detail-page">
+        <label translate="true">Architectural Product Layout</label>
+    </layout>
+</page_layouts>

@@ -1,0 +1,104 @@
+
+<div data-bind="mageInit: {
+        'Magento_Ui/js/modal/modal':{
+            'type': 'popup',
+            'title': 'Filter',
+            'trigger': '[data-trigger=trigger]',
+            'responsive': true,
+            'modalClass': 'filter_sidebar',
+           
+        }}" style='display:none;'>
+    <div class="content">
+    <div class="filter-container">
+    
+        <ul class="filter-list">
+            
+            <li>
+                <label class="filter-label" id="filter-label">Account</label>
+                <div class="filter-list-content">
+                    <?= $block->getBlockHtml('capgemini.filter.searchaccount'); ?>
+                </div>
+            </li>
+            <li>
+           
+        </ul>
+
+        <div class="button-container">
+                    <button type="button"  id="resetpopup" data-dismiss="modal">RESET</button>
+                    <button type="button"  id="applyfilter" data-dismiss="modal">Apply filter</button>
+                </div>
+    </div>
+    </div>
+</div>
+<div id="order-control-container">
+<div id="click-section" class="click-section">
+    <a class="action search-container" data-trigger="trigger">
+        <span>Filter By</span>
+        <span class="filtercl"></span>
+    </a>
+</div>
+        <div id="accountlabel">
+        </div>
+       
+</div>
+  <script>
+    require(['jquery'], function ($) {
+       var paramAccountId =  document.getElementById('paramsAccountId').value;
+      
+       var urlaccountId = document.getElementById('urlaccountId');
+       var selectedListItem = sessionStorage.getItem('selectedListItem');
+        var localsessionaccount = localStorage.getItem('localsessionaccount');
+        
+        var initiallySelectedLi = document.querySelector('#customerlist li[selected="selected"]');
+
+        $('#applyfilter').click(function (e) {
+            var selectedListItem = sessionStorage.getItem('selectedListItem');
+                var targeturl = window.location.href;
+                var specificSubstring = "history/";
+                var result = getSubstringEndingWith(targeturl, specificSubstring);
+                if(selectedListItem==null){
+                    selectedListItem = paramAccountId;
+                }
+
+                window.location.href = result + "account_id/" + selectedListItem ;
+
+        });
+
+        $('#resetpopup').click(function (e) {
+            sessionStorage.removeItem('selectedListItem');
+            sessionStorage.removeItem('selectedListItem');
+            localStorage.removeItem('localsessionaccount');
+            document.getElementById( 'accountlabel' ).style.display = 'none';
+                 var target_url = window.location.href;
+                 const url_new = target_url.split('account_id')[0];
+                 var upSubstring = "history/";
+                var resultreset = getSubstringEndingWith(target_url, upSubstring);
+                
+
+                 window.location.href = resultreset ;
+
+                   var selectedListItem = sessionStorage.getItem('selectedListItem');
+
+                    if((selectedListItem) &&(selectedListItem != '')){
+                        document.getElementById('filter-label').innerHTML = selectedListItem;
+
+                    }
+
+              
+             })
+
+            function getSubstringEndingWith(inputString, endingSubstring) {
+                var lastIndex = inputString.lastIndexOf(endingSubstring);
+
+                if (lastIndex !== -1) {
+                    var resultSubstring = inputString.substring(0, lastIndex + endingSubstring.length);
+                    return resultSubstring;
+                } else {
+                    return inputString;
+                }
+            }
+
+
+
+    })
+    </script>

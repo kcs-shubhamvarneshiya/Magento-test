@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="lyonscg" translate="label" sortOrder="10">
+            <label>Lyonscg</label>
+        </tab>
+        <section id="importexport" translate="label" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Import Product Mapping</label>
+            <tab>lyonscg</tab>
+            <resource>Capgemini_ImportExport::import_mapping</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Import Fields Mapping</label>
+                <field id="mapping" translate="label comment tooltip" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Product Fields Mapping</label>
+                    <frontend_model>Capgemini\ImportExport\Block\Adminhtml\System\Config\Form\Field\ProductFieldMap</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <comment>Map the import product file fields to magento product fields</comment>
+                </field>
+                <field id="force_resave_parent" type="select" sortOrder="20" showInDefault="1">
+                    <label>Force Re-save of Parent (Configurable) Products</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>To be sure no plugin and observer updates are missed when importing existing product</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

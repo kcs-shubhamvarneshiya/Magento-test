@@ -1,0 +1,23 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<a
+    attr="target: $col.getTarget($action()), href: $action().href"
+    class="action-menu-item"
+    click="$col.getActionHandler($action())"
+    if="$col.isSingle($row()._rowIndex)"
+    repeat="foreach: $col.getVisibleActions($row()._rowIndex), item: '$action'"
+    text="$action().label"></a>
+
+<div class="action-select-wrap" collapsible if="$col.isMultiple($row()._rowIndex)">
+    <ul class="action-menu" css="_active: $collapsible.opened">
+        <li repeat="foreach: $col.getVisibleActions($row()._rowIndex), item: '$action'">
+            <a attr="target: $col.getTarget($action()), href: $action().href, 'data-action': 'item-' + $action().index"
+               class="action-menu-item" click="$col.getActionHandler($action())"
+               text="$action().label"></a>
+        </li>
+    </ul>
+</div>

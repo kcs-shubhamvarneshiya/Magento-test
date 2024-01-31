@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Rysun_ProductVideo::rysun_productvideo_productvideo" title="ProductVideo" module="Rysun_ProductVideo" sortOrder="9999" resource="Magento_Backend::content" parent="Rysun::top_level" action="rysun_productvideo/productvideo/index"/>
+		<add id="Rysun_ProductVideo::rysun_productvideo_producvideolink" title="ProducVideoLink" module="Rysun_ProductVideo" sortOrder="9999" resource="Magento_Backend::content" parent="Rysun::top_level" action="rysun_productvideo/producvideolink/index"/>
+	</menu>
+</config>

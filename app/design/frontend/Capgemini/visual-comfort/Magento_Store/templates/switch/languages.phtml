@@ -1,0 +1,45 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var \Magento\Store\Block\Switcher $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Lyonscg\CircaLighting\ViewModel\WebsiteSwitcher $circaWebsiteSwitcher
+ */
+
+$circaWebsiteSwitcher = $block->getCircaWebsiteSwitcher();
+$storeDataUsedInTemplate = $circaWebsiteSwitcher->getStoreDataUsedInTemplate();
+$currentStoreCode = $circaWebsiteSwitcher->getCurrentStoreCode();
+$defaultStoreCode = $circaWebsiteSwitcher->getDefaultStoreCode();
+?>
+<?php if (count($storeDataUsedInTemplate)>1) : ?>
+    <?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : '' ?>
+    <div class="switcher language switcher-language" data-ui-id="language-switcher" id="switcher-language<?= $block->escapeHtmlAttr($id) ?>">
+        <strong class="label switcher-label"><span><?= $block->escapeHtml(__('Choose Your Region/Country')) ?></span></strong>
+        <div class="switcher-options">
+            <ul class="switcher-languages">
+                <?php foreach ($storeDataUsedInTemplate as $data): ?>
+                    <li class="view-<?= $escaper->escapeHtml($data['uppercase']) ?> switcher-option flag flag<?= $data['uppercase'] ?> <?= $data['uppercase'] === $storeDataUsedInTemplate[$currentStoreCode]['uppercase'] ? 'active' : '' ?>">
+                       <?= $data['link'] ?>
+                        <span><?php /*TODO: need to fix this hardcode*/?>
+                            <?php if($escaper->escapeHtml($data['uppercase']) == 'US'): ?>
+                                <?= $block->escapeHtml(__('United States (US)')) ?>
+                            <?php elseif($escaper->escapeHtml($data['uppercase']) == 'UK'): ?>
+                                <?= $block->escapeHtml(__('United Kingdom (UK)')) ?>
+                            <?php elseif($escaper->escapeHtml($data['uppercase']) == 'EU'): ?>
+                                <?= $block->escapeHtml(__('European Union (EU)')) ?>
+                            <?php elseif($escaper->escapeHtml($data['uppercase']) == 'CN'): ?>
+                                <?= $block->escapeHtml(__('China (CN)')) ?>
+                            <?php else: ?>
+                                <?= $escaper->escapeHtml($data['uppercase']) ?>
+                            <?php endif; ?>
+                        </span><?= ($data['link'] ? '</a>' : '') ?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>

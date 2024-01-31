@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="productexception_export_cronjob" instance="Rysun\DataTransfer\Cron\ProductExceptionExpCron" method="execute">
+            <schedule>0 0 10 01 *</schedule>
+        </job>
+        <job name="productexception_import_cronjob" instance="Rysun\DataTransfer\Cron\ProductExceptionImpCron" method="execute">
+            <schedule>0 0 10 01 *</schedule>
+        </job>
+        <job name="attribute_import_cronjob" instance="Rysun\DataTransfer\Cron\AttributeImpCron" method="execute">
+            <schedule>0 0 10 01 *</schedule>
+        </job>
+        <job name="product_pricing_import_cronjob" instance="Rysun\DataTransfer\Cron\PricingImpCron" method="execute">
+            <schedule>0 0 10 01 *</schedule>
+        </job>
+        <job name="feature_import_cronjob" instance="Rysun\DataTransfer\Cron\FeatureImpCron" method="execute">
+            <schedule>0 0 10 01 *</schedule>
+        </job>
+    </group>
+</config>

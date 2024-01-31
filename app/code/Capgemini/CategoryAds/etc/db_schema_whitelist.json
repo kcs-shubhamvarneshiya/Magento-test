@@ -1,0 +1,26 @@
+{
+    "capgemini_plpad": {
+        "column": {
+            "email_id": true,
+            "name": true,
+            "enabled": true,
+            "position": true,
+            "content": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "capgemini_plpad_category": {
+        "column": {
+            "email_id": true,
+            "category_id": true,
+            "plpad_id": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

@@ -1,0 +1,31 @@
+<?php
+    $collection = $block->getCollectionName();
+    $_helper    = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_category  = $block->getCurrentCategory();
+    $imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Catalog\Helper\Image::class);
+    $image = $imageHelper->getDefaultPlaceholderUrl('image');
+    
+    
+    echo '<div class="product-subcategory-view"><div class="d-grid product-category-grid">';
+        foreach ($collection as $collection_label) {
+            $productCollectionLabel = strtolower($collection_label->getWebName());
+            $productCollectionLabel = str_replace(' ', '', $productCollectionLabel);
+            
+            $_imgUrl = ($collection_label->getThumbnailImage()) ?  $block->getBaseUrl().$collection_label->getThumbnailImage() : $image;
+
+            echo '<div class="subcategory-grid-box">
+                    <a href="#' . $productCollectionLabel . '" class="d-flex align-items-center justify-content-center product-category-grid-box">'.
+                        '<div class="h6 me-auto">' . $collection_label->getWebName() . '</div>'.
+                        '<img src="'.$block->escapeUrl($_imgUrl).'" alt="'.$collection_label->getWebName().'" width="148" height="125" />'.
+                    '</a>'.
+                '</div>';
+        }
+    echo '</div></div>';
+?>
+<script>
+    require([
+        'jquery',
+    ], function ($) {
+        $('body').addClass('subcategory-page')
+    })
+</script>

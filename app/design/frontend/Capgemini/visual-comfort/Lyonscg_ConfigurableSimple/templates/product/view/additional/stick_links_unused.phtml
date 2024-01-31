@@ -1,0 +1,31 @@
+<?php if ($block->hasRelatives($_product)): ?>
+    <div class="title-item" data-label-id="additional-collection">
+        <a class="tab-link" href="#tab-content">
+            <?= __('Collection'); ?>
+        </a>
+    </div>
+<?php endif; ?>
+
+<?php if (!empty($_photography)): ?>
+    <div class="title-item" data-label-id="additional-photography">
+        <a class="tab-link" href="#tab-content">
+            <?= __('Photography'); ?>
+        </a>
+    </div>
+<?php endif; ?>
+
+
+
+
+
+
+
+
+
+<?php if (!empty($block->getProductCustomAttributeValue('accessories', true))): ?>
+    <div class="title-item" data-label-id="additional-accessories">
+        <a class="tab-link" href="#tab-content">
+            <?= __('Accessories'); ?>
+        </a>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,7 @@
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Capgemini\PaperModel\Block\Widget\PaperModelButtons" id="paper_model_widget">
+        <label>Paper Model Widget</label>
+        <description>This is a widget to display 'Add paper template to cart' and 'Preview Paper Template' buttons on PDP</description>
+    </widget>
+</widgets>

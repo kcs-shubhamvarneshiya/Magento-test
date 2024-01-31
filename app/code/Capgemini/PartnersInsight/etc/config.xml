@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_PartnersInsight
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <partners_insight>
+            <general>
+                <active>1</active>
+                <menu_link_text>Partners Insight</menu_link_text>
+                <button_link_text>Visit Partners Insight</button_link_text>
+                <api_endpoint>https://pi.visualcomfortco.com/v1/clients/integrate</api_endpoint>
+                <api_use_mock>0</api_use_mock>
+                <api_mock_resource_path>partners-insight/test</api_mock_resource_path>
+            </general>
+        </partners_insight>
+    </default>
+</config>

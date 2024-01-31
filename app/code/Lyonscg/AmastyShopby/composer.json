@@ -1,0 +1,21 @@
+{
+  "name": "lyonscg/amasty-shopby",
+  "version": "1.0.0",
+  "description": "N/A",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "amasty/shopby": "2.16.*"
+  },
+  "license": [
+    "Proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Lyonscg\\AmastyShopby\\": ""
+    }
+  }
+}

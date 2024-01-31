@@ -1,0 +1,17 @@
+<?php
+/**
+ * Lyonscg_RequisitionList
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Tetiana Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+?>
+
+<div id="popop_content_wrapper" style="display: none;">
+    <div id="cart-not-empty-popup" >
+        <div><?= $block->escapeHtml(__('Would you like to merge these items to the existing cart or replace all items in cart?')) ?></div>
+        <div><span><?= $block->escapeHtml(__('Please note:')) ?></span> <?= $block->escapeHtml(__('Once you add your quote to the cart, your quote will no longer exist. From the cart you will be able to create an order.')) ?></div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <move element="breadcrumbs" destination="main.content" before="-"/>
+    <body>
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true" />
+        <referenceContainer name="content">
+            <referenceBlock name="search_result_list">
+                <arguments>
+                    <argument name="category_ads_view_model"
+                              xsi:type="object">Capgemini\CategoryAds\ViewModel\CategoryAd</argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

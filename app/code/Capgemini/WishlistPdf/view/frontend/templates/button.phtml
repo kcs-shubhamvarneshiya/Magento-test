@@ -1,0 +1,44 @@
+<?php
+/**
+ * Capgemini_WishlistPdf
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+
+use Capgemini\WishlistPdf\Model\Source\PricingType;
+
+/* @var \Capgemini\WishlistPdf\Block\Button $block */
+/* @var \Magento\Framework\Escaper $escaper */
+?>
+<button class="button secondary print-pdf" id="wishlist-pdf-button" type="button">
+    <span><?= __('Print PDF'); ?></span>
+</button>
+<div id="wishlist-pdf-modal-wrap" style="display: none;">
+    <h2>Print As PDF</h2>
+    <fieldset class="fieldset">
+        <div id="wishlist-error" class="message-error error message" style="display: none"></div>
+        <?php foreach ($block->getPriceTypes() as $value => $label) : ?>
+            <?php if ($block->canShowPriceType($value)): ?>
+                <div class="field">
+                    <input id="pricing-option-<?= $value ?>" type="radio" name="pricing_type" value="<?= $value ?>">
+                    <label for="pricing-option-<?= $value ?>"><?= $escaper->escapeHtml($label) ?></label>
+                </div>
+                <?php if ($value === PricingType::WITH_MARKUP_PRICE): ?>
+                    <div class="field">
+                        <input id="markup-percent" placeholder="<?= $escaper->escapeHtml(__('% Markup')) ?>" type="text" name="percent" class="validate-number">
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </fieldset>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#wishlist-pdf-button": {
+            "Capgemini_WishlistPdf/js/button": {
+                "printUrl": "<?= $escaper->escapeUrl($block->getPrintUrl()); ?>"
+            }
+        }
+    }
+</script>

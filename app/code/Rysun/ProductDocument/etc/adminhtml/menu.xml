@@ -1,0 +1,7 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Rysun_ProductDocument::rysun_productdocument_productdocument" title="ProductDocument" module="Rysun_ProductDocument" sortOrder="9999" resource="Magento_Backend::content" parent="Rysun::top_level" action="rysun_productdocument/productdocument/index"/>
+		<add id="Rysun_ProductDocument::rysun_productdocument_productdocumentlink" title="ProductDocumentLink" module="Rysun_ProductDocument" sortOrder="9999" resource="Magento_Backend::content" parent="Rysun::top_level" action="rysun_productdocument/productdocumentlink/index"/>
+	</menu>
+</config>

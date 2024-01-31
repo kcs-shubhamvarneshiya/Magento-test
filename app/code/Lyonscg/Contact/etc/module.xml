@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Lyonscg
+ * @package     Lyonscg_Contact
+ * @copyright   Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Logan Montgomery <logan.montgomery@capgemini.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Lyonscg_Contact">
+        <sequence>
+            <module name="Magento_Contact"/>
+        </sequence>
+    </module>
+</config>

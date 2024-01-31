@@ -1,0 +1,65 @@
+<?php
+/** @var \Lyonscg\ConfigurableSimple\Block\Specifications $block */
+/** @var \Lyonscg\ConfigurableSimple\Helper\Output $_helper */
+$_helper = $this->helper(\Lyonscg\ConfigurableSimple\Helper\Output::class);
+$baseChildProduct = $block->getBaseChildProduct();
+$additionalData = $_helper->getAdditionalData($baseChildProduct);
+$attributesValues = [];
+if(array_key_exists('notes_circa',$additionalData)):
+    $lastcallArr = $additionalData['notes_circa'];
+    unset($additionalData['notes_circa']);
+    $additionalData['notes_circa'] = $lastcallArr;
+    endif;
+foreach ($additionalData as $key => &$data) {
+    $value = str_replace("&quot;", "\"", $data['value']);
+    $valueArr = explode(':', $value);
+    // $labelKey = (isset($valueArr[1])) ? base64_encode($valueArr[0]) : base64_encode($key);
+     $labelKey = base64_encode($key);
+    $data['labelKey'] = $labelKey;
+    $attributesValues[$labelKey] = $value;
+}
+$attributesValuesJson = json_encode($attributesValues);
+?>
+<?php if (!empty($additionalData)): ?>
+    <div id="product-specifications" class="block"
+         data-mage-init='{"Lyonscg_ConfigurableSimple/js/view/specs": {"specificationData": ""}}'>
+        <div class="specifications-tab-wrapper">
+            <div id="specifications-header">
+                <div class="block-title title">
+                    <strong id="product-specifications-heading" role="heading">Specifications</strong>
+                </div>
+                <div class="item title active" style="display: none" >
+                    <a id="spec-inch-tab-switch" href="#">in</a>
+                </div>
+                <div class="item title" style="display: none">
+                    <a id="spec-cm-tab-switch" href="#">cm</a>
+                </div>
+            </div>
+            <div id="spec-inch-tab" class="item content">
+                <table class="data-table product-attribute-specs-table">
+                    <col width="25%"/>
+                    <col/>
+
+                    <tbody><?php  foreach ($additionalData as $attributeData) : ?>
+                        <tr>
+                            <td data-label-key="<?= $attributeData['labelKey'] ?>"><?= $attributeData['value']?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div id="spec-cm-tab" class="item content" style="display: none">
+                <table class="data-table product-attribute-specs-table" >
+                    <col width="25%"/>
+                    <col/>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        window.specificationsData = <?= $block->getSpecificationsDataJson(); ?>;
+        window.specificationsDataTrimmed = <?= $attributesValuesJson ?>;
+    </script>
+<?php endif; ?>

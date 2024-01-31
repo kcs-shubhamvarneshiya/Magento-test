@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="payfabric" translate="label comment" type="text" sortOrder="201" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Payfabric</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="transaction_mode" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Transaction mode</label>
+                    <source_model>Capgemini\Payfabric\Model\Source\TransactionMode</source_model>
+                </field>
+                <field id="request_timeout" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1">
+                    <label>Transaction timeout (sec.)</label>
+                </field>
+                <field id="device_id" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Device ID</label>
+                </field>
+                <field id="device_password" translate="label" type="obscure" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Device Password</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <comment>Get these from your Payfabric account settings.</comment>
+                </field>
+                <field id="setup_id" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Setup ID</label>
+                </field>
+                <field id="cctypes" translate="label" type="multiselect" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Credit Card Types</label>
+                    <source_model>Magento\Payment\Model\Config\Source\Cctype</source_model>
+                </field>
+                <field id="payment_action" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Action</label>
+                    <source_model>Capgemini\Payfabric\Model\Source\PaymentAction</source_model>
+                </field>
+                <field id="debug" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Debug</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="order_status" translate="label" type="select" sortOrder="135" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>New Order Status</label>
+                    <source_model>Magento\Sales\Model\Config\Source\Order\Status\Processing</source_model>
+                </field>
+                <field id="sort_order" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                </field>
+                <field id="enable_detailed_errors" translate="label" type="select" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable detailed errors</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="error_code" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Error Codes</label>
+                    <frontend_model>Capgemini\Payfabric\Block\Adminhtml\System\Config\Form\Field\ErrorCode</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+                <field id="default_payment_error" translate="label" type="textarea" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Default Error Message</label>
+                </field>
+                <field id="failed_request_error" translate="label" type="textarea" sortOrder="180" showInDefault="1" showInWebsite="1">
+                    <label>Transaction timeout message</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

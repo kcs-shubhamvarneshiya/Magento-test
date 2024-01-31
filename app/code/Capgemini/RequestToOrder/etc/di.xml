@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Capgemini\RequestToOrder\Api\Data\OrderRequestInterface"
+                type="Capgemini\RequestToOrder\Model\OrderRequest"/>
+
+    <preference for="Capgemini\RequestToOrder\Api\OrderRequestRepositoryInterface"
+                type="Capgemini\RequestToOrder\Model\OrderRequestRepository"/>
+
+    <preference for="Capgemini\RequestToOrder\Api\Data\OrderRequest\ItemInterface"
+                type="Capgemini\RequestToOrder\Model\OrderRequest\Item"/>
+
+    <preference for="Capgemini\RequestToOrder\Api\OrderRequest\ItemRepositoryInterface"
+                type="Capgemini\RequestToOrder\Model\OrderRequest\ItemRepository"/>
+
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Capgemini\RequestToOrder\Api\Data\OrderRequestInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">
+                        Capgemini\RequestToOrder\Api\Data\OrderRequestInterface::REQUEST_TABLE
+                    </item>
+                    <item name="identifierField" xsi:type="const">
+                        Capgemini\RequestToOrder\Api\Data\OrderRequestInterface::ID
+                    </item>
+                </item>
+                <item name="Capgemini\RequestToOrder\Api\Data\OrderRequest\ItemInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="const">
+                        Capgemini\RequestToOrder\Api\Data\OrderRequest\ItemInterface::REQUEST_ITEM_TABLE
+                    </item>
+                    <item name="identifierField" xsi:type="const">
+                        Capgemini\RequestToOrder\Api\Data\OrderRequest\ItemInterface::ID
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="RequestRelationsComposite"
+                 type="Magento\Framework\Model\ResourceModel\Db\VersionControl\RelationComposite">
+        <arguments>
+            <argument name="relationProcessors" xsi:type="array">
+                <item name="default" xsi:type="object">Capgemini\RequestToOrder\Model\OrderRequest\Relation</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Capgemini\RequestToOrder\Model\ResourceModel\OrderRequest">
+        <arguments>
+            <argument name="entityRelationComposite" xsi:type="object">RequestRelationsComposite</argument>
+        </arguments>
+    </type>
+
+    <type name="Capgemini\RequestToOrder\Block\Request\View">
+        <plugin name="Capgemini_RequestToOrder::ViewPlugin"
+                type="Capgemini\RequestToOrder\Plugin\Request\ViewPlugin"/>
+    </type>
+
+    <type name="Capgemini\RequestToOrder\Block\Request\View\Success">
+        <plugin name="Capgemini_RequestToOrder::SuccessPlugin"
+                type="Capgemini\RequestToOrder\Plugin\Request\SuccessPlugin"/>
+    </type>
+
+    <type name="Magento\Customer\Block\Account\Navigation">
+        <plugin name="Capgemini_RequestToOrder::CustomerNavigationPlugin"
+                type="Capgemini\RequestToOrder\Plugin\Customer\Block\Account\NavigationPlugin"/>
+    </type>
+
+</config>

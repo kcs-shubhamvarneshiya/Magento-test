@@ -1,0 +1,12 @@
+<li class="company-document">
+    <span if="!$file.view_url"
+          text="$file.name"></span>
+    <a if="$file.view_url"
+       attr="href: $file.view_url, title: $file.name">
+        <span text="$file.name"></span>
+    </a>
+    <a if="$file.remove_url"
+       attr="href: $file.remove_url, title: $t('Remove %1').replace('%1', $file.name) ">
+        <span text="$t('Remove')"></span>
+    </a>
+</li>

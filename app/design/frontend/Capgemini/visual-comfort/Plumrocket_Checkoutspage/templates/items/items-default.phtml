@@ -1,0 +1,77 @@
+<?php /** @var \Magento\Framework\Escaper $escaper */ ?>
+<?php /** @var \Magento\Sales\Block\Order\Items $block */ ?>
+<?php
+$order = $block->getOrder();
+$giftMessageHelper = $this->helper(Magento\GiftMessage\Helper\Message::class);
+$items = $order->getItemsCollection();
+$giftMessage = false;
+?>
+
+<div class="cart table-wrapper">
+    <?= $block->getChildHtml('prcheckoutspage.title') ?>
+    <table class="cart items data table" id="shopping-cart-table">
+        <?php if ($block->getChildBlock('prcheckoutspage.table.head')): ?>
+            <?= $block->getChildHtml('prcheckoutspage.table.head') ?>
+        <?php endif; ?>
+
+        <?php foreach ($items as $item): ?>
+            <?php if ($item->getParentItem()) continue; ?>
+            <?= /* @noEscape */ $block->getItemHtml($item) ?>
+            <?php if ($item->getGiftMessageId() && $giftMessageHelper->isMessagesAllowed('order_item', $item)): ?>
+                <?php $giftMessage = $giftMessageHelper->getGiftMessageForEntity($item); ?>
+                <tr>
+                    <td class="col options" colspan="3">
+                        <a href="#"
+                           id="order-item-gift-message-link-<?= /* @noEscape */ $item->getId() ?>"
+                           class="action show"
+                           aria-controls="order-item-gift-message-<?= /* @noEscape */ $item->getId() ?>"
+                           data-item-id="<?= /* @noEscape */ $item->getId() ?>">
+                            <?= /* @noEscape */ __('Gift Message') ?>
+                        </a>
+                        <div class="order-gift-message" id="order-item-gift-message-<?= /* @noEscape */ $item->getId() ?>" role="region" aria-expanded="false" tabindex="-1">
+                            <a href="#"
+                               title="<?= /* @noEscape */ __('Close') ?>"
+                               aria-controls="order-item-gift-message-<?= /* @noEscape */ $item->getId() ?>"
+                               data-item-id="<?= /* @noEscape */ $item->getId() ?>"
+                               class="action close">
+                                <?= /* @noEscape */ __('Close') ?>
+                            </a>
+                            <dl class="item-options">
+                                <dt class="item-sender">
+                                    <strong class="label">
+                                        <?= /* @noEscape */ __('From') ?>
+                                    </strong>
+                                    <?= $escaper->escapeHtml($giftMessage->getSender()) ?>
+                                </dt>
+                                <dt class="item-recipient">
+                                    <strong class="label">
+                                        <?= /* @noEscape */ __('To') ?>
+                                    </strong>
+                                    <?= $escaper->escapeHtml($giftMessage->getRecipient()) ?>
+                                </dt>
+                                <dd class="item-message">
+                                    <?= /* @noEscape */ $giftMessageHelper->getEscapedGiftMessage($item) ?>
+                                </dd>
+                            </dl>
+                        </div>
+                    </td>
+                </tr>
+            <?php endif ?>
+
+        <?php endforeach; ?>
+    </table>
+    <table>
+        <tfoot class="csp-totals">
+        <?= /* @noEscape */ $block->getChildHtml('order_totals') ?>
+        </tfoot>
+    </table>
+</div>
+<?php if ($giftMessage): ?>
+    <script type="text/x-magento-init">
+        {
+            "a.action.show, a.action.close": {
+                "giftMessage": {}
+            }
+        }
+    </script>
+<?php endif; ?>

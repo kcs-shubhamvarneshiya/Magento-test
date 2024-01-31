@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_VcServicePoValidation
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_other_settings">
+                        <resource id="Capgemini_VcServicePoValidation::config" title="PO Validation" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

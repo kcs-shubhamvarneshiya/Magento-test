@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_PartnersInsight
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="partners_insight" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1">
+            <label>Partners Insight</label>
+            <tab>lyonscg</tab>
+            <resource>Capgemini_PartnersInsight::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1">
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>No PI links or content blocks will be displayed if disabled</comment>
+                </field>
+                <field id="menu_link_text" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Menu Link Text</label>
+                    <comment>Text to display in my account menu</comment>
+                </field>
+                <field id="button_link_text" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Button Link Text</label>
+                    <comment>Text to display in account info content block PI button </comment>
+                </field>
+                <field id="api_endpoint" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>API Endpoint</label>
+                </field>
+                <field id="api_x_api_key" translate="label" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1" canRestore="0">
+                    <label>API Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                </field>
+                <field id="api_resource" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" canRestore="0">
+                    <label>API Resource</label>
+                </field>
+                <field id="api_username" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" canRestore="0">
+                    <label>API Username</label>
+                </field>
+                <field id="api_use_mock" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Use Mock API Service</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If enabled, mock service will be used.</comment>
+                </field>
+                <field id="api_mock_resource_path" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Mock Resource Path</label>
+                    <comment>Base URL will be added to path</comment>
+                    <depends>
+                        <field id="*/*/api_use_mock">1</field>
+                    </depends>
+                </field>
+                <field id="api_mock_username" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1">
+                    <label>Mock Username</label>
+                    <depends>
+                        <field id="*/*/api_use_mock">1</field>
+                    </depends>
+                </field>
+                <field id="api_mock_password" translate="label" type="obscure" sortOrder="110" showInDefault="1" showInWebsite="1">
+                    <label>Mock Password</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="*/*/api_use_mock">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

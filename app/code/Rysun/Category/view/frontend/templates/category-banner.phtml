@@ -1,0 +1,28 @@
+<?php
+    $_helper    = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_category  = $block->getCurrentCategory();
+    $_imgHtml   = '';
+    $categoryName = $block->escapeHtmlAttr($_category->getName());
+    $categoryDescription = $this->helper(Magento\Catalog\Helper\Output::class)->categoryAttribute($block->getCurrentCategory(), $block->getCurrentCategory()->getDescription(), 'description');
+    $countSubstr = substr_count($categoryDescription ?? '', '</');
+?>
+
+<div class="category-top-info ssss">
+    <div class="category-top-wrapper arch-category">
+        <div class="category-inner-wrapper position-relative">
+            <?php $description = $block->getCurrentCategory()->getDescription(); ?>                
+                <?php                    
+                    $imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Catalog\Helper\Image::class);
+                    $image = $imageHelper->getDefaultPlaceholderUrl('image');
+                    $_imgUrl = ($_category->getImageUrl()) ?  $_category->getImageUrl() : $image ;
+                    $_imgHtml = '<img src="'.$block->escapeUrl($_imgUrl).'" alt="'.$block->escapeHtmlAttr($_category->getName()).'" title="' . $block->escapeHtmlAttr($_category->getName()) . '" width="600" height="600" class="image" />';
+                    $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+                    echo $_imgHtml;
+                    echo '<div class="category-inner-description">'.
+                            '<h1>'.$categoryName.'</h1>'
+                            .'<p>'.$categoryDescription.'</p>'.
+                        '</div>';
+                ?>
+        </div>
+    </div>
+</div>

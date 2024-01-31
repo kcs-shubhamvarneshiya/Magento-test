@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="AdvancedPriceLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="error" xsi:type="object">Capgemini\VcServiceProductPrice\Logger\Handler\ErrorHandler</item>
+                <item name="notice" xsi:type="object">Capgemini\VcServiceProductPrice\Logger\Handler\NoticeHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Capgemini\VcServiceProductPrice\Service\Product\Price">
+        <arguments>
+            <argument name="logger" xsi:type="object">AdvancedPriceLogger</argument>
+        </arguments>
+    </type>
+</config>

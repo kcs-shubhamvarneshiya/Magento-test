@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Lyonscg
+ * @package     Lyonscg_Contact
+ * @copyright   Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Logan Montgomery <logan.montgomery@capgemini.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Contact\Controller\Index">
+        <arguments>
+            <argument name="mail" xsi:type="object">\Lyonscg\Contact\Model\Mail</argument>
+        </arguments>
+    </type>
+</config>

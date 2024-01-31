@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template"
+                   template="Capgemini_Company::company/account/documents.phtml"
+                   name="company.documents.list"
+                   cacheable="false">
+                <block class="Capgemini\Company\Block\Company\Account\DocumentList" name="document.list.proof" cacheable="false">
+                    <arguments>
+                        <argument name="document_type" xsi:type="string">proof</argument>
+                        <argument name="data_scope" xsi:type="string">proofDocuments</argument>
+                        <argument name="jsLayout" xsi:type="array">
+                            <item name="types" xsi:type="array">
+                                <item name="form.input" xsi:type="array">
+                                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="provider" xsi:type="string">proofDocumentsProvider</item>
+                                        <item name="deps" xsi:type="array">
+                                            <item name="0" xsi:type="string">proofDocumentsProvider</item>
+                                        </item>
+                                        <item name="template" xsi:type="string">ui/form/field</item>
+                                        <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="components" xsi:type="array">
+                                <item name="proofDocuments" xsi:type="array">
+                                    <item name="component" xsi:type="string">uiComponent</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="provider" xsi:type="string">proofDocumentsProvider</item>
+                                    </item>
+                                    <item name="children" xsi:type="array">
+                                        <item name="proof-documents-fieldset" xsi:type="array">
+                                            <item name="component" xsi:type="string">uiComponent</item>
+                                            <item name="displayArea" xsi:type="string">company-documents-fields</item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="proofOfTrade" xsi:type="array">
+                                                    <item name="formElement" xsi:type="string">fileUploader</item>
+                                                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/file-uploader</item>
+                                                    <item name="label" xsi:type="string">Upload Proof Of Trade Document</item>
+                                                    <item name="required" xsi:type="boolean">true</item>
+                                                    <item name="sortOrder" xsi:type="string">0</item>
+                                                    <item name="dataScope" xsi:type="string">proofDocuments.proofOfTrade</item>
+                                                    <item name="provider" xsi:type="string">proofDocumentsProvider</item>
+                                                    <item name="allowedExtensions" xsi:type="string">jpg jpeg png pdf</item>
+                                                    <item name="previewTmpl" xsi:type="string">Capgemini_Company/preview</item>
+                                                    <item name="isMultipleFiles" xsi:type="boolean">true</item>
+                                                    <item name="uploaderConfig" xsi:type="array">
+                                                        <item name="url" xsi:type="url" path="company/account/uploadDocument"/>
+                                                        <item name="done" xsi:type="string">window.onDocumentUpload</item>
+                                                    </item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="customScope" xsi:type="string">proofDocuments</item>
+                                                        <item name="template" xsi:type="string">ui/form/field</item>
+                                                        <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="proofDocumentsProvider" xsi:type="array">
+                                    <item name="component" xsi:type="string">uiComponent</item>
+                                </item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+                <block class="Capgemini\Company\Block\Company\Account\DocumentList" name="document.list.tax-exempt" cacheable="false">
+                    <arguments>
+                        <argument name="document_type" xsi:type="string">tax-exempt</argument>
+                        <argument name="data_scope" xsi:type="string">exemptDocuments</argument>
+                        <argument name="jsLayout" xsi:type="array">
+                            <item name="types" xsi:type="array">
+                                <item name="form.input" xsi:type="array">
+                                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/abstract</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="provider" xsi:type="string">exemptDocumentsProvider</item>
+                                        <item name="deps" xsi:type="array">
+                                            <item name="0" xsi:type="string">exemptDocumentsProvider</item>
+                                        </item>
+                                        <item name="template" xsi:type="string">ui/form/field</item>
+                                        <item name="elementTmpl" xsi:type="string">ui/form/element/input</item>
+                                    </item>
+                                </item>
+                            </item>
+                            <item name="components" xsi:type="array">
+                                <item name="exemptDocuments" xsi:type="array">
+                                    <item name="component" xsi:type="string">uiComponent</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="provider" xsi:type="string">exemptDocumentsProvider</item>
+                                    </item>
+                                    <item name="children" xsi:type="array">
+                                        <item name="exempt-documents-fieldset" xsi:type="array">
+                                            <item name="component" xsi:type="string">uiComponent</item>
+                                            <item name="displayArea" xsi:type="string">company-documents-fields</item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="taxExempt" xsi:type="array">
+                                                    <item name="formElement" xsi:type="string">fileUploader</item>
+                                                    <item name="component" xsi:type="string">Magento_Ui/js/form/element/file-uploader</item>
+                                                    <item name="label" xsi:type="string">Upload Completed Tax Exemption Certificates</item>
+                                                    <item name="required" xsi:type="boolean">true</item>
+                                                    <item name="sortOrder" xsi:type="string">0</item>
+                                                    <item name="dataScope" xsi:type="string">exemptDocuments.taxExempt</item>
+                                                    <item name="provider" xsi:type="string">exemptDocumentsProvider</item>
+                                                    <item name="allowedExtensions" xsi:type="string">jpg jpeg png pdf</item>
+                                                    <item name="previewTmpl" xsi:type="string">Capgemini_Company/preview</item>
+                                                    <item name="isMultipleFiles" xsi:type="boolean">true</item>
+                                                    <item name="uploaderConfig" xsi:type="array">
+                                                        <item name="url" xsi:type="url" path="company/account/uploadDocument"/>
+                                                    </item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="customScope" xsi:type="string">exemptDocuments</item>
+                                                        <item name="template" xsi:type="string">ui/form/field</item>
+                                                        <item name="elementTmpl" xsi:type="string">ui/form/element/uploader/uploader</item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="exemptDocumentsProvider" xsi:type="array">
+                                    <item name="component" xsi:type="string">uiComponent</item>
+                                </item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

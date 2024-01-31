@@ -1,0 +1,376 @@
+<?php
+use Magento\Customer\Block\Widget\Name;
+use Magento\Directory\Helper\Data; ?>
+<?php
+/**
+ * Create account form template
+ *
+ * @var \Capgemini\Company\Block\Company\Account\Create $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+<?php
+    /** @var \Lyonscg\CircaLighting\ViewModel\WebsiteSwitcher $storeResolver */
+    $storeResolver = $block->getData('store_resolver');
+    $storeDataUsedInTemplate = $storeResolver ? $storeResolver->getStoreDataUsedInTemplate() : [];
+    $currentStoreCode = $storeResolver->getCurrentStoreCode();
+    $storeCode = $storeDataUsedInTemplate[$currentStoreCode]['uppercase'] ?? '';
+?>
+
+<div class="pagebuilder-column vc-company-right">
+    <?php
+    echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('vc-request-account-info-block')->toHtml();
+    ?>
+</div>
+
+<form class="form create account form-create-account"
+      action="<?= $escaper->escapeUrl($block->getPostActionUrl()) ?>"
+      method="post" id="form-validate"
+      enctype="multipart/form-data"
+      autocomplete="off">
+
+    <?= $block->getBlockHtml('formkey') ?>
+    <fieldset class="fieldset info">
+        <legend class="legend"><span><?= $escaper->escapeHtml(__('Contact Information')) ?></span></legend>
+        <div class="wrapper fields">
+            <?= $block->getLayout()->createBlock(Name::class)
+                ->setFieldNameFormat('customer[%s]')
+                ->setObject($block->getFormData())
+                ->setNoWrap(true)
+                ->setForceUseCustomerAttributes(true)
+                ->toHtml() ?>
+        </div>
+        <div class="field company-name _required">
+            <label class="label" for="company_name">
+                <span><?= $escaper->escapeHtml(__('Company Name')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[company_name]" id="company_name"
+                       value=""
+                       title="<?= $escaper->escapeHtmlAttr(__('Company Name')) ?>"
+                       class="input-text" data-validate="{required:true}">
+            </div>
+        </div>
+
+        <?php if (!$block->isCustomerLoggedIn()) : ?>
+            <fieldset class="fieldset create info">
+                <div class="field required">
+                    <label for="email_address" class="label"><span><?= $escaper->escapeHtml(__('Contact Email')) ?></span></label>
+                    <div class="control">
+                        <input type="email" name="customer[email]"
+                               autocomplete="email"
+                               id="email_address"
+                               value=""
+                               title="<?= $escaper->escapeHtmlAttr(__('Contact Email')) ?>"
+                               class="input-text"
+                               data-async-is-valid="true"
+                               data-mage-init='{"Magento_Company/js/form/element/async-validation": {
+                                "name": "customer_email",
+                                "validateUrl": "<?= $escaper->escapeUrl($block->getUrl('company/account/validate')) ?>"
+                           }}'
+                               data-validate="{required:true, 'validate-email':true, 'validate-async-customer-email': true}">
+                    </div>
+                </div>
+
+                <div class="field confirmation required">
+                    <label for="email-confirmation" class="label"><span><?= $escaper->escapeHtml(__('Confirm Contact Email')) ?></span></label>
+                    <div class="control">
+                        <input type="email"
+                               name="email_confirmation"
+                               title="<?= $escaper->escapeHtmlAttr(__('Confirm Contact Email')) ?>"
+                               id="email-confirmation"
+                               class="input-text"
+                               data-validate="{required:true, equalTo:'#email_address'}"
+                               data-msg-equalTo="<?= __('Emails must match.') ?>"/>
+                    </div>
+                </div>
+
+                <div class="field password required">
+                    <label for="password" class="label"><span><?= $escaper->escapeHtml(__('Password')) ?></span></label>
+                    <div class="control">
+                        <input type="password" name="password" id="password"
+                               title="<?= $escaper->escapeHtmlAttr(__('Password')) ?>"
+                               class="input-text"
+                               data-password-min-length="<?= $escaper->escapeHtmlAttr($block->getMinimumPasswordLength()) ?>"
+                               data-password-min-character-sets="<?= $escaper->escapeHtmlAttr($block->getRequiredCharacterClassesNumber()) ?>"
+                               data-validate="{required:true, 'validate-customer-password':true}"
+                               autocomplete="off">
+                        <div id="password-strength-meter-container" data-role="password-strength-meter" aria-live="polite">
+                            <div id="password-strength-meter" class="password-strength-meter">
+                                <?= $escaper->escapeHtml(__('Password Strength')) ?>:
+                                <span id="password-strength-meter-label" data-role="password-strength-meter-label">
+                                <?= $escaper->escapeHtml(__('No Password')) ?>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field confirmation required">
+                    <label for="password-confirmation" class="label"><span><?= $escaper->escapeHtml(__('Confirm Password')) ?></span></label>
+                    <div class="control">
+                        <input type="password" name="password_confirmation" title="<?= $escaper->escapeHtmlAttr(__('Confirm Password')) ?>" id="password-confirmation" class="input-text" data-validate="{required:true, equalTo:'#password'}"/>
+                    </div>
+                </div>
+                <?php $userDefinedAttributes = $block->getLayout()->getBlock('customer_form_user_attributes'); ?>
+                <?php if ($userDefinedAttributes): ?>
+                    <?php $userDefinedAttributes->setFieldNameFormat('customer[%1$s]'); ?>
+                    <?= $userDefinedAttributes->toHtml() ?>
+                <?php endif; ?>
+
+                <?= $block->getChildHtml('form.additional.info') ?>
+            </fieldset>
+        <?php endif; ?>
+        <input type="hidden" name="company[company_email]" id="company_email" />
+
+        <div class="field street _required">
+            <label class="label" for="street0">
+                <span><?= $escaper->escapeHtml(__('Address')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[street][0]" id="street0"
+                       value=""
+                       title="<?= $escaper->escapeHtmlAttr(__('Address')) ?>"
+                       class="input-text" data-validate="{required:true}">
+                <p class="note">
+                    <span><?= __('Street, Address, P.O. Box, Company Name, C/O') ?></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="field street">
+            <label class="label" for="street1">
+                <span><?= $escaper->escapeHtml(__('Address 2 (Optional)')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[street][1]" id="street1"
+                       value=""
+                       title="<?= $escaper->escapeHtmlAttr(__('Address')) ?>"
+                       class="input-text">
+            </div>
+        </div>
+
+        <div class="wrapper fields">
+            <div class="field country_id _required">
+                <label class="label" for="country_id">
+                    <span><?= $escaper->escapeHtml(__('Country')) ?></span>
+                </label>
+                <div class="control _required">
+                    <?php $countryValue = $block->getDefaultCountryId(); ?>
+                    <select name="company[country_id]" id="country_id"
+                            class="select"
+                            title="<?= $escaper->escapeHtmlAttr(__('Country')) ?>"
+                            data-validate="{required:true}">
+                        <option value=""></option>
+                        <?php $countries = $block->getCountriesList(); ?>
+                        <?php foreach ($countries as $countryCode => $country): ?>
+                            <option value="<?= $escaper->escapeHtmlAttr($countryCode) ?>"
+                                <?= ($countryCode == $countryValue) ? ' selected' : '' ;?>>
+                                <?= $escaper->escapeHtml($country) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="field city _required">
+                <label class="label" for="city">
+                    <span><?= $escaper->escapeHtml(__('City')) ?></span>
+                </label>
+                <div class="control">
+                    <input type="text" name="company[city]" id="city"
+                           value=""
+                           title="<?= $escaper->escapeHtmlAttr(__('City')) ?>"
+                           class="input-text" data-validate="{required:true}">
+                </div>
+            </div>
+        </div>
+        <div class="wrapper fields">
+            <div class="field region-id required">
+                <label class="label" for="region_id">
+                    <span><?= $escaper->escapeHtml(__('State')) ?></span>
+                </label>
+                <div class="control _required">
+                    <?php $message = $escaper->escapeHtml(__('- Select State')) ?>
+                    <select name="company[region_id]" id="region_id" data-validate="{required:true}" class="select">
+                        <option value=""><?= /* @noEscape */ $message ?></option>
+                    </select>
+                    <input type="text" id="region" name="company[region]"
+                           value=""
+                           title="<?= $escaper->escapeHtmlAttr(__('State')) ?>"
+                           class="input-text" style="display: none;">
+                </div>
+            </div>
+            <div class="field postcode required">
+                <label class="label" for="postcode">
+                    <span><?= $escaper->escapeHtml(__('ZIP/Postal Code')) ?></span>
+                </label>
+                <div class="control">
+                    <?php $postcodeClass = $escaper->escapeHtmlAttr($block->getAttributeValidationClass('postcode')) ?>
+                    <input type="text" name="company[postcode]" id="postcode"
+                           value=""
+                           title="<?= $escaper->escapeHtmlAttr(__('ZIP/Postal Code')) ?>"
+                           class="input-text validate-zip-international <?= /* @noEscape */ $postcodeClass ?>"
+                           data-validate="{'required':true, 'validate-zip-international':true}" />
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="field telephone _required">
+            <label class="label" for="telephone">
+                <span><?= $escaper->escapeHtml(__('Phone')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[telephone]" id="telephone"
+                       value=""
+                       title="<?= $escaper->escapeHtmlAttr(__('Phone')) ?>"
+                       class="input-text" data-validate="{'required':true, 'company-telephone':true}">
+            </div>
+        </div>
+
+
+        <div class="field business_type _required">
+            <label class="label" for="business_type">
+                <span><?= $escaper->escapeHtml(__('Type of Business')) ?></span>
+            </label>
+            <div class="control">
+                <select name="company[business_type]" id="business_type"
+                        class="select"
+                        title="<?= $escaper->escapeHtmlAttr(__('Type of Business')) ?>"
+                        data-validate="{required:true}">
+                    <option value=""></option>
+                    <?php foreach ($block->getBusinessTypes() as $value => $label): ?>
+                        <option value="<?= $escaper->escapeHtmlAttr($value) ?>"><?= $escaper->escapeHtml($label) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="field website">
+            <label class="label" for="website">
+                <span><?= $escaper->escapeHtml(__('Website URL')) ?></span>
+            </label>
+            <div class="control">
+                <input type="text" name="company[website]" id="website"
+                       value=""
+                       title="<?= $escaper->escapeHtmlAttr(__('Website URL')) ?>"
+                       class="input-text">
+            </div>
+        </div>
+
+
+        <div class="field collections _required">
+            <label class="label" for="collections_group">
+                <span><?= $escaper->escapeHtml(__('Select which collections you are interested in setting up accounts with.')) ?></span>
+            </label>
+            <div class="control _required" id="collections_group">
+                <?php $idx = 0; ?>
+                <?php foreach ($block->getCollections() as $value => $label): ?>
+                    <input type="checkbox" name="company[collections][]"
+                           id="collection_<?= $idx ?>"
+                           value="<?= $escaper->escapeHtmlAttr($value) ?>"
+                           data-validate="{'validate-one-required-by-name':true}" >
+                    <label for="collection_<?= $idx ?>"><?= $escaper->escapeHtml($label) ?></label>
+                    <?php $idx++; ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="fieldset create info">
+        <div class="admin__field-control admin__control-grouped">
+            <?= $block->getChildHtml('bottom_notice'); ?>
+            <input type="hidden" name="company[proof]" id="proof_of_trade" value=""/>
+            <input type="hidden" name="company[tax-exempt]" id="tax_exempt" value=""/>
+            <div id="company-documents" class="admin__field company-documents" data-bind="scope:'companyDocuments'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+        </div>
+    </fieldset>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" class="action save primary" title="<?= $escaper->escapeHtmlAttr(__('Submit Account Request')) ?>">
+                <span><?= $escaper->escapeHtml(__('Submit Account Request')) ?></span>
+            </button>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    require([
+        'jquery',
+        'uiRegistry',
+        'mage/mage'
+    ], function($, registry) {
+
+        var dataForm = $('#form-validate');
+        var ignore = null;
+
+        dataForm.mage('validation', {
+            ignore: ignore ? ':hidden:not(' + ignore + ')' : ':hidden'
+        }).find('input:text').attr('autocomplete', 'off');
+
+        $('#email_address').on('change', function () {
+            $('#company_email').val(this.value);
+        });
+
+        $('#form-validate .action.save').on('click', function(){
+            if ($(dataForm).valid()) {
+                try {
+                    $('#proof_of_trade').val(JSON.stringify(registry.get('companyDocuments.company-documents-fieldset.proofOfTrade').value()));
+                    $('#tax_exempt').val(JSON.stringify(registry.get('companyDocuments.company-documents-fieldset.taxExempt').value()));
+                } catch (err) {
+                    console.log(err.message);
+                }
+                $('body').trigger('processStart');
+            } else {
+                $('body').trigger('processStop');
+            }
+        });
+    });
+
+    require([
+        'jquery',
+        'underscore',
+        'jquery/file-uploader',
+    ], function($, _) {
+
+    });
+</script>
+<?php $countries = $this->helper(Data::class)->getCountriesWithOptionalZip(true) ?>
+<script type="text/x-magento-init">
+    {
+        "#country_id": {
+            "regionUpdater": {
+                "optionalRegionAllowed": <?= $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "form": "#form-validate",
+                "regionJson": <?= /* @noEscape */ $this->helper(Data::class)->getRegionJson() ?>,
+                "defaultRegion": "",
+                "countriesWithOptionalZip": <?= /* @noEscape */ $countries ?>
+            }
+        },
+        ".field.password": {
+            "passwordStrengthIndicator": {
+                "formSelector": "form.form-create-account"
+            }
+        },
+        "#company-documents": {
+            "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+        },
+        "#form-validate": {
+            "Capgemini_ExponeaSubscription/js/onsubmit-subscription": {
+                "emailInFormSelector": "#email_address",
+                "confirmationCheckboxSelector": "#is_subscribed",
+                "importSource": "Trade Account Application",
+                "storeCode": "<?= $storeCode ?>",
+                "sendToServer": true
+            }
+        }
+    }
+</script>

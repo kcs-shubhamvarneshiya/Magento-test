@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="rysun_specificationattribute_specificationattribute" resource="default" engine="innodb" comment="rysun_specificationattribute_specificationattribute Table">
+		<column xsi:type="int" name="specificationattribute_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="specificationattribute_id"/>
+		</constraint>
+		<column name="category_id" nullable="true" xsi:type="int" comment="category_id" identity="false"/>
+		<column name="collection_id" nullable="true" xsi:type="int" comment="collection_id" identity="false"/>
+		<column name="attribute_id" nullable="true" xsi:type="int" comment="attribute_id" identity="false"/>
+		<column name="attribute_code" nullable="true" xsi:type="varchar" comment="attribute_code" length="255"/>
+		<column name="sql_serv_id" nullable="true" xsi:type="text" comment="sql_serv_id"/>
+	</table>
+</schema>

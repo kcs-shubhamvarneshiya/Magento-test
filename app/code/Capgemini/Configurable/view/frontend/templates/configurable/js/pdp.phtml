@@ -1,0 +1,39 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'underscore',
+        'Magento_ConfigurableProduct/js/configurable-utils',
+    ], function($, _, configurableUtils) {
+
+        $('.variation-item a').click(function(evt) {
+            evt.preventDefault();
+            try {
+                var options = $(this).data('options');
+                // go through twice so options that depend on another can be tripped
+                for (var times = 0; times < 2; times++) {
+                    for (var i = 0; i < options.length; i++) {
+                        var optionId = options[i];
+                        var opt = configurableUtils.getOption(optionId);
+                        if (opt === false) {
+                            continue;
+                        }
+                        if (opt.tagName === 'OPTION') {
+                            // handle select
+                            $(opt.parentElement).val(optionId).trigger('change');
+                        } else {
+                            $(opt).trigger('click');
+                        }
+
+                        $('.product-info-main .variation-item a').removeClass('active');
+                        $(this).addClass('active');
+                    }
+                    if (times == 1) {
+                        $(this).trigger('addToDataLayer');
+                    }
+                }
+            } catch (e) {
+                return false;
+            }
+        });
+    });
+</script>

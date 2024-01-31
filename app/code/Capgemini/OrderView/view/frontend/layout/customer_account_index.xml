@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" src_type="url" rel="stylesheet"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="customer_account_dashboard_info">
+                <block class="Capgemini\OrderView\Block\RecentData" name="recent_data" template="Capgemini_OrderView::recent_data/recent_data.phtml" cacheable="false"/>
+                <block class="Capgemini\OrderView\Block\DropDownFilter" name="capgemini.filter.dropdown" template="Capgemini_OrderView::search-dropdown.phtml" cacheable="false">
+                    <action method="setPlaceHolder">
+                        <argument name="placeHolder" xsi:type="string">Search by Order Number, PO Number, Product Name or SKU</argument>
+                    </action>
+                    <action method="isSearchAvailable">
+                        <argument name="searchAvailable" xsi:type="boolean">true</argument>
+                    </action>
+                    <action method="setFilterUrl">
+                        <argument name="filterUrl" xsi:type="string">customer/account/index</argument>
+                    </action>
+                </block>
+
+            </referenceBlock>
+            <referenceBlock name="customer_account_dashboard_info1" remove="true"/>
+            <referenceBlock name="customer_account_dashboard_top" remove="true"/>
+        </referenceContainer>
+    </body>
+</page>

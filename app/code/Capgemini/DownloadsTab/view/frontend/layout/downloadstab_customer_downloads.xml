@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Downloads</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Capgemini\DownloadsTab\Block\Customer\Downloads" name="capgemini.downloads.tab.index" template="Capgemini_DownloadsTab::index.phtml">
+            <block name="myaccount_downloads" class="Magento\Cms\Block\Block">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">myaccount_downloads</argument>
+                </arguments>
+            </block>
+            <block name="myaccount_downloads_price_list_catalogs" class="Magento\Cms\Block\Block">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">myaccount_downloads_price_list_catalogs</argument>
+                </arguments>
+            </block>
+            </block> 
+        </referenceContainer>
+    </body>
+</page>

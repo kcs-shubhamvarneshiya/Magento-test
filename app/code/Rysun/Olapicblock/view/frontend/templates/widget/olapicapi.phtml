@@ -1,0 +1,36 @@
+<?php if($block->getData('widgettitle') && $block->isEnabled() ): ?>
+
+<?php
+/** @var \Rysun\Olapicblock\Block\OlapicApi $block */
+?>
+<div class="olapic-slider-widget olapic-slider customapi">
+    <div class="olapic-slider-body">
+        <div class="olapic-slider-wrapper">
+            <div style="text-align: center;" class="sixth-block" id="olapic_block">
+                <div class="olapic olapic-container">
+                    <div class="images">
+                        <div class="tag">#visualcomfort</div>
+
+                        <div class="olapic-wrapper">
+                            <div class="olapic-btn-prev hidden-mobile"></div>
+
+                            <div id="olapic_specific_widget"></div>
+                            <script type="text/javascript" src="<?= $block->getScriptUrl(); ?>"
+                                data-olapic="olapic_specific_widget" data-instance="<?= $block->getInstance(); ?>"
+                                data-apikey="<?= $block->getApikey(); ?>"
+                                data-tags="<?= strtolower($block->getData('widgettitle')); ?>" async="async"></script>
+
+                            <div class="olapic-btn-next hidden-mobile"></div>
+                        </div>
+                    </div>
+
+                    <div class="social hidden-desktop" style="display: none;">
+                        <?= $block->getSocialLinksHtml(); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php endif; ?>

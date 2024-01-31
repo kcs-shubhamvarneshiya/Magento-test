@@ -1,0 +1,51 @@
+& when (@media-common = true) {
+    #html-body {
+        .product-pdf--modal {
+            .modal-inner-wrap {
+                padding: 20px 30px;
+
+                .modal-header {
+                    padding: 0;
+
+                    .modal-title {
+                        padding: 10px 0;
+                    }
+                    .action-close {
+                        padding: 0;
+                        right: 0;
+                    }
+                }
+
+                .modal-content {
+                    padding: 20px 0;
+
+                    #validation-modal-wrap {
+                        padding-bottom: 20px;
+                        p {
+                            font-size: 14px;
+                            font-weight: normal;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: 1.71;
+                            letter-spacing: 0.25px;
+                            color: #454545;
+                        }
+                    }
+                }
+            }
+            .modal-footer {
+                display: flex;
+                border-top: none !important;
+                padding: 0;
+
+                button {
+                    margin-right: 20px;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}

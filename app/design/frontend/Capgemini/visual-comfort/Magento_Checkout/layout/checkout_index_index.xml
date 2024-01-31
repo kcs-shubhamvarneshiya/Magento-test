@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <referenceBlock name="checkout.root">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="checkout" xsi:type="array">
+                                <item name="children" xsi:type="array">
+                                    <!--<item name="sidebar" xsi:type="array">
+                                        <item name="children" xsi:type="array">
+                                            <item name="summary" xsi:type="array">
+                                                <item name="children" xsi:type="array">
+                                                    <item name="editCart" xsi:type="array">
+                                                        <item name="component" xsi:type="string">Magento_Checkout/js/view/summary/edit-cart</item>
+                                                        <item name="config" xsi:type="array">
+                                                            <item name="template" xsi:type="string">Magento_Checkout/summary/edit-cart</item>
+                                                        </item>
+                                                        <item name="displayArea" xsi:type="string">editCart</item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>-->
+                                    <item name="certificate-login-modal" xsi:type="array">
+                                        <item name="config" xsi:type="array">
+                                            <item name="componentDisabled" xsi:type="boolean">true</item>
+                                        </item>
+                                    </item>
+                                    <item name="steps" xsi:type="array">
+                                        <item name="children" xsi:type="array">
+                                            <item name="shipping-step" xsi:type="array">
+                                                <item name="children" xsi:type="array">
+                                                    <item name="shippingAddress" xsi:type="array">
+                                                        <item name="config" xsi:type="array">
+                                                            <item name="popUpForm" xsi:type="array">
+                                                                <item name="options" xsi:type="array">
+                                                                    <item name="buttons" xsi:type="array">
+                                                                        <item name="save" xsi:type="array">
+                                                                            <item name="text" xsi:type="string" translate="true">Save &amp; Use</item>
+                                                                            <item name="class" xsi:type="string">action primary action-save-address</item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+
+                                                        <item name="children" xsi:type="array">
+                                                            <item name="customer-email" xsi:type="array">
+                                                                <item name="config" xsi:type="array">
+                                                                    <item name="tooltip" xsi:type="boolean">false</item>
+                                                                </item>
+                                                            </item>
+                                                            <item name="shipping-address-fieldset" xsi:type="array">
+                                                                <item name="children" xsi:type="array">
+                                                                    <item name="country_id" xsi:type="array">
+                                                                        <item name="sortOrder" xsi:type="string">1001</item>
+                                                                    </item>
+                                                                    <item name="city" xsi:type="array">
+                                                                        <item name="sortOrder" xsi:type="string">1002</item>
+                                                                    </item>
+                                                                    <item name="region_id" xsi:type="array">
+                                                                        <item name="sortOrder" xsi:type="string">1003</item>
+                                                                    </item>
+                                                                    <item name="region" xsi:type="array">
+                                                                        <item name="sortOrder" xsi:type="string">1003</item>
+                                                                    </item>
+                                                                    <item name="postcode" xsi:type="array">
+                                                                        <item name="sortOrder" xsi:type="string">1004</item>
+                                                                    </item>
+                                                                    <item name="telephone" xsi:type="array">
+                                                                        <item name="sortOrder" xsi:type="string">1005</item>
+                                                                        <item name="config" xsi:type="array">
+                                                                            <item name="tooltip" xsi:type="boolean">false</item>
+                                                                            <item name="placeholder" xsi:type="string">Ex. 555-555-5555</item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+        <move element="logo" destination="checkout.header.wrapper"/>
+
+        <referenceContainer name="footer-container">
+            <block class="Magento\Theme\Block\Html\Footer" name="copyright" template="html/copyright.phtml">
+                <block name="terms-and-conditions">
+                    <arguments>
+                        <argument name="opc-footer-link-name" xsi:type="string">Terms &amp; Conditions</argument>
+                        <argument name="opc-footer-link" xsi:type="string">/terms-conditions</argument>
+                    </arguments>
+                </block>
+                <block name="privacy-policy">
+                    <arguments>
+                        <argument name="opc-footer-link-name" xsi:type="string">Privacy Policy</argument>
+                        <argument name="opc-footer-link" xsi:type="string">/privacy-policy</argument>
+                    </arguments>
+                </block>
+                <block name="legal-statement">
+                    <arguments>
+                        <argument name="opc-footer-link-name" xsi:type="string">Legal Statement</argument>
+                        <argument name="opc-footer-link" xsi:type="string">/legal-statement</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

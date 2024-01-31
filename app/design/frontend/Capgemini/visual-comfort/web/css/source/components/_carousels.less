@@ -1,0 +1,98 @@
+& when (@media-common = true) {
+
+    .slick-slider {
+        .slick-arrow {
+            background: none !important;
+        }
+
+        .slick-arrow:hover {
+            background: none !important;
+        }
+
+        .slick-prev::before {
+            content: @icon-long-arrow-left !important;
+            font-family: @font-vc-icons;
+            font-size: 20px;
+            background: none;
+        }
+
+        .slick-next::before {
+            content: @icon-long-arrow-right !important;
+            font-family: @font-vc-icons;
+            font-size: 20px;
+            background: none;
+        }
+
+        .slick-dots {
+            display: flex;
+            justify-content: center;
+        }
+    }
+
+    .slick-track {
+        margin: 0;
+    }
+
+    .vc-slider.slick-slider.slick-initialized {
+        padding: 0 20px;
+
+        .slick-arrow {
+            width: 20px;
+
+            &.slick-prev {
+                left: 1px;
+
+                &:before {
+                    content: "\e92e" !important;
+                }
+            }
+
+            &.slick-next {
+                right: 1px;
+
+                &:before {
+                    content: "\e92d" !important;
+                }
+            }
+
+            &:before {
+                padding: 0;
+
+            }
+        }
+
+        .slick-list.draggable {
+            .slick-track {
+                .slick-slide {
+                    > div {
+                        padding: 0 20px;
+                    }
+
+                    .element {
+                        .image {
+                            img {
+                                margin: auto;
+                            }
+                        }
+
+                        a {
+                            .font-proxima-nova(1.4rem, 1.4rem);
+                            color: @color-gray-800;
+                            letter-spacing: 0.25px;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .vc-slider {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+        padding: 0;
+    }
+}

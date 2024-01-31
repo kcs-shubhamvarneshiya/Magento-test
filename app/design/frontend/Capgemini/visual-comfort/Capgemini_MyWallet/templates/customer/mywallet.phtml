@@ -1,0 +1,65 @@
+<?php
+/**
+ * Copyright Capgemini
+ *
+ * @var \Capgemini\MyWallet\Block\Customer\Index $block
+ */
+
+?>
+<?php $wallets = $block->getCustomerWallets(); ?>
+<?php $count = count($wallets); ?>
+<div class="block block-my-wallet" id="block-my-wallet">
+    <div class="block-title wallet">
+        <strong><?= /* @escapeNotVerified */ __('Saved Payment Methods') ?></strong>
+    </div>
+
+    <div id="my_wallet_empty_msg"<?php if ($count > 0) : ?> style="display: none"<?php endif; ?>>
+        <p>
+            <?= 'You do not have any saved payment methods' ?>
+        </p>
+        <a class="btn btn-secondary action add" id="add-card" href="<?= $block->getAddWalletUrl()?> ">
+            <span><?= /* @escapeNotVerified */ __('Add new card') ?></span>
+        </a>
+    </div>
+    <?php if ($count > 0): ?>
+    <div class="block-content">
+        <div id="saved-payment-methods">
+            <?php foreach ($wallets as $key => $wallet) : ?>
+            <div id="<?= $wallet['wallet_id']?>" class="payment-method-item <?php if($wallet['is_default']): ?> default-cc<?php endif; ?>">
+                <div class="method-card-img <?php echo($wallet['card_name'])?>"></div>
+                <div class="method-info">
+                    <div class="payment-cc_nickname"><?= $wallet['cc_nickname'] ?></div>
+                    <?php if($wallet['is_default']): ?>
+                        <div class="payment-default-label">Default Card</div>
+                    <?php endif; ?>
+                    <div><?= 'Credit ' . $wallet['card_name'] ?></div>
+                    <div><?= chunk_split($wallet['cc_last4'], 4, ' ') ?></div>
+                    <div><?= 'Exp Date: ' . $wallet['card_exp_date']?></div>
+                    <a class="removelink"  href="#">
+                        <span id="remove-card-<?= $wallet['wallet_id'] ?>"><?= /* @escapeNotVerified */ __('Remove') ?></span>
+                    </a>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="actions">
+            <a class="btn btn-secondary action add" id="add-card" href="<?= $block->getAddWalletUrl()?> ">
+                <span><?= /* @escapeNotVerified */ __('Add new card') ?></span>
+            </a>
+        </div>
+    </div>
+    <?php endif; ?>
+    <div id="loader">
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#saved-payment-methods": {
+            "Capgemini_MyWallet/js/deleteWallet": {
+                "deleteWalletUrl" : "<?= $block->getDeleteWalletUrl() ?>",
+                "addWalletUrl" : "<?= $block->getAddWalletUrl() ?>",
+                "loaderUrl": "<?= $block->getViewFileUrl('images/loader-1.gif') ?>"
+            }
+        }
+    }
+</script>

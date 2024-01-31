@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="1column"/>
+    <referenceContainer name="page.wrapper">
+        <container name="header.container" as="header_container" label="Page Header Container" htmlTag="header" htmlClass="page-header" before="main.content"/>
+        <container name="page.top" as="page_top" label="After Page Header" after="header.container"/>
+        <referenceBlock name="page.main.title" remove="true"/>
+        <container name="footer-container" as="footer" before="before.body.end" label="Page Footer Container" htmlTag="footer" htmlClass="page-footer"/>
+        <referenceBlock name="breadcrumbs" remove="true" />
+    </referenceContainer>
+
+    <!-- Subcategory Banner -->
+    <referenceContainer name="category.view.container">
+        <referenceBlock name="category.description" remove="true" />
+        <block class="Rysun\Category\Block\SubBannerView" name="architectural.subcategory.banner" template="Rysun_Category::category-banner.phtml" />
+    </referenceContainer>
+    <move element="architectural.subcategory.banner" destination="category.top.wrapper" after="-" />
+    <move element="catalog.leftnav" destination="content" after="architectural.subcategory.collection"/>
+    
+    <referenceContainer name="content">
+
+         <!-- Subcategory Collection -->
+        <block class="Rysun\Category\Block\SubCollectionView" name="architectural.subcategory.collection" before="category.products.list" template="Rysun_Category::category-collection.phtml" />
+
+        <referenceBlock name="category.products.list">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Rysun_Category::list.phtml</argument>
+            </action>
+
+        <!-- Subcategory Collection 
+        <block class="Rysun\Category\Block\SubCollectionView" name="architectural.subcategory.collection" template="Rysun_Category::category-collection.phtml" />-->
+        <!-- Subcategory List 
+        <block class="Rysun\Category\Block\SubListView" name="architectural.subcategory.list" template="Rysun_Category::category-list.phtml" /> -->
+
+        </referenceBlock>
+
+        <referenceBlock name="category.image" remove="true" />
+
+        
+
+       <referenceBlock name="catalog.leftnav">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Rysun_Category::layer/view.phtml</argument>
+            </action>
+        </referenceBlock>
+        
+    </referenceContainer>
+
+    
+    <!--<referenceBlock name="catalog.leftnav">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Rysun_Category::layer/view.phtml</argument>
+            </action>
+    </referenceBlock> -->
+     
+    <!--<move element="architectural.subcategory.collection" destination="content"  before="category.products.list"/>-->
+    
+   
+    <move element="category.products.list" destination="content" after="atalog.leftnav"/>
+    <move element="category.cms" destination="content" after="category.products.list"/>
+</layout>

@@ -1,0 +1,93 @@
+<?php
+/**
+ * Order Info Data
+ *
+ * @var @var \Magento\Sales\Block\Order\Info $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Plumrocket\Checkoutspage\Helper\Data $helper
+ * @var \Capgemini\WholesaleAddress\ViewModel\WholesaleDetector $wholesaleDetector
+ */
+$helper = $this->helper(\Plumrocket\Checkoutspage\Helper\Data::class);
+$splitHelper = $this->helper(\Capgemini\OrderSplit\Helper\Data::class);
+$order = $helper->getOrder();
+$payment = $order->getPayment();
+$shipDateHelper = $this->helper(\Capgemini\ShipOnDate\Helper\Date::class);
+$salesPadHelper = $this->helper(\Lyonscg\SalesPad\Helper\Order::class);
+$wholesaleDetector = $block->getData('wholesale_detector');
+$realOrderIncrementId = $block->getOrder()->getRealOrderId();
+$realOrder = $salesPadHelper->getOrder($realOrderIncrementId);
+$amastyAttributes = $salesPadHelper->getAmastyOrderAttributeData($realOrder, true);
+$paymentTitle = $payment->getMethodInstance()->getTitle() ?? '';
+$promoCodes = $splitHelper->getOrderCustomAttributeAsArray(
+    $order->getCustomPromoCodes(),
+    'promo_code'
+);
+?>
+
+<div class="order-data__holder">
+    <div class="order-data__holder box">
+        <div class="order-data__holder shipping">
+            <h2><?= /* @noEscape */ __('Shipping') ?></h2>
+            <?php if ($order->getShippingAddress()): ?>
+                <?= /* @noEscape */ $helper->getShippingAddressHtml($order->getShippingAddress()); ?><br />
+            <?php endif; ?>
+            <div class="shipping-method">
+                <label><strong><?= /* @noEscape */ __('Shipping Method') ?></strong></label>
+                <br />
+                <?= /* @noEscape */ $order->getShippingDescription() ?>
+                <?php if ($order->getShipOnDate()): ?>
+                    <strong><?= /* @noEscape */ $shipDateHelper->formatDate($order->getShipOnDate()) ?></strong>
+                <?php endif; ?>
+            </div>
+
+            <?php if ($wholesaleDetector->isWholesaleCustomer() && $promoCodes): ?>
+                <div class="column">
+                    <label><strong><?= /* @noEscape */ __('Promo Code') ?></strong></label><br />
+                    <?php  foreach ($promoCodes as $promoCode): ?>
+                        <span class="data"><?= /* @noEscape */ __($promoCode) ?></span><br />
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
+            <?php foreach ($amastyAttributes as $attributeKey => $attributeValue) : ?>
+                <?php if($attributeValue) : ?>
+                    <div class="column">
+                        <label><strong><?= /* @noEscape */ __($attributeKey) ?></strong></label><br />
+                        <span class="data"><?= $attributeValue ?></span>
+                    </div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <div class="order-data__holder box">
+        <div class="order-data__holder billing">
+            <?php if ($paymentTitle): ?>
+            <h2><?= /* @noEscape */ __('Payment') ?></h2>
+            <!-- TODO: Get Payment Info -->
+
+            <div class="payment-info">
+                <div class="column">
+                    <label><strong><?= /* @noEscape */ __('Payment Method') ?></strong></label><br />
+                    <span class="data"><?= /* @noEscape */ __($paymentTitle) ?></span>
+                </div>
+            </div>
+            <?php endif; ?>
+
+            <?php if ($order->getBillingAddress()): ?>
+                <label>
+                    <?php if (!$wholesaleDetector->isWholesaleCustomer() && 0) :?>
+                        <strong><?= /* @noEscape */ __('Billing Address') ?></strong>
+                    <?php else : ?>
+                        <strong><?= /* @noEscape */ __('Bill To') ?></strong>
+                    <?php endif; ?>
+                </label><br />
+                <?= /* @noEscape */ strip_tags($block->getFormattedAddress($order->getBillingAddress()), '<br>') ?>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+<div class="cps-continue-shopping hidden-desktop">
+    <a class="btn btn-secondary" href="<?= /* @noEscape */ $this->getUrl() ?>">
+        <?= /* @noEscape */ __('Continue Shopping') ?>
+    </a>
+</div>

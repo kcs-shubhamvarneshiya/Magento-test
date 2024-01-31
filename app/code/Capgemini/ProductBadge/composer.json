@@ -1,0 +1,17 @@
+{
+  "name": "capgemini/module-product-badge",
+  "version": "1.0.0",
+  "description": "Display product badge attribute on product detail and product listing pages.",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Capgemini\\ProductBadge\\": ""
+    }
+  }
+}

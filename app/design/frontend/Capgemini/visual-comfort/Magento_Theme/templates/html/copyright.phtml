@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+$allBlocks = $block->getChildNames();
+?>
+<div class="copyright-block">
+    <div class="hr-line">
+        <div class="vc-experience">
+                    <img src="<?php echo $block->getViewFileUrl('Magento_Newsletter::experience-visual-comfort.svg')?>">
+                </div>
+                <div class="copy-right">
+                    <div class="copyright-wrapper">
+                        <small class="copyright">
+                            <div class="links">
+                                <span class="copy">©&nbsp;<?php echo date('Y');?>&nbsp;Visual Comfort &amp; Co.</span>
+                                <?php if($allBlocks): ?>
+                                    <?php foreach($allBlocks as $blocks): ?>
+                                        <?php $childBlock = $block->getLayout()->getBlock($blocks); ?>
+                                        <a href="<?php echo $childBlock->getData('opc-footer-link') ?>" class="link">
+                                            <?php echo $childBlock->getData('opc-footer-link-name') ?>
+                                        </a>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </div>
+                        </small>
+                    </div>
+        </div>
+    </div>
+</div>

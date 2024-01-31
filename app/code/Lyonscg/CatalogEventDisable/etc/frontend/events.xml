@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_CatalogEventDisable
+ *
+ * @category  Lyons
+ * @package   Lyonscg_CatalogEventDisable
+ * @author    Tanya Mamchik <tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2021 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="catalog_category_load_after">
+        <observer name="magento_catalogevent" disabled="true" />
+    </event>
+    <event name="catalog_controller_product_init_after">
+        <observer name="magento_catalogevent" disabled="true" />
+    </event>
+    <event name="review_controller_product_init_after">
+        <observer name="magento_catalogevent" disabled="true" />
+    </event>
+    <event name="catalog_category_collection_load_after">
+        <observer name="magento_catalogevent" disabled="true" />
+    </event>
+    <event name="catalog_product_collection_load_after">
+        <observer name="magento_catalogevent" disabled="true" />
+    </event>
+    <event name="catalog_product_is_salable_after">
+        <observer name="magento_catalogevent" disabled="true" />
+    </event>
+    <event name="checkout_cart_product_add_after">
+        <observer name="magento_catalogevent" disabled="true" />
+    </event>
+    <event name="sales_quote_item_qty_set_after">
+        <observer name="magento_catalogevent" disabled="true" />
+    </event>
+</config>

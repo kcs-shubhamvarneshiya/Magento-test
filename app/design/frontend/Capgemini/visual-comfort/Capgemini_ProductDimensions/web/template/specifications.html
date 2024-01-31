@@ -1,0 +1,17 @@
+<table class="options">
+    <!-- ko if: (hasSpecifications())-->
+    <thead>
+    <tr>
+        <th class="header-label" colspan="2" data-bind="i18n: 'Additional Product Information'"></th>
+    </tr>
+    </thead>
+    <tbody data-bind="foreach: {data: getSpecifications(), as: 'specs'}">
+    <tr data-bind="css: { 'collapsible spec-collapsible': ($index() > 4)}">
+        <td class="label" data-bind="i18n: specs.label"></td>
+        <td class="pure-value" data-bind="i18n: specs.value, attr: { 'data-label-key': specs.base64label }"></td>
+    </tr>
+    </tbody>
+    <!-- /ko -->
+    <!-- ko ifnot: (hasSpecifications()) -->
+    <!-- /ko -->
+</table>

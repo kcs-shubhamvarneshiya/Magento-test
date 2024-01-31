@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="custom_height_order_repository_plugin"
+            type="Capgemini\CustomHeight\Plugin\OrderRepositoryPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="custom_height_cart_repository_plugin"
+            type="Capgemini\CustomHeight\Plugin\QuoteRepositoryPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="custom_height_sales_quote_item_to_order_item" type="Capgemini\CustomHeight\Plugin\QuoteItemToOrderItemPlugin" sortOrder="10" />
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="custom_height_quote_plugin" type="Capgemini\CustomHeight\Plugin\QuotePlugin" sortOrder="10" />
+    </type>
+    <type name="Magento\Quote\Model\Cart\Totals\ItemConverter">
+        <plugin name="capgemini_custom_height_item_converter_plugin"
+                type="Capgemini\CustomHeight\Plugin\TotalsItemConverterPlugin"/>
+    </type>
+</config>

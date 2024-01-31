@@ -1,0 +1,159 @@
+parameters:
+  - name: targetEnvironment
+    displayName: 'Target Environment'
+    type: string
+    default: 'stage'
+    values:
+      - 'stage'
+      - 'stage2'
+      - 'stage3'
+      - 'stage4'
+      - 'stage5'
+      - 'stage6'
+      - 'stage7'
+      - 'stage8'
+      - 'stage9'
+      - 'production'
+  - name: targetRegion
+    displayName: 'Target Region'
+    type: string
+    default: 'us'
+    values:
+      - 'us'
+      - 'eu'
+      - 'uk'
+  - name: sanity
+    displayName: 'Sanity'
+    type: boolean
+    default: false
+
+trigger:
+  batch: true
+  branches:
+    include:
+      - refs/heads/staging
+      - refs/heads/production
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  isManual: $[eq(variables['Build.Reason'], 'Manual')]
+  isStage: $[eq(variables['Build.SourceBranch'], 'refs/heads/staging')]
+  isProduction: $[eq(variables['Build.SourceBranch'], 'refs/heads/production')]
+
+jobs:
+
+- job: ManualTrigger
+  condition: and(succeeded(), eq(variables.isManual, true))
+  timeoutInMinutes: 0
+  steps:
+    - task: NodeTool@0
+      displayName: 'Install Node.js'
+      inputs:
+        versionSource: 'spec'
+        versionSpec: '18.x'
+
+    - task: Npm@1
+      displayName: 'npm install'
+      inputs:
+        command: 'custom'
+        workingDir: 'tests/cypress/'
+        customCommand: 'install --legacy-peer-deps'
+    - script: |
+        commandName="${{ parameters.targetEnvironment }}"
+        if [ "${{ parameters.targetRegion }}" != "us" ]; then
+        commandName="${commandName}-${{ parameters.targetRegion }}"
+        fi
+        if [ "${{ parameters.sanity }}" = "true" ]; then
+        commandName="${commandName}-sanity"
+        fi
+        echo "Running command: $commandName"
+        echo "##vso[task.setvariable variable=commandName]$commandName"
+      displayName: 'Prepare command'
+
+    - task: Npm@1
+      displayName: 'Execute Cypress Tests for manual trigger ${{ parameters.targetEnvironment }}'
+      condition: and(succeeded(), eq(variables.isManual, true))
+      continueOnError: true
+      env:
+        BUILD_BUILDNUMBER: $(Build.BuildNumber)
+      inputs:
+        command: 'custom'
+        workingDir: 'tests/cypress/'
+        customCommand: 'run $(commandName)'
+
+- job: Staging
+  condition: and(succeeded(), eq(variables.isStage, true))
+  timeoutInMinutes: 0
+  steps:
+    - task: Npm@1
+      displayName: 'npm install'
+      inputs:
+        command: 'custom'
+        workingDir: 'tests/cypress/'
+        customCommand: 'install --legacy-peer-deps'
+        
+    - task: Npm@1
+      displayName: npm run for stage
+      condition: and(succeeded(), eq(variables.isStage, true))
+      continueOnError: true
+      inputs:
+        command: 'custom'
+        workingDir: 'tests/cypress/'
+        customCommand: 'run stage'
+    - task: Npm@1
+      displayName: npm run for chrome-headed
+      continueOnError: true
+      inputs:
+        command: 'custom'
+        workingDir: 'tests/cypress/'
+        customCommand: 'run chrome-headed'
+
+    - task: Npm@1
+      displayName: npm run for chrome-no-dashboard
+      continueOnError: true
+      inputs:
+        command: 'custom'
+        workingDir: 'tests/cypress/'
+        customCommand: 'run chrome-no-dashboard'
+- job: Production
+  condition: and(succeeded(), eq(variables.isProduction, true))
+  timeoutInMinutes: 0
+  steps:
+    - task: Npm@1
+      displayName: 'npm install'
+      inputs:
+        command: 'custom'
+        workingDir: 'tests/cypress/'
+        customCommand: 'install --legacy-peer-deps'
+        
+    - task: Npm@1
+      displayName: npm run for production
+      condition: and(succeeded(), eq(variables.isProduction, true))
+      continueOnError: true
+      inputs:
+        command: 'custom'
+        workingDir: 'tests/cypress/'
+        customCommand: 'run production'
+#- job: PublishTestResults
+#  dependsOn:
+#    - ManualTrigger
+#    - Production
+#    - Staging
+#  condition: or(succeeded('ManualTrigger'), succeeded('Production'), succeeded('Stage'))
+#  timeoutInMinutes: 0
+#  steps:
+#    - task: Npm@1
+#      displayName: 'run HTMLReport'
+#      inputs:
+#        command: 'custom'
+#        workingDir: '$(System.DefaultWorkingDirectory)/tests/cucumberHTMLReport/'
+#        customCommand: 'run HTMLReport'
+#
+#    - task: PublishTestResults@2
+#      inputs:
+#        testResultsFormat: 'JUnit'
+#        testResultsFiles: '**/combined.xml'
+#        searchFolder: '$(System.DefaultWorkingDirectory)/tests/cucumberHTMLReport/HTMLReport'
+

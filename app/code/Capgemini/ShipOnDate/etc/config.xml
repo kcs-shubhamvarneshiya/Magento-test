@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_ShipOnDate
+ *
+ * @category  Capgemini
+ * @author    Oleksander Tolkach <oleksander.tolkach@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <ship_on_date>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Capgemini\ShipOnDate\Model\Carrier</model>
+                <name>Fixed</name>
+                <price>5.00</price>
+                <title>Request Delivery Date</title>
+                <type>I</type>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.
+                </specificerrmsg>
+                <handling_type>F</handling_type>
+                <first_available_date>1</first_available_date>
+                <last_available_date>180</last_available_date>
+                <allowed_days>1,2,3,4,5,6,7</allowed_days>
+            </ship_on_date>
+        </carriers>
+    </default>
+</config>

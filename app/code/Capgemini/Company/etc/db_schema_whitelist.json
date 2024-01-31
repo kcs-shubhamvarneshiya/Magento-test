@@ -1,0 +1,42 @@
+{
+    "company": {
+        "column": {
+            "website": true,
+            "cell_phone": true,
+            "fax": true,
+            "business_type": true,
+            "member_state": true,
+            "vat_number": true,
+            "collections": true
+        }
+    },
+    "company_documents": {
+        "column": {
+            "document_id": true,
+            "document_type": true,
+            "company_id": true,
+            "added_by": true,
+            "filename": true,
+            "created_at": true,
+            "system_filename": true
+        },
+        "index": {
+            "COMPANY_DOCUMENTS_DOCUMENT_TYPE": true,
+            "COMPANY_DOCUMENTS_COMPANY_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "COMPANY_DOCUMENTS_COMPANY_ID_COMPANY_ENTITY_ID": true
+        }
+    },
+    "company_document_contents": {
+        "column": {
+            "document_id": true,
+            "document_contents": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_CEACC82C5A9E9EB141516FA76A7B6A67": true
+        }
+    }
+}

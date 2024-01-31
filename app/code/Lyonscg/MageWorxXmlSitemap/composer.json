@@ -1,0 +1,21 @@
+{
+  "name": "lyonscg/mage-worx-xml-sitemap",
+  "version": "1.0.0",
+  "description": "N/A",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*",
+    "mageworx/module-xmlsitemap": "3.3.*"
+  },
+  "license": [
+    "Proprietary"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Lyonscg\\MageWorxXmlSitemap\\": ""
+    }
+  }
+}

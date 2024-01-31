@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Bloomreach Connector extension
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Bloomreach Proprietary License
+ * that is bundled with this package in the file LICENSE.txt.
+ *
+ * @category       Bloomreach
+ * @package        Connector
+ * @copyright      Copyright (c) 2021-current Bloomreach Inc.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="bloomreach_search">
+            <resource>Bloomreach_Connector::config_search</resource>
+            <include path="Capgemini_BloomreachApi::system/search.xml"/>
+        </section>
+        <section id="bloomreach_collections" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+            <resource>Bloomreach_Connector::config_collections</resource>
+            <include path="Capgemini_BloomreachApi::system/collections.xml"/>
+        </section>
+        <section id="bloomreach_settings">
+            <resource>Bloomreach_Connector::config_collections</resource>
+            <include path="Capgemini_BloomreachApi::system/settings.xml"/>
+        </section>
+    </system>
+</config>

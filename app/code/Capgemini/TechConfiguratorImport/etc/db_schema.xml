@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_TechConfiguratorImport
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="vc_configurator_config" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" identity="true" unsigned="true" nullable="false"/>
+        <column xsi:type="varchar" name="name" length="255" nullable="true" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="VC_CONFIGURATOR_CONFIG_NAME">
+            <column name="name"/>
+        </constraint>
+    </table>
+    <table name="vc_configurator_footnotes" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" identity="true" unsigned="true" nullable="false"/>
+        <column xsi:type="int" name="config_id" unsigned="true" nullable="false"/>
+        <column xsi:type="int" name="number" unsigned="true" nullable="true"/>
+        <column xsi:type="text" name="footnote" nullable="true" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="VC_CONFIGURATOR_FOOTNOTES_CONFIG_ID_VC_CONFIGURATOR_CONFIG_ENTITY_ID" table="vc_configurator_footnotes" column="config_id"
+                    referenceTable="vc_configurator_config" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="VC_CONFIGURATOR_FOOTNOTES_CONFIG_ID" indexType="btree">
+            <column name="config_id"/>
+        </index>
+    </table>
+    <table name="vc_configurator_skupart" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" identity="true" unsigned="true" nullable="false"/>
+        <column xsi:type="int" name="config_id" unsigned="true" nullable="false"/>
+        <column xsi:type="varchar" name="name" length="255" nullable="true" />
+        <column xsi:type="varchar" name="type" length="255" nullable="true" default="option"/>
+        <column xsi:type="int" name="sort" nullable="true"/>
+        <column xsi:type="int" name="optional" nullable="true"/>
+        <column xsi:type="varchar" name="help_text" length="255" nullable="true" />
+        <column xsi:type="varchar" name="footnotes" length="255" nullable="true" />
+        <column xsi:type="varchar" name="validation" length="255" nullable="true" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="VC_CONFIGURATOR_SKUPART_CONFIG_ID_VC_CONFIGURATOR_CONFIG_ENTITY_ID" table="vc_configurator_skupart" column="config_id"
+                    referenceTable="vc_configurator_config" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="VC_CONFIGURATOR_SKUPART_CONFIG_ID" indexType="btree">
+            <column name="config_id"/>
+        </index>
+    </table>
+    <table name="vc_configurator_skupart_option" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" identity="true" unsigned="true" nullable="false"/>
+        <column xsi:type="int" name="skupart_id" unsigned="true" nullable="false"/>
+        <column xsi:type="varchar" name="character" length="255" nullable="true" />
+        <column xsi:type="varchar" name="description" length="255" nullable="true" />
+        <column xsi:type="varchar" name="footnotes" length="255" nullable="true" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="VC_CONFIGURATOR_SKUPART_OPTION_SKUPART_ID_VC_CONFIGURATOR_SKUPART_ENTITY_ID" table="vc_configurator_skupart_option" column="skupart_id"
+                    referenceTable="vc_configurator_skupart" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="VC_CONFIGURATOR_SKUPART_OPTION_SKUPART_ID" indexType="btree">
+            <column name="skupart_id"/>
+        </index>
+    </table>
+    <table name="vc_configurator_exception" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" identity="true" unsigned="true" nullable="false"/>
+        <column xsi:type="int" name="config_id" unsigned="true" nullable="false"/>
+        <column xsi:type="varchar" name="skupart_name" length="255" nullable="true" />
+        <column xsi:type="varchar" name="option_character" length="255" nullable="true" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="VC_CONFIGURATOR_EXCEPTION_CONFIG_ID_VC_CONFIGURATOR_CONFIG_ENTITY_ID" table="vc_configurator_exception" column="config_id"
+                    referenceTable="vc_configurator_config" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="VC_CONFIGURATOR_EXCEPTION_CONFIG_ID" indexType="btree">
+            <column name="config_id"/>
+        </index>
+    </table>
+    <table name="vc_configurator_exception_condition" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" identity="true" unsigned="true" nullable="false"/>
+        <column xsi:type="int" name="exception_id" unsigned="true" nullable="false"/>
+        <column xsi:type="varchar" name="skupart_name" length="255" nullable="true" />
+        <column xsi:type="varchar" name="option_character" length="255" nullable="true" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="VC_CONFIGURATOR_EXCEPTION_CONDITION_EXCEPTION_ID_VC_CONFIGURATOR_EXCEPTION_ENTITY_ID" table="vc_configurator_exception_condition" column="exception_id"
+                    referenceTable="vc_configurator_exception" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="VC_CONFIGURATOR_EXCEPTION_CONDITION_EXCEPTION_ID" indexType="btree">
+            <column name="exception_id"/>
+        </index>
+    </table>
+</schema>

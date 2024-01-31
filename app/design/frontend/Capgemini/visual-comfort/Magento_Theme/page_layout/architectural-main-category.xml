@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="1column"/>
+    <referenceContainer name="page.wrapper">
+        <container name="header.container" as="header_container" label="Page Header Container" htmlTag="header" htmlClass="page-header" before="main.content"/>
+        <container name="page.top" as="page_top" label="After Page Header" after="header.container"/>
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceBlock name="catalog.leftnav" remove="true" />
+        <container name="footer-container" as="footer" before="before.body.end" label="Page Footer Container" htmlTag="footer" htmlClass="page-footer"/>
+    </referenceContainer>
+
+    <move element="breadcrumbs" destination="content" after="header.container" />    
+
+
+    <referenceContainer name="category.view.container">
+        <referenceBlock name="category.description" remove="true" />
+    </referenceContainer>
+
+
+    <!-- <referenceBlock name="catalog.leftnav">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Rysun_Category::layer/view.phtml</argument>
+            </action>
+    </referenceBlock> -->
+
+   
+    
+    <referenceContainer name="content">
+        <referenceBlock name="category.image" remove="true" />
+        <referenceBlock name="category.products.list" remove="true" />
+
+        <!-- Main Category Grid -->
+        <block class="Rysun\Category\Block\MainCatView" name="architectural.maincategory.list" template="Rysun_Category::category-main.phtml" />
+    </referenceContainer>    
+
+     
+</layout>

@@ -1,0 +1,28 @@
+<?php
+/** @var $block \Capgemini\Company\Block\Adminhtml\DocumentList */
+$links = $block->getDocumentLinks();
+?>
+<?php if (!empty($links)): ?>
+    <table id="list-document-links" class="data-grid">
+        <thead>
+            <tr class="document-row">
+                <th class="data-grid-th no-link"><?= __('ID') ?></th>
+                <th class="data-grid-th no-link"><?= __('Type') ?></th>
+                <th class="data-grid-th no-link"><?= __('Document') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($links as $link): ?>
+            <tr>
+                <td><?= $block->escapeHtml($link['id']) ?></td>
+                <td class="a-center"><?= $block->escapeHtml($link['type']) ?></td>
+                <td class="a-center">
+                    <a href="<?= $link['url'] ?>" title="<?= $block->escapeHtmlAttr($link['filename']) ?>">
+                        <span><?= $block->escapeHtml($link['filename']) ?></span>
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>

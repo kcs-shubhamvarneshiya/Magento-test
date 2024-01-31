@@ -1,0 +1,47 @@
+<?php
+/** @var $block \Lyonscg\CircaLighting\Block\Docupdate */
+?>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Ui/js/model/messageList'
+    ], function($, messageList) {
+        function _onRequisitionItemUpdate() {
+            var rlData = $('#form-requisition-list').serializeArray();
+            rlData.push({
+                'name': 'form_key',
+                'value': $('[name="form_key"]').val()
+            });
+            rlData.push({
+                'name': 'requisition_id',
+                'value': '<?= $block->escapeJs($block->getRequest()->getParam('requisition_id')) ?>'
+            });
+            $('body').trigger('processStart');
+            $.post(
+                '<?= $block->getQuoteUrl() ?>',
+                $.param(rlData),
+                function(data) {
+                    if (data.success) {
+                        messageList.addSuccessMessage({message: '<?= __('Item updated successfully') ?>'})
+                    } else {
+                        messageList.addErrorMessage({message: data.error_message ? data.error_message : '<?= __('Failed to update item') ?>'});
+                    }
+                }
+            ).fail(function() {
+                messageList.addErrorMessage({message: '<?= __('Failed to update item') ?>'});
+            }).always(function() {
+                $('body').trigger('processStop');
+            });
+        }
+        $('#form-requisition-list .col.qty input.qty').change(function() {
+            $('.requisition-view-buttons button.update-quote').trigger('click');
+            $('body').trigger('processStart');
+            <?php /* show loading icon when page is refreshing */ ?>
+            window.setTimeout(function() {
+                <?php /* just in case something fails, remove the loading image after a bit */ ?>
+                $('body').trigger('processStop');
+            }, 20000);
+        });
+        $('#form-requisition-list .cart-comments textarea').on('changeFinished', _onRequisitionItemUpdate);
+    });
+</script>

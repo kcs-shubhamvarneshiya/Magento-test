@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Lyonscg\AddressRestrictions\Api\Data\AddressDeleteLogInterface"
+        type="Lyonscg\AddressRestrictions\Model\AddressDeleteLog"/>
+    <preference for="Lyonscg\AddressRestrictions\Api\AddressDeleteLogRepositoryInterface"
+        type="Lyonscg\AddressRestrictions\Model\AddressDeleteLogRepository"/>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="address_delete_log_listing_data_source"
+                    xsi:type="string">Lyonscg\AddressRestrictions\Model\ResourceModel\AddressDeleteLog\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Lyonscg\AddressRestrictions\Model\ResourceModel\AddressDeleteLog\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">address_delete_log</argument>
+            <argument name="eventPrefix" xsi:type="string">address_restrictions_address_delete_log_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">address_delete_log_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Lyonscg\AddressRestrictions\Model\ResourceModel\AddressDeleteLog</argument>
+        </arguments>
+    </type>
+</config>

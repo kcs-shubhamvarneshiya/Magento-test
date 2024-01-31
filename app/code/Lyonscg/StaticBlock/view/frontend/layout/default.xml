@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- New blocks -->
+        <referenceContainer name="footer">
+            <block class="Magento\Cms\Block\Block" name="vc_footer_links" after="form.subscribe">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">vc_footer_links</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="report.bugs" remove="true" />
+        <referenceBlock name="footer_links" remove="true"/>
+    </body>
+</page>

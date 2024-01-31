@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <custom_height>
+            <general>
+                <custom_height>108</custom_height>
+                <height_increment>1</height_increment>
+                <custom_height_pricing>{"_1633375174243_243":{"length":"24","price":"200.00","cost":""},"_1633375196808_808":{"length":"36","price":"300.00","cost":""}}</custom_height_pricing>
+                <availability_message>2-3 Weeks</availability_message>
+                <note>Please note: Customized items are final sale</note>
+                <cut_down_cost>100</cut_down_cost>
+                <cut_down_price>200</cut_down_price>
+            </general>
+            <custom_calculator>
+                <room_configuration>{"_1633696970449_449":{"room_name":"Kitchen \/ Over an Island","measure_1":"Ceiling Height","measure_2":"Island Height","measure_3":"Desired spacing off of island","tip":"","tip_image":""},"_1633697011221_221":{"room_name":"Dining \/ Over a Table","measure_1":"Ceiling Height","measure_2":"Table Height","measure_3":"Desired spacing off of Table","tip":"","tip_image":""},"_1633697071077_77":{"room_name":"Entry \/ Foyer","measure_1":"Ceiling Height","measure_2":"Desired height from floor","measure_3":"","tip":"","tip_image":""},"_1633697094261_261":{"room_name":"Hallway","measure_1":"Ceiling Height","measure_2":"Desired height from floor","measure_3":"","tip":"","tip_image":""},"_1633697193590_590":{"room_name":"Bedroom","measure_1":"Ceiling Height","measure_2":"Bed Height","measure_3":"Desired height over bed","tip":"","tip_image":""},"_1633697225789_789":{"room_name":"Living Room","measure_1":"Ceiling Height","measure_2":"Desired height from floor","measure_3":"","tip":"","tip_image":""},"_1633697268038_38":{"room_name":"Office","measure_1":"Ceiling Height","measure_2":"Desired height from floor","measure_3":"","tip":"","tip_image":""},"_1633697291758_758":{"room_name":"Other","measure_1":"Ceiling Height","measure_2":"Desired height from floor","measure_3":"","tip":"","tip_image":""}}</room_configuration>
+            </custom_calculator>
+        </custom_height>
+    </default>
+</config>

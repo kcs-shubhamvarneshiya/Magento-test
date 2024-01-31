@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+* @author Amasty Team
+* @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+* @package Store Locator for Magento 2
+*/-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="breadcrumbs">
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">Home</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Home</item>
+                    <item name="label" xsi:type="string" translate="true">Home</item>
+                    <item name="link" xsi:type="string">/</item>
+                </argument>
+            </action>
+            <action method="addCrumb">
+                <argument name="crumbName" xsi:type="string">Showrooms</argument>
+                <argument name="crumbInfo" xsi:type="array">
+                    <item name="title" xsi:type="string" translate="true">Showrooms</item>
+                    <item name="label" xsi:type="string" translate="true">Showrooms</item>
+                </argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Showroom/Dealer Locator</argument>
+            </action>
+        </referenceBlock>
+        <container name="page.title.additional" as="page.title.additional" label="Page Title Additional" htmlTag="p" htmlClass="page-title-additional">
+            <block class="Magento\Framework\View\Element\Text" name="page.additional.text.info">
+                <action method="setText">
+                    <argument name="text" xsi:type="string">Find a Visual Comfort &#38; Co. store or certified retailer. Enter your address, city/state or zip code/postal code.</argument>
+                </action>
+            </block>
+        </container>
+        <move element="page.title.additional" destination="columns.top" after="page.main.title" />
+    </body>
+</page>

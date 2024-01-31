@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="pathways_recommendation_brsm" class="Capgemini\BloomreachProductRecommendations\Block\Widget\Recommendation">
+        <parameters>
+            <parameter xsi:type="select" name="template">
+                <options>
+                    <option name="default" value="Capgemini_BloomreachProductRecommendations::widget/recommendation/default.phtml">
+                        <label/>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

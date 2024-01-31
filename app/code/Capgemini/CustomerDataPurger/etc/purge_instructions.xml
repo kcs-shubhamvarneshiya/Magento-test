@@ -1,0 +1,164 @@
+<?xml version="1.0" ?>
+
+<instructions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="purge_instructions.xsd">
+    <!--<table name="quote_address" identity_column="address_id" referential_path="[customer_id]|customer_entity[entity_id]">
+        <column name="postcode" />
+        <column name="telephone" />
+        <column name="email">
+            <placeholder>placeholder@replaced.wth</placeholder>
+        </column>
+        <column name="firstname">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="middlename">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="lastname">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="company">
+            <placeholder>&#45;&#45;/company-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="street">
+            <placeholder>&#45;&#45;/street-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="city">
+            <placeholder>&#45;&#45;/city-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="region">
+            <placeholder>&#45;&#45;/region-placeholder/&#45;&#45;</placeholder>
+        </column>
+    </table>-->
+    <table name="sales_creditmemo_grid" identity_column="entity_id" referential_path="[order_id]|sales_order[entity_id,customer_id]|customer_entity[entity_id]">
+        <column name="billing_address">
+            <placeholder>--/address-placeholder/--</placeholder>
+        </column>
+        <column name="shipping_address">
+            <placeholder>--/address-placeholder/--</placeholder>
+        </column>
+        <column name="customer_email">
+            <placeholder>placeholder@replaced.wth</placeholder>
+        </column>
+        <column name="customer_name">
+            <placeholder>--/name-placeholder/--</placeholder>
+        </column>
+        <column name="billing_name">
+            <placeholder>--/name-placeholder/--</placeholder>
+        </column>
+    </table>
+    <table name="sales_invoice_grid" identity_column="entity_id" referential_path="[order_id]|sales_order[entity_id,customer_id]|customer_entity[entity_id]">
+        <column name="billing_address">
+            <placeholder>--/address-placeholder/--</placeholder>
+        </column>
+        <column name="shipping_address">
+            <placeholder>--/address-placeholder/--</placeholder>
+        </column>
+        <column name="customer_name">
+            <placeholder>--/name-placeholder/--</placeholder>
+        </column>
+        <column name="customer_email">
+            <placeholder>placeholder@replaced.wth</placeholder>
+        </column>
+        <column name="billing_name">
+            <placeholder>--/name-placeholder/--</placeholder>
+        </column>
+    </table>
+    <table name="sales_order_address" identity_column="entity_id" referential_path="[customer_address_id]|customer_address_entity[entity_id,parent_id]|customer_entity[entity_id]">
+        <column name="postcode" />
+        <column name="telephone" />
+        <column name="region">
+            <placeholder>--/region-placeholder/--</placeholder>
+        </column>
+        <column name="firstname">
+            <placeholder>--/name-placeholder/--</placeholder>
+        </column>
+        <column name="middlename">
+            <placeholder>--/name-placeholder/--</placeholder>
+        </column>
+        <column name="lastname">
+            <placeholder>--/name-placeholder/--</placeholder>
+        </column>
+        <column name="street">
+            <placeholder>--/street-placeholder/--</placeholder>
+        </column>
+        <column name="city">
+            <placeholder>--/city-placeholder/--</placeholder>
+        </column>
+        <column name="company">
+            <placeholder>--/company-placeholder/--</placeholder>
+        </column>
+        <column name="email">
+            <placeholder>placeholder@replaced.wth</placeholder>
+        </column>
+    </table>
+    <!--<table name="sales_order_grid" identity_column="entity_id" referential_path="[customer_id]|customer_entity[entity_id]">
+        <column name="billing_address">
+            <placeholder>&#45;&#45;/address-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="shipping_address">
+            <placeholder>&#45;&#45;/address-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="shipping_name">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="billing_name">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="customer_email">
+            <placeholder>placeholder@replaced.wth</placeholder>
+        </column>
+        <column name="customer_name">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+    </table>-->
+    <table name="sales_shipment_grid" identity_column="entity_id" referential_path="[order_id]|sales_order[entity_id,customer_id]|customer_entity[entity_id]">
+        <column name="billing_address">
+            <placeholder>--/address-placeholder/--</placeholder>
+        </column>
+        <column name="shipping_address">
+            <placeholder>--/address-placeholder/--</placeholder>
+        </column>
+        <column name="shipping_name">
+            <placeholder>--/name-placeholder/--</placeholder>
+        </column>
+        <column name="billing_name">
+            <placeholder>--/name-placeholder/--</placeholder>
+        </column>
+        <column name="customer_email">
+            <placeholder>placeholder@replaced.wth</placeholder>
+        </column>
+        <column name="customer_name">
+            <placeholder>--/name-placeholder/--</placeholder>
+        </column>
+    </table>
+    <!--<table name="quote" identity_column="entity_id" referential_path="[customer_id]|customer_entity[entity_id]">
+        <column name="customer_email">
+            <placeholder>placeholder@replaced.wth</placeholder>
+        </column>
+        <column name="customer_firstname">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="customer_middlename">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="customer_lastname">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+    </table>
+    <table name="sales_order" identity_column="entity_id" referential_path="[customer_id]|customer_entity[entity_id]">
+        <column name="customer_email">
+            <placeholder>placeholder@replaced.wth</placeholder>
+        </column>
+        <column name="customer_firstname">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="customer_middlename">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+        <column name="customer_lastname">
+            <placeholder>&#45;&#45;/name-placeholder/&#45;&#45;</placeholder>
+        </column>
+    </table>-->
+    <table name="salespad_customer_link" identity_column="link_id" referential_path="[customer_email]|customer_entity[email]" />
+    <table name="payfabric_wallet" identity_column="wallet_id" referential_path="[customer_id]|customer_entity[entity_id]" />
+</instructions>

@@ -1,0 +1,417 @@
+//
+//  Variables
+//  _____________________________________________
+
+// Font Stacks
+@font-circa-icons: 'circa-icons';
+
+// Icons
+@icon-long-arrow-left: '\e90d';
+
+// Images
+@form-radio-unselected-bg-image: url('@{baseDir}/images/radio_unselected.png') left center no-repeat;
+@form-radio-selected-bg-image: url('@{baseDir}/images/radio_selected.png') left center no-repeat;
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .ch-note {
+        margin: 10px 0;
+    }
+
+    // Product page
+    .product-info-main,
+    .custom_height_calculator {
+        #custom_height,
+        #custom_height_modal {
+
+            &:disabled {
+                opacity: 1;
+            }
+        }
+
+        .custom_height_wrapper {
+            margin-top: -10px;
+
+            .legend {
+                border: none;
+                margin-bottom: 5px;
+
+                a {
+                    text-decoration: underline;
+
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+
+        .field .control.select-btn {
+            position: relative;
+            width: 80%;
+        }
+
+        .select-btn {
+            button[type="button"] {
+                background: @color-white;
+                border: 1px solid @color-gray-600;
+                height: 25.5px;
+                position: absolute;
+                padding: 0;
+                right: 0;
+                top: 0;
+                width: 25px;
+
+                &:focus {
+                    outline: none;
+                }
+
+                &.btn-down {
+                    top: 24.5px;
+
+                    &:before {
+                        transform: rotate(180deg);
+                    }
+                }
+
+                &:before {
+                    border-style: solid;
+                    border-width: 0 5px 6px 5px;
+                    border-color: transparent transparent @color-gray-700 transparent;
+                    content: '';
+                    display: block;
+                    height: 0;
+                    margin: 0 auto;
+                    width: 0;
+                }
+            }
+        }
+    }
+
+    // Custom height calculator
+    .modals-wrapper .modal-popup.custom_height_calculator {
+        .action-close {
+            top: 10px;
+        }
+
+        .custom_height_wrapper {
+            padding-bottom: 10px;
+        }
+
+        .modal-content {
+            h3 {
+                color: @color-gray-800;
+                font-family: @font-goudy-old-style;
+                font-size: 2.6rem;
+                line-height: 1.23;
+                margin-top: 0;
+                font-weight: 400;
+                border-bottom: 1px solid @color-gray-400;
+                padding-bottom: 19px;
+                text-transform: capitalize;
+            }
+
+            h4 {
+                font-family: @font-goudy-old-style;
+                font-size: 2.6rem;
+                margin-top: 24px;
+                margin-bottom: 27px;
+                font-weight: 400;
+                line-height: 1;
+            }
+
+            #room_name h4 {
+                margin-bottom: 2rem;
+            }
+
+            .room-list {
+                padding: 0 0 70px;
+                list-style-type: none;
+            }
+
+            .item {
+                label {
+                    font-family: @font-proxima-nova;
+                    font-weight: 600;
+                    line-height: 1;
+                    font-size: 14px;
+                    color: @color-gray-800;
+                }
+            }
+
+            .back-link {
+                display: none;
+                color: @color-gray-700;
+                cursor: pointer;
+                font-family: @font-proxima-nova;
+                font-size: 1.2rem;
+                position: absolute;
+                text-transform: uppercase;
+                top: 15px;
+
+                &:before {
+                    content: @icon-long-arrow-left;
+                    display: inline-block;
+                    font-family: @font-proxima-nova;
+                    margin-right: 10px;
+                }
+            }
+
+            .room_configuration_table {
+                max-width: 510px;
+
+                tr {
+                    td {
+                        &:first-child {
+                            width: 210px;
+                            vertical-align: middle;
+                            ~ td {
+                                width: 150px;
+                            }
+                        }
+                    }
+                }
+
+                td {
+                    color: @color-gray-800;
+                    font-family: @font-proxima-nova;
+                    font-size: 1.4rem;
+                    padding: 3px;
+                    text-transform: capitalize;
+                    font-weight: 600;
+                    max-width: 450px;
+
+                    input[type="number"] {
+                        height: 45px;
+                        margin-right: 10px;
+                        text-align: center;
+                        width: 80px;
+                    }
+                }
+            }
+
+            #tip {
+                margin: 10px 66px 32px 1px;
+                font-size: 14px;
+                line-height: 1.71;
+                letter-spacing: 0.25px;
+            }
+
+            .custom_height_wrapper {
+                label {
+                    cursor: default;
+                    text-transform: none;
+                    margin-bottom: 13px;
+                    height: 26px;
+                    font-family: @font-goudy-old-style;
+                    font-size: 26px;
+                    font-weight: normal;
+                    color: @color-gray-800;
+                    line-height: 1;
+                }
+
+                .field-label {
+                    color: @color-gray-900;
+                    font-size: 1.6rem;
+                    margin: 0 30px 0 5px;
+                }
+
+                #proceed_with_height {
+                    background: @color-gray-800;
+                    border: 1px solid @color-gray-800;
+                    color: @color-white;
+                    cursor: pointer;
+                    font-family: @font-proxima-nova;
+                    padding: 0 20px;
+                    line-height: 50px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    font-size: 12px;
+                    letter-spacing: 0.25px;
+                    font-weight: 600;
+                    display: inline-block;
+
+                    &:hover {
+                        background: @color-gray-700;
+                        text-decoration: none;
+                    }
+                }
+
+                .legend {
+                    font-size: 1.2rem;
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .modals-wrapper .modal-popup.custom_height_calculator .modal-content .custom_height_wrapper .control.select-btn {
+        margin-bottom: 15px;
+    }
+}
+
+//
+//  Desktop Large
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .modals-wrapper .modal-popup {
+        &.custom_height_calculator {
+            .modal-inner-wrap {
+                width: 1200px !important;
+            }
+        }
+    }
+
+    // Custom height calculator
+    .modals-wrapper .modal-popup.custom_height_calculator {
+        .modal-inner-wrap {
+            width: 100%;
+            max-width: 960px;
+            margin-top: 200px;
+        }
+
+        .modal-content {
+            padding: 20px 30px 80px;
+
+            .custom_height_wrapper {
+                padding-bottom: 85px;
+
+                .control.select-btn,
+                .field-label,
+                #proceed_with_height {
+                    display: inline-block;
+                }
+                .legend {
+                    display: none;
+                    margin-top: 30px;
+                    margin-left: 0;
+                }
+
+                .control.select-btn {
+                    max-width: 200px;
+                    width: 100%;
+                    margin-right: -10px;
+                    min-width: 280px;
+                }
+
+                .underlined {
+                    text-decoration: underline;
+                }
+            }
+        }
+        .room-wrapper {
+            display: flex;
+        }
+
+        .room-name {
+            flex-grow: 1;
+        }
+
+        .tip-image {
+            margin-top: 40px;
+            width: 30%;
+
+            img {
+                display: block;
+            }
+        }
+    }
+}
+
+//
+//  Mobile @screen__m
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    div.product-info-main {
+        .field .control.select-btn {
+            width: 100%;
+        }
+    }
+
+    // Custom height calculator
+    .modals-wrapper .modal-popup.custom_height_calculator {
+        left: 0;
+        padding: 0 10px;
+
+        .action-close {
+            z-index: 100;
+            top: 30px !important;
+            right: 10px !important;
+        }
+
+        // Radio
+        input[type=radio] + label {
+            &::before {
+                background: @form-radio-unselected-bg-image;
+            }
+        }
+
+        input[type=radio]:checked + label:before {
+            background: @form-radio-selected-bg-image;
+        }
+
+        .modal-inner-wrap {
+            max-width: 980px;
+            width: 100%;
+        }
+
+        .modal-content {
+            padding-bottom: 20px;
+
+            .room_configuration_table {
+                tr {
+                    display: block;
+                }
+
+                td {
+                    padding: 0;
+
+                    &:first-child {
+                        display: block;
+                        width: 100%;
+                    }
+
+                    .label {
+                        padding-top: 15px;
+                    }
+                }
+            }
+
+            .custom_height_wrapper {
+                .control.select-btn,
+                .field-label {
+                    display: inline-block;
+                }
+
+                .control.select-btn {
+                    width: ~'calc(100% - 35px)';
+                }
+
+                .field-label {
+                    width: 25px;
+                    margin: 0;
+                }
+
+                .label {
+                    margin-right: 0;
+                    font-size: 15px;
+                    letter-spacing: unset;
+                }
+
+                #proceed_with_height {
+                    display: block;
+                    margin: 20px 0;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}

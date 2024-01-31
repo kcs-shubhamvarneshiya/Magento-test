@@ -1,0 +1,113 @@
+<?php
+/**
+ * Lyonscg_Wishlist
+ *
+ * @category  Lyons
+ * @package   Lyonscg_Wishlist
+ * @author    Tanya Mamchik <tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2021 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var \Lyonscg\Wishlist\Block\Share\Wishlist $block */
+
+/** @var \Lyonscg\Catalog\Helper\Data $_helper */
+$_helper = $this->helper(\Lyonscg\Catalog\Helper\Data::class);
+?>
+
+<?php if ($block->hasWishlistItems()) : ?>
+    <form class="form shared wishlist" action="<?= $block->escapeUrl($block->getUrl('wishlist/index/update')) ?>" method="post">
+        <div class="wishlist table-wrapper">
+            <table class="table data wishlist" id="wishlist-table">
+                <caption class="table-caption"><?= $block->escapeHtml(__('Wish List')) ?></caption>
+                <thead>
+                <tr>
+                    <th class="col product" scope="col"><?= $block->escapeHtml(__('Product')) ?></th>
+                    <th class="col comment" scope="col"><?= $block->escapeHtml(__('Comment')) ?></th>
+                    <th class="col actions" scope="col"><?= $block->escapeHtml(__('Add to Cart')) ?></th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($block->getWishlistItems() as $item) : ?>
+                    <?php
+                    $product = $item->getProduct();
+                    $isVisibleProduct = $product->isVisibleInSiteVisibility();
+                    $productForThumbnail = $block->getProductForThumbnail($item);
+                    ?>
+                    <tr>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Product')) ?>" class="col product">
+                            <a class="product photo" href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>" title="<?= $block->escapeHtmlAttr($product->getName()) ?>">
+                                <?php if ($productForThumbnail->getThumbnail() == 'no_selection' || $productForThumbnail->getTypeId() == 'configurable') : ?>
+                                    <?= $block->getImage($_helper->getChildProduct($product), 'customer_shared_wishlist')->toHtml() ?>
+                                <?php else : ?>
+                                    <?= $block->getImage($block->getProductForThumbnail($item), 'customer_shared_wishlist')->toHtml() ?>
+                                <?php endif; ?>
+                            </a>
+                            <strong class="product name">
+                                <a href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>">
+                                    <?= $block->escapeHtml($product->getName()) ?>
+                                </a>
+                            </strong>
+                            <?=
+                                $block->getProductPriceHtml(
+                                    $product,
+                                    'wishlist_configured_price',
+                                    \Magento\Framework\Pricing\Render::ZONE_ITEM_LIST,
+                                    ['item' => $item]
+                                );
+                            ?>
+                            <?= $block->getDetailsHtml($item) ?>
+                        </td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Comment')) ?>" class="col comment"><?= /* @noEscape */ $block->getEscapedDescription($item) ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>" class="col actions" data-role="add-to-links">
+                            <?php if ($product->isSaleable()) : ?>
+                                <?php if ($isVisibleProduct) : ?>
+                                    <button type="button"
+                                            title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                            data-post='<?= /* @noEscape */ $block->getSharedItemAddToCartUrl($item) ?>'
+                                            class="action tocart">
+                                        <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+                                    </button>
+                                <?php endif ?>
+                            <?php endif; ?>
+                            <a href="#" data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($item) ?>'  onclick="location.assign(this.href); return false;" class="action towishlist" data-action="add-to-wishlist">
+                                <span><?= $block->escapeHtml(__('Add to Project')) ?></span>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="actions-toolbar">
+            <?php if ($block->isSaleable()) : ?>
+                <div class="primary">
+                    <button type="button"
+                            title="<?= $block->escapeHtmlAttr(__('Add All to Cart')) ?>"
+                            data-post='<?= $block->escapeUrl($block->getSharedAddAllToCartUrl()) ?>'
+                            class="action tocart primary">
+                        <span><?= $block->escapeHtml(__('Add All to Cart')) ?></span>
+                    </button>
+                </div>
+            <?php endif;?>
+            <div class="secondary">
+                <a href="<?= $block->escapeUrl($block->getBackUrl()) ?>" class="action back">
+                    <span><?= $block->escapeHtml(__('Back')) ?></span>
+                </a>
+            </div>
+        </div>
+    </form>
+<?php else : ?>
+    <div class="message info empty"><span><?= $block->escapeHtml(__('Wish List is empty now.')) ?></span><span class="action close"></span></div>
+<?php endif ?>
+
+<script>
+    require(['jquery'], function ($) {
+        //simulate close btn
+        if ($('.message.info.empty').length) {
+            $('.action.close').click(function () {
+                $('.message.info.empty').hide();
+            })
+        }
+    })
+</script>

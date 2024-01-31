@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+ * Capgemini_RequestToOrder
+ *
+ * @category  Capgemini
+ * @author    Oleksander Tolkach <oleksander.tolkach@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <block class="Magento\Customer\Block\Account\SortLinkInterface" name="request-to-order"
+                ifconfig="rto/general/active">
+                <arguments>
+                    <argument name="sortOrder" xsi:type="number">40</argument>
+                    <argument name="label" xsi:type="string">Request To Order</argument>
+                    <argument name="path" xsi:type="string">orequest/request/history</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

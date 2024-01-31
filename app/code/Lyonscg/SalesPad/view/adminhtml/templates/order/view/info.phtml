@@ -1,0 +1,28 @@
+<?php
+/**
+ * @var \Magento\Sales\Block\Adminhtml\Order\AbstractOrder $block
+ */
+$order = $block->getOrder();
+?>
+<section class="admin__page-section order-view-account-information">
+    <div class="admin__page-section-title">
+        <span class="title"><?= $block->escapeHtml(__('SalesPad Information')) ?></span>
+    </div>
+    <div class="admin__page-section-content">
+        <div class="admin__page-section-item order-information">
+            <?php /* Order SalesPad Information */ ?>
+            <div class="admin__page-section-item-content">
+                <table class="admin__table-secondary order-information-table">
+                    <tr>
+                        <th><?= $block->escapeHtml(__('SalesPad Order Num')) ?></th>
+                        <td><?= $block->escapeHtml($order->getSalespadSalesDocNum()) ?></td>
+                    </tr>
+                    <tr>
+                        <th><?= $block->escapeHtml(__('SalesPad Customer Num')) ?></th>
+                        <td><?= $block->escapeHtml($order->getSalesPadCustomerNum()) ?></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

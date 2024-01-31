@@ -1,0 +1,270 @@
+<?php
+    /*$product_optipons = $block->getCurrentProduct();
+    $pid = $product_optipons->getId();
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+    $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+    $connection = $resource->getConnection();
+    $tableName = $resource->getTableName('kcs_pacjson'); //gives table name with prefix
+    //Select Data from table
+    $sql = "Select * FROM " . $tableName . " where pid='".$pid."'";
+    $result = $connection->fetchAll($sql);
+    //print_r($result);exit;
+    $attribute_combination_json = "";
+    $option_combination = array();
+    //$option_combination_disabled = array();
+    
+    foreach ($result as $v) {
+        if ($attribute_combination_json == "") {
+            $attribute_combination_json = $v['attribute_combination'];
+        }
+        $option_combination[] = array('option_combination_json' => json_decode($v['option_combination_json']), 'status' => $v['status']);
+    }
+    $option_combination_json = $option_combination;*/
+?>
+<!-- <style type="text/css">
+    .display_sku{display:flex;margin:50px 0;font-size:56px;font-weight:300;color:#000;letter-spacing:5px;text-transform:uppercase;line-height:normal}
+    .display_sku input{font-size:56px;font-weight:300;color:#000;letter-spacing:5px;text-transform:uppercase;line-height:normal;border:0 none;margin:0;padding:0;height:auto;box-shadow:none!important;}
+    .sku_list{display:flex;align-items:flex-start;margin:0 0 30px}
+    .sku_list_fields{text-align:center;padding:0 10px}
+    .sku_list_fields label{display:block;margin-bottom:8px;color:#000;font-size:11px;font-weight:600;white-space:nowrap;text-transform:uppercase}
+    .sku_list_fields .sku_input{border:2px solid #e3e3e3;cursor:default;border-radius:0;font-size:16px;font-weight:600;height:45px;overflow:hidden;width:100%;box-shadow:none;color:#000;text-align:center;padding:5px 0px;margin:0 0 20px;-webkit-appearance:none}
+    .sku_list_box{color:#999;font-weight:600;text-align:left;padding:0 0 5px}
+    .sku_list_box ul{list-style:none;margin:0;padding:0}
+    .sku_list_box ul li{cursor:pointer;margin:0 0 5px;position:relative;}
+    .sku_list_box ul li input[type="radio"]{width:0px;height:0;visibility:hidden;opacity:0;position: absolute;}
+    .sku_list_box ul li strong{color:#000;padding:0 5px 0 0}
+    .sku_identity{cursor:pointer;font-size:13px}
+    #output{float: none;width: 100%;display: inline-block;}
+</style> -->
+
+<!--script type="text/javascript">
+    //var $ = jQuery.noConflict();
+    var attribute_combination_json = <?php //echo $attribute_combination_json; ?>;
+    var option_combination_json = <?php //echo json_encode($option_combination_json, JSON_FORCE_OBJECT); ?>;
+    
+
+    function combineSku() {
+        jQuery('#sku_txt').val('');
+        jQuery('#sku_txt').val(jQuery('#sku_txt').val()+jQuery("div").find("[itemprop='sku']").text());
+        jQuery(".swatch-attribute-selected-option").each(function(){
+            jQuery('#sku_txt').val(jQuery('#sku_txt').val()+jQuery(this).val());
+        });
+    }
+
+    function elementDisable(clicked_attribute_key, clicked_attribute_val)
+    {
+        //alert(clicked_attribute_key + " - " + clicked_attribute_val);
+        var disabled_rows_json = findRowsBasedOnStaus(option_combination_json, 2); // 2 for Disabled rows
+        var removed_lable_array = getRemovedLablesArray(disabled_rows_json);
+        console.log("disabled rows : " + JSON.stringify(removed_lable_array));
+
+        // Get each selected attribute with it's values
+        var selected_vals = [];
+        var i = 0;
+        jQuery(".swatch-attribute-selected-option").each(function(){
+            if(jQuery(this).val()) {
+                selected_vals[i] = jQuery(this).val();
+            } else {
+                selected_vals[i] = "*";
+            }
+            i = i + 1;
+        });
+        console.log("selected_vals : " + JSON.stringify(selected_vals));
+
+        const filters = {
+            [clicked_attribute_key] : [clicked_attribute_val]
+        };
+
+        console.log("filters rows : " + JSON.stringify(filters));
+        var filtered_array = filterRowsBasedonPassedKeyAndVal(removed_lable_array, filters);
+        console.log("filtered_array rows : " + JSON.stringify(filtered_array));
+
+        var iv = 0;
+        jQuery.each( filtered_array, function( filtered_array_key, filtered_array_value ) {
+            var jv = 0;
+            jQuery.each( filtered_array_value, function( filtered_array_value_key, filtered_array_value_value ) {
+                if (filtered_array_value_value !== "-" && filtered_array_value_value !== clicked_attribute_val && iv !== clicked_attribute_key) {
+                    if (typeof jQuery("li[elm_val='"+filtered_array_value_value+"']").attr('style') !== 'undefined' && jQuery("li[elm_val='"+filtered_array_value_value+"']").attr('style') !== false) {
+                        //alert(jQuery("li[elm_val='"+filtered_array_value_value+"']").attr('style') !== 'undefined');
+                        
+                        // Check if any Conflicts is there
+                        //reEnableOnAlreadySelectedOld(filtered_array_value_key);
+                        //alert(document.getElementById("swatch-attribute-selected-option["+filtered_array_value_key+"]").value + " - " + jQuery("li[elm_val='"+filtered_array_value_value+"']").val());
+
+                        // Reset Conflicts
+                        if ( document.getElementById("swatch-attribute-selected-option["+filtered_array_value_key+"]").value == filtered_array_value_value ) {
+                            //alert("inner called..");
+                            //jQuery("input[radio_btn='"+filtered_array_value_value+"']").prop('checked', false);
+                            document.getElementById("swatch-attribute-selected-option["+filtered_array_value_key+"]").value = "";
+                            combineSku();
+                            //reEnableOnAlreadySelectedOld(filtered_array_value_value);
+                        }
+
+                        // Disable element
+                        jQuery("li[elm_val='"+filtered_array_value_value+"']").each(function (i, el) {
+                            // enable current option element
+                            jQuery(this).css( "cursor", "not-allowed" );
+                            jQuery(this).css( "opacity", "0.5" );
+                            jQuery(this).css( "pointer-events", "none" );
+                        });
+                    }
+                    console.log("li elm_val : " + filtered_array_value_key + " - " + filtered_array_value_value);
+                    jQuery("li[elm_val='"+filtered_array_value_value+"']").each(function (i, el) {
+                        // enable current option element
+                        jQuery(this).css( "cursor", "not-allowed" );
+                        jQuery(this).css( "opacity", "0.5" );
+                        jQuery(this).css( "pointer-events", "none" );
+                    });
+                }
+                jv = jv + 1;
+            });
+            iv = iv + 1;
+        });
+    }
+
+    function reEnableOnAlreadySelectedOld(col_no) {
+        col_old_val = document.getElementById("swatch-attribute-selected-option["+col_no+"]").value;
+        //alert("COL NO : " + col_no + " - col_old_val : " + col_old_val);
+        if (col_old_val !== "") {
+            //alert("CAlled..." + col_old_val);
+
+            const filters = {
+                [col_no] : [col_old_val]
+            };
+
+            var disabled_rows_json = findRowsBasedOnStaus(option_combination_json, 2); // 2 for Disabled rows
+            var removed_lable_array = getRemovedLablesArray(disabled_rows_json);
+            console.log("disabled rows : " + JSON.stringify(removed_lable_array));
+
+            console.log("filters rows : " + JSON.stringify(filters));
+            var filtered_array = filterRowsBasedonPassedKeyAndVal(removed_lable_array, filters);
+            console.log("filtered_array rows : " + JSON.stringify(filtered_array));
+
+            var iv = 0;
+            jQuery.each( filtered_array, function( filtered_array_key, filtered_array_value ) {
+                var jv = 0;
+                jQuery.each( filtered_array_value, function( filtered_array_value_key, filtered_array_value_value ) {
+                    if (filtered_array_value_value !== "-" && filtered_array_value_value !== col_old_val && iv !== col_no) {
+                        console.log("li elm_val : " + filtered_array_value_key + " - " + filtered_array_value_value);
+                        //jQuery("li[elm_val='"+filtered_array_value_value+"']").each(function (i, el) {
+                            // enable current option element
+                            jQuery("li[elm_val='"+filtered_array_value_value+"']").css( "cursor", "" );
+                            jQuery("li[elm_val='"+filtered_array_value_value+"']").css( "opacity", "" );
+                            jQuery("li[elm_val='"+filtered_array_value_value+"']").css( "pointer-events", "" );
+                        //});
+                    }
+                    jv = jv + 1;
+                });
+                iv = iv + 1;
+            });
+
+        }
+    }
+
+    // ignores case-sensitive
+    const getValue = value => (typeof value === 'string' ? value.toUpperCase() : value);
+
+    /**
+     * Filters an array of objects (one level-depth) with multiple criteria.
+     *
+     * @param  {Array}  array: the array to filter
+     * @param  {Object} filters: an object with the filter criteria
+     * @return {Array}
+     */
+    function filterRowsBasedonPassedKeyAndVal(array, filters) {
+        const filterKeys = Object.keys(filters);
+        return array.filter(item => {
+            // validates all filter criteria
+            return filterKeys.every(key => {
+            // ignores an empty filter
+            if (!filters[key].length) return true;
+            return filters[key].find(filter => getValue(filter) === getValue(item[key]));
+            });
+        });
+    }
+
+    function getRemovedLablesArray (details) {
+        //alert("Called...");
+        var i = 0;
+        var new_array = [[]];
+        jQuery.each(details,  function( details_key, details_value ) {
+            var j = 0;
+            new_array[i] = [];
+            jQuery.each(details_value,  function( details_value_key, details_value_value ) {
+                if (details_value_value !== "-") {
+                    var option_combination_json_key_arr = details_value_value.split(':');
+                    var option_combination_json_key = option_combination_json_key_arr[0];
+                } else {
+                    option_combination_json_key = details_value_value;
+                }
+                //console.log(" i = " + i + " - " + " j = " + j + " - " + option_combination_json_key);
+                new_array[i].push(option_combination_json_key);
+                j = j + 1;
+            });
+            i = i + 1;
+        });
+        return new_array;
+    }
+
+    function getUniqueValuesOfKey (array, key){
+        return array.reduce(function(carry, item){
+            if(item[key] && !~carry.indexOf(item[key])) carry.push(item[key]);
+            return carry;
+        }, []);
+    }
+
+    function findRowsBasedOnStaus(option_combination_json, status) {
+        //alert(status);
+        var selected_rows = [];
+        var s = 0;
+        jQuery.each( option_combination_json, function( key, value ) {
+            if(value['status'] == status) {
+                selected_rows[s] = value['option_combination_json'];
+                //alert(value['option_combination_json']);
+                s = s + 1;
+            }
+        });
+        return selected_rows;
+    }
+
+    
+</script-->
+<!-- <div id="output"/>
+<div class="display_sku">
+    <input type="text" name="sku_txt" id="sku_txt" readonly />
+</div>
+<div class="sku_list">
+    <?php
+    //echo "Called...";
+    //$attributeCollection = $block->getAttributes();
+    //echo "<pre>";
+    //print_r($attributeCollection);exit;
+    //$all_attribute_options = $block->getAllAttributeOptions($attributeCollection);
+    //$all_attribute_options = $block->getSelectedAttributeOptions($attributeCollection[0]);
+    
+    //$all_attribute_options[]
+    // if ($all_attribute_options) {
+    //     $i = 0;
+    //     $j = 0;
+    //     foreach ($all_attribute_options as $all_attribute_options_k => $all_attribute_options_v) {
+    //         echo "<div class='sku_list_fields'>";
+    //         echo "<label>".$all_attribute_options_k."</label>";
+    //         echo '<input type="text" class="swatch-attribute-selected-option sku_input" id="swatch-attribute-selected-option['.$i.']" readonly />';
+    //         echo "<div class='sku_list_box'><ul id='$i'>";
+            
+    //         foreach ($all_attribute_options_v as $all_attribute_options_v_k => $all_attribute_options_v_v) {
+    //             if ($all_attribute_options_v_v['label'] !== " ") {
+    //                 $option_arr = explode(":", $all_attribute_options_v_v['label']);
+    //                 echo '<li id='.$j.' elm_ul='.$i.' elm_li='.$j.' elm_val="'.$option_arr[0].'" onClick="javascript:reEnableOnAlreadySelectedOld(\''.$i.'\'); document.getElementById(\''.$all_attribute_options_k.'['.$j.']\').checked = true; document.getElementById(\'swatch-attribute-selected-option['.$i.']\').value = \''.$option_arr[0].'\'; combineSku(); elementDisable(\''.$i.'\',\''.$option_arr[0].'\');">
+    //                         <input radio_btn=\''.$option_arr[0].'\' onClick="javascript:document.getElementById(\'swatch-attribute-selected-option['.$i.']\').value = \''.$option_arr[0].'\'; combineSku(); elementDisable(\''.$i.'\',\''.$option_arr[0].'\');" type="radio" name="'.$all_attribute_options_k.'" id="'.$all_attribute_options_k.'['.$j.']" value="'.$option_arr[0].'">
+    //                         <strong>'.$option_arr[0]."</strong><span>".$option_arr[1].'</span></li>';
+    //             }
+    //             $j++;
+    //         }
+    //         $i++;
+    //         echo "</ul></div>";
+    //         echo "</div>";
+    //     }
+    // }
+    ?>
+</div> -->

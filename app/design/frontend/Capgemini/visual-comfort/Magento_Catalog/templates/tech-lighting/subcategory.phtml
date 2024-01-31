@@ -1,0 +1,91 @@
+<?php
+$mockData = [
+    [
+        'name' => 'Element',
+        'link' => '#element',
+        'img' => $this->getViewFileUrl('images/tech-lighting/tech-subcategory-element.jpg')
+    ], [
+        'name' => 'Entra',
+        'link' => '#entra',
+        'img' => $this->getViewFileUrl('images/tech-lighting/tech-subcategory-entra.jpg')
+    ], [
+        'name' => 'Verse',
+        'link' => '#verse',
+        'img' => $this->getViewFileUrl('images/tech-lighting/tech-subcategory-verse.jpg')
+    ], [
+        'name' => 'Reflections',
+        'link' => '#reflections',
+        'img' => $this->getViewFileUrl('images/tech-lighting/tech-subcategory-reflections.jpg')
+    ], [
+        'name' => 'Traverse',
+        'link' => '#traverse',
+        'img' => $this->getViewFileUrl('images/tech-lighting/tech-subcategory-placeholder.jpg')
+    ], [
+        'name' => 'Lotus',
+        'link' => '#lotus',
+        'img' => $this->getViewFileUrl('images/tech-lighting/tech-subcategory-placeholder.jpg')
+    ], [
+        'name' => 'Niche',
+        'link' => '#niche',
+        'img' => $this->getViewFileUrl('images/tech-lighting/tech-subcategory-placeholder.jpg')
+    ], [
+        'name' => 'Tradition Recessed',
+        'link' => '#tradition-recessed',
+        'img' => $this->getViewFileUrl('images/tech-lighting/tech-subcategory-placeholder.jpg')
+    ],
+]
+?>
+
+<div class="tech-lighting-category-browse-subcategory-container">
+    <div class="tech-subcategory-slider elements slick-slider">
+        <?php foreach ($mockData as $data): ?>
+            <div class="tech-subcategory-slide">
+                <a href="<?= $data['link'] ?>" style='background-image: url("<?= $data['img'] ?>")'>
+                    <span><?= $data['name'] ?></span>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+
+<script>
+    require([
+        "jquery",
+        "Amasty_Base/vendor/slick/slick.min",
+        'matchMedia',
+    ], function ($) {
+        $(document).ready(function () {
+            mediaCheck({
+                media: '(max-width: 1023px)',
+                entry: function () {
+                    $('.tech-subcategory-slider').slick({
+                        infinite: true,
+                        slidesToScroll: 2,
+                        slidesToShow: 2,
+                        dots: false,
+                        arrows: false,
+                        draggable: true,
+                        autoplay: true,
+                        responsive: [
+                            {
+                                breakpoint: 500,
+                                settings: {
+                                    slidesToShow: 1,
+                                    slidesToScroll: 1,
+                                    dots: false,
+                                    arrows: false,
+                                    draggable: true,
+                                    autoplay: true,
+                                    autoplaySpeed: 6000
+                                }
+                            }
+                        ]
+                    });
+                }.bind(this),
+                exit: function () {
+                    $('.tech-subcategory-slider').slick('unslick');
+                }.bind(this)
+            });
+        });
+    });
+</script>

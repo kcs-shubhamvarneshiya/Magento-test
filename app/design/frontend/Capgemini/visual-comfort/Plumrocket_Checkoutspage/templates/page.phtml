@@ -1,0 +1,21 @@
+<?php
+/** @var \Magento\Checkout\Block\Onepage\Success $block */
+?>
+<?php $order = $this->helper(Plumrocket\Checkoutspage\Helper\Data::class)->getOrder(); ?>
+<?= $this->getChildHtml('checkout.success.style') ?>
+<div id="csp-extension" class="mod-checkoutspage" >
+    <div class="csp-top-col">
+        <?= $block->getChildHtml('checkoutspage.top.section') ?>
+    </div>
+    <div class="order-info__header">
+        <?= $block->getChildHtml('order.info.header.container') ?>
+    </div>
+    <div class="csp-cf order-info__main-container">
+        <div class="csp-left-col">
+            <?= $block->getChildHtml('checkoutspage.left.section') ?>
+        </div>
+        <div class="csp-right-col">
+            <?= $block->getChildHtml('checkoutspage.right.section') ?>
+        </div>
+    </div>
+</div>

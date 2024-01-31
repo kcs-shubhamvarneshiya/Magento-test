@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="\Capgemini\TechConfigurator\Block\Widget" id="tech_configurator">
+        <label>Tech Configurator</label>
+        <description>Adds related categories, items, and products to the Category or Product pages</description>
+        <parameters>
+            <parameter name="config_name" xsi:type="text" sort_order="10" visible="true" required="true">
+                <label translate="true">Configurator Name</label>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

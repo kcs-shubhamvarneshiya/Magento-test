@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.media">
+            <block class="Capgemini\ProductBadge\Block\Product\View" name="capgemini.product.badge" template="Capgemini_ProductBadge::badge/pdp.phtml"  before="-">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getBadge</argument>
+                    <argument name="at_code" xsi:type="string">badge</argument>
+                    <argument name="css_class" xsi:type="string">badge</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

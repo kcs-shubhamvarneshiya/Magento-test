@@ -1,0 +1,597 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .account {
+        &.company-profile-index {
+            .account-dashboard__wrapper {
+                .block {
+                    border: solid 1px #e3e3e3;
+                    padding: 14px 21px;
+                    margin-bottom: 20px;
+                    box-sizing: border-box;
+
+                    .block-content {
+                        .box {
+                            .box-content {
+                                .font-proxima-nova(14px, 1.71);
+                                font-weight: normal;
+                                font-stretch: normal;
+                                font-style: normal;
+                                letter-spacing: 0.25px;
+                                color: @color-gray-800;
+                                > * {
+                                    .font-proxima-nova(14px, 1.71);
+                                    font-weight: normal;
+                                    font-stretch: normal;
+                                    font-style: normal;
+                                    letter-spacing: 0.25px;
+                                    color: @color-gray-800;
+                                }
+                            }
+                        }
+                    }
+
+                    &.block-company-profile-shipping-methods {
+                        .block-content {
+                            .company-profile-shipping-methods {
+                                .lib-css(flex-flow, column);
+                                .shipping-methods-label {
+                                    &:after {
+                                        content: ':';
+                                    }
+                                }
+                                .shipping-methods-list {
+                                    padding-left: 0;
+                                    > li {
+                                        font-size: 1.4rem;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &.customer-account-index {
+            .block-dashboard-orders {
+                .table-wrapper.orders-recent {
+                    padding-top: 20px;
+
+                    .table {
+                        border: solid 1px @color-gray-400;
+
+                        thead {
+                            background-color: @color-gray-300;
+
+                            th {
+                                font-size: 12px;
+                                font-weight: normal;
+
+                                font-style: normal;
+                                line-height: 1.17;
+                                letter-spacing: 1.2px;
+                                color: @color-gray-900;
+                                text-transform: uppercase;
+                            }
+                        }
+
+                        tbody {
+                            .actions {
+                                display: flex;
+                                flex-direction: column;
+                                padding: 15px 10px;
+
+                                .action {
+                                    padding-left: 20px;
+                                    font-size: 12px;
+                                    font-weight: normal;
+
+                                    font-style: normal;
+                                    letter-spacing: 0.5px;
+                                    color: @color-gray-900;
+
+                                    &:hover {
+                                        text-decoration: none;
+                                    }
+                                }
+
+                                .action.view {
+                                    background: url('@{baseDir}/images/paper.png') no-repeat 0 50%;
+                                    margin-bottom: 15px;
+
+                                    &:after {
+                                        display: none;
+                                    }
+                                }
+
+                                .action.order {
+                                    background: url('@{baseDir}/images/cart.png') no-repeat 0 50%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .box-information,
+            .box-newsletter {
+                margin-top: 20px;
+            }
+
+            &.account .column.main .block {
+                &:not(.widget) .block-content .box.box-information {
+                    width: 100%;
+
+                    .box-content {
+                        line-height: 1.71;
+                    }
+                }
+
+                .block-title {
+                    margin-bottom: 0;
+                    padding-bottom: 19px;
+                    border-bottom-color: @color-gray-400;
+                }
+            }
+
+            .block-content-sp {
+                margin-top: 20px;
+                font-size: 14px;
+                font-weight: normal;
+
+                font-style: normal;
+                line-height: 1.71;
+                letter-spacing: 0.25px;
+                color: @color-gray-800;
+            }
+
+            .page-main .block:not(.block-collapsible-nav) .block-content .box.box-information .box-title {
+                border-bottom: solid 1px @color-gray-400;
+                padding-bottom: 15px;
+                display: block;
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+
+    .account {
+        &.customer-account-index {
+            &.account .column.main .block {
+                &.block-dashboard-addresses {
+                    .block-title > .action {
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        margin-top: -15px;
+                    }
+                }
+            }
+        }
+        .page-main {
+            > .page-title-wrapper {
+                padding-top: 0;
+                .page-title {
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+    .customer-account-index {
+        .page-title-wrapper {
+            position: relative;
+
+            .page-title {
+                margin-bottom: 10px !important;
+            }
+
+            .greet.welcome {
+                .logged-in {
+                    font-family: @font-goudy-old-style;
+                    font-size: 17px;
+                    font-weight: normal;
+
+                    font-style: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    color: @primary__color;
+                }
+            }
+
+            .page-main {
+                .page-title-wrapper {
+                    text-align: center;
+                    margin-bottom: 20px;
+
+                    .page-title {
+                        margin-bottom: 10px;
+                        margin-top: 0;
+
+                        .base {
+                            font-size: 40px;
+                            font-weight: normal;
+
+                            font-style: normal;
+                            line-height: 1.2;
+                            letter-spacing: 1.3px;
+                            text-align: center;
+                            color: @color-gray-800;
+                        }
+                    }
+
+                    .greet.welcome {
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.57;
+                        letter-spacing: 0.6px;
+                        color: @color-gray-middle5;
+                    }
+                }
+
+                .block-dashboard-addresses {
+                    .block-title {
+                        display: flex;
+                        flex-direction: column;
+
+                        a {
+                            float: none !important;
+                            margin-left: 0 !important;
+                        }
+                    }
+                }
+
+                .block:not(.block-collapsible-nav) {
+                    border: solid 1px @color-gray-400;
+                    padding: 10px;
+                    margin-bottom: 20px;
+
+                    .block-title {
+                        font-size: 18px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.11;
+                        letter-spacing: 0.6px;
+                        text-align: left;
+                        color: @color-gray-800;
+                        padding-bottom: 10px !important;
+                        border-bottom: solid 1px @color-gray-400;
+
+                        a {
+                            float: right;
+                            text-decoration: underline;
+                            font-size: 14px;
+                            font-weight: normal;
+
+                            font-style: normal;
+                            line-height: 1.71;
+                            letter-spacing: 0.25px;
+                            color: @color-gray-800;
+                        }
+                    }
+
+                    .block-content {
+                        padding-top: 10px;
+
+                        .box {
+                            .box-title {
+                                font-size: 14px !important;
+                                font-weight: normal;
+
+                                font-style: normal;
+                                line-height: 1.57;
+                                letter-spacing: 0.6px;
+                                color: @color-gray-800;
+                                font-family: @font-proxima-nova;
+                            }
+
+                            .box-content {
+                                padding: 10px 0 0 0;
+
+                                address {
+                                    font-size: 14px;
+                                    font-weight: normal;
+
+                                    font-style: normal;
+                                    line-height: 1.57;
+                                    letter-spacing: 0.6px;
+                                    color: @color-gray-middle5;
+
+                                    a {
+                                        font-size: 14px;
+                                        font-weight: normal;
+
+                                        font-style: normal;
+                                        line-height: 1.57;
+                                        letter-spacing: 0.6px;
+                                        color: @color-gray-middle5;
+                                    }
+                                }
+                            }
+
+                            .box-actions {
+                                padding-top: 10px;
+
+                                a {
+                                    text-decoration: underline;
+                                    margin-right: 17px;
+                                    font-size: 14px;
+                                    font-weight: normal;
+
+                                    font-style: normal;
+                                    line-height: 1.71;
+                                    letter-spacing: 0.25px;
+                                    color: @color-gray-800;
+
+                                    &.edit {
+                                        &:after {
+                                            display: none;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &.block-dashboard-info {
+                        .block-title {
+                            text-align: left;
+                            margin-bottom: 0;
+                        }
+
+                        .block-content {
+                            padding-top: 0;
+
+                            .box {
+                                .box-content {
+                                    padding-top: 0;
+                                }
+
+                                .box-actions {
+                                    padding-top: 10px;
+
+                                    .action.edit {
+                                        margin-right: 20px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .account {
+        &.company-profile-index {
+            .account-dashboard__wrapper {
+                .block {
+                    &.block-company-profile-contacts {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+        &.customer-account-index {
+            &.account .column.main .block {
+                &:not(.widget) {
+                    min-height: 400px;
+
+                    .block-title > .action {
+                        position: relative;
+                        top: 4px;
+                    }
+                }
+                &.block-dashboard-addresses {
+                    position: relative;
+                    .block-title > .action {
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                    }
+                }
+            }
+
+            .page-title-wrapper {
+                .page-title {
+                    margin-bottom: 10px !important;
+                }
+
+                .greet.welcome {
+                    .logged-in {
+                        font-family: @font-goudy-old-style;
+                        font-size: 17px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
+                        color: @primary__color;
+                    }
+                }
+            }
+
+            .page-wrapper {
+                .sidebar.sidebar-main {
+                    .block.block-collapsible-nav {
+                        .title.block-collapsible-nav-title {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .page-main {
+                .page-title-wrapper {
+                    text-align: left;
+                    margin-bottom: 30px;
+
+                    .page-title {
+                        margin-bottom: 20px;
+                    }
+
+                    .greet.welcome {
+                        font-size: 16px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.5;
+                        letter-spacing: 0.6px;
+                        color: @color-gray-middle5;
+                    }
+                }
+
+                .block:not(.block-collapsible-nav) {
+                    border: solid 1px @color-gray-400;
+                    padding: 14px 21px;
+                    margin-bottom: 20px;
+
+                    .block-title {
+                        font-size: 20px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.1;
+                        letter-spacing: 0.7px;
+                        text-align: left;
+                        color: @color-gray-800;
+                        padding-bottom: 20px;
+                        border-bottom: solid 1px @color-gray-400;
+
+                        a {
+                            font-size: 14px;
+                            font-weight: normal;
+
+                            font-style: normal;
+                            line-height: 1.71;
+                            letter-spacing: 0.25px;
+                            color: @primary__color;
+                            float: right;
+                            text-decoration: underline;
+                        }
+                    }
+
+                    .block-content {
+                        padding-top: 20px;
+
+                        .box {
+                            .box-title {
+                                line-height: 1.57;
+                                letter-spacing: .25px;
+                                color: @color-gray-800;
+                                font-family: @font-proxima-nova;
+                            }
+
+                            .box-content {
+                                padding: 0;
+
+                                address {
+                                    font-size: 14px;
+                                    font-weight: normal;
+
+                                    font-style: normal;
+                                    line-height: 1.71;
+                                    letter-spacing: 0.25px;
+                                    color: @primary__color;
+
+                                    a {
+                                        font-size: 14px;
+                                        font-weight: normal;
+
+                                        font-style: normal;
+                                        line-height: 1.71;
+                                        letter-spacing: 0.25px;
+                                        color: @primary__color;
+                                    }
+                                }
+                            }
+
+                            .box-actions {
+                                padding-top: 20px;
+
+                                a {
+                                    font-weight: normal;
+
+                                    font-style: normal;
+                                    text-decoration: underline;
+                                    font-size: 14px;
+                                    line-height: 1.71;
+                                    letter-spacing: 0.25px;
+                                    color: @primary__color;
+
+                                    &.edit {
+                                        &:after {
+                                            display: none;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &.block-dashboard-info {
+                        .block-title {
+                            text-align: left;
+                            margin-bottom: 0;
+                            padding-bottom: 20px;
+                        }
+
+                        .block-content {
+                            padding-top: 0;
+
+                            .box {
+                                .box-content {
+                                    padding-top: 0;
+                                }
+
+                                .box-actions {
+                                    padding-top: 10px;
+
+                                    .action.edit {
+                                        margin-right: 20px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+//custom
+@media screen and (max-width: 325px) {
+    #html-body.account {
+        &.customer-account-index {
+            &.account .column.main .block {
+                &.block-dashboard-addresses {
+                    .block-title > .action {
+                        right: -10px;
+                    }
+                }
+            }
+        }
+    }
+}

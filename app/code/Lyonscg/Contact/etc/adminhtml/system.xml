@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Lyonscg
+ * @package     Lyonscg_Contact
+ * @copyright   Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Logan Montgomery <logan.montgomery@capgemini.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="contact">
+            <group id="contact">
+                <label>Contact us form</label>
+                <field id="form" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Select Contact Us Form</label>
+                    <source_model>Lyonscg\Contact\Model\Config\Source\Form</source_model>
+                </field>
+            </group>
+            <group id="email">
+                <field id="send_copy_enabled" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable Request Copy</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If enabled, a copy of the request will be sent to the email address submitted to the contact us form.</comment>
+                </field>
+            </group>
+            <group id="contact_info" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Contact Information</label>
+                <field id="phone" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Trade and Retail Phone</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="email" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Trade and Retail Email</label>
+                    <validate>required-entry validate-email</validate>
+                </field>
+                <field id="wholesalephone" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Wholesale Phone</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="wholesaleemail" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Wholesale Email</label>
+                    <validate>required-entry validate-email</validate>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

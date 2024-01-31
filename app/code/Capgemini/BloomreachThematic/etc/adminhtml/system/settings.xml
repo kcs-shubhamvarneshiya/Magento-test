@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="api_url">
+        <field id="thematic_endpoint" translate="label" type="select" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Thematic Endpoint</label>
+            <source_model>Bloomreach\Connector\Model\Config\Source\EndPoint</source_model>
+        </field>
+    </group>
+    <group id="seo_widgets">
+        <label>SEO</label>
+        <field id="thematic_url_prefix" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Thematic URL Prefix</label>
+        </field>
+        <field id="thematic_request_id" translate="label" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Request ID</label>
+        </field>
+        <field id="thematic_product_attributes" translate="label,comment" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Product Attributes</label>
+            <comment>Comma separated attribute codes as they go in Bloomreach</comment>
+        </field>
+    </group>
+</include>

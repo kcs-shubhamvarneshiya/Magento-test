@@ -1,0 +1,301 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    // Default Button Styles
+    button,
+    .cancel-quote-request,
+    .btn {
+        .font-proxima-nova-semibold(1.2rem, 1.2rem);
+        letter-spacing: 0.25px;
+        background-color: @button__background;
+        border: 1px solid @color-btn-default-background;
+        box-sizing: border-box;
+        color: @color-btn-default-text;
+        display: inline-block;
+        height: @btn-default-height;
+        line-height: @btn-default-height;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        vertical-align: middle;
+        padding: @button-primary__padding;
+
+        &:hover {
+            background-color: @color-btn-primary-background-hover;
+            border: @border-trans;
+            text-decoration: none;
+            color: @color-white;
+        }
+
+        &.btn-focus {
+            .btn-focus();
+        }
+
+        &:active,
+        &.btn-active {
+            border: @border-trans;
+            text-decoration: none;
+            color: @color-white;
+            background-color: @color-btn-primary-background-hover;
+            box-shadow: none !important;
+        }
+
+        &.btn-primary,
+        &.btn-primary.action {
+            background-color: @color-btn-primary-background;
+            color: @color-btn-primary-text;
+
+            &:hover {
+                background-color: @color-btn-primary-background-hover;
+                color: @color-btn-primary-text-hover;
+            }
+
+            &:disabled,
+            &[disabled] {
+                background-color: @color-btn-primary-background-disabled;
+                border: @border-trans;
+                color: @color-btn-primary-text-disabled;
+            }
+        }
+
+        &.secondary,
+        &.btn-secondary {
+            background-color: @color-btn-secondary-background;
+            border-color: @color-btn-secondary-border;
+            color: @color-btn-secondary-text;
+
+            &:hover {
+                background-color: @color-btn-secondary-background-hover;
+                border-color: @color-btn-secondary-border-hover;
+                color: @color-btn-secondary-text-hover;
+                text-decoration: none;
+
+                span {
+                    color: @color-btn-secondary-text-hover;
+                }
+            }
+
+            &:disabled,
+            &[disabled] {
+                background-color: @color-btn-primary-background-disabled;
+                border: @border-trans;
+                color: @color-btn-primary-text-disabled;
+            }
+        }
+
+        &.btn-text {
+            .font-size(1.2rem, 1.2rem);
+            color: @color-btn-text;
+            font-weight: @btn-text-font-weight;
+            text-decoration: underline;
+
+            span {
+                color: @color-btn-text;
+            }
+
+            &:hover {
+                text-decoration: none;
+            }
+
+            &:disabled,
+            &[disabled] {
+                background-color: @color-btn-primary-background-disabled;
+                border: @border-trans;
+                color: @color-btn-primary-text-disabled;
+                text-decoration: none;
+            }
+        }
+
+        &.btn-trans {
+            background: @color-btn-trans-background;
+            border-color: @color-btn-trans-border;
+            border-radius: 0;
+
+            &:hover {
+                background: @color-btn-trans-background-hover;
+            }
+        }
+    }
+
+    .action.primary {
+        &:extend(.btn-primary all);
+        height: @btn-default-height;
+        line-height: @btn-default-height;
+        text-align: center;
+        text-transform: uppercase;
+    }
+}
+
+.btn-focus() { // @TODO: check if relevant
+    border: 1px solid @color-white;
+    outline: 1px solid @focus__color;
+    background-color: @color-btn-primary-background-hover;
+}
+
+.btn-dimensions() {
+    .lib-css(display, flex);
+    .lib-css(align-items, center);
+    .lib-css(justify-content, center);
+    .lib-css(height, 45px);
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    button,
+    .btn {
+        width: 100%;
+    }
+    //slick-dots
+    .slick-dots {
+        li.slick-active {
+            button {
+                background: transparent;
+                width: 10px;
+                height: 10px;
+                border: solid 1px @color-gray-600;
+            }
+
+            .quote-details-items {
+                .actions-toolbar {
+                    > .action {
+                        background: transparent;
+                        width: 10px;
+                        height: 10px;
+                        border: solid 1px @color-gray-600;
+                    }
+                }
+            }
+        }
+    }
+    .slick-dots {
+        li {
+            &:not(.slick-active) {
+                button {
+                    &:focus {
+                        width: 6px;
+                        height: 6px;
+                        background-color: @color-gray-800;
+                        margin-top: 2px;
+                        padding: 0 !important;
+                    }
+
+                    &:not(.primary) {
+                        width: 6px;
+                        height: 6px;
+                        background-color: @color-gray-800;
+                        margin-top: 2px;
+                        padding: 0 !important;
+                    }
+                }
+
+                .quote-details-items {
+                    .actions-toolbar {
+                        > .action {
+                            &:focus {
+                                width: 6px;
+                                height: 6px;
+                                background-color: @color-gray-800;
+                                margin-top: 2px;
+                                padding: 0 !important;
+                            }
+
+                            &:not(.primary) {
+                                width: 6px;
+                                height: 6px;
+                                background-color: @color-gray-800;
+                                margin-top: 2px;
+                                padding: 0 !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    //slick-dots
+    .slick-dots {
+        li.slick-active {
+            button {
+                background: transparent;
+                width: 12px;
+                height: 12px;
+                border: solid 1px @color-gray-600;
+                box-shadow: none !important;
+            }
+
+            .quote-details-items {
+                .actions-toolbar {
+                    > .action {
+                        background: transparent;
+                        width: 12px;
+                        height: 12px;
+                        border: solid 1px @color-gray-600;
+                        box-shadow: none !important;
+                    }
+                }
+            }
+        }
+    }
+    .slick-dots {
+        li {
+            &:not(.slick-active) {
+                button {
+                    &:focus {
+                        width: 8px;
+                        height: 8px;
+                        background-color: @color-gray-800;
+                        margin-top: 2px;
+                        padding: 0 !important;
+                    }
+
+                    &:not(.primary) {
+                        width: 8px;
+                        height: 8px;
+                        background-color: @color-gray-800;
+                        margin-top: 2px;
+                        padding: 0 !important;
+                    }
+                }
+
+                .quote-details-items {
+                    .actions-toolbar {
+                        > .action {
+                            &:focus {
+                                width: 8px;
+                                height: 8px;
+                                background-color: @color-gray-800;
+                                margin-top: 2px;
+                                padding: 0 !important;
+                            }
+
+                            &:not(.primary) {
+                                width: 8px;
+                                height: 8px;
+                                background-color: @color-gray-800;
+                                margin-top: 2px;
+                                padding: 0 !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

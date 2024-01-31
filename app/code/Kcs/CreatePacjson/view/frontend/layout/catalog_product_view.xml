@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Kcs\CreatePacjson\Block\Catalog\Product\View\ProductAttribute" name="kcs_catalog_product_view_productattribute" template="Kcs_CreatePacjson::product_attribute.phtml">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

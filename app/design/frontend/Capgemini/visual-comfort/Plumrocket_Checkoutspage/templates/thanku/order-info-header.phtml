@@ -1,0 +1,85 @@
+<?php
+/**
+ * Order Info Header
+ *
+ * @var @var \Magento\Sales\Block\Order\Info $block
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Plumrocket\Checkoutspage\Helper\Data $helper
+ */
+
+$helper = $this->helper(\Plumrocket\Checkoutspage\Helper\Data::class);
+$splitHelper = $this->helper(\Capgemini\OrderSplit\Helper\Data::class);
+$order = $helper->getOrder();
+$shipDateHelper = $this->helper(\Capgemini\ShipOnDate\Helper\Date::class);
+$_block = $this->getLayout()->createBlock('\Plumrocket\Checkoutspage\Block\Button');
+$wholesaleDetector = $block->getData('wholesale_detector');
+$salesPadHelper = $this->helper(\Lyonscg\SalesPad\Helper\Order::class);
+$realOrderIncrementId = $block->getOrder()->getRealOrderId();
+$realOrder = $salesPadHelper->getOrder($realOrderIncrementId);
+$amastyAttributes = $salesPadHelper->getAmastyOrderAttributeData($realOrder);
+$poNumber = $amastyAttributes['po_number'] ?? '';
+$poNumbers = $splitHelper->getOrderCustomAttributeAsArray(
+    $order->getCustomPoNumbers(),
+    'po_number'
+);
+?>
+<div class="csp-page-title thank">
+    <h1 class="csp-h1"><?= $escaper->escapeHtml(__('Thank you for your purchase')) ?></h1>
+</div>
+<style>
+    .page-title-wrapper{display:none}
+</style>
+<div class="order-info__header-container">
+    <div class="column-holder">
+        <div class="left">
+            <p class="order-info__header-container--text"><?= $escaper->escapeHtml(__('You will receive an order confirmation email with details of your order and a link to track its progress.')) ?></p>
+            <div class="order-info__header-container--data-row">
+                <span class="bold"><?= $escaper->escapeHtml(__('Web Order Confirmation #')) ?></span>
+                <span class="data"><?= $order->getIncrementId() ?></span>
+            </div>
+            <?php if($poNumber) : ?>
+                <div class="order-info__header-container--data-row">
+                    <span class="bold"><?= $escaper->escapeHtml(__('PO #')) ?></span>
+                    <span class="data"><?= $poNumber ?></span>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($wholesaleDetector->isWholesaleCustomer() && $poNumbers): ?>
+                <?php  foreach ($poNumbers as $poNum): ?>
+                    <div class="order-info__header-container--data-row">
+                        <span class="bold"><?= /* @noEscape */ __('PO #') ?></span>
+                        <span class="data"><?= /* @noEscape */ __($poNum) ?></span>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+
+            <div class="order-info__header-container--data-row">
+                <span class="bold"><?= $escaper->escapeHtml(__('Created On')) ?></span>
+                <div class="data">
+                    <span class="created_on"><?= $order->getCreatedAtFormatted('1') ?></span>
+                    <span class="name"><?= ' by ' . $order->getCustomerName() ?></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="right">
+            <div class="order-info__header-container--btn-holder">
+                <?= $block->getChildHtml('order.info.auth') ?>
+                <a href="<?= $escaper->escapeUrl($_block->getPrintUrl()) ?>"
+                   target="_blank"
+                   class="print btn btn-secondary"
+                   onclick="checkoutspage.printAction(); return false;"
+                   title="print">
+                    <?= $escaper->escapeHtml(__('Print')) ?>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    require(['jquery'], function ($) {
+        'use strict';
+        let str = $('.data .created_on').html();
+        $('.data .created_on').html(str.substr(0, str.indexOf('at')));
+    })
+</script>

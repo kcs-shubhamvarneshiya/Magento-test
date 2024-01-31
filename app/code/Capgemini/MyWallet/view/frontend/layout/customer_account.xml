@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_MyWallet
+ *
+ * @author    Yaroslav Protsko <yaroslav.protsko@capgemini.com>
+ * @copyright 2020 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+   <body>
+      <referenceBlock name="customer_account_navigation">
+         <block class="Magento\Customer\Block\Account\SortLinkInterface" name="customer-account-navigation-myblog">
+            <arguments>
+               <argument name="path" xsi:type="string">mywallet/customer/index</argument>
+               <argument name="label" xsi:type="string">My Wallet</argument>
+                <argument name="sortOrder" xsi:type="number">175</argument>
+            </arguments>
+         </block>
+      </referenceBlock>
+   </body>
+</page>

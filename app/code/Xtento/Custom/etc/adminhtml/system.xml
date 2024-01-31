@@ -1,0 +1,45 @@
+<?xml version="1.0" ?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="data_feed" translate="label" type="text" sortOrder="170" showInDefault="1">
+            <class>separator-top</class>
+            <label>Data Feed</label>
+            <tab>bloomreach_tab</tab>
+            <resource>Bloomreach_Connector::config_settings</resource>
+            <group id="connection" translate="label" type="text" sortOrder="10" showInDefault="1">
+                <label>Connection</label>
+                <field id="environment" translate="label" type="select" sortOrder="10" showInDefault="1">
+                    <label>Environment</label>
+                    <source_model>Xtento\Custom\Model\Config\Source\Environment</source_model>
+                </field>
+                <field id="stage_endpoint" translate="label,comment" type="text" sortOrder="20" showInDefault="1">
+                    <label>Staging Endpoint</label>
+                    <comment>Important!!! Must end with "/".</comment>
+                    <depends>
+                        <field id="environment">stage</field>
+                    </depends>
+                </field>
+                <field id="stage_api_key" translate="label" type="text" sortOrder="40" showInDefault="1">
+                    <label>Staging API Key</label>
+                    <depends>
+                        <field id="environment">stage</field>
+                    </depends>
+                </field>
+                <field id="prod_endpoint" translate="label,comment" type="text" sortOrder="50" showInDefault="1">
+                    <label>Production Endpoint</label>
+                    <comment>Important!!! Must end with "/".</comment>
+                    <depends>
+                        <field id="environment">prod</field>
+                    </depends>
+                </field>
+                <field id="prod_api_key" translate="label" type="text" sortOrder="60" showInDefault="1">
+                    <label>Production API Key</label>
+                    <depends>
+                        <field id="environment">prod</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

@@ -1,0 +1,99 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Info $block */
+?>
+<?php
+$_helper = $this->helper('Capgemini\OrderView\Helper\Data');
+$contactHelper = $this->helper('Lyonscg\Contact\Helper\Data');
+$customerType = $_helper->getCustomerType();
+$customer = $block->getCustomer();
+
+?>
+<!-- start -->
+<div class="account-info-section">
+    <div class="account-information-box">
+        <div class="box-top">
+            <strong><?= $block->escapeHtml(__('Account Information')) ?></strong>
+            <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('customer/account/edit')) ?>">
+                <span> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M1.66669 14.1667V16.6667H8.33335V15.0917H3.25002V14.1667C3.25002 13.6333 5.85835 12.4167 8.33335 12.4167C9.13335 12.425 9.92502 12.5333 10.6917 12.7333L11.9584 11.4667C10.7917 11.075 9.58335 10.8583 8.33335 10.8333C6.10835 10.8333 1.66669 11.9417 1.66669 14.1667ZM8.33335 3.33334C6.49169 3.33334 5.00002 4.82501 5.00002 6.66668C5.00002 8.50834 6.49169 10 8.33335 10C10.175 10 11.6667 8.50834 11.6667 6.66668C11.6667 4.82501 10.175 3.33334 8.33335 3.33334ZM8.33335 8.33334C7.41669 8.33334 6.66669 7.59168 6.66669 6.66668C6.66669 5.74168 7.41669 5.00001 8.33335 5.00001C9.25002 5.00001 10 5.75001 10 6.66668C10 7.58334 9.25835 8.33334 8.33335 8.33334ZM18.0834 11.125L17.25 11.9583L15.5417 10.2917L16.375 9.45834C16.55 9.28334 16.8417 9.28334 17.0167 9.45834L18.0834 10.525C18.2584 10.7 18.2584 10.9917 18.0834 11.1667M10 15.7833L15.05 10.7333L16.7584 12.4L11.7584 17.4583H10V15.7833Z" fill="#333333"/>
+                </svg>
+                <?= $block->escapeHtml(__('Edit Account Info')) ?>
+                </span>
+            </a>
+        </div>
+       <div class="account-information-box-content">
+                <ul>
+                    <?php if ($customer->getCustomAttribute('customer_number_vc') && ($customer->getCustomAttribute('customer_number_vc')->getValue()!='')) : ?>
+                        <li>VC Account #: <?= $customer->getCustomAttribute('customer_number_vc')->getValue()?></li>
+                    <?php endif; ?>
+                    <?php if ($customer->getCustomAttribute('customer_number_tech') && ($customer->getCustomAttribute('customer_number_tech')->getValue()!='')) : ?>
+                        <li>TL Number #: <?= $customer->getCustomAttribute('customer_number_tech')->getValue()?></li>
+                    <?php endif; ?>
+                    <?php if ($customer->getCustomAttribute('customer_number_gl') && ($customer->getCustomAttribute('customer_number_gl')->getValue()!='')) : ?>
+                        <li>GL Account #: <?= $customer->getCustomAttribute('customer_number_gl')->getValue()?></li>
+                    <?php endif; ?>
+                     <?php // CRC-638 Moved sales_pad_customer_num customer attribute from a custom to an extension one. ?>
+                     <?php if ($block->getCustomer() != null
+                        && $block->getCustomer()->getExtensionAttributes() != null
+                        && $salesPadCustomerNum = $block->getCustomer()->getExtensionAttributes()->getSalesPadCustomerNum()): ?>
+                        <li><?= $block->escapeHtml(__('Account')); ?> #: <?= $salesPadCustomerNum ?></li>
+                    <?php endif; ?>
+                    <li class="text-light">
+                        <span class="customer-name-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M16.6666 17.5V15.8333C16.6666 14.9493 16.3155 14.1014 15.6903 13.4763C15.0652 12.8512 14.2174 12.5 13.3333 12.5H6.66665C5.78259 12.5 4.93474 12.8512 4.30962 13.4763C3.6845 14.1014 3.33331 14.9493 3.33331 15.8333V17.5" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 9.16667C11.841 9.16667 13.3334 7.67428 13.3334 5.83333C13.3334 3.99238 11.841 2.5 10 2.5C8.15907 2.5 6.66669 3.99238 6.66669 5.83333C6.66669 7.67428 8.15907 9.16667 10 9.16667Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        </span>
+                        <?= $block->escapeHtml($block->getName()) ?>
+                    </li>
+                    <li class="text-light">
+                        <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M18.3334 5.00001C18.3334 4.08334 17.5834 3.33334 16.6667 3.33334H3.33335C2.41669 3.33334 1.66669 4.08334 1.66669 5.00001V15C1.66669 15.9167 2.41669 16.6667 3.33335 16.6667H16.6667C17.5834 16.6667 18.3334 15.9167 18.3334 15V5.00001ZM16.6667 5.00001L10 9.16668L3.33335 5.00001H16.6667ZM16.6667 15H3.33335V6.66668L10 10.8333L16.6667 6.66668V15Z" fill="#333333"/>
+                        </svg>
+                        </span>
+                        <?= $block->escapeHtml($block->getCustomer()->getEmail()) ?>
+                    </li>
+                </ul>
+        </div>
+    </div>
+
+    <div class="contact-information-box">
+        <div class="contact-box-top">
+            <strong><?= $block->escapeHtml(__('Contact Information')) ?></strong>
+        </div>
+        <div class="contact-information-box-content">
+            <ul>
+                <li><?= $block->escapeHtml(__($contactHelper->getPhone())) ?></li>
+                <li><?= $block->escapeHtml(__($contactHelper->getEmail())) ?></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+
+
+
+<!-- end -->
+
+
+
+
+
+<div class="account-info-filter">
+    <?php if($customerType == \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?>
+        <?= $block->getChildHtml('capgemini.filter.dropdown'); ?>
+    <?php endif; ?>
+</div>
+<?php if($customerType == \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?>
+<!--<div class="block block-dashboard-info">-->
+<div class="account-info-filter">
+    <?= $block->getChildHtml('recent_data'); ?>
+</div>
+<?php endif; ?>

@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+   <type name="Magento\Framework\Console\CommandList">
+       <arguments>
+           <argument name="commands" xsi:type="array">
+               <item name="productTrimImp" xsi:type="object">Rysun\DataTransfer\Console\TrimImport</item>
+           </argument>
+       </arguments>
+   </type>
+   <type name="Magento\Framework\Console\CommandList">
+       <arguments>
+           <argument name="commands" xsi:type="array">
+               <item name="ProductAccImp" xsi:type="object">Rysun\DataTransfer\Console\ProductAccImp</item>
+           </argument>
+       </arguments>
+   </type>
+   <type name="Magento\Framework\Console\CommandList">
+       <arguments>
+           <argument name="commands" xsi:type="array">
+               <item name="ProductImport" xsi:type="object">Rysun\DataTransfer\Console\ProductImportCli</item>
+           </argument>
+       </arguments>
+   </type>
+      <type name="Magento\Framework\Console\CommandList">
+       <arguments>
+           <argument name="commands" xsi:type="array">
+               <item name="CategoryImp" xsi:type="object">Rysun\DataTransfer\Console\CategoryImp</item>
+           </argument>
+       </arguments>
+   </type>
+   <type name="Magento\Framework\Console\CommandList">
+       <arguments>
+           <argument name="commands" xsi:type="array">
+               <item name="AttributeImp" xsi:type="object">Rysun\DataTransfer\Console\AttributeImp</item>
+           </argument>
+       </arguments>
+   </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="ExceptionImp" xsi:type="object">Rysun\DataTransfer\Console\ExceptionImp</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="FeatureImp" xsi:type="object">Rysun\DataTransfer\Console\FeatureImp</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="PriceImp" xsi:type="object">Rysun\DataTransfer\Console\PriceImp</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="ImageImp" xsi:type="object">Rysun\DataTransfer\Console\ImageImp</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="CollectionImp" xsi:type="object">Rysun\DataTransfer\Console\CollectionImp</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="PlatformImp" xsi:type="object">Rysun\DataTransfer\Console\PlatformImp</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="AttributeRangeImp" xsi:type="object">Rysun\DataTransfer\Console\AttributeRangeImp</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="ProductDocumentImp" xsi:type="object">Rysun\DataTransfer\Console\ProductDocumentImp</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="SpecificationImp" xsi:type="object">Rysun\DataTransfer\Console\SpecificationImp</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="ProductImportConfig" xsi:type="object">Rysun\DataTransfer\Console\ProductImportConfig</item>
+            </argument>
+        </arguments>
+    </type>
+    
+    <type name="Magento\Catalog\Model\ResourceModel\Product\Indexer\Price\BatchSizeCalculator">
+        <arguments>
+            <argument name="batchRowsCount" xsi:type="array">
+                <item name="configurable" xsi:type="number">8000</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\CatalogInventory\Model\Indexer\Stock\Action\Full">
+        <arguments>
+            <argument name="batchRowsCount" xsi:type="array">
+                <item name="configurable" xsi:type="number">900</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Catalog\Model\Indexer\Category\Product\Action\Full">
+        <arguments>
+            <argument name="batchRowsCount" xsi:type="number">8000</argument>
+        </arguments>
+    </type>
+
+</config>

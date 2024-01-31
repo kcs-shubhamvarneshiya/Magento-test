@@ -1,0 +1,100 @@
+<?php
+/** @var $block \Lyonscg\SocialIcons\Block\Widget\Share */
+?>
+<?php if ($block->shouldShow('facebook')): ?>
+    <a class="facebook" title="<?= __('Facebook'); ?>" href="<?= $block->getShareUrl('facebook'); ?>"></a>
+<?php endif; ?>
+<?php if ($block->shouldShow('pinterest')): ?>
+    <a class="pinterest" title="<?= __('Pinterest'); ?>" href="<?= $block->getShareUrl('pinterest'); ?>"></a>
+<?php endif; ?>
+<?php if ($block->shouldShow('twitter')): ?>
+    <a class="twitter" title="<?= __('Twitter'); ?>" href="<?= $block->getShareUrl('twitter'); ?>"></a>
+<?php endif; ?>
+<?php if ($block->shouldShow('email')): ?>
+    <a class="email" title="<?= __('Email'); ?>" href="<?= $block->getShareUrl('email'); ?>"></a>
+<?php endif; ?>
+<?php if ($block->shouldShow('design')): ?>
+    <?php $designData = $block->getDesignStudioData(); ?>
+    <?php if (!empty($designData)): ?>
+    <script type="text/javascript">
+        function BasicLoader() {}
+        BasicLoader.currentSiteUrl = 'https://studiowebware.secure.force.com';
+        BasicLoader.pageToLoad = BasicLoader.currentSiteUrl + '/apex/SDCaptureLoader';
+        BasicLoader.TIMEOUT = 10000;
+        BasicLoader.INTERVAL = 100;
+        BasicLoader.CURRENT_TIMEOUT = 0;
+        BasicLoader.validated = false;
+        BasicLoader.onComplete = function () { console.log('BasicLoader.completed'); };
+        BasicLoader.wait = function () {
+            try {
+                if (BasicLoader.CURRENT_TIMEOUT >= BasicLoader.TIMEOUT) {
+                    console.error('Timeout elapsed!');
+                } else if (BasicLoader.validated) {
+                    BasicLoader.onComplete();
+                } else {
+                    BasicLoader.CURRENT_TIMEOUT += BasicLoader.INTERVAL;
+                    window.setTimeout('BasicLoader.wait();', BasicLoader.INTERVAL);
+                }
+            } catch (e) {
+                console.error('BasicLoader.wait() exception: ', e);
+            }
+        };
+        BasicLoader.addScriptElement = function () {
+            var iFrame = document.createElement('iframe');
+            iFrame.src = BasicLoader.pageToLoad;
+            iFrame.id = 'basicLoader';
+            iFrame.name = 'basicLoader';
+            iFrame.frameBorder = 1;
+            iFrame.style.display = 'none';
+            document.getElementsByTagName('body')[0].appendChild(iFrame);
+        };
+        BasicLoader.load = function () {
+            var basicLoaderIFrame = document.getElementById('basicLoader');
+            if (basicLoaderIFrame) {
+                if (Loader) {
+                    Loader.load();
+                }
+                return;
+            }
+            window.addEventListener('message', BasicLoader.receiveMessage, false);
+            BasicLoader.addScriptElement();
+            BasicLoader.wait();
+        };
+        BasicLoader.receiveMessage = function (e) {
+            if (e.origin && e.origin == BasicLoader.currentSiteUrl) {
+                window.removeEventListener('message', BasicLoader.receiveMessage, false);
+                if (e.data && e.data.executable && typeof e.data.executable == 'string') {
+                    var script = document.createElement('script');
+                    script.type = 'text/javascript'; script.innerHTML = e.data.executable;
+                    document.getElementsByTagName('head')[0].appendChild(script);
+                    BasicLoader.validated = true;
+                } else {
+                    console.error(['BasicLoader.receiveMessage', e]);
+                    BasicLoader.validated = false;
+                }
+            }
+        };
+    </script>
+    <a  class="designstudio design" id="btnStudioCapture"
+        vendorid="<?= $block->escapeHtmlAttr($designData['vendor']); ?>"
+        productnumber="<?= $block->escapeHtmlAttr($designData['sku']); ?>"
+        shortdescription="<?= __('Visual Comfort'); ?> - <?= $block->escapeHtmlAttr($designData['short_desc']); ?>"
+        longdescription="<?= $block->escapeHtmlAttr($designData['desc']); ?>"
+        imageurl1="<?= $block->escapeHtmlAttr($designData['image1']); ?>"
+        imageurl2="<?= $block->escapeHtmlAttr($designData['image2']); ?>"
+        imageurl3="<?= $block->escapeHtmlAttr($designData['image3']); ?>"
+        imageurl4="<?= $block->escapeHtmlAttr($designData['image4']); ?>"
+        imageurl5="<?= $block->escapeHtmlAttr($designData['image5']); ?>"
+        specificationurl=""
+        finishurl=""
+        optionsurl=""
+        retailprice=0
+        designernetprice=0
+        designerdiscountpercent=""
+        showroomnetprice=""
+        showroomdisc
+        ountpercent=""
+        title="<?= __('DesignStudio Link'); ?>"
+        href="javascript:BasicLoader.load();"></a>
+    <?php endif; ?>
+<?php endif; ?>

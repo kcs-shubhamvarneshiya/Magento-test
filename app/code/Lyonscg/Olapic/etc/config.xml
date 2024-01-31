@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <lyonscg_olapic>
+            <general>
+                <enabled>1</enabled>
+                <script_url><![CDATA[https://photorankstatics-a.akamaihd.net/743d2e78a76dedeb07e0745158547931/static/frontend/latest/build.min.js]]></script_url>
+                <instance_value>57c0dc28e5b31dcad685bc28dd59f2b4</instance_value>
+                <apikey>0c072425f1bdb173ba3cca355f2bf872540131b6d2929a9d8634e59e19d6aa52</apikey>
+            </general>
+        </lyonscg_olapic>
+    </default>
+</config>

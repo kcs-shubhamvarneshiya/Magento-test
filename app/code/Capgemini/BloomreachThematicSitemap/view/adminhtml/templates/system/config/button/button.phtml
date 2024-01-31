@@ -1,0 +1,40 @@
+<?php
+/** @var \Capgemini\BloomreachThematicSitemap\Block\System\Config\Form\DownloadButton $block */
+?>
+
+<script>
+    require([
+        'jquery',
+        'prototype'
+    ], function ($) {
+
+        $('#thematic-sitemaps-download-btn').click(function () {
+            $.ajax({
+                url: "<?= $block->getAjaxUrl() ?>",
+                method: 'GET',
+                beforeSend: function () {
+                    $('#custom_button_response_message').text('Downloading...');
+                    $('body').trigger('processStart');
+                },
+            }).done((response) => {
+                $('body').trigger('processStop');
+                let selector = '#thematic-sitemaps-download-btn-' + response.result,
+                    container = $(selector);
+                container.text(response.message).show();
+                setTimeout(() => {container.text('').hide()}, 3000);
+            }).fail(() => {
+                $('body').trigger('processStop');
+                let container = $('#thematic-sitemaps-download-btn-error');
+                container.text('Could not download sitemaps!').show();
+                setTimeout(() => {container.text('').hide()}, 3000);
+            });
+        });
+    });
+</script>
+<?php echo $block->getButtonHtml(); ?>
+</br>
+</br>
+<div>
+    <div id="thematic-sitemaps-download-btn-success" class="message message-success success" style="display: none"></div>
+    <div id="thematic-sitemaps-download-btn-error" class="mesmessage message-error error" style="display: none"></div>
+</div>

@@ -1,0 +1,262 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order" resource="sales" comment="Sales Flat Order">
+        <column xsi:type="varchar" name="salespad_sales_doc_num" length="32" nullable="false"
+            comment="SalesPad Sales Doc Num"/>
+        <column xsi:type="varchar" name="sales_pad_customer_num" length="32" nullable="false"
+            comment="SalesPad Customer Number"/>
+        <column xsi:type="varchar" name="salespad_quote_num" length="32" nullable="false"
+            comment="SalesPad Sales Doc Num"/>
+        <column xsi:type="int" name="pay_fabric_api_status" nullable="false" default="0" comment="Pay Fabric API Status"/>
+        <column xsi:type="text" name="pay_fabric_api_request" nullable="true" comment="Pay Fabric API Request"/>
+    </table>
+
+    <table name="sales_order_grid" resource="sales" engine="innodb" comment="Sales Flat Order Grid">
+        <column xsi:type="varchar" name="salespad_sales_doc_num" length="32" nullable="false"
+                comment="SalesPad Sales Doc Num"/>
+        <index referenceId="SALES_ORDER_SALESPAD_SALES_DOC_NUM" indexType="btree">
+            <column name="salespad_sales_doc_num"/>
+        </index>
+    </table>
+
+    <table name="salespad_customer_link" resource="default" engine="innodb" comment="Customer Email -> Salespad Number">
+        <column xsi:type="int" name="link_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Link ID"/>
+        <column xsi:type="int" name="customer_id" unsigned="true" nullable="true" identity="false" comment="Customer ID"/>
+        <column xsi:type="varchar" name="customer_email" length="255" nullable="false" comment="Customer email address"/>
+        <column xsi:type="smallint" name="website_id" unsigned="true" nullable="true" identity="false" comment="Website ID"/>
+        <column xsi:type="varchar" name="sales_pad_customer_num" length="32" nullable="false" comment="Salespad Customer Num"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="link_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="SALESPAD_CUSTOMER_LINK_CUSTOMER_ID">
+            <column name="customer_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="SALESPAD_CUSTOMER_LINK_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID" table="salespad_customer_link"
+            column="customer_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="SALESPAD_CUSTOMER_LINK_WEBSITE_ID_STORE_WEBSITE_WEBSITE_ID" table="salespad_customer_link"
+            column="website_id" referenceTable="store_website" referenceColumn="website_id" onDelete="SET NULL"/>
+    </table>
+
+
+    <table name="quote" resource="sales">
+        <column xsi:type="varchar" name="salespad_quote_num" length="32" nullable="false"
+            comment="SalesPad Sales Doc Num"/>
+    </table>
+
+    <table name="sales_order_item" resource="sales" comment="Sales Flat Order Item">
+        <column xsi:type="varchar" name="salespad_sales_doc_num" length="32" nullable="false"
+            comment="SalesPad Sales Doc Num"/>
+        <column xsi:type="int" name="salespad_line_num" padding="10" default="0" nullable="false"
+            comment="SalesPad Line Num"/>
+    </table>
+
+    <table name="sales_order_address" resource="sales" comment="Sales Flat Order Address">
+        <column xsi:type="varchar" name="salespad_address_code" length="32" nullable="false"
+            comment="SalesPad Address Code"/>
+    </table>
+
+    <!-- order sync table -->
+    <table name="salespad_order_sync" resource="default" engine="innodb" comment="SalesPad Order Sync">
+        <column xsi:type="int" name="sync_id" padding="10" unsigned="true" nullable="false" identity="true"
+            comment="Order sync id"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" comment="Order id"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Created At"/>
+        <column xsi:type="int" name="sync_attempts" padding="10" unsigned="true" nullable="false" default="0"
+            comment="Sync attempts"/>
+        <column xsi:type="timestamp" name="last_sync_attempt_at" on_update="true" nullable="true" default="NULL"
+            comment="Last sync attempt time"/>
+        <column xsi:type="text" name="failures" nullable="true" comment="Sync failure logs"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="true" identity="false" default="0" comment="Store ID"/>
+        <column xsi:type="varchar" name="status" length="32" nullable="false" default="pending"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="sync_id"/>
+        </constraint>
+        <!-- removed because it was causing problems saving the order sync on order creation -->
+        <!--
+        <constraint xsi:type="foreign" referenceId="FL_SALESPAD_ORDER_SYNC_SALES_ORDER" table="salespad_order_sync"
+            column="order_id" referenceTable="sales_order" referenceColumn="entity_id" onDelete="CASCADE"/>
+        -->
+        <index referenceId="SALESPAD_ORDER_SYNC_ORDER_ID" indexType="btree">
+            <column name="order_id"/>
+        </index>
+    </table>
+
+    <!-- customer sync table -->
+    <table name="salespad_customer_sync" resource="default" engine="innodb" comment="SalesPad Customer Sync">
+        <column xsi:type="int" name="sync_id" padding="10" unsigned="true" nullable="false" identity="true"
+            comment="Order sync id"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="false" comment="Customer id"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Created At"/>
+        <column xsi:type="int" name="sync_attempts" padding="10" unsigned="true" nullable="false" default="0"
+            comment="Sync attempts"/>
+        <column xsi:type="timestamp" name="last_sync_attempt_at" on_update="true" nullable="true" default="NULL"
+            comment="Last sync attempt time"/>
+        <column xsi:type="text" name="failures" nullable="true" comment="Sync failure logs"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="true" identity="false" default="0" comment="Store ID"/>
+        <column xsi:type="varchar" name="status" length="32" nullable="false" default="pending"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="sync_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FL_SALESPAD_CUSTOMER_SYNC_CUSTOMER_ENTITY" table="salespad_customer_sync"
+            column="customer_id" referenceTable="customer_entity" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="SALESPAD_CUSTOMER_SYNC_CUSTOMER_ID" indexType="btree">
+            <column name="customer_id"/>
+        </index>
+    </table>
+
+    <table name="requisition_list" resource="default" engine="innodb" comment="RequisitionList main Table">
+        <column xsi:type="varchar" name="salespad_sales_doc_num" length="32" nullable="true"
+            comment="SalesPad Sales Doc Num"/>
+        <column xsi:type="varchar" name="sales_pad_customer_num" length="32" nullable="true"
+            comment="SalesPad Customer Number"/>
+        <column xsi:type="varchar" name="salespad_billing_address_code" length="32" nullable="true"
+            comment="SalesPad Billing Address Code"/>
+        <column xsi:type="varchar" name="salespad_shipping_address_code" length="32" nullable="true"
+            comment="SalesPad Shipping Address Code"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="true"
+            identity="false" default="0" comment="Store ID"/>
+
+    </table>
+
+    <table name="requisition_list_item" resource="default" engine="innodb" comment="RequisitionList items">
+        <column xsi:type="varchar" name="salespad_sales_doc_num" length="32" nullable="true"
+            comment="SalesPad Sales Doc Num"/>
+        <column xsi:type="int" name="salespad_line_num" padding="10" nullable="true"
+            comment="SalesPad Line Num"/>
+        <column xsi:type="int" name="salespad_component_seq_num" padding="10" nullable="true"
+            comment="SalesPad Component Seq Num"/>
+    </table>
+
+    <!-- quote sync table -->
+    <table name="salespad_quote_sync" resource="default" engine="innodb" comment="SalesPad Quote Sync">
+        <column xsi:type="int" name="sync_id" padding="10" unsigned="true" nullable="false" identity="true"
+            comment="Quote sync id"/>
+        <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false"
+            comment="Quote id (requisition_list.entity_id)"/>
+        <column xsi:type="int" name="customer_id" padding="10" unsigned="true" nullable="true"
+                comment="Customer id (requisition_list.customer_id)"/>
+        <column xsi:type="varchar" name="salespad_sales_doc_num" length="32" nullable="true" default="NULL"
+            comment="Sales doc num (used for delete)"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Created At"/>
+        <column xsi:type="int" name="sync_attempts" padding="10" unsigned="true" nullable="false" default="0"
+            comment="Sync attempts"/>
+        <column xsi:type="timestamp" name="last_sync_attempt_at" on_update="true" nullable="true" default="NULL"
+            comment="Last sync attempt time"/>
+        <column xsi:type="varchar" name="sync_action" length="16" nullable="false" default="send"
+            comment="Sync action (send or delete)"/>
+        <column xsi:type="text" name="failures" nullable="true" comment="Sync failure logs"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="true" identity="false" default="0" comment="Store ID"/>
+        <column xsi:type="varchar" name="status" length="32" nullable="false" default="pending"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="sync_id"/>
+        </constraint>
+        <index referenceId="SALESPAD_QUOTE_SYNC_QUOTE_ID" indexType="btree">
+            <column name="quote_id"/>
+        </index>
+    </table>
+
+    <!-- prevent deleted quotes from being synced from salespad -->
+    <table name="deleted_quotes" resource="default" engine="innodb" comment="Deleted Quotes">
+        <column xsi:type="int" name="deleted_id" padding="10" unsigned="true" nullable="false" identity="true"
+            comment="Deleted Quote Id"/>
+        <column xsi:type="varchar" name="salespad_sales_doc_num" length="32" nullable="true"
+            comment="SalesPad Sales Doc Num"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="deleted_id"/>
+        </constraint>
+    </table>
+
+    <!-- quote item sync table -->
+    <table name="salespad_quote_item_sync" resource="default" engine="innodb" comment="SalesPad Quote Item Sync">
+        <column xsi:type="int" name="sync_id" padding="10" unsigned="true" nullable="false" identity="true"
+            comment="Quote sync id"/>
+        <column xsi:type="int" name="quote_id" padding="10" unsigned="true" nullable="false"
+            comment="Quote id (requisition_list.entity_id)"/>
+        <column xsi:type="int" name="item_id" padding="10" unsigned="true" nullable="false"
+            comment="Quote item id (requisition_list_item.item_id)"/>
+        <column xsi:type="varchar" name="salespad_sales_doc_num" length="32" nullable="true" default="NULL"
+            comment="Sales doc num (used for delete)"/>
+        <column xsi:type="varchar" name="salespad_line_num" length="32" nullable="true" default="NULL"
+            comment="Sales line num (used for delete)"/>
+        <column xsi:type="varchar" name="salespad_component_seq_num" length="32" nullable="true" default="NULL"
+            comment="Sales component seq num (used for delete)"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Created At"/>
+        <column xsi:type="int" name="sync_attempts" padding="10" unsigned="true" nullable="false" default="0"
+            comment="Sync attempts"/>
+        <column xsi:type="timestamp" name="last_sync_attempt_at" on_update="true" nullable="true" default="NULL"
+            comment="Last sync attempt time"/>
+        <column xsi:type="varchar" name="sync_action" length="16" nullable="false" default="send"
+            comment="Sync action (send or delete)"/>
+        <column xsi:type="text" name="failures" nullable="true" comment="Sync failure logs"/>
+        <column xsi:type="varchar" name="status" length="32" nullable="false" default="pending"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="sync_id"/>
+        </constraint>
+        <index referenceId="SALESPAD_QUOTE_ITEM_SYNC_QUOTE_ID" indexType="btree">
+            <column name="quote_id"/>
+        </index>
+        <index referenceId="SALESPAD_QUOTE_ITEM_SYNC_ITEM_ID" indexType="btree">
+            <column name="item_id"/>
+        </index>
+    </table>
+
+    <!-- session table -->
+    <table name="salespad_session" resource="default" engine="innodb" comment="SalesPad Session">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true"
+            comment="Session Table Primary Key"/>
+        <column xsi:type="varchar" name="session_id" length="100" nullable="true" default="null"
+            comment="Session Id"/>
+        <column xsi:type="int" name="active" nullable="true" default="null"
+            comment="Is session currently active?"/>
+        <column xsi:type="int" name="current_users" nullable="true" default="null"
+            comment="Current number of users for the session"/>
+        <column xsi:type="timestamp" name="stamp" default="CURRENT_TIMESTAMP" on_update="true"
+            comment="Timestamp when last used"/>
+        <column xsi:type="varchar" name="api_url" nullable="true" comment="API base URI"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+    </table>
+
+    <!-- error log table -->
+    <table name="salespad_api_errors" resource="default" engine="innodb" comment="SalesPad Api Error Logs">
+        <column xsi:type="int" name="log_id" padding="10" unsigned="true" nullable="false" identity="true"
+            comment="Error log table primary key"/>
+        <column xsi:type="timestamp" name="created_at" default="CURRENT_TIMESTAMP" on_update="false"
+            comment="Timestamp when entry was created"/>
+        <column xsi:type="timestamp" name="updated_at" default="CURRENT_TIMESTAMP" on_update="true"
+            comment="Timestamp when entry was updated"/>
+        <column xsi:type="varchar" name="related_entity_type" nullable="true" comment="The type of the Entity whose sync caused the log"/>
+        <column xsi:type="int" name="related_entity_id" padding="10" unsigned="true" nullable="true" comment="The ID of the Entity whose sync caused the log"/>
+        <column xsi:type="text" name="url" nullable="false" comment="Api call url"/>
+        <column xsi:type="text" name="request" nullable="true" comment="Api request"/>
+        <column xsi:type="text" name="response" nullable="true" comment="Api Response"/>
+        <column xsi:type="int" name="is_exception" nullable="true" default="0" comment="Was entry generated from exception?"/>
+        <column xsi:type="varchar" name="response_code" nullable="true" default="" comment="HTTP Response code"/>
+        <column xsi:type="int" name="counter" padding="10" unsigned="true" nullable="false" default="1" comment="How many times the error appeared" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="log_id"/>
+        </constraint>
+        <!--<constraint xsi:type="unique" referenceId="SALESPAD_API_ERRORS_URL_REQUEST">
+            <column name="url"/>
+            <column name="request"/>
+        </constraint>-->
+        <index referenceId="SALESPAD_ERROR_LOG_IS_EXCEPTION" indexType="btree">
+            <column name="is_exception"/>
+        </index>
+        <index referenceId="SALESPAD_ERROR_LOG_RESPONSE_CODE" indexType="btree">
+            <column name="response_code"/>
+        </index>
+        <!--<index referenceId="SALESPAD_API_ERROR_LOG_URL" indexType="btree">
+            <column name="url"/>
+        </index>-->
+        <index referenceId="SALESPAD_ERROR_LOG_CREATED_AT" indexType="btree">
+            <column name="created_at"/>
+        </index>
+    </table>
+</schema>

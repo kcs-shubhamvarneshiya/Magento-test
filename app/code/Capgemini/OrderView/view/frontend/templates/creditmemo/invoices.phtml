@@ -1,0 +1,131 @@
+<?php /** @var $block \Capgemini\OrderView\Block\InvoiceShipment */ ?>
+<?php foreach ($block->getInvoices() as $invoice): ?>
+<?php /*
+    <div class="order-title">
+        <strong><?= $block->escapeHtml(__('Invoice #%1', $block->getField($invoice, 'Sales_Doc_Num'))) ?></strong>
+    </div>
+ */ ?>
+    <div class="table-wrapper table-order-items invoice">
+        <table id="my-invoice-table-<?= $block->getFieldAttr($invoice, 'Sales_Doc_Num') ?>"
+               class="data table table-order-items invoice">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Items Invoiced')) ?></caption>
+            <thead>
+                <tr>
+                    <th class="col name"><?= $block->escapeHtml(__('Product Name')) ?></th>
+                    <th class="col sku"><?= $block->escapeHtml(__('Item #')) ?></th>
+                    <th class="col price"><?= $block->escapeHtml(__('Price')) ?></th>
+                    <th class="col qty"><?= $block->escapeHtml(__('Qty Invoiced')) ?></th>
+                    <th class="col subtotal"><?= $block->escapeHtml(__('Subtotal')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($invoice['items'] as $item): ?>
+                    <?php
+                        $finish = '';
+                        $shade = '';
+                        $product = $block->getProduct($item);
+                        if ($product->getId()) {
+                            $finish = $product->getAttributeText('finishdescription');
+                            if ($product->getShadeFilter()) {
+                                $shade = $product->getShadeDescription();
+                            }
+                        }
+                        $sidemark = $block->getUserField($item, 'xSidemark');
+                        $comments = $block->getField($item, 'Comment');
+                    ?>
+                    <tr id="order-items-row-<?= $block->getFieldAttr($item, 'Line_Num') ?>">
+                        <td class="col name" data-th="<?= $block->escapeHtml(__('Product Name')) ?>">
+
+                            <div class="item-data">
+                                <div class="item-data-left">
+                                    <?= $block->getItemImage($item) ?>
+                                </div>
+                                <div class="item-data-right">
+                                    <strong class="product name product-item-name"><?= $block->getField($item, 'Item_Description')?></strong>
+                                    <dl class="item-options">
+                                        <?php if ($finish): ?>
+                                            <div>
+                                                <dt><?= $block->escapeHtml(__('Finish')) ?></dt>
+                                                <dd><?= $block->escapeHtml($finish) ?></dd>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($shade): ?>
+                                            <div>
+                                                <dt><?= $block->escapeHtml(__('Shade')) ?></dt>
+                                                <dd><?= $block->escapeHtml($shade) ?></dd>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($sidemark): ?>
+                                            <div>
+                                                <dt><?= $block->escapeHtml(__('Sidemark')) ?></dt>
+                                                <dd><?= $block->escapeHtml($sidemark) ?></dd>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($comments): ?>
+                                            <div>
+                                                <dt><?= $block->escapeHtml(__('Comments')) ?></dt>
+                                                <dd><?= $block->escapeHtml($comments) ?></dd>
+                                            </div>
+                                        <?php endif; ?>
+                                    </dl>
+                                </div>
+                            </div>
+
+                        </td>
+                        <td class="col sku" data-th="<?= $block->escapeHtml(__('Item #')) ?>">
+                            <?= $block->getField($item, 'Item_Number') ?>
+                        </td>
+                        <td class="col price" data-th="<?= $block->escapeHtml(__('Price')) ?>">
+                            <span class="price-excluding-tax" data-label="<?= $block->escapeHtml(__('Excl. Tax')) ?>">
+                                <span class="cart-price">
+                                    <span class="price"><?= $block->getPrice($item, 'Extended_Price') ?></span>
+                                </span>
+                            </span>
+                        </td>
+                        <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty Invoiced')) ?>">
+                            <span class="qty summary"><?= $block->getField($item, 'Qty_Fulfilled') ?></span>
+                        </td>
+                        <td class="col subtotal" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+                            <span class="price-excluding-tax" data-label="<?= $block->escapeHtml(__('Excl. Tax')) ?>">
+                                <span class="cart-price">
+                                    <?php $qty = intval($block->getFieldRaw($item, 'Qty_Fulfilled', 1)); ?>
+                                    <span class="price"><?= $block->getPrice($item, 'Extended_Price', $qty) ?></span>
+                                </span>
+                            </span>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+                <tr class="subtotal">
+                    <th class="mark" colspan="4" scope="row"><?= $block->escapeHtml(__('Subtotal')) ?></th>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Subtotal')) ?>">
+                        <span class="price"><?= $block->getPrice($invoice, 'Subtotal') ?></span>
+                    </td>
+                </tr>
+                <tr class="discount">
+                    <th class="mark" colspan="4" scope="row"><?= $block->escapeHtml(__('Discount')) ?></th>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Discount')) ?>">
+                        <span class="price"><?= $block->getPrice($invoice, 'Discount') ?></span>
+                    </td>
+                </tr>
+                <tr class="totals-tax">
+                    <th class="mark" colspan="4" scope="row"><?= $block->escapeHtml(__('Tax')) ?></th>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Tax')) ?>">
+                        <span class="price"><?= $block->getPrice($invoice, 'Tax') ?></span>
+                    </td>
+                </tr>
+                <tr class="grand_total">
+                    <th class="mark" colspan="4" scope="row">
+                        <strong><?= $block->escapeHtml(__('Grand Total')) ?></strong>
+                    </th>
+                    <td class="amount" data-th="<?= $block->escapeHtml(__('Grand Total')) ?>">
+                        <strong>
+                            <span class="price"><?= $block->getPrice($invoice, 'Total') ?></span>
+                        </strong>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+<?php endforeach; ?>

@@ -1,0 +1,160 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/* @var $block \Magento\MultipleWishlist\Block\Customer\Wishlist\Management */
+?>
+<?php if ($block->getCurrentWishlist()) : ?>
+    <div class="block-wishlist-management">
+        <p class="small" style="display: none">
+            <?php echo count($block->getWishlists()) . ' Lists(s)'; ?>
+        </p>
+        <div class="wishlist-title-row">
+            <div class="wishlist-title">
+                <strong><?= $block->escapeHtml($block->getCurrentWishlist()->getName()) ?></strong>
+            </div>
+            <div class="wishlist-select">
+              <span class="wishlist-name"
+                    data-mage-init='{"toggleAdvanced": {"toggleContainers": "#wishlists-select", "selectorsToggleClass": "active"}}'>
+                  <span class="wishlist-name-current">
+                      <?= $block->escapeHtml($block->getCurrentWishlist()->getName()) ?>
+                  </span>
+              </span>
+                <div class="wishlist-select-items">
+                    <div onclick="myFunction()" class="dropbtn">
+                        <?php foreach ($block->getWishlists() as $wishlist) : ?>
+                            <?php if ($wishlist->getId() == $block->getCurrentWishlist()->getId()) : ?>
+                                <?= $block->escapeHtml($wishlist->getName()) ?>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                    <div id="searchProjectDropdown" class="projects-content">
+                        <span class="search-box"><input type="text" placeholder="Search My Projects" id="searchproject"
+                                                        onkeyup="filterFunction()"></span>
+                        <?php if ($block->canCreateWishlists($block->getWishlists())) : ?>
+                            <a href="#"
+                               id="wishlist-create-button"
+                               data-action-keypress="true"
+                               data-wishlist-create='{
+                                "url":"<?= $escaper->escapeUrl($block->getCreateUrl()) ?>",
+                                "title":"<?= $escaper->escapeHtmlAttr(__('Create Project')) ?>",
+                                "formKey": "<?= $escaper->escapeHtmlAttr($block->getFormkey()) ?>"
+                                }'
+                               title="<?= $escaper->escapeHtmlAttr(__('Create New Project')) ?>"
+                               class="action add wishlist">
+                                <span><?= $escaper->escapeHtml(__('Create New Project')) ?></span>
+                            </a>
+                        <?php endif; ?>
+                        <?php foreach ($block->getWishlists() as $wishlist) : ?>
+                            <?php if ($wishlist->getId() != $block->getCurrentWishlist()->getId()) : ?>
+                                <a title="<?= $block->escapeHtmlAttr($wishlist->getName()) ?>"
+                                   href="<?= $block->escapeUrl($block->getWishlistManagementUrl($wishlist)) ?>"><?= $block->escapeHtml($wishlist->getName()) ?></a>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <?php if ($block->getCurrentWishlist()->getItemsCount()) : ?>
+            <div class="wishlist-toolbar">
+                <div class="wishlist-toolbar-select">
+                    <input type="checkbox" name="" id="wishlist-select-all" data-role="select-all"/>
+                    <label class="label" for="wishlist-select-all"><?= $block->escapeHtml(__('Select All')) ?></label>
+                </div>
+                <span class="counter qty">
+                    (<?= $block->getCurrentWishlist()->getItemsCount() . ' Items' ?>)
+                </span>
+                <div class="action-topbar">
+                    <div id="wishlists-move"
+                         class="wishlist-dropdown move"
+                         data-wishlist-move='{"moveSelectedUrl":"<?= $block->escapeUrl($block->getMoveSelectedUrl()) ?>", "moveItemUrl":"<?= $block->escapeUrl($block->getMoveItemUrl()) ?>"}'>
+                      <span class="move-project"
+                            data-mage-init='{"dropdown":{}}'
+                            data-trigger-keypress-button="true"
+                            <?php if ($block->getCurrentWishlist()->getId() != $block->getDefaultWishlist()->getId()) : ?>data-wishlist-move-selected='{"wishlistId":"<?= $block->escapeHtmlAttr($block->getDefaultWishlist()->getId()) ?>"}'<?php endif; ?>>
+                          <span><?= $block->escapeHtml(__('Move')) ?></span>
+                      </span>
+                        <ul class="items dropdown" data-target="dropdown">
+                            <?php foreach ($block->getWishlists() as $wishlist) : ?>
+                                <?php if ($wishlist->getId() !== $block->getCurrentWishlist()->getId()) : ?>
+                                    <li class="item">
+                                      <span role="button"
+                                            tabindex="0"
+                                            data-action-keypress="true"
+                                            data-wishlist-move-selected='{"wishlistId":"<?= $block->escapeHtmlAttr($wishlist->getId()) ?>"}'
+                                            title="<?= $block->escapeHtmlAttr($wishlist->getName()) ?>">
+                                          <?= $block->escapeHtml($wishlist->getName()) ?>
+                                      </span>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <div id="wishlists-copy"
+                         class="wishlist-dropdown copy"
+                         data-wishlist-copy='{"copySelectedUrl":"<?= $block->escapeHtmlAttr($block->getCopySelectedUrl()) ?>", "copyItemUrl":"<?= $block->escapeHtmlAttr($block->getCopyItemUrl()) ?>"}'>
+                      <span class="copy-project"
+                            data-mage-init='{"dropdown":{}}'
+                            data-trigger-keypress-button="true"
+                            <?php if ($block->getCurrentWishlist()->getId() != $block->getDefaultWishlist()->getId()) : ?>data-wishlist-copy-selected='{"wishlistId":"<?= $block->escapeHtmlAttr($block->getDefaultWishlist()->getId()) ?>"}'<?php endif; ?>>
+                          <span><?= $block->escapeHtml(__('Copy')) ?></span>
+                      </span>
+                        <ul class="items dropdown" data-target="dropdown">
+                            <?php foreach ($block->getWishlists() as $wishlist) : ?>
+                                <?php if ($wishlist->getId() !== $block->getCurrentWishlist()->getId()) : ?>
+                                    <li class="item">
+                                      <span role="button"
+                                            tabindex="0"
+                                            data-action-keypress="true"
+                                            data-wishlist-copy-selected='{"wishlistId":"<?= $block->escapeHtmlAttr($wishlist->getId()) ?>"}'
+                                            title="<?= $block->escapeHtmlAttr($wishlist->getName()) ?>">
+                                          <?= $block->escapeHtml($wishlist->getName()) ?>
+                                      </span>
+                                    </li>
+                                <?php endif; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+                <div class="wishlist-toolbar-actions">
+                    <?= $block->getChildHtml('print.pdf.button') ?>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "[data-role='select-all']": {
+            "Magento_MultipleWishlist/js/select-all-change": {}
+        }
+    }
+
+</script>
+<script type="text/javascript">
+    function myFunction() {
+        document.getElementById("searchProjectDropdown").classList.toggle("show");
+    }
+
+    function filterFunction() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("searchproject");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("searchProjectDropdown");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+            txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
+    }
+
+</script>

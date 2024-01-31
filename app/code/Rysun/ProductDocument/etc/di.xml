@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Rysun\ProductDocument\Api\ProductDocumentRepositoryInterface" type="Rysun\ProductDocument\Model\ProductDocumentRepository"/>
+	<preference for="Rysun\ProductDocument\Api\Data\ProductDocumentInterface" type="Rysun\ProductDocument\Model\ProductDocument"/>
+	<preference for="Rysun\ProductDocument\Api\Data\ProductDocumentSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Rysun\ProductDocument\Model\ResourceModel\ProductDocument\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">rysun_productdocument_productdocument</argument>
+			<argument name="resourceModel" xsi:type="string">Rysun\ProductDocument\Model\ResourceModel\ProductDocument\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="rysun_productdocument_productdocument_listing_data_source" xsi:type="string">Rysun\ProductDocument\Model\ResourceModel\ProductDocument\Grid\Collection</item>
+				<item name="rysun_productdocument_productdocumentlink_listing_data_source" xsi:type="string">Rysun\ProductDocument\Model\ResourceModel\ProductDocumentLink\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<preference for="Rysun\ProductDocument\Api\ProductDocumentLinkRepositoryInterface" type="Rysun\ProductDocument\Model\ProductDocumentLinkRepository"/>
+	<preference for="Rysun\ProductDocument\Api\Data\ProductDocumentLinkInterface" type="Rysun\ProductDocument\Model\ProductDocumentLink"/>
+	<preference for="Rysun\ProductDocument\Api\Data\ProductDocumentLinkSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Rysun\ProductDocument\Model\ResourceModel\ProductDocumentLink\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">rysun_productdocument_productdocumentlink</argument>
+			<argument name="resourceModel" xsi:type="string">Rysun\ProductDocument\Model\ResourceModel\ProductDocumentLink\Collection</argument>
+		</arguments>
+	</virtualType>
+</config>

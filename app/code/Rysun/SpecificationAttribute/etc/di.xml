@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Rysun\SpecificationAttribute\Api\SpecificationAttributeRepositoryInterface" type="Rysun\SpecificationAttribute\Model\SpecificationAttributeRepository"/>
+	<preference for="Rysun\SpecificationAttribute\Api\Data\SpecificationAttributeInterface" type="Rysun\SpecificationAttribute\Model\SpecificationAttribute"/>
+	<preference for="Rysun\SpecificationAttribute\Api\Data\SpecificationAttributeSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Rysun\SpecificationAttribute\Model\ResourceModel\SpecificationAttribute\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">rysun_specificationattribute_specificationattribute</argument>
+			<argument name="resourceModel" xsi:type="string">Rysun\SpecificationAttribute\Model\ResourceModel\SpecificationAttribute\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="rysun_specificationattribute_specificationattribute_listing_data_source" xsi:type="string">Rysun\SpecificationAttribute\Model\ResourceModel\SpecificationAttribute\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+</config>

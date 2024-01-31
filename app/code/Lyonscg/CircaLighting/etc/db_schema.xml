@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+
+    <table name="quote_item" resource="checkout" comment="Sales Flat Quote Item">
+        <column xsi:type="text" name="sidemark" nullable="true"
+            comment="Quote Item Sidemark"/>
+        <column xsi:type="text" name="comments_line_item" nullable="true"
+            comment="Quote Item Comment"/>
+    </table>
+    <table name="sales_order_item" resource="sales" comment="Sales Flat Order Item">
+        <column xsi:type="text" name="sidemark" nullable="true"
+            comment="Order Item Sidemark"/>
+        <column xsi:type="text" name="comments_line_item" nullable="true"
+            comment="Order Item Comment"/>
+    </table>
+</schema>

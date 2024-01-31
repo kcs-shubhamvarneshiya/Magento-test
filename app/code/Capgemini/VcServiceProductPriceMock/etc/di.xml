@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Capgemini\VcServiceProductPriceMock\Service\V1\PriceInterface"
+                type="Capgemini\VcServiceProductPriceMock\Service\V1\Price"/>
+
+    <preference for="Capgemini\VcServiceProductPriceMock\Api\ResponseDataInterface"
+                type="Capgemini\VcServiceProductPriceMock\Api\ResponseData"/>
+
+    <preference for="Capgemini\VcServiceProductPriceMock\Api\PriceDataInterface"
+                type="Capgemini\VcServiceProductPriceMock\Api\PriceData"/>
+
+    <type name="Magento\Framework\Webapi\Rest\Response">
+        <plugin name="Capgemini_VcServiceProductPriceMock::ResponsePlugin"
+                type="Capgemini\VcServiceProductPriceMock\Plugin\Webapi\ResponsePlugin"/>
+    </type>
+</config>

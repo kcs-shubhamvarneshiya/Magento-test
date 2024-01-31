@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Amasty\Shopby\Model\UrlResolver\UrlResolverInterface"
+                type="Lyonscg\AmastyShopby\Model\UrlResolver\ClearUrlResolver"/>
+    <type name="Amasty\Shopby\Model\Layer\Filter\Item">
+        <plugin name="lyonscg_amastyshopby_add_customer_group_to_url"
+                type="\Lyonscg\AmastyShopby\Plugin\AddCustomerGroupToUrl"/>
+    </type>
+    <type name="Magento\LayeredNavigation\Block\Navigation">
+        <plugin name="lyonscg_amastyshopby_remove_customer_group_fromclear_all_url"
+                type="Lyonscg\AmastyShopby\Plugin\ClearAllUrl"/>
+    </type>
+</config>

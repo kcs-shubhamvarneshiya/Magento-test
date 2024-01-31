@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<fieldset name="content">
+		<field name="custom_product_field">
+			<argument name="data" xsi:type="array">
+				<item name="config" xsi:type="array">
+					<item name="required" xsi:type="boolean">false</item>
+					<item name="validation" xsi:type="array">
+						<item name="required-entry" xsi:type="boolean">false</item>
+					</item>
+					<item name="sortOrder" xsi:type="number">100</item>
+					<item name="dataType" xsi:type="string">string</item>
+					<item name="formElement" xsi:type="string">wysiwyg</item>
+					<item name="label" translate="true" xsi:type="string">Additional Promotion</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="wysiwygConfigData" xsi:type="array">
+                        <item name="pagebuilder_button" xsi:type="boolean">true</item>
+                        <item name="pagebuilder_enabled" xsi:type="boolean">true</item>
+                        <item name="toggle_button" xsi:type="boolean">true</item>
+                        <item name="height" xsi:type="string">200px</item>
+                        <item name="add_variables" xsi:type="boolean">true</item>
+                        <item name="add_widgets" xsi:type="boolean">true</item>
+                        <item name="add_images" xsi:type="boolean">true</item>
+                        <item name="add_directives" xsi:type="boolean">true</item>
+                    </item>
+				</item>
+			</argument>
+            <settings>
+                <additionalClasses>
+                    <class name="admin__field-wide">true</class>
+                </additionalClasses>
+                <validation>
+                    <rule name="required-entry" xsi:type="boolean">false</rule>
+                </validation>
+                <scopeLabel>[STORE VIEW]</scopeLabel>
+                <label translate="true">Additional Promotion</label>
+                <dataScope>additionalpromotion</dataScope>
+                <visible>true</visible>
+                <required>false</required>
+            </settings>
+            <formElements>
+                <wysiwyg>
+                    <settings>
+                        <wysiwyg>true</wysiwyg>
+                    </settings>
+                </wysiwyg>
+            </formElements>
+		</field>
+	</fieldset>
+</form>

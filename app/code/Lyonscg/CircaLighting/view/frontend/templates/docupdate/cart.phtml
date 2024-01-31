@@ -1,0 +1,37 @@
+<?php
+/** @var $block \Lyonscg\CircaLighting\Block\Docupdate */
+?>
+<script type="text/javascript">
+    require([
+        'jquery',
+        'Magento_Ui/js/model/messageList'
+    ], function($, messageList) {
+        $('.cart-comments textarea').change(function() {
+            $('#form-validate').trigger('processStart');
+            $.post(
+                '<?= $block->getCartUrl() ?>',
+                $('#form-validate').serialize(),
+                function(data) {
+                    if (data.success) {
+                        messageList.addSuccessMessage({message: '<?= __('Item updated successfully') ?>'})
+                    } else {
+                        messageList.addErrorMessage({message: data.error_message ? data.error_message : '<?= __('Failed to update item') ?>'});
+                    }
+                }
+            ).fail(function() {
+                messageList.addErrorMessage({message: '<?= __('Failed to update item') ?>'});
+            }).always(function() {
+                $('#form-validate').trigger('processStop');
+            });
+        });
+        $('.item-info input.qty').change(function() {
+            $('#form-validate').submit();
+            $('body').trigger('processStart');
+            <?php /* show loading icon when page is refreshing */ ?>
+            window.setTimeout(function() {
+                <?php /* just in case something fails, remove the loading image after a bit */ ?>
+                $('body').trigger('processStop');
+            }, 20000);
+        });
+    });
+</script>

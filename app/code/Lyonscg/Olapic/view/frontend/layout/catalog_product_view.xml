@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.media">
+            <block class="Lyonscg\Olapic\Block\Olapic" name="pdp-olapic" after="product.info.media.image" before="product.info.details.wrapper"
+                   template="Lyonscg_Olapic::olapic.phtml"/>
+        </referenceContainer>
+
+
+        <referenceContainer name="page.wrapper">
+            <container name="olapic-mobile-holder" htmlTag="div" htmlClass="olapic-mobile-holder" after="main.content" before="product.info.details.wrapper">
+                <!-- Force container to render -->
+                <block class="Magento\Framework\View\Element\Text">
+                    <arguments>
+                        <argument name="text" xsi:type="string"><![CDATA[&nbsp;]]></argument>
+                    </arguments>
+                </block>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

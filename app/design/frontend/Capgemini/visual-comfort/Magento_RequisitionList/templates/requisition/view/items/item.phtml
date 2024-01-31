@@ -1,0 +1,165 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Magento\RequisitionList\Block\Requisition\View\Item
+ */
+$item = $block->getItem();
+// note $sku is escaped by the block
+$sku = $block->getChildBlock('requisition.list.item.view.sku')->setItem($item)->toHtml();
+$brandText = '';
+$designerText = '';
+?>
+<td class="col col-checkbox">
+    <input name="<?= $block->escapeHtmlAttr($sku) ?>"
+           class="input-checkbox"
+           type="checkbox"
+           id="<?= $block->escapeHtmlAttr($sku) ?>"
+           data-item-id="<?= (int) $item->getId() ?>"
+           data-item-has-errors="<?= (int)!empty($item->getItemErrors()) ?>"
+           data-action="requisition-item-check"
+           data-role="select-item"
+           value="1"/>
+    <label for="<?= $block->escapeHtmlAttr($sku) ?>"></label>
+</td>
+<td class="col product" data-th="<?= $block->escapeHtmlAttr(__('Product')) ?>">
+    <div class="product-item-description">
+        <?php $productName = $block->getRequisitionListProduct() ? $block->getRequisitionListProduct()->getName() : $item->getData('name') ?>
+        <?php if ($productName) : ?>
+            <span class="product-item-name">
+                <a href="<?= $block->escapeUrl($block->getProductUrlByItem()) ?>">
+                    <?= $block->escapeHtml($productName) ?>
+                </a>
+            </span>
+        <?php endif ?>
+        <?php if ($brandText && $designerText):?>
+            <div class="product-item-info-extra">
+                <span class="brand"><?= $brandText ?></span>
+                <span class="designer"><?= $designerText ?></span>
+            </div>
+        <?php endif; ?>
+        <div class="product-item-sku">
+            <b><?= $block->escapeHtml(__('Item #')) ?>:</b>
+            <span><?= /** @noEscape */$sku ?></span>
+        </div>
+        <?php $block->getChildBlock('requisition.list.item.options')->unsetData('option_list')->setItem($item); ?>
+        <?= $block->getChildHtml('requisition.list.item.options', false) ?>
+        <?php if ($block->getItemError()) : ?>
+            <div class="message error item-error">
+                <span><?= $block->escapeHtml($block->getItemError()) ?></span>
+            </div>
+        <?php endif ?>
+        <!-- Additional Info -->
+        <div class="desktop">
+            <?php $sidemarkBlock = $block->getChildBlock('requisition.item.sidemark'); ?>
+            <?php if ($sidemarkBlock): ?>
+                <?= $sidemarkBlock->setItem($item)->toHtml(); ?>
+            <?php endif; ?>
+        </div>
+    </div>
+    <div class="product-item-image">
+        <img src="<?= $block->escapeUrl($block->getImageUrl()) ?>">
+    </div>
+</td>
+<td class="col price" data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>">
+    <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+        <?= /* @noEscape */ $block->getFormattedPrice() ?>
+        <?php if ($block->displayBothPrices()) : ?>
+            <span class="price-excluding-tax"
+                  data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                <?= /* @noEscape */ $block->getFormattedPriceExcludingTax() ?>
+            </span>
+        <?php endif; ?>
+    <?php endif ?>
+</td>
+<td class="col qty" data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>">
+    <input id="item-<?= (int) $item->getId() ?>-qty"
+           name="qty[<?= (int) $item->getId() ?>]"
+           value="<?= (float) ($item->getQty() * 1) ?>"
+        <?php if (!$block->canEditQty()) : ?>
+            disabled="disabled"
+        <?php endif; ?>
+           type="number"
+           size="4"
+           class="input-text qty"
+           maxlength="12"
+           data-validate='{
+                "validate-number": true,
+                "validate-greater-than-zero": true,
+                "required": true
+                }'
+           data-role="requisition-item-qty"/>
+</td>
+<td class="col subtotal action" data-th="<?= $block->escapeHtmlAttr(__('Subtotal')) ?>">
+    <div class="product-item-subtotal">
+        <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+            <?= /* @noEscape */ $block->getFormattedSubtotal() ?>
+            <?php if ($block->displayBothPrices()) : ?>
+                <span class="price-excluding-tax" data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                    <?= /* @noEscape */ $block->getFormattedSubtotalExcludingTax() ?>
+                </span>
+            <?php endif; ?>
+        <?php endif ?>
+        <div class="actions-toolbar desktop">
+            <?php if ($block->canEdit()) : ?>
+                <button type="button"
+                        title="<?= $block->escapeHtmlAttr(__('Edit')) ?>"
+                        data-action="edit-item"
+                        data-update-item='{
+                            "editItemUrl":"<?= $block->escapeUrl($block->getItemConfigureUrl()) ?>"
+                        }'
+                        class="action action-edit">
+                    <span><?= $block->escapeHtml(__('Edit')) ?></span>
+                </button>
+            <?php endif; ?>
+            <button type="button"
+                    title="<?= $block->escapeHtmlAttr(__('Remove')) ?>"
+                    data-action="remove-item"
+                    data-delete-list='{
+                        "deleteUrl":"<?= $block->escapeUrl(
+                            $block->getUrl('*/item/delete', ['requisition_id' => (int)$block->getRequest()->getParam('requisition_id')])
+                        ) ?>",
+                        "itemId": "<?= (int) $item->getId() ?>"
+                    }'
+                    class="action action-delete">
+                <span><?= $block->escapeHtml(__('Remove')) ?></span>
+            </button>
+        </div>
+    </div>
+</td>
+<td class="col comments mobile">
+    <?php $sidemarkBlock = $block->getChildBlock('requisition.item.sidemark'); ?>
+    <?php if ($sidemarkBlock): ?>
+        <?= $sidemarkBlock->setItem($item)->toHtml(); ?>
+    <?php endif; ?>
+</td>
+<td class="col actions mobile">
+    <div class="actions-toolbar mobile">
+        <?php if ($block->canEdit()) : ?>
+            <button type="button"
+                    title="<?= $block->escapeHtmlAttr(__('Edit')) ?>"
+                    data-action="edit-item"
+                    data-update-item='{
+                                "editItemUrl":"<?= $block->escapeUrl($block->getItemConfigureUrl()) ?>"
+                            }'
+                    class="action action-edit">
+                <span><?= $block->escapeHtml(__('Edit')) ?></span>
+            </button>
+        <?php endif; ?>
+        <button type="button"
+                title="<?= $block->escapeHtmlAttr(__('Remove')) ?>"
+                data-action="remove-item"
+                data-delete-list='{
+                            "deleteUrl":"<?= $block->escapeUrl(
+                    $block->getUrl('*/item/delete', ['requisition_id' => (int)$block->getRequest()->getParam('requisition_id')])
+                ) ?>",
+                            "itemId": "<?= (int) $item->getId() ?>"
+                        }'
+                class="action action-delete">
+            <span><?= $block->escapeHtml(__('Remove')) ?></span>
+        </button>
+    </div>
+</td>

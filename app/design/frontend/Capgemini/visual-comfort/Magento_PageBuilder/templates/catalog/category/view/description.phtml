@@ -1,0 +1,88 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Category view template
+ *
+ * @var $block \Magento\Catalog\Block\Category\View
+ */
+?>
+
+<?php
+$_helper    = $this->helper(Magento\Catalog\Helper\Output::class);
+$_category  = $block->getCurrentCategory();
+$_imgHtml   = '';
+
+$categoryDescription = $this->helper(Magento\Catalog\Helper\Output::class)->categoryAttribute(
+    $block->getCurrentCategory(),
+    $block->getCurrentCategory()->getDescription(),
+    'description'
+);
+$countSubstr = substr_count($categoryDescription ?? '', '</');
+?>
+
+<div class="category-top-info">
+    <?php if ($countSubstr > 2) :?>
+        <?php if ($description = $block->getCurrentCategory()->getDescription()) :?>
+            <div class="category-top-wrapper" <?= ($_imgUrl = $_category->getImageUrl()) ? 'style="background:url('. $block->escapeUrl($_imgUrl) .') no-repeat; background-size: cover;"' : '' ;?>>
+                <?php
+                if ($_imgUrl = $_category->getImageUrl()) {
+                    $_imgHtml = '<div class="category-top-image"><img src="'
+                        . $block->escapeUrl($_imgUrl)
+                        . '" alt="'
+                        . $block->escapeHtmlAttr($_category->getName())
+                        . '" title="'
+                        . $block->escapeHtmlAttr($_category->getName())
+                        . '" class="image" /></div>';
+                    $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+                    /* @noEscape */ echo $_imgHtml;
+                }
+                ?>
+
+                <?php /*Description*/ ?>
+                <div class="category-description">
+                    <?php $descriptionHtml = $this->helper(Magento\Catalog\Helper\Output::class)->categoryAttribute(
+                        $block->getCurrentCategory(),
+                        $description,
+                        'description'
+                    );?>
+
+                    <?php if (stripos($description, 'data-appearance="contained"') === false) :?>
+                        <div class="content-inner" data-content-type="row" data-appearance="contained" data-element="main">
+                            <div class="content-inner" data-enable-parallax="0" data-parallax-speed="0.5" data-background-images="{}" data-element="inner" style="justify-content: flex-start; display: flex; flex-direction: column; background-position: left top; background-size: cover; background-repeat: no-repeat; background-attachment: scroll; border-style: none; border-width: 1px; border-radius: 0px; margin: 0px 0px 10px; padding: 10px;">
+                                <div class="content-inner" data-content-type="html" data-appearance="default" data-element="main" style="border-style: none; border-width: 1px; border-radius: 0px; margin: 0px; padding: 0px;">
+                                    <?= /* @noEscape */$descriptionHtml; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php else : ?>
+                        <?= /* @noEscape */$descriptionHtml; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php else :?>
+            <?php
+            if ($_imgUrl = $_category->getImageUrl()) {
+                $_imgHtml = '<div class="category-top-image"><img src="'
+                    . $block->escapeUrl($_imgUrl)
+                    . '" alt="'
+                    . $block->escapeHtmlAttr($_category->getName())
+                    . '" title="'
+                    . $block->escapeHtmlAttr($_category->getName())
+                    . '" class="image" /></div>';
+                $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+                /* @noEscape */ echo $_imgHtml;
+            }
+            ?>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>
+
+
+

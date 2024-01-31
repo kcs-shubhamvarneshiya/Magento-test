@@ -1,0 +1,138 @@
+//
+//  Common
+//  _____________________________________________
+& when (@media-common = true) {
+    .my-credit-cards {
+        .status {
+            font-style: italic;
+        }
+
+        .action.delete {
+            .lib-button-reset();
+            .lib-button-as-link();
+        }
+    }
+
+    .my-credit-cards-popup {
+        .modal-footer {
+            text-align: right;
+        }
+
+        .action.secondary {
+            .lib-button-reset();
+            .lib-button-as-link();
+            margin-right: @indent__base;
+        }
+    }
+    #html-body {
+        &[class^="vault-"],
+        &[class*="vault-"] {
+            .page-wrapper {
+                #saved-payment-methods {
+                    display: flex;
+                    flex-wrap: wrap;
+                    .payment-method-item {
+                        position: relative;
+                        span {
+                            .font-proxima-nova(14px, 1.57);
+                            font-weight: normal;
+                            font-stretch: normal;
+                            font-style: normal;
+                            letter-spacing: normal;
+                            color: @color-gray-800;
+                        }
+                        .method-card-img {
+                            position: absolute;
+                            top: 20px;
+                            right: 20px;
+                        }
+                        .method-info {
+                            .action.delete {
+                                .lib-button-reset();
+                                .lib-button-as-link();
+                                margin-top: 22px;
+                                text-decoration: underline;
+                                text-transform: capitalize;
+                                width: auto;
+                                height: auto;
+                                &:active {
+                                    color: @color-gray-800;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .my-credit-cards-popup {
+        .modal-footer {
+            .action {
+                &.secondary {
+                    .lib-button();
+                    &:hover {
+                        text-decoration: none;
+                    }
+                }
+                &.primary {
+                    .lib-button-primary();
+                }
+            }
+        }
+    }
+}
+
+//
+//  Mobile @screen__m
+//  _____________________________________________
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    #html-body {
+        &[class^="vault-"],
+        &[class*="vault-"] {
+            .page-wrapper {
+                #saved-payment-methods {
+                    flex-direction: column;
+                    .payment-method-item {
+                        border: 1px solid #e3e3e3;
+                        padding: 18px 21px 25px;
+                        box-sizing: border-box;
+                        margin-bottom: 20px;
+                        line-height: 1.57;
+                    }
+                }
+            }
+        }
+    }
+    .my-credit-cards-popup {
+        .modal-footer {
+            flex-direction: column !important;
+            .action:not(:last-child) {
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    #html-body {
+        &[class^="vault-"],
+        &[class*="vault-"] {
+            .page-wrapper {
+                #saved-payment-methods {
+                    .payment-method-item {
+                        height: 175px;
+                        margin: 0 31px 29px 0;
+                        padding: 18px 20px 25px 21px;
+                        border: solid 1px #e3e3e3;
+                        width: 300px;
+                        box-sizing: border-box;
+                    }
+                }
+            }
+        }
+    }
+}

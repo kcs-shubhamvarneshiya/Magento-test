@@ -1,0 +1,32 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php $partnersInsightHelper = $this->helper(\Capgemini\PartnersInsight\Helper\Creditmemo::class) ?>
+<?php $poNumber = $partnersInsightHelper->getPoNumber() ?? ''; ?>
+<?php $status = $partnersInsightHelper->getStatus() ?? ''; ?>
+<div class="project-data">
+    <div class="invoice-col-1">
+        <?php if($poNumber) { ?>
+        <div>
+            <strong class="label">Purchase Order #: </strong>
+            <span><?= $poNumber ?></span>
+        </div>
+        <?php } ?>
+        <?php if($status) { ?>
+            <div>
+                <strong class="label">Status: </strong>
+                <span><?= $status ?></span>
+            </div>
+        <?php } ?>
+    </div>
+    <div class="invoice-col-2">
+        <div class="order-date">
+            <strong class="label">Credit Memo Date: </strong>
+            <span><?php echo $partnersInsightHelper->getCreditmemoDate() ?></span>
+        </div>
+
+    </div>
+</div>

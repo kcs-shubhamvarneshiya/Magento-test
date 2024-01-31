@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+     <head>
+        <css src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" src_type="url" rel="stylesheet"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Capgemini\OrderView\Block\Payments" name="capgemini.orderview.payments.grid" template="Capgemini_OrderView::payment-list.phtml" cacheable="false">
+                <block class="Magento\Theme\Block\Html\Pager" name="salespad_order_list_pager"/>
+                <block class="Capgemini\OrderView\Block\DropDownFilter" name="capgemini.filter.dropdown" template="Capgemini_OrderView::search-dropdown.phtml" cacheable="false">
+                    <action method="setPlaceHolder">
+                        <argument name="placeHolder" xsi:type="string">Search by Payment Number or Check Number</argument>
+                    </action>
+                    <action method="isSearchAvailable">
+                        <argument name="searchAvailable" xsi:type="boolean">true</argument>
+                    </action>
+                    <action method="setFilterUrl">
+                        <argument name="filterUrl" xsi:type="string">orderview/payments/history</argument>
+                    </action>
+                </block>
+                <block class="Capgemini\OrderView\Block\Filterpopup" name="capgemini.filter.modal" template="Capgemini_OrderView::filterpopup.phtml" cacheable="false"/>
+
+                <block class="Capgemini\OrderView\Block\Searchaccountfilter" name="capgemini.filter.searchaccount" template="Capgemini_OrderView::searchaccount.phtml" cacheable="false"/>
+               
+            </block>
+           <block class="Magento\Customer\Block\Account\Dashboard" name="customer.account.link.back" template="Magento_Customer::account/link/back.phtml" cacheable="false"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,85 @@
+<?php
+/**
+ * PDF Requisition List Template
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2023 Capgemini, Inc (www.capgemini.com)
+ */
+/** @var \Lyonscg\RequisitionList\Block\Requisition\Pdf\Item $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+$params = $this->getRequest()->getParams();
+$pdf_pricing = (!empty($params['pdf_pricing'])) ? $params['pdf_pricing'] : '';
+$item = $block->getItem();
+$product = $block->getFinalProduct();
+$sku = $block->getChildBlock('requisition.list.item.view.sku')->setItem($item)->toHtml();
+$designer = $product->getAttributeText('designer');
+$collection = $product->getAttributeText('brand');
+$relatives = $product->getData('relatives');
+?>
+
+<table class="quote-table detailed-view">
+    <tr>
+        <td class="pdf-item-image" rowspan="2" width="50%" valign="top"><img src="<?= $block->escapeUrl($block->getImageUrl('product_page_main_image')) ?>"></td>
+        <td class="pdf-item-info">
+            <?php if($designer): ?>
+                <div class="designer">Designer: <?= $escaper->escapeHtml($designer) ?></div>
+            <?php endif; ?>
+            <div class="product-name"><?= $escaper->escapeHtml($block->getRequisitionListProduct()->getName()) ?></div>
+            <?php if ($relatives || $collection) : ?>
+                <div class="collection">
+                    <?= $escaper->escapeHtml($collection) ?><?= ($collection && $relatives) ? ' | ' : '' ?><?= $relatives ? $escaper->escapeHtml("View the $relatives series") : '' ?>
+                </div>
+            <?php endif ?>
+            <?php if ($pdf_pricing != 'none') : ?>
+                <div class="quote-price">
+                    <?php if ($pdf_pricing == 'retail' || $pdf_pricing == 'both') : ?>
+                        <div class="retail-price">
+                            <div class="price-label">Retail</div>
+                            <div class="price-value"><?= $block->formatProductPrice($block->getRequisitionListProduct()->getPrice()) ?></div>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($pdf_pricing == 'trade' || $pdf_pricing == 'both') : ?>
+                        <div  class="trade-price">
+                            <div class="price-label">Trade</div>
+                            <div class="price-value"><?= $block->getFormattedPrice() ?></div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="sku">
+                <span class="label"><?= $escaper->escapeHtml(__('Item #'));?>:</span>
+                <span class="value"><?= $escaper->escapeHtml($product->getSku()) ?></span>
+            </div>
+            <div class="item-options">
+                <?php $block->getChildBlock('requisition.list.item.options')->setItem($item)->setTemplate('Lyonscg_RequisitionList::pdf/options_list_detail_view.phtml'); ?>
+                <?= $block->getChildHtml('requisition.list.item.options', false) ?>
+            </div>
+            <div class="qty"><span class="label">Quantity:</span> <span class="value"><?= (float)($item->getQty() * 1) ?></span></div>
+            <?php if ($item->getExtensionAttributes()->getSidemark()) : ?>
+                <div class="sidemark">
+                    <div class="label">Sidemark</div>
+                    <div class="value"><?= $escaper->escapeHtml($item->getExtensionAttributes()->getSidemark()) ?></div>
+                </div>
+            <?php endif; ?>
+            <?php if ($item->getExtensionAttributes()->getCommentsLineItem()) : ?>
+                <div class="comments">
+                    <div class="label">Comments</div>
+                    <div class="value"><?= $escaper->escapeHtml($item->getExtensionAttributes()->getCommentsLineItem()) ?></div>
+                </div>
+            <?php endif; ?>
+            <?php if ($block->getParentBlock()->getRequisitionList()->getDescription()) : ?>
+                <div class="quote-notes">
+                    <div class="label">Quote Notes</div>
+                    <div class="value">
+                        <?= $escaper->escapeHtml($block->getParentBlock()->getRequisitionList()->getDescription()) ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="footer" style="page-break-inside: avoid;">
+                <div class="footer-copy">Quote pricing valid for 30 days.</div>
+            </div>
+        </td>
+    </tr>
+</table>

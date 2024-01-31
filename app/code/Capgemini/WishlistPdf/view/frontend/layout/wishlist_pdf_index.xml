@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_WishlistPdf
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="empty">
+    <head>
+        <!-- Proxima Nova -->
+        <css src="https://use.typekit.net/zpl3qco.css" src_type="url" />
+        <!-- Goudy Old Style -->
+        <css src="https://use.typekit.net/gky3bhr.css" src_type="url" />
+    </head>
+    <body>
+        <referenceBlock name="after.body.start" remove="true"/>
+        <referenceBlock name="top.links" remove="true"/>
+        <referenceContainer name="header.container" remove="true" />
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceBlock name="breadcrumbs" remove="true"/>
+        <referenceContainer name="notices.wrapper" remove="true"/>
+        <referenceContainer name="page.top" remove="true" />
+        <referenceContainer name="page.bottom.container" remove="true"/>
+        <referenceContainer name="footer-container" remove="true" />
+        <referenceContainer name="before.body.end" remove="true" />
+
+        <referenceBlock name="content">
+            <block class="Capgemini\WishlistPdf\Block\Wishlist" name="whishlist.pdf"
+                   template="Capgemini_WishlistPdf::whishlist_pdf.phtml">
+                <block class="Magento\Theme\Block\Html\Header\Logo" name="whishlist.pdf.logo" as="logo">
+                    <arguments>
+                        <argument name="logoPathResolver" xsi:type="object">Magento\Theme\ViewModel\Block\Html\Header\LogoPathResolver</argument>
+                        <argument name="logo_size_resolver" xsi:type="object">Magento\Theme\ViewModel\Block\Html\Header\LogoSizeResolver</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

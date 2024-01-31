@@ -1,0 +1,42 @@
+<?php
+/* @var \Capgemini\TechConfigurator\Block\Widget $block */
+/* @var \Magento\Framework\Escaper $escaper */
+$config = $block->getConfigurator();
+?>
+<?php if ($config) :?>
+<div class="product-configurator">
+    <h2 class="configurator-name"><?= $escaper->escapeHtml($config->getName()) ?></h2>
+    <div class="sku-parts">
+    <?php foreach ($config->getSkuParts() as $skuPart): ?>
+        <div class="sku-part">
+            <p class="name"><?= $escaper->escapeHtml($skuPart->getName()); ?></p>
+            <div class="options">
+                <fieldset class="fieldset">
+                <?php foreach ($skuPart->getOptions() as $option): ?>
+                    <div class="field">
+                        <input type="radio" id="option-<?= $option->getId() ?>" name="skupart[<?= $skuPart->getId() ?>]" value="<?= $option->getId()?>">
+                        <label for="option-<?= $option->getId() ?>"><?= $escaper->escapeHtml($option->getDescription()) ?></label>
+                    </div>
+                <?php endforeach; ?>
+                </fieldset>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    </div>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="button" class="button action primary"><span><?= __('Download Spec Sheet')?></span></button>
+        </div>
+    </div>
+    <div class="footnotes">
+    <?php foreach ($config->getFootnotes() as $footnote): ?>
+        <p class="footnote">
+            <?php if($footnote->getNumber()): ?>
+                <span class="number"><?= $escaper->escapeHtml($footnote->getNumber()) ?></span>
+            <?php endif; ?>
+            <?= $escaper->escapeHtml(str_replace("\n", "<br>", $footnote->getFootnote())) ?>
+        </p>
+    <?php endforeach; ?>
+    </div>
+</div>
+<?php endif; ?>

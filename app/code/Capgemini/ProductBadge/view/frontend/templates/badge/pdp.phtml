@@ -1,0 +1,72 @@
+<?php
+$badges = $block->getBadges();
+?>
+<?php if (!empty($badges)): ?>
+    <div class="product-badge-container">
+    <?php foreach($badges as $productId => $badge): ?>
+        <div
+            class="vc-product-badge <?= $badge['html_class'] ?>"
+            data-product-id="<?= $productId ?>"
+            <?= (!$badge['isShown']) ? 'style="display: none;"' : '' ?>
+        >
+            <span><?= $badge['label'] ?></span>
+        </div>
+    <?php endforeach; ?>
+    </div>
+
+    <script type="text/javascript">
+        require([
+            'jquery',
+            'underscore',
+            'Magento_ConfigurableProduct/js/configurable-utils',
+        ], function($, _, configurableUtils) {
+
+            /**
+             *
+             * @param element
+             * @returns {boolean}
+             */
+            function handleBadgeOptionClick(element) {
+                try {
+                    var options = $(element).data('options');
+                    // go through twice so options that depend on another can be tripped
+                    for (var times = 0; times < 2; times++) {
+                        for (var i = 0; i < options.length; i++) {
+                            var optionId = options[i];
+                            var opt = configurableUtils.getOption(optionId);
+                            if (opt === false) {
+                                continue;
+                            }
+                            if (opt.tagName === 'OPTION') {
+                                let productId = parseInt(opt.config.allowedProducts[0]);
+                                $('.product-badge-container .vc-product-badge').hide();
+                                $('.product-badge-container .vc-product-badge[data-product-id="' + productId + '"]').show();
+                            }
+                        }
+                    }
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            function handleBadgeOnload(element) {
+                let productId = parseInt(opt.config.allowedProducts[0]);
+                $('.product-badge-container .vc-product-badge').hide();
+                $('.product-badge-container .vc-product-badge[data-product-id="' + productId + '"]').show();
+            }
+
+            // Handle onclick
+            $('.variation-item a').click(function(evt) {
+                evt.preventDefault();
+                handleBadgeOptionClick(this)
+            });
+
+            // handle page load
+            $(document).on('gallery:loaded', function () {
+                $('.fotorama__stage').prepend($('.product-badge-container'));
+                handleBadgeOptionClick($('.variation-item.active a'));
+            });
+        });
+    </script>
+
+<?php endif; ?>

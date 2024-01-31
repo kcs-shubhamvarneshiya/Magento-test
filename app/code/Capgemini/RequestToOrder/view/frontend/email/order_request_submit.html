@@ -1,0 +1,77 @@
+<!--@subject Visual Comfort & Co.: Request to Order #{{var data.id}} @-->
+<!--@vars {
+"var form_name":"Form Name",
+"var customer_name":"Sender Name",
+"var answer":"Answer Model"
+"var data.items_html|raw" :"Items"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<div id="email-wrapper">
+    <div class="ore-leng-top">
+        <table class="request-legend items table">
+            <tbody class="legend item">
+            <tr class="legend-item-info">
+                <td class="header order"><span>Request To Order #:</span></td>
+                <td class="col order"><span>{{var data.id}}</span></td>
+            </tr>
+            <tr class="legend-item-info">
+                <td class="header created-on"><span>Created On:</span></td>
+                <td class="col created-on"><span>{{var data.created_at}}</span></td>
+            </tr>
+            <tr class="legend-item-info">
+                <td class="header name"><span>Name:</span></td>
+                <td class="col name"><span>{{var data.name}}</span></td>
+            </tr>
+            <tr class="legend-item-info">
+                <td class="header phone"><span>Phone #:</span></td>
+                <td class="col phone"><span>{{var data.phone}}</span></td>
+            </tr>
+            <tr class="legend-item-info">
+                <td class="header email"><span>Email Address:</span></td>
+                <td class="col email"><span>{{var data.email}}</span></td>
+            </tr>
+            {{if data.vc_account}}
+            <tr class="legend-item-info">
+                <td class="header email"><span>VC Account #:</span></td>
+                <td class="col email"><span>{{var data.vc_account}}</span></td>
+            </tr>
+            {{/if}}
+            {{if data.tech_account}}
+            <tr class="legend-item-info">
+                <td class="header email"><span>Tech Account #:</span></td>
+                <td class="col email"><span>{{var data.tech_account}}</span></td>
+            </tr>
+            {{/if}}
+            {{if data.gl_account}}
+            <tr class="legend-item-info">
+                <td class="header email"><span>GL Account #:</span></td>
+                <td class="col email"><span>{{var data.gl_account}}</span></td>
+            </tr>
+            {{/if}}
+            </tbody>
+        </table>
+    </div>
+    <div class="ore-email">
+        <table class="request-to-order items data table">
+            <thead>
+                <tr>
+                    <th scope="col" class="col product">Product</th>
+                    <th scope="col" class="col attributes"></th>
+                    <th scope="col" class="col price">Price</th>
+                    <th scope="col" class="col qty">Qty</th>
+                    <th scope="col" class="col subtotal">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody class="request item">
+                {{var data.items_html | raw}}
+            </tbody>
+        </table>
+    </div>
+    <div class="order-comments">
+        <div class="bolder">Comments</div>
+        <div class="comment">{{var data.comments}}</div>
+    </div>
+</div>
+
+{{template config_path="design/email/footer_template"}}

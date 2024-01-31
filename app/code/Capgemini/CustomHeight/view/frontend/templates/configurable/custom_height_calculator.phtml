@@ -1,0 +1,64 @@
+<?php
+/** @var $block \Capgemini\CustomHeight\Block\Configurable\CustomHeightCalculator */
+?>
+<div id="custom_height_wrapper" style="display:none;">
+    <h3><?=  /* @noEscape */  __("Custom height calculator")?></h3>
+    <div id="desired_rooms" class="calculator_page" style="display: none">
+        <h4><?=  /* @noEscape */  __("Where will this fixture be installed?")?></h4>
+        <ul class="room-list">
+            <?php foreach($block->getRoomConfiguration() as $roomConfig): ?>
+                <?php $roomName = str_replace('  ',' ', $roomConfig['room_name'])?>
+                <?php $roomName = str_replace(' ','_', $roomName)?>
+                <?php $roomName = str_replace('/','', $roomName)?>
+                <?php $roomName = str_replace('__','_', $roomName)?>
+                <?php $roomName = strtolower($roomName)?>
+                <li class="item">
+                    <input type="radio" id="<?= $roomName ?>" name="room_list" value="<?= $roomName?>">
+                    <label for="<?= $roomName ?>"><?= $roomConfig['room_name'] ?></label>
+                </li>
+            <?php endforeach;?>
+        </ul>
+    </div>
+    <div id="custom_heigth_calculator" class="calculator_page" style="display: none">
+        <a id="back_to_choose_room" class="back-link"><?=  /* @noEscape */  __("Back to choose room")?></a>
+        <div class="room-wrapper">
+            <div id="room_name" class="room-name"></div>
+            <div id="tip_image" class="tip-image"></div>
+        </div>
+        <div id="tip"></div>
+        <div class="field custom_height_wrapper">
+            <label class="label" for="custom_height">
+                <span><?=  /* @noEscape */  __("Based on your measurements, we recommend selecting an overall height of:")?></span>
+            </label>
+            <div class="control select-btn">
+                <select name="custom_height_modal" id="custom_height_modal">
+                    <?php foreach ($block->getHeightPricing() as $heightPricing):?>
+                        <?php if ($heightPricing['price'] == 0):?>
+                            <option selected value="<?= $heightPricing['price'] ?>" data-height-value="<?= $heightPricing['height'] ?>"> <?= $heightPricing['label']?></option>
+                        <?php else: ?>
+                            <option value="<?= $heightPricing['price'] ?>" data-height-value="<?= $heightPricing['height'] ?>"> <?=$heightPricing['label']?></option>
+                        <?php endif; ?>
+                    <?php endforeach;?>
+                </select>
+                <input type="hidden" id="custom_height_value"
+                       class="checkbox admin__control-checkbox product-custom-option"
+                       name="custom_height_value"/>
+                <input type="hidden" id="custom_height_price"
+                       class="checkbox admin__control-checkbox product-custom-option"
+                       name="custom_height_price"/>
+            </div>
+            <div class="field-label"></div>
+            <a id="proceed_with_height" data-mobile-text="<?=  /* @noEscape */  __("Proceed")?>">Proceed with standard height</a>
+        </div>
+    </div>
+</div>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Capgemini_CustomHeight/js/customHeightCalculator" : {
+            "roomConfiguration": <?= $block->getJsonRoomConfiguration() ?>,
+            "productConfig": <?= $block->getProductConfiguration() ?>
+        }
+    }
+}
+</script>

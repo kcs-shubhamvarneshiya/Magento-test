@@ -1,0 +1,43 @@
+<?php
+/**
+ * Lyonscg_ConfigurableSimple
+ *
+ * @category  Lyons
+ * @package   Lyonscg_ConfigurableSimple
+ * @author    Oleksii Kononenko<oleksii.kononenko@capgemini.com>
+ * @author    Tanya Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var  \Lyonscg\ConfigurableSimple\Block\Specifications $block */
+$_product = $block->getProduct();
+
+$pdp_block_before_collection = $block->getCmsBlockHtmlByAttributeValue('pdp_block_before_collection');
+$pdp_block_after_collection = $block->getCmsBlockHtmlByAttributeValue('pdp_block_after_collection');
+?>
+
+<?php if ($block->getChildBlock('collection')->getItems()->getSize() > 0): ?>
+    <div
+        id="additional-collection"
+        class="additional_block additional-collection"
+        data-additional-content="additional-collection"
+        data-bind='mageInit: {
+            "collapsible": {
+                "collapsible": true,
+                "openedState": "active",
+                "active": "true",
+                "icons": {"header": "plus", "activeHeader": "minus"}
+         }}'>
+        <div class="additional_block_inner">
+            <div class="pdp_block_before_collection">
+                <?php echo $pdp_block_before_collection; ?>
+            </div>
+
+            <?= $block->getChildHtml('collection') ?>
+
+            <div class="pdp_block_after_collection">
+                <?php echo $pdp_block_after_collection; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

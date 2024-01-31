@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_TechConfigurator
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Capgemini\TechConfigurator\Api\Data\ConfigInterface" type="Capgemini\TechConfigurator\Model\Data\Config"/>
+    <preference for="Capgemini\TechConfigurator\Api\Data\FootnoteInterface" type="Capgemini\TechConfigurator\Model\Data\Config\Footnote"/>
+    <preference for="Capgemini\TechConfigurator\Api\Data\ExceptionInterface" type="Capgemini\TechConfigurator\Model\Data\Config\Exception"/>
+    <preference for="Capgemini\TechConfigurator\Api\Data\ExceptionConditionInterface" type="Capgemini\TechConfigurator\Model\Data\Config\Exception\Condition"/>
+    <preference for="Capgemini\TechConfigurator\Api\Data\SkuPartInterface" type="Capgemini\TechConfigurator\Model\Data\Config\SkuPart"/>
+    <preference for="Capgemini\TechConfigurator\Api\Data\SkuPartOptionInterface" type="Capgemini\TechConfigurator\Model\Data\Config\SkuPart\Option"/>
+</config>

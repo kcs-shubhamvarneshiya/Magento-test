@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_login">
+        <observer name="customer_login_set_trade_cookie" instance="Capgemini\Company\Observer\CustomerLogin" disabled="true"/>
+    </event>
+    <event name="customer_logout">
+        <observer name="customer_logout_delete_trade_cookie" instance="Capgemini\Company\Observer\CustomerLogout" disabled="true"/>
+    </event>
+</config>

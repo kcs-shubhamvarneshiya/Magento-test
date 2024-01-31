@@ -1,0 +1,204 @@
+{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}
+{"0":"-","1":"-","2":"-","3":"-","4":"-","5":"-","6":"-","7":"-"}
+
+insert into kcs_pacjson values ('20000','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"LO:Low Output&comma; 12w 3","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"-"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20001','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"LO:Low Output&comma; 12w 3","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"-"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20002','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"LO:Low Output&comma; 12w 3","3":"-","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20003','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"LO:Low Output&comma; 12w 3","3":"-","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20004','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELD0:EldoLED 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20005','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELD0A:EldoLED 0.1% 0-10V Logarithmic"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20006','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELDD:EldoLED 0.1% Dali"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20007','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"HLECO:HLECO Lutron HI-Lume 0.1% Ecosystem"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20008','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"HL2W:LUTRON HI-LUME 1% 2-WIRE"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20009','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELD0:EldoLED 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20010','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELD0A:EldoLED 0.1% 0-10V Logarithmic"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20011','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELDD:EldoLED 0.1% Dali"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20012','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"HLECO:HLECO Lutron HI-Lume 0.1% Ecosystem"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20013','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"HL2W:LUTRON HI-LUME 1% 2-WIRE"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20014','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"827:80 CRI&comma; 2700K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20015','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"830:80 CRI&comma; 3000K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20016','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"835:80 CRI&comma; 3500K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20017','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"927:90 CRI&comma; 2700K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20018','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"930:90 CRI&comma; 3000K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20019','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"935:90 CRI&comma; 3500K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20020','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"WD:90 CRI&comma; 3000-1800K&comma; WARM DIM&comma; 3-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20021','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"827:80 CRI&comma; 2700K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20022','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"835:80 CRI&comma; 3500K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20023','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"927:90 CRI&comma; 2700K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20024','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"930:90 CRI&comma; 3000K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20025','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"935:90 CRI&comma; 3500K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20026','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"WD:90 CRI&comma; 3000-1800K&comma; WARM DIM&comma; 3-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20027','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"WD:90 CRI&comma; 3000-1800K&comma; WARM DIM&comma; 3-STEP","4":"0:10 5","5":"-","6":"-","7":"-"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20028','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"0:10 5","5":"-","6":"-","7":"-"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20029','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"0:10 5","5":"-","6":"-","7":"-"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20030','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"R:3\" Round","1":"LF:Flangeless","2":"-","3":"-","4":"-","5":"-","6":"-","7":"ELD0:EldoLED 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20031','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"R:3\" Round","1":"LF:Flangeless","2":"-","3":"-","4":"-","5":"-","6":"-","7":"ELD0A:EldoLED 0.1% 0-10V Logarithmic"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20032','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"R:3\" Round","1":"LF:Flangeless","2":"-","3":"-","4":"-","5":"-","6":"-","7":"ELDD:EldoLED 0.1% Dali"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20033','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"R:3\" Round","1":"LF:Flangeless","2":"-","3":"-","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20034','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"R:3\" Round","1":"LF:Flangeless","2":"-","3":"-","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20035','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"R:3\" Round","1":"LF:Flangeless","2":"-","3":"-","4":"-","5":"-","6":"-","7":"HL2W:LUTRON HI-LUME 1% 2-WIRE"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20036','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"LO:Low Output&comma; 12w 3","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"-"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20037','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"LO:Low Output&comma; 12w 3","3":"-","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20038','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"LO:Low Output&comma; 12w 3","3":"-","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20039','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELD0:EldoLED 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20040','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELD0A:EldoLED 0.1% 0-10V Logarithmic"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20041','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELDD:EldoLED 0.1% Dali"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20042','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"HLECO:HLECO Lutron HI-Lume 0.1% Ecosystem"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20043','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"HL2W:LUTRON HI-LUME 1% 2-WIRE"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20044','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELD0:EldoLED 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20045','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELD0A:EldoLED 0.1% 0-10V Logarithmic"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20046','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELDD:EldoLED 0.1% Dali"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20047','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"HLECO:HLECO Lutron HI-Lume 0.1% Ecosystem"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20048','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"HL2W:LUTRON HI-LUME 1% 2-WIRE"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20049','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"-","5":"-","6":"-","7":"HL2W:LUTRON HI-LUME 1% 2-WIRE"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20050','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"827:80 CRI&comma; 2700K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20051','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"830:80 CRI&comma; 3000K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20052','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"835:80 CRI&comma; 3500K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20053','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"927:90 CRI&comma; 2700K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20054','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"930:90 CRI&comma; 3000K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20055','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"935:90 CRI&comma; 3500K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20056','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"WD:90 CRI&comma; 3000-1800K&comma; WARM DIM&comma; 3-STEP","4":"-","5":"-","6":"-","7":"ELT0:EldoLED Tunable White 0.1% 0-10V Linear"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20057','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"827:80 CRI&comma; 2700K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20058','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"830:80 CRI&comma; 3000K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20059','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"835:80 CRI&comma; 3500K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20060','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"927:90 CRI&comma; 2700K&comma; 2-STE","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20061','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"930:90 CRI&comma; 3000K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20062','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"935:90 CRI&comma; 3500K&comma; 2-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20063','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"WD:90 CRI&comma; 3000-1800K&comma; WARM DIM&comma; 3-STEP","4":"-","5":"-","6":"-","7":"ELTD:EldoLED Tunable White 0.1% DALI"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20064','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"WD:90 CRI&comma; 3000-1800K&comma; WARM DIM&comma; 3-STEP","4":"0:10 5","5":"-","6":"-","7":"-"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20065','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW52:90 CRI&comma; 5000K-2700K&comma; 4 Tunable White&comma; 2-STEP","4":"0:10 5","5":"-","6":"-","7":"-"}',
+2,'2022-11-01 14:01:49');
+insert into kcs_pacjson values ('20067','2053','product 1','{"0":"product_options","1":"ceiling_appearance_options","2":"output_ft_options","3":"cri_cct_options","4":"beam_spread_options","5":"function_options","6":"housing_rating_options","7":"driver_options"}','',
+'{"0":"-","1":"-","2":"-","3":"TW41:90 CRI&comma; 4000K-1800K&comma; Tunable White&comma; 2-STEP","4":"0:10 5","5":"-","6":"-","7":"-"}',
+2,'2022-11-01 14:01:49');

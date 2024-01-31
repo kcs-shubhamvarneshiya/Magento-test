@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Lyonscg
+ * @package     Lyonscg_Logger
+ * @copyright   Copyright (c) 2021 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Tanya Mamchik <tanya.mamchik@capgemini.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <lyonscg_logger>
+            <general>
+                <debug_enabled>0</debug_enabled>
+                <info_enabled>0</info_enabled>
+                <notice_enabled>1</notice_enabled>
+                <warning_enabled>1</warning_enabled>
+                <error_enabled>1</error_enabled>
+                <critical_enabled>1</critical_enabled>
+                <alert_enabled>1</alert_enabled>
+                <energency_enabled>1</energency_enabled>
+            </general>
+        </lyonscg_logger>
+    </default>
+</config>

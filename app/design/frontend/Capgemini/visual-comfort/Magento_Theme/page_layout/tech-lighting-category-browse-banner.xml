@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_layout.xsd">
+    <update handle="tech-lighting-category-browse-subcategory"/>
+
+    <referenceContainer name="content">
+        <!-- Subcategory grid -->
+        <referenceBlock name="tech.lighting.subcategory.grid">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::tech-lighting/banner-subcategory.phtml</argument>
+            </action>
+        </referenceBlock>
+
+        <!-- Products grid -->
+        <referenceBlock name="category.products.list">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Catalog::tech-lighting/product/banner-list.phtml</argument>
+            </action>
+        </referenceBlock>
+    </referenceContainer>
+
+    <move element="category.description" destination="category.top.wrapper"/>
+</layout>

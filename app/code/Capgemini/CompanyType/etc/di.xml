@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_CompanyType
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="company_type"
+                type="Capgemini\CompanyType\Plugin\OrderRepository"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Payment\Info">
+        <plugin name = "CompanyTypeOrderPaymentInfo"
+                type = "Capgemini\CompanyType\Plugin\PaymentInfo" />
+    </type>
+    <type name="Magento\Sales\Api\Data\OrderPaymentInterface">
+        <plugin name="CompanyTypeVaultAttributesLoad"
+                type="Capgemini\CompanyType\Plugin\PaymentVaultAttributesLoad"/>
+    </type>
+</config>

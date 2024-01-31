@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="seo_widgets" translate="label,comment" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>SEO</label>
+        <field id="enabled" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+            <label>Enable SEO Widgets</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="enabled_item_description" type="select" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Enable Item Description</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="base_url_parameter" translate="label,comment" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Base Url Parameter used in Data Request</label>
+            <comment>Must end with "/". Leave empty for using the current website URL.</comment>
+        </field>
+    </group>
+</include>

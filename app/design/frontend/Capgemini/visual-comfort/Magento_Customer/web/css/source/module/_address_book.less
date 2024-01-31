@@ -1,0 +1,448 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .customer-address-form {
+        .page-main > .page-title-wrapper .page-title {
+            margin-top: 45px;
+        }
+
+        .form-address-edit {
+            .legend {
+                border-bottom: 1px solid @color-gray-400;
+                padding-bottom: 10px;
+            }
+
+            .field:not(.choice) .label {
+                .lib-visually-hidden-reset();
+                letter-spacing: 0;
+                text-transform: capitalize;
+                font-size: 14px;
+                font-weight: 600;
+                color: @color-gray-800;
+                padding-bottom: 3px;
+
+                &:before {
+                    content: none;
+                }
+            }
+            .field {
+                &.choice {
+                    float: left;
+                    clear: both;
+                    label {
+                        font-size: 14px;
+                        font-weight: 600;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
+                        color: #454545;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+
+            .actions-toolbar .primary button.action.submit.primary {
+                padding: 0 85px;
+            }
+        }
+    }
+    #html-body {
+        .form-address-edit {
+            .fieldset {
+                margin-bottom: 30px;
+            }
+            hr {
+                margin-bottom: 30px;
+                margin-top: 30px;
+            }
+        }
+    }
+    .account.customer-address-index {
+        .column.main .block:not(.widget) {
+            .block-title {
+                margin-bottom: 5px;
+                border-color: @color-gray-400;
+
+                strong {
+                    font: 24px/1.23 @font-goudy-old-style;
+                }
+            }
+
+            .box-title {
+                border-bottom: none;
+
+                > span {
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.25px;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    .account.customer-address-form {
+        .form-address-edit {
+            .fieldset {
+                .field.choice.billing {
+                    .label {
+                        padding-bottom: 10px;
+                    }
+                }
+            }
+        }
+    }
+
+    .form-address-edit {
+        .region_id {
+            display: none;
+        }
+    }
+
+    .block-addresses-list {
+        .items.addresses {
+            > .item {
+                margin-bottom: @indent__base;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .item.actions {
+                margin-top: @indent__xs;
+
+                .action {
+                    &:extend(.abs-account-actions all);
+                }
+            }
+        }
+
+        address {
+            &:extend(.abs-account-block-line-height all);
+        }
+
+        .data.table.table-additional-addresses-items {
+            border: 1px solid @color-gray-400;
+
+            td.col.actions {
+                padding: 15px 0;
+
+                .action {
+                    text-decoration: underline;
+                    margin: 0 14px;
+
+                    &.delete {
+                        color: @color-gray-800;
+
+                        &:after {
+                            content: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .additional-addresses {
+        table > thead > tr > th {
+            white-space: nowrap;
+        }
+    }
+
+    .block-addresses-default {
+        .box-actions .action.edit {
+            margin-right: 20px;
+        }
+    }
+    
+    //.modals-wrapper {
+    //    .modal-popup {
+    //        .modal-inner-wrap {
+    //            .modal-footer {
+    //                .action-primary {
+    //                    width: 100% !important;
+    //                    margin-top: 20px !important;
+    //                }
+    //                .action-secondary {
+    //                    background-color: #454545;
+    //
+    //                    &:hover {
+    //                        background-color: #717171 !important;
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .customer-address-form {
+        .page-main > .page-title-wrapper .page-title {
+            font-size: 26px;
+        }
+        .form-address-edit {
+            padding-bottom: 60px;
+
+            .fieldset {
+                margin: 0 0 30px;
+            }
+
+            .legend {
+                margin-bottom: 15px;
+
+                > span {
+                    font: 24px/1.23 @font-goudy-old-style;
+                }
+            }
+        }
+    }
+    .block.block-addresses-list {
+        .block-content {
+            .table-wrapper.additional-addresses {
+                table {
+                    tbody {
+                        > tr {
+                            td[data-th] {
+                                &:before {
+                                    content: attr(data-th);
+                                    padding-right: 5px;
+                                    font-size: 12px;
+                                    font-weight: 600;
+                                    font-stretch: normal;
+                                    font-style: normal;
+                                    line-height: 1.83;
+                                    letter-spacing: 0.25px;
+                                    color: @color-gray-800;
+                                    text-transform: uppercase;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #html-body {
+        .block.block-addresses-list {
+            .table-wrapper.additional-addresses {
+                table.data.table {
+                    box-sizing: border-box;
+                }
+            }
+        }
+    }
+    .account.customer-address-index .column.main .block.block-addresses-list:not(.widget) .block-title {
+        border: none;
+    }
+
+    .customer-address-form {
+        .form-address-edit {
+            .legend {
+
+                > span {
+                    font: 24px/1.25 @font-goudy-old-style;
+                }
+            }
+        }
+    }
+
+    .block-addresses-list {
+        .table-wrapper .table:not(.totals):not(.cart):not(.table-comparison) {
+            border: 1px solid @color-gray-400;
+            border-top: none;
+
+            > tbody > tr td {
+                padding: 0 20px;
+            }
+
+            > tbody > tr td[data-th] {
+                &.actions:before {
+                    content: none;
+                }
+            }
+        }
+
+        .data.table.table-additional-addresses-items {
+            tr td {
+                &:first-child {
+                    border-top: none;
+                }
+            }
+
+            td.col.actions .action {
+                margin-top: 15px;
+                display: inline-block;
+
+                &:first-child {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .account.customer-address-index {
+        .column.main .block:not(.widget) .block-title {
+            width: 50%;
+
+            strong {
+                font-size: 26px;
+            }
+        }
+    }
+    .customer-address-form {
+        .form-address-edit {
+            .legend {
+
+                > span {
+                    font: 26px/1.23 @font-goudy-old-style;
+                }
+            }
+        }
+    }
+
+    .customer-address-index {
+        .block-title {
+            font: 26px/1.23 @font-goudy-old-style;
+        }
+
+        .column.main .block:not(.widget) {
+            .box-title {
+                border-bottom: none;
+
+                > span {
+                    font-size: 12px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.25px;
+                    font-weight: 600;
+                }
+            }
+
+            .block-content .box {
+                &,
+                &:nth-child(1),
+                &:nth-child(2) {
+                    width: 210px;
+                    float: none;
+                    padding: 20px 20px 0 0;
+                }
+            }
+        }
+
+        .block-addresses-default {
+            .block-content {
+                .lib-vendor-prefix-display(flex);
+
+                .box-actions .action {
+                    &:after {
+                        content: none;
+                    }
+                }
+            }
+
+            address,
+            a {
+                font-size: 14px;
+                letter-spacing: 0.25px;
+                color: @color-gray-800;
+            }
+        }
+    }
+
+    .form-address-edit {
+        > .fieldset {
+            &:extend(.abs-blocks-2columns all);
+        }
+    }
+
+    .block-addresses-list {
+        &.block:not(.widget) .block-title {
+            border: none !important;
+        }
+
+        .items.addresses {
+            &:extend(.abs-add-clearfix-desktop all);
+            font-size: 0;
+
+            > .item {
+                display: inline-block;
+                font-size: @font-size__base;
+                margin-bottom: @indent__base;
+                vertical-align: top;
+                width: 48%;
+
+                &:nth-last-child(1),
+                &:nth-last-child(2) {
+                    margin-bottom: 0;
+                }
+
+                &:nth-child(even) {
+                    margin-left: 4%;
+                }
+            }
+        }
+
+        address {
+            &:extend(.abs-account-block-font-size all);
+        }
+
+        .data.table.table-additional-addresses-items {
+            border: 1px solid @color-gray-400;
+
+            th {
+                border: none;
+                background: @color-gray-300;
+                height: 60px;
+                padding: 0 20px;
+                vertical-align: middle;
+                font-size: 12px;
+                font-weight: 600;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.17;
+                letter-spacing: 0.25px;
+                color: @color-gray-800;
+                text-transform: uppercase;
+            }
+
+            td {
+                padding: 15px 20px;
+                border-color: @color-gray-400;
+
+                &.col.actions {
+                    padding: 15px 0;
+                    text-align: right;
+
+                    .action {
+                        text-decoration: underline;
+                        margin: 0 14px;
+
+                        &.delete {
+                            color: @color-gray-800;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

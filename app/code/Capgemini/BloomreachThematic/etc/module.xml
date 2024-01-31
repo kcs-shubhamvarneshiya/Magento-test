@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Capgemini_BloomreachThematic" setup_version="1.0.0">
+        <sequence>
+            <module name="Bloomreach_Connector"/>
+            <module name="Capgemini_BloomreachWidget"/>
+            <module name="Lyonscg_AmastyShopby"/>
+            <module name="Capgemini_BloomreachApi"/>
+        </sequence>
+    </module>
+</config>

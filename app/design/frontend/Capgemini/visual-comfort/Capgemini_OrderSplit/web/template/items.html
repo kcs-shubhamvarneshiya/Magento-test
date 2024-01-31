@@ -1,0 +1,57 @@
+<!-- ko if: (getItemsData()) -->
+</br>
+<p class="method-sub-title" data-bind="i18n: 'PO Number & Promo Code'"></p>
+<div class="item-collection-wrapper">
+    <!-- ko foreach: { data: getItemsData(), as: 'business' } -->
+    <form class="items-collection-form">
+        <div class="po-main-wrapper" data-role="po-numbers">
+            <!-- ko foreach: { data: business.items, as: 'collection' } -->
+                <!-- ko if: (collection.title) -->
+                    <span class="collection-title" data-bind="text: collection.title"></span>
+                <!--/ko-->
+            <!--/ko-->
+            <div class="items-collection-table-wrapper fieldset">
+                <div class="collection-items">
+                    <!-- ko foreach: { data: business.items, as: 'collection' } -->
+                    <ul>
+                        <!-- ko foreach: { data: collection.items_data, as: 'item_data' } -->
+                        <li>
+                            <div class="img">
+                                <img data-bind="attr:{src: item_data.image_url} "/>
+                            </div>
+                            <div class="item-info">
+                                <p data-bind="text: item_data.name"></p>
+                            </div>
+                        </li>
+                        <!--/ko-->
+                    </ul>
+                    <!--/ko-->
+                </div>
+                <div class="form-wrapper">
+                    <div class="po-number-wrapper control fieldset">
+                        <div class="field text _required">
+                            <label class="label" data-bind="attr: {for: 'po_number_'+ $index()}, i18n: 'PO #'"></label>
+                            <div class="control">
+                                <input data-bind='attr: {id: "po_number_"+ $index(), "data-division": business.division}'
+                                       class="required-entry validate-custom-po-number"
+                                       name="po_number"
+                                       type="text"
+                                       value=""/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="promocode-wrapper control">
+                        <div class="field text">
+                            <label class="label" data-bind="attr: {for: 'promocode_'+ $index()}, i18n: 'Promo Code (Optional)'"></label>
+                            <div class="control">
+                                <input data-bind="attr: {id: 'promocode_'+ $index(), 'data-division': business.division}" type="text" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--/ko-->
+</div>
+<!--/ko-->

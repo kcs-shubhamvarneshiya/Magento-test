@@ -1,0 +1,56 @@
+<?php
+
+use Magento\Framework\App\ActionInterface;
+/**
+ * @var  \Capgemini\PaperModel\Block\PaperModel $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+
+$paperModelBlockId = $block->getProductCustomAttributeValue('pdp_paper_model_block', true);
+$paperModelProductSku = $block->getProductCustomAttributeValue('paper_model_sku', true);
+
+/** @var \Capgemini\PaperModel\ViewModel\PaperModelProduct $paperModelProductViewModel */
+$paperModelProductViewModel = $block->getPaperModelProductViewModel();
+try {
+    $paperModelProduct = (!empty($paperModelProductViewModel) && !empty($paperModelProductSku)) ?
+        $paperModelProductViewModel->init($paperModelProductSku)->getPaperModelProduct() : null;
+} catch (\Magento\Framework\Exception\StateException $exception) {
+    $paperModelProduct = null;
+}
+?>
+
+<?php if (!empty($paperModelBlockId) && !empty($paperModelProduct)) : ?>
+    <?php $postParams = $paperModelProductViewModel->getAddToCartPostParams($paperModelProduct); ?>
+    <div id="additional-paper-model" class="additional_block additional-paper-model" data-additional-content="additional-paper-model">
+        <div class="additional_block_inner">
+            <div class="block-title title">
+                <strong><?= __('Paper Template'); ?></strong>
+            </div>
+            <div class="block paper-model">
+                <form data-role="tocart-form" data-product-sku="<?= $escaper->escapeHtml($paperModelProductSku) ?>" action="<?= $escaper->escapeUrl($postParams['action']) ?>" data-add-to-cart-button-text="<?= __('Add paper template to cart'); ?>" method="post">
+                    <input type="hidden" name="product" value="<?= $escaper->escapeHtmlAttr($postParams['data']['product']) ?>">
+                    <input type="hidden" name="<?= /* @noEscape */ ActionInterface::PARAM_NAME_URL_ENCODED ?>" value="<?= /* @noEscape */ $postParams['data'][ActionInterface::PARAM_NAME_URL_ENCODED] ?>">
+                    <?= $block->getBlockHtml('formkey') ?>
+                    <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($paperModelBlockId)->toHtml(); ?>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "*": {
+                "Capgemini_PaperModel/js/paper-model-preview": {
+                    "paperModelPreviewLink": "<?= $escaper->escapeUrl($block->getPaperModelPreviewLink($block->getBaseChildProduct())); ?>"
+                }
+            },
+            ".paper-model [data-role=tocart-form]": {
+                "catalogAddToCart": {
+                    "product_sku": "<?= $block->escapeJs($paperModelProduct->getSku()) ?>"
+                }
+            }
+        }
+    </script>
+    <div id="paper-model-error-modal" class="">
+        <?= __('There was an error adding the product to the cart, please contact customer service for assistance.'); ?>
+    </div>
+<?php endif; ?>

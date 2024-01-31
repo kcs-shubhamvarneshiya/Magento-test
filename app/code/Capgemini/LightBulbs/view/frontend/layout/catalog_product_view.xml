@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <block class="Magento\Checkout\Block\Item\Price\Renderer" name="checkout.item.price.unit" template="Magento_Checkout::item/price/unit.phtml"/>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" template="Capgemini_LightBulbs::upsell-modal.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="product.info.form.content">
+            <block class="Capgemini\LightBulbs\Block\Upsell\Pdp" name="lightbulb.upsells" after="configurable.custom.height" before="product.info.addtocart"
+                   template="Capgemini_LightBulbs::product/view/lightbulbs.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="product.info.options.wrapper.bottom">
+            <block class="Capgemini\LightBulbs\Block\Upsell\Pdp" name="lightbulb.upsells.additional" after="configurable.custom.height"
+                   before="product.info.addtocart.additional"
+                   template="Capgemini_LightBulbs::product/view/lightbulbs.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

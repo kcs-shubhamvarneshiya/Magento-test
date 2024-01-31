@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="amlocator">
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="filters_enabled" translate="Filters Enabled" type="select" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1" sortOrder="80">
+                    <label>Filters Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="location_types" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="35">
+                <label>Location Types</label>
+                <field id="showroom" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Showroom Type Value</label>
+                    <comment>Location Type attribute value for Showroom location type</comment>
+                </field>
+                <field id="dealer" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Dealer Type Value</label>
+                    <comment>Location Type attribute for Dealer location type</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

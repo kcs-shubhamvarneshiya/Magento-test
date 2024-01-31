@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_RequisitionList
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Tetiana Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account" />
+    <update handle="print" />
+    <update handle="requisition_list"/>
+    <body>
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceContainer name="content">
+            <block class="Lyonscg\RequisitionList\Block\Quote" name="requisition.quote.pdf"
+                   template="Lyonscg_RequisitionList::pdf.phtml">
+                <arguments>
+                    <argument name="viewRequisitionTotalModel" xsi:type="object">Lyonscg\RequisitionList\ViewModel\RequisitionListTotal</argument>
+                </arguments>
+                <block class="Lyonscg\RequisitionList\Block\Requisition\Pdf\Item" name="requisition.list.item.view">
+                    <block class="Magento\RequisitionList\Block\Requisition\Item\Options" name="requisition.list.item.options"
+                        template="Lyonscg_RequisitionList::pdf/options_list.phtml"/>
+                    <block class="Lyonscg\RequisitionList\Block\Requisition\Item\Sku" name="requisition.list.item.view.sku"/>
+                </block>
+                <block class="Magento\Theme\Block\Html\Header\Logo" name="pdf.logo"/>
+                <block class="Lyonscg\RequisitionList\Block\Index\Customer" name="customer.info"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

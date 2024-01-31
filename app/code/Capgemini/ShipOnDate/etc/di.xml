@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Checkout\Model\ShippingInformationManagement">
+        <plugin name="save_ship_date_to_quote"
+                type="Capgemini\ShipOnDate\Plugin\Quote\ShippingInformationManagementPlugin" />
+    </type>
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="checkout_layout_processor_ship_on_date"
+                type="Capgemini\ShipOnDate\Plugin\Checkout\Block\LayoutProcessorPlugin" />
+    </type>
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="order_get_model_with_ship_on_date"
+                type="Capgemini\ShipOnDate\Plugin\Sales\Model\OrderGetPlugin"/>
+    </type>
+</config>

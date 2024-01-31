@@ -1,0 +1,193 @@
+<?xml version="1.0" ?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+	<argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">rysun_dimensionimages_dimensionimages_listing.rysun_dimensionimages_dimensionimages_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>rysun_dimensionimages_dimensionimages_columns</spinner>
+		<deps>
+			<dep>rysun_dimensionimages_dimensionimages_listing.rysun_dimensionimages_dimensionimages_listing_data_source</dep>
+		</deps>
+		<buttons>
+			<button name="add">
+				<url path="*/*/new"/>
+				<class>primary</class>
+				<label translate="true">Add new DimensionImages</label>
+			</button>
+		</buttons>
+	</settings>
+	<dataSource name="rysun_dimensionimages_dimensionimages_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">dimensionimages_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Rysun_DimensionImages::DimensionImages</aclResource>
+		<dataProvider name="rysun_dimensionimages_dimensionimages_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>dimensionimages_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="rysun_dimensionimages_dimensionimages_columns">
+		<settings>
+			<editorConfig>
+				<param name="selectProvider" xsi:type="string">rysun_dimensionimages_dimensionimages_listing.rysun_dimensionimages_dimensionimages_listing.rysun_dimensionimages_dimensionimages_columns.ids</param>
+				<param name="enabled" xsi:type="boolean">true</param>
+				<param name="indexField" xsi:type="string">dimensionimages_id</param>
+				<param name="clientConfig" xsi:type="array">
+					<item name="saveUrl" xsi:type="url" path="rysun_dimensionimages/DimensionImages/inlineEdit"/>
+					<item name="validateBeforeSave" xsi:type="boolean">false</item>
+				</param>
+			</editorConfig>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">rysun_dimensionimages_dimensionimages_listing.rysun_dimensionimages_dimensionimages_listing.rysun_dimensionimages_dimensionimages_columns_editor</item>
+					<item name="target" xsi:type="string">startEdit</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						<item name="1" xsi:type="boolean">true</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>dimensionimages_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="dimensionimages_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="sql_serv_prod_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">sql_serv_prod_id</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<actionsColumn name="actions" class="Rysun\DimensionImages\Ui\Component\Listing\Column\DimensionImagesActions">
+			<settings>
+				<indexField>dimensionimages_id</indexField>
+				<resizeEnabled>false</resizeEnabled>
+				<resizeDefaultWidth>107</resizeDefaultWidth>
+			</settings>
+		</actionsColumn>
+		<column name="image_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">image_id</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="image_caption">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">image_caption</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="image_description">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">image_description</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="image_url">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">image_url</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="image_file_name">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">image_file_name</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="image_alt_tag">
+			<settings>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="image_type">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">image_type</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="is_active">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">is_active</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+	</columns>
+</listing>

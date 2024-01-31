@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_PartnersInsight
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="1column">
+    <head>
+        <title>Partners Insight Error</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Magento\Cms\Block\BlockByIdentifier" name="error-cms-block">
+                <arguments>
+                    <argument name="identifier" xsi:type="string">partners_insight_error</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Partners Insight Error</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

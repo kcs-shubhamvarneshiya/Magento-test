@@ -1,0 +1,248 @@
+//
+//  Form Element Rules
+//  _____________________________________________
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    label {
+        .type-typeface-3();
+        color: @color-gray-800;
+        cursor: pointer;
+        display: inline-block;
+        margin: @form-label-margin;
+        position: relative;
+
+        &::before {
+            content: "";
+            width: 16px;
+            height: 16px;
+            position: absolute;
+            left: 0;
+        }
+
+        &.label-disabled {
+            color: @color-gray-600;
+        }
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="url"],
+    input[type="tel"],
+    input[type="search"],
+    input[type="number"],
+    input[type="datetime"],
+    input[type="email"] {
+        .font-proxima-nova(1.4rem, 2.2rem);
+        border: @form-input-border;
+        color: @form-color-text;
+        height: @form-input-height;
+        margin-bottom: 5px;
+        padding: 0 15px;
+        max-width: @form-input-max-width;
+
+        &::placeholder {
+            .font-proxima-nova(1.4rem, 2.2rem);
+            color: @form-color-placeholder-text;
+        }
+
+        &:focus,
+        &.input-focus {
+            .input-focus();
+        }
+
+        &.mage-error {
+            border-color: @color-ui-danger;
+        }
+
+        &:disabled {
+            color: @color-gray-600;
+            background: @form-color-input-diasbled-background;
+            border: 1px solid @form-color-input-disabled-border;
+        }
+    }
+
+    .input-focus() {
+        border: 1px solid @color-gray-800;
+    }
+
+    .input-help-text {
+        .type-typeface-5();
+        color: @color-gray-700;
+    }
+
+    .mage-error {
+        .type-typeface-5();
+    }
+
+    div.mage-error[generated] {
+        margin-top: 0;
+    }
+
+    .input-text.mage-error,
+    .select.mage-error {
+        border-color: @color-ui-danger !important;
+    }
+
+    input:not([disabled]):focus,
+    textarea:not([disabled]):focus,
+    select:not([disabled]):focus {
+        box-shadow: none;
+    }
+
+    .input-text {
+        &.mage-error {
+            border-color: @color-border-error;
+        }
+    }
+
+    #oar-widget-orders-and-returns-form {
+        #oar-zip {
+            #oar_zip {
+                max-width: 220px;
+            }
+        }
+    }
+
+    // Select
+    .field .control select, select {
+        background: @form-select-bg-image;
+        background-size: 35px;
+        border: @form-input-border;
+        border-radius: 0;
+        height: @form-input-height;
+        overflow: hidden;
+        width: @form-input-max-width;
+        box-shadow: none;
+        color: @form-color-text;
+        padding: 5px 15px 1px;
+        -webkit-appearance: none;
+
+        &:focus {
+            .input-focus();
+            outline: none;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.18);
+        }
+
+        &.mage-error {
+            border-color: #cb3232;
+        }
+
+        &:disabled {
+            background: @color-gray-300;
+        }
+    }
+
+    // Checkbox
+    input[type="checkbox"] + label,
+    input[type="checkbox"].checkbox + label {
+        .font-proxima-nova-semibold(14px,1);
+        color: @color-gray-800;
+        text-transform: capitalize;
+        display: block !important;
+        padding-left: 26px;
+        position: relative;
+        top: 4px;
+        float: left;
+
+        &::before {
+            background: @form-checkbox-unselected-bg-image;
+            margin-top: -2px;
+        }
+
+        &:focus {
+            .input-focus();
+        }
+    }
+
+    input[type=checkbox]:checked + label:before,
+    input[type=checkbox].checkbox:checked + label:before {
+        background: @form-checkbox-selected-bg-image;
+    }
+
+    // Radio
+    input[type=radio] + label {
+        .type-typeface-2();
+        color: @color-gray-800;
+        padding-left: 26px;
+        position: relative;
+        text-transform: capitalize;
+        top: 4px;
+
+        &::before {
+            background: @form-radio-unselected-bg-image;
+            height: 16px;
+            margin-top: -2px;
+            width: 16px;
+        }
+    }
+
+    input[type=radio]:checked + label:before {
+        background: @form-radio-selected-bg-image;
+        height: 16px;
+        width: 16px;
+    }
+
+    // Checkbox and Radio Base Clear
+    input[type=checkbox],
+    input[type=radio] {
+        display: none;
+    }
+
+    // Fieldsets
+    .fieldset > .field,
+    .fieldset > .fields > .field {
+        margin-bottom: 13px;
+    }
+
+    .field-error {
+        font-weight: @font-wt-semibold;
+    }
+
+    // Labels
+    .fieldset > .field,
+    .fieldset > .fields > .field {
+        > .label {
+            .type-typeface-3();
+            font-weight: @font-wt-medium;
+            text-transform: capitalize;
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+@media screen and (max-width: @screen__m) {
+    // Checkbox
+    input[type="checkbox"] + label {
+        &::before {
+            background: @form-checkbox-unselected-bg-image;
+            margin-top: -2px;
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+
+}
+
+@media (prefers-color-scheme: dark) {
+    input[type=radio] + label {
+        &::before {
+            background: @form-radio-unselected-bg-image;
+        }
+    }
+
+    input[type=radio]:checked + label:before {
+        background: @form-radio-selected-bg-image;
+    }
+}

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\View\Gallery">
+        <plugin name="main_image_change_plugin" type="Lyonscg\Catalog\Plugin\Block\Product\View\GalleryPlugin" />
+    </type>
+    <type name="Magento\Catalog\Block\Product\ListProduct">
+        <plugin name="list_image_change_plugin" type="Lyonscg\Catalog\Plugin\Block\Product\ListProductPlugin" />
+    </type>
+    <type name="Magento\Swatches\Block\Product\Renderer\Listing\Configurable">
+        <plugin name="listing_configurable_price_change_plugin"
+                type="Lyonscg\Catalog\Plugin\Block\Product\Renderer\Listing\ConfigurablePlugin" />
+    </type>
+    <type name="Magento\Framework\App\ActionInterface">
+        <plugin name="lyonscg_catalog_set_is_trade"
+                type="Lyonscg\Catalog\Plugin\App\Action\ContextPlugin" sortOrder="10"/>
+    </type>
+</config>

@@ -1,0 +1,126 @@
+<?php
+/** @var View $block */
+
+/** @var Escaper $escaper */
+
+use Capgemini\RequestToOrder\Block\Request\View;
+use Magento\Framework\Escaper;
+
+?>
+
+<?php $request = $block->getRequest() ?>
+<?php $items = $request->getItems() ?>
+
+<div class="create-request request-order-top">
+    <div class="view-all button"><span><?= $escaper->escapeHtml($block->getContactInformationCopy()) ?></span></div>
+    <a class="action primary request-back" href="<?= $block->getUrl('*/request/history/', ['_current' => false, '_use_rewrite' => true])?>">
+        <span><?= $escaper->escapeHtml(__('View All Request To Orders')) ?></span></a>
+</div>
+<div>
+    <table class="request-to-order items data table">
+        <thead>
+        <tr class="legend-item-info">
+            <th scope="col" class="col product"><?= $escaper->escapeHtml(__('Product')) ?></th>
+            <th scope="col" class="col attributes"></th>
+            <th scope="col" class="col price"><?= $escaper->escapeHtml(__('Price')) ?></th>
+            <th scope="col" class="col qty"><?= $escaper->escapeHtml(__('Qty')) ?></th>
+            <th scope="col" class="col subtotal"><?= $escaper->escapeHtml(__('Subtotal')) ?></th>
+        </tr>
+        </thead >
+        <tbody class="request item">
+            <?= $block->getChildBlock('items')
+                ->setRequestItems($items)
+                ->setIsQtyEditable(true)
+                ->setCanRemove(true)
+                ->toHtml() ?>
+        </tbody>
+    </table>
+</div>
+<div id="button-update-qty-wrap">
+    <button class="action button update-qty" type="button"
+            data-mage-init='{"Capgemini_RequestToOrder/js/form/request/qtyUpdate":{}}' >
+        <?= $escaper->escapeHtmlAttr(__('Update Quantity')) ?>
+    </button>
+</div>
+<div class="request-add">
+    <form name="request-add-form" method="post" id="request-add-form" class="form"
+          action="<?= $block->getSubmitUrl() ?>"
+          data-hasrequired="<?= $escaper->escapeHtmlAttr(__('* Required Fields')) ?>"
+          data-mage-init='{"validation":{}}'>
+
+        <input name="request_id" type="hidden" value="<?= $request->getId() ?>"/>
+
+        <fieldset class="fieldset request-order-fieldset">
+            <fieldset class="fieldset row">
+                <div class="fields col-md-6">
+                    <div class="field name required">
+                        <label class="label" for="title"><span><?=
+                                $escaper->escapeHtmlAttr(__('Your name')) ?></span></label>
+                        <div class="control">
+                            <input name="name" id="name" title="Your name" value="<?= $request->getName() ?>"
+                                   class="input-text" type="text"
+                                   data-validate="{required:true, 'validate-alphanum-with-spaces':true}">
+                        </div>
+                    </div>
+                    <div class="field phone required">
+                        <label class="label" for="title"><span><?=
+                                $escaper->escapeHtmlAttr(__('Phone number')) ?></span></label>
+                        <div class="control">
+                            <input name="phone" id="phone" title="Phone number" value="" class="input-text" type="text"
+                                   data-validate="{required:true, 'validate-alphanum-with-spaces':true}">
+                        </div>
+                    </div>
+                    <div class="field email required">
+                        <label class="label" for="title"><span><?=
+                                $escaper->escapeHtmlAttr(__('Email')) ?></span></label>
+                        <div class="control">
+                            <input name="email" id="email" title="Email" value="<?= $request->getEmail() ?>"
+                                   class="input-text" type="text"
+                                   data-validate="{required:true, 'validate-email':true}">
+                        </div>
+                    </div>
+                    <div class="field comments">
+                        <label class="label" for="title"><span><?=
+                                $escaper->escapeHtmlAttr(__('Comments (Optional)')) ?></span></label>
+                        <div class="control">
+                            <textarea type="textarea" name="comments" class="form-control "
+                                      layout="one" id="comments" aria-required="false"></textarea>
+                            <div class="comment-count">
+                                <span class="count-text"><?=$escaper->escapeHtmlAttr(__('Characters Left ')) ?></span><span id="rchars">256</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </fieldset>
+        <div class="actions-toolbar">
+            <div class="primary request-order-submit">
+                <button type="submit" class="action submit primary" title="Submit"><span><?=
+                        $escaper->escapeHtmlAttr(__('Submit')) ?></span></button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    require(['jquery'],
+        function($){
+            var el = $("#rchars");
+            var maxLength = parseInt(el.html());
+            $('#comments').attr('maxlength', maxLength);
+            $('#comments').keyup(function() {
+                var textlen = maxLength - $(this).val().length;
+                if(textlen < 0){
+                    return false;
+                }
+                $('#rchars').text(textlen);
+
+            });
+            $('.mob-ore-qty .input-text.qty').change(function(){
+                    var productId = $(this).attr('product_id');
+                    var elId = "#desk-prod-" + productId;
+                    $(elId).val($(this).val());
+             });
+
+        }
+    );
+</script>

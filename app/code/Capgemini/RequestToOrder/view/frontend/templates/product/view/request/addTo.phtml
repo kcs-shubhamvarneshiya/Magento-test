@@ -1,0 +1,140 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product view template
+ *
+ * @var $block View
+ */
+
+use Magento\Catalog\Block\Product\View;
+
+?>
+
+<?php $buttonTitle = __('Request to Order'); ?>
+<?php $_product = $block->getProduct(); ?>
+<?php $viewModel = $block->getAddToRequestViewModel() ?>
+<?php
+$brandId = $_product->getBrand();
+$brandAttribute = $_product->getResource()->getAttribute('brand');
+$brandText = $brandAttribute->getSource()->getOptionText($brandId);
+
+$designerAttribute = $_product->getResource()->getAttribute('designer');
+$designerText = $designerAttribute->getSource()->getOptionText($_product->getDesigner());
+
+?>
+<div class="product-add-form add-to-request">
+    <form data-product-sku="<?= $block->escapeHtml($_product->getSku()) ?>"
+          action="<?= $block->escapeUrl($block->getUrl($viewModel->getSubmitUri())) ?>" method="post"
+          id="add_to_request_form">
+        <input type="hidden" name="product_id" value="<?= (int)$_product->getId() ?>"/>
+        <div class="box-tocart">
+            <div class="fieldset">
+                <?php if ($block->shouldRenderQuantity()) : ?>
+                    <div class="control ac-request-qty">
+                        <input type="number"
+                               name="qty"
+                               id="request-item-qty"
+                               min="0"
+                               value="<?= $block->getProductDefaultQty() * 1 ?>"
+                               title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                               class="input-text qty"
+                               placeholder="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                        />
+                    </div>
+                <?php endif; ?>
+                <div class=" ac-add-to-request">
+                    <button type="submit"
+                            title="<?= $block->escapeHtmlAttr($buttonTitle) ?>"
+                            class="action secondary default"
+                            id="product-addtorequest-button">
+                        <span><?= $block->escapeHtml($buttonTitle) ?></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="add-to-request-state-pop-up" class="modal-add-to-request-state-pop-up" style="display: none">
+    <div class="col-left">
+        <div class="image">
+            <img src="<?= $block->getImage($_product, 'category_page_list')->getImageUrl() ?>"/>
+        </div>
+    </div>
+    <div class="col-right">
+       <div class="name-and-price">
+           <div class="name">
+               <?= $_product->getName() ?>
+           </div>
+           <div class="price">
+               <?= $_product->getFinalPrice() ?>
+           </div>
+       </div>
+        <div class="brand-and-designer">
+            <span class="brand"><?= $block->escapeHtml($brandText) ?></span>
+            <span class="vertical-divider"></span>
+            <span class="designer"><?= $block->escapeHtml($designerText) ?></span>
+        </div>
+        <div class="item-number">
+            <label class="label" for="item number">
+                <span><?= $block->escapeHtml(__('Item #: ')) ?></span>
+            </label><span class="item-num-data" id="item-sku-id"></span>
+        </div>
+
+        <div class="availability">
+            <label class="label" for="availability">
+                <span><?= $block->escapeHtml(__('Availability: ')) ?></span>
+            </label><span class="availability-data" id="product-availability-id"></span>
+        </div>
+        <div class="qty">
+            <label class="label" for="Request Order Qty">
+                <span><?= $block->escapeHtml(__('Qty: ')) ?></span>
+            </label><span class="qty-data" id="product-qty-id"> <?= $_product->getQty() ?></span>
+        </div>
+        <div class="finish">
+            <label class="label" for="<?= $block->escapeHtml(__("Finish")) ?>">
+                <span><?= $block->escapeHtml(__('Finish: ')) ?></span>
+            </label><span class="finish-data" id="product-finish-id"> </span>
+        </div>
+        <div class="box-tocart">
+            <div class="fieldset">
+                <div class="field mod-req-btn">
+                    <div class="actions ac-add-to-request request-to-order">
+                        <button type="submit"
+                                title="<?= $block->escapeHtmlAttr('View Your Request To Order') ?>"
+                                class="btn btn-primary action primary"
+                                id="view-request-order-id">
+                            <a href="/"><?= $block->escapeHtml('View Your Request To Order') ?></a>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="fieldset">
+                <div class="field mod-req-btn continue">
+                    <div class="actions ac-add-to-request continue-shopping">
+                        <button type="submit"
+                                title="<?= $block->escapeHtmlAttr('Continue Shopping') ?>"
+                                class="btn btn-secondary action"
+                                id="continue-shopping-id" >
+                            <a href="<?= $block->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true])?>"><?= $block->escapeHtml('Continue Shopping') ?></a>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <p class="text"></p>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#add_to_request_form": {
+            "Capgemini_RequestToOrder/js/add-to-request": {}
+        }
+    }
+</script>

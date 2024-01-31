@@ -1,0 +1,79 @@
+<?php
+/**
+ * Lyonscg_ConfigurableSimple
+ *
+ * @category  Lyons
+ * @package   Lyonscg_ConfigurableSimple
+ * @author    Oleksii Kononenko<oleksii.kononenko@capgemini.com>
+ * @author    Tanya Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var  \Lyonscg\ConfigurableSimple\Block\Specifications $block */
+
+$_tips = $block->getProductCustomAttributeValue('pdp_tips_block', true);
+$tips_clean = preg_replace('/\s+/', '', $_tips); /*TODO: ensure all values are valid after cleaning*/
+$tipsBlockArray = explode(',', $tips_clean);
+
+$pdp_block_before_tips = $block->getCmsBlockHtmlByAttributeValue('pdp_block_before_tips');
+$pdp_block_after_tips = $block->getCmsBlockHtmlByAttributeValue('pdp_block_after_tips');
+?>
+
+<?php if (!empty($_tips)): ?>
+    <div
+        id="additional-tips"
+        class="additional_block additional-tips"
+        data-additional-content="additional-tips"
+        data-bind='mageInit: {
+            "collapsible": {
+                "collapsible": true,
+                "openedState": "active",
+                "active": "true",
+                "icons": {"header": "plus", "activeHeader": "minus"}
+         }}'>
+        <div class="additional_block_inner">
+            <?php if ($pdp_block_before_tips != ''): ?>
+                <div class="pdp_block_before_tips">
+                    <?= $pdp_block_before_tips; ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="block-title title" data-role="title">
+                <strong><?= __('Tips'); ?></strong>
+            </div>
+
+            <?php if (!empty($tipsBlockArray)) : ?>
+                <div class="block" data-role="content">
+                    <div class="tips-slider owl-carousel">
+                        <?php foreach ($tipsBlockArray as $blockId): ?>
+                            <div class="tip-slide">
+                            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($blockId)->toHtml(); ?>
+                            </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($pdp_block_after_tips)): ?>
+                <div class="pdp_block_after_tips">
+                    <?php echo $pdp_block_after_tips; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+<script>
+    require([
+        'jquery',
+        'owlcarousel'
+    ],function($) {
+        $(document).ready(function(){
+            $('.tips-slider').owlCarousel({
+                nav : false,
+                autoPlay: false,
+                items : 1
+            });
+        });
+    })
+</script>
+<?php endif; ?>

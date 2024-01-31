@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <termsnet30>
+                <active>0</active>
+                <model>Capgemini\PaymentTerms\Model\Termsnet30</model>
+                <order_status>pending</order_status>
+                <title>Net 30 Terms</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </termsnet30>
+            <termswholesale>
+                <active>0</active>
+                <payment_action>authorize</payment_action>
+                <model>Capgemini\PaymentTerms\Model\Wholesale</model>
+                <order_status>processing</order_status>
+                <title>Wholesale Terms</title>
+                <allowspecific>0</allowspecific>
+                <group>offline</group>
+            </termswholesale>
+        </payment>
+    </default>
+</config>

@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php /*Custom breadcrumbs used in Showroom Details CMS Pages*/ ?>
+
+<?php if ($crumbs && is_array($crumbs)) : ?>
+<div class="breadcrumbs">
+    <ul class="items">
+        <?php foreach ($crumbs as $crumbName => $crumbInfo) : ?>
+            <?php if ($crumbInfo['link']) : ?>
+                <li class="item <?= $block->escapeHtmlAttr($crumbName) ?>">
+                    <a href="<?= $block->escapeUrl($crumbInfo['link']) ?>"
+                       title="<?= $block->escapeHtmlAttr($crumbInfo['title']) ?>">
+                        <?= $block->escapeHtml($crumbInfo['label']) ?>
+                    </a>
+                </li>
+            <?php elseif ($crumbInfo['last']) : ?>
+                <li class="item cms_page_parent cms_page">
+                    <a href="<?php echo $block->getBaseUrl(); ?>showrooms/" title="Go to Our Showrooms">
+                        <?= __('Showrooms'); ?>
+                    </a>
+                </li>
+
+                <li class="item <?= $block->escapeHtmlAttr($crumbName) ?>">
+                    <strong><?= $block->escapeHtml($crumbInfo['label']) ?></strong>
+                </li>
+            <?php else : ?>
+                <li class="item <?= $block->escapeHtmlAttr($crumbName) ?>">
+                    <?= $block->escapeHtml($crumbInfo['label']) ?>
+                </li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </ul>
+</div>
+<?php endif; ?>

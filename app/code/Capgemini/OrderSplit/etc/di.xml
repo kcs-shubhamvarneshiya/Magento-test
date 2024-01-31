@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="order_get_model_with_po_numbers_division"
+                type="Capgemini\OrderSplit\Plugin\Sales\Model\OrderGetPlugin"/>
+    </type>
+    <type name="Magento\Sales\Api\OrderItemRepositoryInterface">
+        <plugin name="order_get_model_with_division"
+                type="Capgemini\OrderSplit\Plugin\Sales\Model\OrderItemGetPlugin" />
+    </type>
+    <type name="Magento\Checkout\Api\GuestPaymentInformationManagementInterface">
+        <plugin name="save_po_numbers_to_quote_from_guest"
+                type="Capgemini\OrderSplit\Plugin\Quote\GuestPaymentInformationManagementPlugin" />
+    </type>
+    <type name="Magento\Checkout\Api\PaymentInformationManagementInterface">
+        <plugin name="save_po_numbers_to_quote"
+                type="Capgemini\OrderSplit\Plugin\Quote\PaymentInformationManagementPlugin" />
+    </type>
+
+    <preference for="Capgemini\OrderSplit\Api\Checkout\Validator\ResultInterface"
+                type="Capgemini\OrderSplit\Model\Checkout\Validator\Result"/>
+
+    <preference for="Capgemini\OrderSplit\Api\Data\CustomPoNumberInterface"
+                type="Capgemini\OrderSplit\Model\Data\CustomPoNumber"/>
+
+    <preference for="Capgemini\OrderSplit\Api\Data\CustomPromoCodeInterface"
+                type="Capgemini\OrderSplit\Model\Data\CustomPromoCode"/>
+
+    <!-- Replaced with VC service validator
+    <type name="Capgemini\OrderSplit\Model\Checkout\PoNumberValidationProcessor">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="base_validator"
+                      xsi:type="object">Capgemini\OrderSplit\Model\Checkout\Validator\BaseValidation</item>
+            </argument>
+        </arguments>
+    </type>
+    -->
+</config>

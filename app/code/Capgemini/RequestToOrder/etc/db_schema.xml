@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="capgemini_rto" resource="default" engine="innodb">
+        <column xsi:type="int" name="rto_id" identity="true"/>
+        <column xsi:type="int" name="status" nullable="false" default="1"/>
+        <column xsi:type="int" name="customer_id" nullable="false"/>
+        <column xsi:type="varchar" name="name" nullable="true"/>
+        <column xsi:type="varchar" name="email" nullable="true"/>
+        <column xsi:type="varchar" name="phone" nullable="true"/>
+        <column xsi:type="mediumtext" name="comments" nullable="true"/>
+        <column xsi:type="timestamp" name="created_at" default="CURRENT_TIMESTAMP" on_update="false"
+                nullable="false" comment="Timestamp when entry was created"/>
+        <column xsi:type="timestamp" name="updated_at" default="CURRENT_TIMESTAMP" on_update="true"
+                nullable="false" comment="Timestamp when entry was updated"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rto_id"/>
+        </constraint>
+        <index referenceId="CAPGEMINI_RTO_RTO_ID" indexType="btree">
+            <column name="rto_id"/>
+        </index>
+    </table>
+    <table name="capgemini_rto_item" resource="default" engine="innodb">
+        <column xsi:type="int" name="rto_item_id" identity="true"/>
+        <column xsi:type="int" name="rto_id"/>
+        <column xsi:type="int" name="product_id" nullable="false"/>
+        <column xsi:type="varchar" name="sku" nullable="false"/>
+        <column xsi:type="varchar" name="name" nullable="false"/>
+        <column xsi:type="decimal" name="price" scale="6" precision="20" unsigned="false" nullable="true"/>
+        <column xsi:type="int" name="qty" nullable="false"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="rto_item_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CAPGEMINI_RTO_ITEM_RTO_ITEM_ID_CAPGEMINI_RTO_RTO_ID"
+                    table="capgemini_rto_item" column="rto_id" referenceTable="capgemini_rto"
+                    referenceColumn="rto_id" onDelete="CASCADE"/>
+        <index referenceId="CAPGEMINI_RTO_ITEM_ITEM_ID" indexType="btree">
+            <column name="rto_item_id"/>
+        </index>
+    </table>
+</schema>

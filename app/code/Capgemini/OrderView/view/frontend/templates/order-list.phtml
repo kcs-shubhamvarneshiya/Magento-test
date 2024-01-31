@@ -1,0 +1,180 @@
+<?php
+/** @var $block \Capgemini\OrderView\Block\Orders */
+$limit = $block->getRequest()->getParam('limit') ?? $block::INITIAL_LIMIT;
+$page = $block->getRequest()->getParam('p') ?? 1;
+
+$customerId = $block->getCustomerId();
+ 
+if ($block->getCustomerType() == \Capgemini\CompanyType\Model\Config::WHOLESALE) {
+    $customerNumber = $this->getRequest()->getParam('account_id') ?? $block->getCustomerVcNumber();
+} else {
+    $customerNumber = $block->getCustomerNumber();
+}
+$filtersParams = [];
+
+foreach (['orderstatus','division'] as $filtersParam)
+{
+    if($this->getRequest()->getParam($filtersParam))
+    {
+        $filtersParams[$filtersParam] = $this->getRequest()->getParam($filtersParam);
+    }
+}
+
+$orders = $block->getOrders($page, $limit, $customerNumber, $filtersParams);
+$filters = $block->getFilter();
+$searchbal = '';
+if($this->getRequest()->getParam('search'))
+{
+    $searchbal = $this->getRequest()->getParam('search');
+}
+$customerVcNumber =  $customerNumber;
+$params = $block->getRequest()->getParams();
+$searchParams = $params;
+?>
+<?php if($block->getCustomerType() == \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?>
+<div class="order-control-container">
+    <div class="filter-container top-filter-container">
+        <?= $block->getBlockHtml('capgemini.filter.dropdown'); ?>
+        <?= $block->getBlockHtml('capgemini.filter.modal'); ?> 
+   </div>
+</div>
+<?php endif;?>
+<div id="order-list-main"> 
+    <?php if ($orders && count($orders)): ?>
+        <div class="table-wrapper orders-history data-grid-wrap orderspages" id="order-list-wrap">
+            <table class="data-grid table table-order-items history" id="order-list">
+                <caption class="table-caption"><?= $block->escapeHtml(__('Orders')) ?></caption>
+                <thead>
+                <?php if($block->getCustomerType() != \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?> <th scope="col" class="data-grid-th col job"><?= $block->escapeHtml(__('Job Name')) ?></th><?php endif; ?>
+                   
+                    <?php if($block->getCustomerType() != \Capgemini\CompanyType\Model\Config::WHOLESALE) { ?> <th scope="col" class="data-grid-th col id"><?= $block->escapeHtml(__('Order')) ?></th><?php } else { ?>   
+                    <th scope="col" class="data-grid-th col id" data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".orderidupsort","upsorturl":"<?= $block->getUrl('orderview/orders/history',['sort_by'=>'OrderId_asc','account_id'=>$customerId])?>"},{"classname":".orderiddescort","upsorturl":"<?= $block->getUrl('orderview/orders/history',['sort_by'=>'OrderId_desc','account_id'=>$customerId])?>"}]}}'>
+                <span class="th-wrap"> 
+                        <span class="th-label">    
+                <?= $block->escapeHtml(__('Order')) ?></span>
+                <span class="sort-wrap">
+                    <span data-sort="asc" class="orderidupsort ascsort OrderId_desc "></span>
+                    <span data-sort="desc" class="orderiddescort descsort OrderId_asc active"></span>
+                    </span>
+                    </span>
+                    </th>
+                    <?php } ?>
+                <?php if($block->getCustomerType() == \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?><th scope="col" class="data-grid-th col purchase"><?= $block->escapeHtml(__('Purchase Order')) ?></th><?php endif; ?>
+                    <?php if($block->getCustomerType() != \Capgemini\CompanyType\Model\Config::WHOLESALE) { ?> <th scope="col" class="data-grid-th col job"><?= $block->escapeHtml(__('Date')) ?></th><?php } else { ?>   
+                    <th scope="col" class="data-grid-th col date" data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".orderdtupsort","upsorturl":"<?= $block->getUrl('orderview/orders/history',['sort_by'=>'orderDate_asc','account_id'=>$customerId])?>"},{"classname":".orderdtdescort","upsorturl":"<?= $block->getUrl('orderview/orders/history',['sort_by'=>'orderDate_desc','account_id'=>$customerId])?>"}]}}'>
+                <span class="th-wrap"> 
+                        <span class="th-label">    
+                <?= $block->escapeHtml(__('Date')) ?></span>
+                <span class="sort-wrap">
+                    <span data-sort="asc" class="orderdtupsort ascsort orderDate_desc"></span>
+                    <span data-sort="desc" class="orderdtdescort descsort orderDate_asc active"></span>
+                    </span>
+                    </span> 
+                    </th>
+                    <?php } ?>
+                <th scope="col" class="data-grid-th col shipping"><?= $block->escapeHtml(__('Ship To')) ?></th>
+                <?php if($block->getCustomerType() != \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?>  <th scope="col" class="data-grid-th col total"><?= $block->escapeHtml(__('Order Total')) ?></th><?php endif; ?>
+                    <th scope="col" class="data-grid-th col status status-dropdown-widget">
+                    <?php if(!empty($block->getOrderFilter('orderstatus'))): ?>
+                        <span class="status-label" data-mage-init='{"dropdown":{}}' data-toggle="dropdown">
+                            <?= $block->escapeHtml(__('Status')) ?>
+                        </span>
+                        <div class="status-dropdown" data-target="dropdown">
+                            <ul class="header links">
+                                <?php foreach ($block->getOrderFilter('orderstatus') as $status): $searchParams['orderstatus'] = $status; if($this->getRequest()->getParam('orderstatus') === $status) { unset($searchParams['orderstatus']); } ?>
+                                    <li data-action="status-filter">
+                                        <span>
+                                            <input data-href="<?= $block->getUrl('orderview/orders/history',$searchParams)?>" value="<?= $status ?>" <?= ($this->getRequest()->getParam('orderstatus') === $status)? 'checked="checked"':''; ?> type="checkbox"/>
+                                        </span>
+                                        <span><?= $status ?></span>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php else: ?>
+                        <?= $block->escapeHtml(__('Status')) ?>
+                    <?php endif;?>
+                </th>
+                 
+
+
+                <th scope="col" class="data-grid-th col actions"><?= $block->escapeHtml(__('Action')) ?></th>
+                </thead>
+                <tbody>
+                <?php foreach ($orders as $order): ?>
+                    <tr class="order-row data-row accountidfilter" data-accountid="<?php echo $order['account_id']; ?>">
+                    <?php if($block->getCustomerType() != \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?><td data-th="<?= $block->escapeHtmlAttr(__('Job Name')) ?>" class="col id">  <?php if(!empty($order['job_name'])) : ?> <?= $order['job_name'] ?><?php endif; ?></td><?php endif; ?>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Order #')) ?>" class="col id"><?= $order['id'] ?></td>
+                        <?php if(!empty($order['purchase_order'])) : ?><td data-th="<?= $block->escapeHtmlAttr(__('Purchase Order')) ?>" class="col id"><?= $order['purchase_order'] ?></td><?php endif; ?>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Date')) ?>" class="col date"><?= $order['created_at'] ?></td>
+                        <!-- <td data-th="< ?= $block->escapeHtmlAttr(__('Qty')) ?>" class="col shipping">< ?= $order['order_qty'] ?></td> -->
+                        <!-- <td data-th="< ?= $block->escapeHtmlAttr(__('Total Price')) ?>" class="col shipping">< ?= $order['total_price'] ?></td> -->
+                        <!-- <td data-th="< ?= $block->escapeHtmlAttr(__('Bill To')) ?>" class="col shipping">< ?= $order['bill_to_name'] ?></td> -->
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Ship To')) ?>" class="col shipping"><?= $order['ship_to_name'] ?></td>
+                        <?php if(!empty($order['total'])) : ?>  <td data-th="<?= $block->escapeHtmlAttr(__('Order Total')) ?>" class="col total"><?= $order['total'] ?></td><?php endif; ?>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>" class="col status"><?= $order['status'] ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Action')) ?>" class="col actions data-grid-actions-cell">
+                            <div class="action-select-wrap">
+                                <ul class="action-menu">
+                                    <li>
+                                        <a href="<?= $order['view_link'] ?>" class="action view action-menu-item" title="<?= __('View Order') ?>">
+                                            <span><?= $block->escapeHtml(__('View Order')) ?></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php if (count($orders)): ?>
+            <div class="order-products-toolbar toolbar bottom"><?= $block->getChildBlock('salespad_order_list_pager')->setLimit($limit)->setCollection($orders)->toHtml() ?></div>
+        <?php endif; ?>
+    <?php else: ?>
+        <?php if ($this->getRequest()->getParam('search')) : ?>
+            <div class="message info empty"><span><?= $block->escapeHtml(__('No orders found for this search.  Please try again.')) ?></span></div>
+        <?php else : ?>
+            <div class="message info empty"><span><?= $block->escapeHtml(__('You have placed no orders.')) ?></span></div>
+        <?php endif; ?>
+    <?php endif; ?>
+    <div class="message info empty" id="filter-message" style="display: none"><span><?= $block->escapeHtml(__('No orders found for this search.  Please try again.')) ?></span></div>
+</div>
+
+
+<script>
+    require(['jquery'], function ($) {
+        $('[data-action=status-filter]').click(function (){
+            window.location.href = $(this).find("input").attr("data-href");
+        });
+        $('#accountfilter').change(function(){
+            window.location.href = $(this).find(':selected').attr('data-href');
+        });
+    })
+</script>
+
+<script>
+require(['jquery', 'Capgemini_OrderView/js/widget/sortable-table'], function($) {
+
+$('.sortable-table').sortableTable();
+
+$(document).ready(function(){
+
+    var url = window.location.href;
+var sortType = "";
+
+var match = url.match(/\/sort_by\/([^\/]+)/);
+if (match && match[1]) {
+sortType = match[1];
+}
+
+const element = document.querySelector("." + sortType);
+    if(sortType){
+        element.classList.add("active");
+        console.log(element.nextSibling.nextElementSibling);
+        element.nextSibling.nextElementSibling.classList.remove("active");
+    }
+});
+
+});
+</script>

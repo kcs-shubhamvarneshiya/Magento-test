@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+<view xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/view.xsd">
+    <media>
+        <images module="Magento_Catalog">
+            <image id="mini_cart_product_thumbnail" type="thumbnail">
+                <width>165</width>
+                <height>165</height>
+            </image>
+            <image id="product_page_image_small" type="thumbnail">
+                <width>155</width>
+                <height>155</height>
+            </image>
+            <image id="product_page_more_views" type="thumbnail">
+                <width>100</width>
+                <height>100</height>
+            </image>
+            <image id="category_swatch" type="image">
+                <width>60</width>
+                <height>60</height>
+            </image>
+            <image id="swatch_image" type="swatch_image">
+                <width>60</width>
+                <height>60</height>
+            </image>
+            <image id="swatch_image_base" type="swatch_image">
+                <width>60</width>
+                <height>60</height>
+            </image>
+            <image id="product_page_image_medium" type="image">
+                <width>855</width>
+                <height>855</height>
+            </image>
+            <image id="related_products_list" type="small_image">
+                <width>290</width>
+                <height>362</height>
+            </image>
+            <image id="product_thumbnail_image" type="thumbnail">
+                <width>150</width>
+                <height>150</height>
+            </image>
+            <image id="product_variation_item" type="small_image">
+                <width>100</width>
+                <height>100</height>
+            </image>
+            <image id="customer_shared_wishlist" type="small_image">
+                <width>113</width>
+                <height>113</height>
+            </image>
+            <image id="wishlist_thumbnail" type="small_image">
+                <width>160</width>
+                <height>160</height>
+            </image>
+        </images>
+    </media>
+    <vars module="Magento_Catalog">
+        <!-- Gallery and magnifier theme settings. Start -->
+        <var name="gallery">
+            <var name="navdir">vertical</var>
+            <var name="thumbmargin">10</var>
+            <var name="thumbwidth">155</var>
+            <var name="thumbheight">155</var>
+            <var name="nav">thumbs</var> <!-- Gallery navigation style (false/thumbs/dots) -->
+            <var name="loop">true</var> <!-- Gallery navigation loop (true/false) -->
+            <var name="keyboard">true</var> <!-- Turn on/off keyboard arrows navigation (true/false) -->
+            <var name="arrows">true</var> <!-- Turn on/off arrows on the sides preview (true/false) -->
+            <var name="navarrows">true</var> <!-- Turn on/off on the thumbs navigation sides (true/false) -->
+            <var name="fullscreen">
+                <var name="nav">thumbs</var> <!-- Fullscreen navigation style (false/thumbs/dots) -->
+                <var name="loop">true</var> <!-- Fullscreen navigation loop (true/false/null) -->
+                <var name="keyboard">true</var> <!-- Turn on/off keyboard arrows navigation (true/false/null) -->
+                <var name="arrows">true</var> <!-- Turn on/off arrows on the sides preview (true/false/null) -->
+                <var name="navigation_carousel">true</var> <!-- Display navigation thumbs as carousel (true/false) -->
+            </var>
+        </var>
+        <var name="breakpoints">
+            <var name="mobile">
+                <var name="conditions">
+                    <var name="max-width">767px</var>
+                </var>
+                <var name="options">
+                    <var name="options">
+                        <var name="nav">dots</var>
+                    </var>
+                </var>
+            </var>
+        </var>
+    </vars>
+    <vars module="Magento_ConfigurableProduct">
+      <var name="gallery_switch_strategy">replace</var>
+    </vars>
+    <vars module="Magento_PageBuilder">
+        <var name="breakpoints">
+            <var name="desktop">
+                <var name="conditions">
+                    <var name="min-width">1024px</var>
+                </var>
+                <var name="options">
+                    <var name="products">
+                        <var name="default">
+                            <var name="slidesToShow">4</var>
+                        </var>
+                    </var>
+                </var>
+            </var>
+            <var name="tablet">
+                <var name="conditions">
+                    <var name="max-width">1024px</var>
+                    <var name="min-width">768px</var>
+                </var>
+                <var name="options">
+                    <var name="products">
+                        <var name="default">
+                            <var name="slidesToShow">3</var>
+                        </var>
+                    </var>
+                </var>
+            </var>
+            <var name="mobile">
+                <var name="conditions">
+                    <var name="max-width">768px</var>
+                    <var name="min-width">640px</var>
+                </var>
+                <var name="options">
+                    <var name="products">
+                        <var name="default">
+                            <var name="slidesToShow">3</var>
+                        </var>
+                    </var>
+                </var>
+            </var>
+            <var name="mobile-small">
+                <var name="conditions">
+                    <var name="max-width">640px</var>
+                </var>
+                <var name="options">
+                    <var name="products">
+                        <var name="default">
+                            <var name="slidesToShow">2</var>
+                        </var>
+                    </var>
+                </var>
+            </var>
+        </var>
+    </vars>
+    <vars module="Capgemini_GalleryBookmarks">
+        <var name="use_image_groups">true</var>
+    </vars>
+</view>

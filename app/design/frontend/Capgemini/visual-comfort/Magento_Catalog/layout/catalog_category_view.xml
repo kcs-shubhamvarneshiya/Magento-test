@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="css/owl_carousel/owl.carousel.min.css"/>
+        <script src="Magento_Catalog::js/custom.js"/>
+    </head>
+
+    <body>
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true" />
+        <referenceBlock name="category.products.list">
+            <block class="Capgemini\Configurable\Block\Configurable\Children" name="configurable.children.options"
+                template="Capgemini_Configurable::configurable/children.phtml"
+                ifconfig="capgemini_configurable/general/enable_catalog_category">
+                <block class="Capgemini\Configurable\Block\Configurable\Child" name="configurable.children.options.child"
+                    template="Capgemini_Configurable::configurable/child.phtml">
+                    <action method="setIsClpSearch">
+                        <argument name="is_clp_search" xsi:type="boolean">true</argument>
+                    </action>
+                    <arguments>
+                        <argument name="is_product_listing" xsi:type="boolean">true</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="before.body.end">
+            <block name="back.to.top" template="Magento_Catalog::backtotop.phtml" />
+        </referenceContainer>
+
+        <referenceContainer name="content">
+            <referenceBlock name="category.products.list">
+                <arguments>
+                    <argument name="category_ads_view_model"
+                              xsi:type="object">Capgemini\CategoryAds\ViewModel\CategoryAd</argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

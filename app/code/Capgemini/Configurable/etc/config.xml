@@ -1,0 +1,12 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <capgemini_configurable>
+            <general>
+                <enable_catalog_search>1</enable_catalog_search>
+                <enable_catalog_category>1</enable_catalog_category>
+                <enable_catalog_product>1</enable_catalog_product>
+            </general>
+        </capgemini_configurable>
+    </default>
+</config>

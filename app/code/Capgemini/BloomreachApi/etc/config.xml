@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <bloomreach_search>
+            <sitesearch>
+                <price_content_tag>
+                    <![CDATA[<p class="blm-product-search-details-container__price <% if (isActiveVariant) { %>active<% } %>">]]>
+                </price_content_tag>
+            </sitesearch>
+        </bloomreach_search>
+        <bloomreach_collections>
+            <general>
+                <price_content_tag>
+                    <![CDATA[<p class="blm-product-search-details-container__price <% if (isActiveVariant) { %>active<% } %>">]]>
+                </price_content_tag>
+            </general>
+        </bloomreach_collections>
+    </default>
+</config>

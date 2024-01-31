@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" layout="empty">
+    <body>
+        <referenceBlock name="after.body.start" remove="true"/>
+        <referenceBlock name="top.links" remove="true"/>
+        <referenceContainer name="header.container" remove="true" />
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceBlock name="breadcrumbs" remove="true"/>
+        <referenceContainer name="notices.wrapper" remove="true"/>
+        <referenceContainer name="page.top" remove="true" />
+        <referenceContainer name="page.bottom.container" remove="true"/>
+        <referenceContainer name="footer-container" remove="true" />
+        <referenceContainer name="before.body.end" remove="true" />
+        <referenceContainer name="content">
+            <block class="Capgemini\ProductPdf\Block\Product" name="product.view.pdf"
+                   template="Capgemini_ProductPdf::product_pdf.phtml">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

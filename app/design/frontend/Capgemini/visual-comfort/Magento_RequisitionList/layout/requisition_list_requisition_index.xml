@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Visual Comfort, Inc. 2022 All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Quotes</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="content.top">
+            <container name="add.quote.btn.wrapper" as="page.title.additional" label="Page Title Additional" htmlTag="div" htmlClass="add-quote-btn-wrapper" />
+        </referenceContainer>
+
+        <move element="requisition.create" destination="add.quote.btn.wrapper"/>
+    </body>
+</page>

@@ -1,0 +1,503 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+//use Capgemini\BloomreachThematic\Model\TechnicalProduct;
+//use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+
+<?php
+
+$_productCollection = $block->getLoadedProductCollection();
+//echo get_class($block);
+//exit('hello');
+
+?>
+
+<?php
+// Category collection file code start here
+
+/*
+    $current_category = $this->frameworkRegistry->registry('current_category');
+    $modelCollection = \Magento\Framework\App\ObjectManager::getInstance()->create(\Rysun\ArchiCollection\Model\ArchiCollection::class);
+    $collection = $modelCollection->getCollection();
+    $collection->addFieldToFilter('category_id',$current_category->getId());
+
+
+    //$collection = $block->getCollectionName();
+    $_helper    = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_category  = $block->getCurrentCategory();
+    $imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Catalog\Helper\Image::class);
+    $image = $imageHelper->getDefaultPlaceholderUrl('image');
+    
+    
+    echo '<div class="product-subcategory-view"><div class="d-grid product-category-grid">';
+        foreach ($collection as $collection_label) {
+
+            $_imgUrl = ($collection_label->getThumbnailImage()) ?  $collection_label->getThumbnailImage() : $image;
+
+            echo '<div class="subcategory-grid-box">
+                    <a href="#'.$collection_label->getWebName().'" class="d-flex align-items-center justify-content-center product-category-grid-box">'.
+                        '<div class="h6 me-auto">' . $collection_label->getWebName() . '</div>'.
+                        '<img src="'.$block->escapeUrl($_imgUrl).'" alt="'.$collection_label->getWebName().'" width="148" height="125" />'.
+                    '</a>'.
+                '</div>';
+        }
+    echo '</div></div>';
+
+    // Category collection file code start here
+
+
+*/
+?>
+
+
+<?php
+
+//category list - platform code ends here
+
+
+    $current_category = $this->frameworkRegistry->registry('current_category');    
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+    $productCollectionFactory = $objectManager->create('Rysun\ArchiCollection\Model\ArchiCollection');
+    $collection = $productCollectionFactory->getCollection();
+    $collection->addFieldToFilter('category_id',$current_category->getId());
+    $collection->setOrder('sort_order','ASC');
+
+
+
+
+?>
+<div class="products-grid custom-products">
+    <div class="products-sep"></div>
+    <?php 
+        foreach($collection as $collectionlist){
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $platformCollectionFactory = $objectManager->create('Rysun\ArchiCollection\Model\ArchiPlatform');
+            $platformCollection = $platformCollectionFactory->getCollection();
+            $platformCollection->addFieldToFilter('category_id',$current_category->getId());
+            $platformCollection->addFieldToFilter('collection_id',$collectionlist->getId());
+            $platformCollection->setOrder('sort_order','ASC');
+
+    ?> 
+    <?php //echo ' platform id'.print_r($platformCollection->getAllIds());
+        $platformAllIds = implode(',',$platformCollection->getAllIds());
+
+        $productUpdatedIDs = implode(',',$_productCollection->getAllIds());
+        // print_r($productUpdatedIDs);
+        $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+        /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
+        $productDataCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+        /** Apply filters here */
+        $prodDatacollection = $productDataCollection->addAttributeToSelect('*');
+        $prodDatacollection->addAttributeToFilter(
+            'collection_id',array("eq"=>$collectionlist->getSqlServId())
+        )
+        ->addAttributeToFilter(
+            'platform_id',array("in"=>$platformAllIds)
+        )
+        ->addFieldToFilter('entity_id', array('in' => $productUpdatedIDs))
+                    ->load();
+                    if(count($prodDatacollection) < 1){
+                        continue;
+                    }
+
+    ?>
+        <h2 id="<?= $collectionlist->getWebName()?>"> <?= $collectionlist->getWebName() ?> </h2>
+        <h5><?= $collectionlist->getCollectionDescSecond() ?> </h5>
+        <p><?= $collectionlist->getCollectionDesc() ?> </p>
+        <div class="products list items product-items">
+            <div class="item product product-item product-promotion">
+                <div class="promotion-content">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="<?= $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" width="381" height="511" />
+                    </a>
+                    <!-- <div class="promotion-content-inner">
+                        <h2>LEARN MORE ABOUT <strong><?= $collectionlist->getWebName(); ?></strong> RECESSED PLATFORMS</h2>
+                        <p>Features, Benefits, Accessories, Controls. Installation, and More</p>
+                        <a href="javascript:void(0);">Start your journey now ></a>
+                    </div> -->
+                </div>
+            </div>
+            <?php 
+            foreach($platformCollection as $platformlist) {
+
+                    //echo  "before:- ".count($_productCollection);
+
+                //print_r($_productCollection->getAllIds());
+                $productUpdatedIDs = implode(',',$_productCollection->getAllIds());
+                // print_r($productUpdatedIDs);
+                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
+                $productDataCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+                /** Apply filters here */
+                $prodDatacollection = $productDataCollection->addAttributeToSelect('*');
+                $prodDatacollection->addAttributeToFilter(
+                    'collection_id',array("eq"=>$collectionlist->getSqlServId())
+                )
+                ->addAttributeToFilter(
+                    'platform_id',array("eq"=>$platformlist->getSqlServId())
+                )
+                ->addFieldToFilter('entity_id', array('in' => $productUpdatedIDs))
+                ->setOrder('product_sort_order','ASC')
+                            ->load();
+
+                if(count($prodDatacollection) < 1){
+                    continue;
+                }
+
+                //Render Product collection
+
+                $productList =  $deliveredLumens = $bining= $beamSpread = $housing = $dimming =$ratingCertification = [];
+
+                foreach($prodDatacollection as $key =>  $item) {
+
+                   // echo '<pre>';
+                   // print_r($item->getData());
+                   // echo $item->getProductUrl();
+                   // exit('coming here');
+                    $productData = [];
+                    //List for printing Product List
+                    $productData['name'] = $item->getName(); 
+                    $productData['url'] = $item->getProductUrl(); 
+                    $productData['sort'] = $item->getProductSortOrder(); 
+                    $productList[] = $productData;
+
+
+
+                     //WORKING CODE START
+                     $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                     $specificationCollection = $objectManager->create('Rysun\SpecificationAttribute\Model\SpecificationAttribute');
+                     $specificationCol = $specificationCollection->getCollection();
+                     $specificationCol->addFieldToFilter('category_id',$current_category->getId());
+                     $specificationCol->addFieldToFilter('collection_id',$collectionlist->getSqlServId());
+                     //$specificationCol->setOrder('sort_order','ASC');
+
+                     echo count($specificationCol); //exit;
+                    
+                     foreach($specificationCol as $specificationDetail){
+                         $deliveredLumens = [];
+                         //echo '<pre>';
+                         //print_r($specificationDetail->getData('attribute_code'));
+                         //echo '</pre>';
+                         $attributeCode = $specificationDetail->getData('attribute_code');
+                         $productValue = $item->getAttributeText($attributeCode);
+                         //$productAttrLabel = $item->getAttribute($attributeCode);
+
+                         if(is_array($productValue)){
+                             foreach($productValue  as $value){
+                                 $deliveredLumens[] = $value;
+                             }
+                         } else {
+                             $deliveredLumens[] = $productValue ;
+                         }
+                         $deliveredString  = implode(", ", $deliveredLumens); 
+
+                         if(empty($deliveredString)){
+                             continue;
+                         }
+                         echo 'coming here';
+                         //echo '<pre>';  
+                         //print_r($item->getResource()->getAttribute($attributeCode)->getStoreLabel());
+                         //print_r($deliveredString);
+                         //echo '</pre>';
+                         $attributeLabel = $item->getResource()->getAttribute($attributeCode)->getStoreLabel();
+                         ?>
+                         <?php 
+                         echo '<pre>';
+                         print_r($attributeLabel);
+                         print_r($deliveredString);
+                         echo '</pre>';
+
+                         $attributeData[$attributeCode]['label'] = $item->getResource()->getAttribute($attributeCode)->getStoreLabel();
+                         
+                         ?>
+                         <?php //echo $attributeLabel; ?>       
+                         <?php //echo $deliveredString;?>
+                         <?php
+                     }
+                     //exit;
+                     //WORKING CODE START 
+
+
+                    //$deliveredLumens[] = $item->getData('maximum_delivered_lumens_filter');
+                    //$deliveredLumens[] = $item->getAttributeText('maximum_delivered_lumens_filter');
+
+                    if(is_array($item->getAttributeText('maximum_delivered_lumens_arch_filter'))){
+                        $values = $item->getAttributeText('maximum_delivered_lumens_arch_filter');
+                        foreach($values  as $value){
+                            $deliveredLumens[] = $value;
+                        }
+                      
+                    } else {
+                        if(!empty($item->getAttributeText('maximum_delivered_lumens_arch_filter'))){
+                        $deliveredLumens[] = $item->getAttributeText('maximum_delivered_lumens_arch_filter');
+                        }
+                    }
+
+                    //$isAttributeExist = $product->getResource()->getAttribute($attributeCode); 
+                    //$optionText = '';
+                    //if ($isAttributeExist && $isAttributeExist->usesSource()) {
+                    //    $optionText = $isAttributeExist->getSource()->getOptionText($optionId);
+                    //}
+                    
+                    //$bining[] = $item->getData('dimming_arch_filter');
+                    //$bining[] = $item->getAttributeText('dimming_arch_filter');
+                    if(is_array($item->getAttributeText('color_consistency_sdcm_binning_arch_filter'))){
+                        $values = $item->getAttributeText('color_consistency_sdcm_binning_arch_filter');
+                        foreach($values  as $value){
+                            if(!empty($value)){
+                                $bining[] = $value;
+                            }
+                           
+                        }
+                      
+                    } else {
+                        if(!empty($item->getAttributeText('color_consistency_sdcm_binning_arch_filter'))){
+                            $bining[] = $item->getAttributeText('color_consistency_sdcm_binning_arch_filter');
+                        }
+                        
+                    }
+
+
+                    //$beamSpread[] = $item->getData('beam_spread_arch_option');
+
+                    if(is_array($item->getAttributeText('beam_spread_arch_option'))){
+                        $values = $item->getAttributeText('beam_spread_arch_option');
+                        foreach($values  as $value){
+                            if(!empty($value)){
+                            $beamSpread[] = $value;
+                            }
+                        }
+                      
+                    } else {
+                        if(!empty($item->getAttributeText('beam_spread_arch_option'))){
+                            $beamSpread[] = $item->getAttributeText('beam_spread_arch_option');
+                        }
+                    }
+                    
+                    //$housing[] = $item->getData('housing_type_filter');
+                    //$housing[] = $item->getAttributeText('housing_type_filter');
+
+                    if(is_array($item->getAttributeText('housing_type_arch_filter'))){
+                        $values = $item->getAttributeText('housing_type_arch_filter');
+                        foreach($values  as $value){
+                            if(!empty($value)){
+                            $housing[] = $value;
+                            }
+                        }
+                      
+                    } else {
+                        if(!empty($item->getAttributeText('housing_type_arch_filter'))){
+                            $housing[] = $item->getAttributeText('housing_type_arch_filter');
+                        }
+                    }
+
+
+                    //$dimming[] = $item->getData('dimming_arch_filter');
+                    //$dimming[] = $item->getAttributeText('dimming_arch_filter');
+                    if(is_array($item->getAttributeText('dimming_type_arch_filter'))){
+                        $values = $item->getAttributeText('dimming_type_arch_filter');
+                        foreach($values  as $value){
+                            if(!empty($value)){
+                            $dimming[] = $value;
+                            }
+                        }
+                      
+                    } else {
+                        if(!empty($item->getAttributeText('dimming_type_arch_filter'))){
+                         $dimming[] = $item->getAttributeText('dimming_type_arch_filter');
+                        }
+                    }
+                    //$ratingCertification[] = $item->getData('maximum_delivered_lumens_filter');
+                    //$ratingCertification[] = $item->getAttributeText('maximum_delivered_lumens_filter');
+                    if(is_array($item->getAttributeText('rating_certification_arch_filter'))){
+                        $values = $item->getAttributeText('rating_certification_arch_filter');
+                        foreach($values  as $value){
+                            if(!empty($value)){
+                            $ratingCertification[] = $value;
+                            }
+                        }
+                      
+                    } else {
+                        if(!empty($item->getAttributeText('rating_certification_arch_filter'))){
+                        $ratingCertification[] = $item->getAttributeText('rating_certification_arch_filter');
+                        }
+                    }
+
+
+                }
+
+
+                //array_unique($deliveredLumens); = $bining= $beamSpread = $housing = $dimming =$ratingCertification = [];
+
+                //echo '<pre>';
+                //print_r($productList);
+                //echo '</pre>';
+                //exit('coming here');
+
+            ?>
+
+                <div class="item product product-item">
+                    <div class="product-item-info">
+                        <a href="javascript:void(0);" class="product photo product-item-photo">
+                            <img src="<?= $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') ?>" width="240" height="300" />
+                        </a>
+                        <div class="d-flex product-item-thumb">
+                            <a href="javascript:void(0);">
+                                <img src="<?= $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') ?>" width="50" height="50" />
+                            </a>
+                            <a href="javascript:void(0);">
+                                <img src="<?= $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') ?>" width="50" height="50" />
+                            </a>
+                            <a href="javascript:void(0);">
+                                <img src="<?= $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') ?>" width="50" height="50" />
+                            </a>
+                            <a href="javascript:void(0);">
+                                <img src="<?= $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') ?>" width="50" height="50" />
+                            </a>
+                            <a href="javascript:void(0);">
+                                <img src="<?= $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') ?>" width="50" height="50" />
+                            </a>
+                        </div>
+                        <div class="product details product-item-details">
+                            <div class="product name product-item-name">
+                                <a class="product-item-link" href="javascript:void(0);">
+                                    <?= $platformlist->getWebName(); ?>
+                                </a>
+                            </div>
+                            <div class="product-attribute-head">Specifications</div>
+                          
+                            <?php 
+                            if(!empty($deliveredLumens)){   
+                              $val = array_unique($deliveredLumens); 
+                              //$deliveredLumensStrng  = implode(", ", $val); 
+                              if(count($val) > 1){
+                                $deliveredLumensStrng = min($val).' - '.max($val);
+                              } else {
+                                $deliveredLumensStrng  = implode(", ", $val); 
+                              }
+                              
+                            ?>
+                            <div class="spec-inline">
+                                <ul class="product-attribute-list">
+                                    <span>Delivered Lumens:</span>
+                                    <!--<li>850 - 1500</li>-->
+                                    <li>
+                                    <?php echo  $deliveredLumensStrng;                                
+                                    ?></li>
+                                </ul>
+                            </div>
+                            <?php } ?>
+
+                            <?php 
+                            if(!empty($bining)){     
+                                $val = array_unique($bining); 
+                                $biningStrng  = implode(", ", $val);         
+                            ?>
+                            <div class="spec-inline">
+                                <ul class="product-attribute-list">
+                                    <span>Bining:</span>
+                                    <!--<li>850 - 1500</li>-->
+                                    <li><?php echo $biningStrng; ?></li>
+                                </ul>
+                            </div>
+                            <?php } ?>
+                            <?php 
+                            if(!empty($beamSpread)){   
+                                //print_r($beamSpread);
+                                $val = array_unique($beamSpread); 
+                                $beamSpreadStrng  = implode(", ", $val);           
+                            ?>
+                            <div class="spec-inline">
+                                <ul class="product-attribute-list">
+                                    <span>Beam Spread:</span>
+                                    <!--<li>850 - 1500</li>-->
+                                    <li><?php echo $beamSpreadStrng; ?></li>
+                                </ul>
+                            </div>
+                            <?php } ?>
+                            <?php 
+                            if(!empty($housing)){   
+                                //print_r($housing);
+                                $val = array_unique($housing);
+                                $housingStrng  = implode(", ", $val);           
+                            ?>
+                            <div class="spec-inline">
+                                <ul class="product-attribute-list">
+                                    <span>Housing:</span>
+                                    <!--<li>850 - 1500</li>-->
+                                    <li><?php echo $housingStrng; ?></li>
+                                </ul>
+                            </div>
+                            <?php } ?>
+                            <?php 
+                            if(!empty($ratingCertification)){ 
+                                $val = array_unique($ratingCertification); 
+                                $ratingCertificationStrng  = implode(", ", $val);             
+                            ?>
+                            <div class="spec-inline">
+                                <ul class="product-attribute-list">
+                                    <span>Rating/Certification:</span>
+                                    <!--<li>850 - 1500</li>-->
+                                    <li><?php echo $ratingCertificationStrng; ?></li>
+                                </ul>
+                            </div>
+                            <?php } ?>
+
+
+
+                            <?php if(!empty($productList)) { ?>
+                            <div class="product-attribute-head">Products</div>
+                            <div class="tech-attributes">
+                                <ul class="product-attribute-list">
+                                    <?php         
+                                        foreach($productList as $item) {
+                                    ?>
+                                        <li><a href="<?= $item['url'] ?>"><?= $item['name']; ?></a></li>
+                                    <?php } ?>
+                                </ul>
+                            <?php } ?>                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php  } ?>
+        </div>
+    <?php  } ?>
+</div>
+
+
+<?php /*
+<script>
+    require([
+        'jquery',
+        'owlcarousel'
+    ],function($) {
+        $(document).ready(function(){
+            $('.product-item-thumb').owlCarousel({
+                nav : true,
+                dots: false,
+                autoPlay: false,
+                margin: 10,
+                items : 5
+            });
+        });
+    })
+</script>
+*/ ?>

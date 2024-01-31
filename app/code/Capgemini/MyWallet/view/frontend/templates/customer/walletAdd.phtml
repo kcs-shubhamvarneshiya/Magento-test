@@ -1,0 +1,131 @@
+<?php
+/**
+ * Copyright Capgemini
+ *
+ * @var \Capgemini\MyWallet\Block\Customer\Index $block
+ */
+
+?>
+<?php  $billingAddresses = $block->getBillingAddresses();
+?>
+<?php  $months = $block->getMonthsList(); ?>
+<?php  $years = $block->getYearsList(); ?>
+<?php if (count($billingAddresses) == 0):?>
+<div>
+    Please create billing address before add credit card.
+</div>
+<?php else: ?>
+<div class="block block-edit-card" id="block-edit-card">
+    <div class="block-content">
+        <div id="edit-credit-card">
+            <div class="block-title wallet-add-cc">Credit Card</div>
+            <form id="wallet_form" action="<?= $block->getAddWalletUrl() ?>" method="post">
+                <div class="form-field">
+                    <label class="label">
+                        <span>Name on Card</span>
+                    </label>
+                    <input type="text" name="cc_nickname" id="cc_nickname" value="" data-validate="{'validate-no-empty':true, 'min-words':1}">
+                </div>
+
+                <div class="form-field">
+                    <label class="label">
+                        <span>Credit Card Holder Name</span>
+                    </label>
+                    <input type="text" name="cc_holder_name" id="cc_holder_name" value="" data-validate="{'validate-no-empty':true, 'min-words':2}">
+                </div>
+
+                <div class="form-field">
+                    <label class="label">
+                        <span>Credit Card Number</span>
+                    </label>
+                    <input type="text" class="validate-cc-number" data-validate="{'required-number':true, 'validate-cc-number':'#cc_type'}" name="cc_number" id="cc_number">
+                    <div class="cc-types-img"><img src='<?php echo $this->getViewFileUrl('images/cc-types.png'); ?>' alt="credit card types"></div>
+                </div>
+
+                <div class="form-field">
+                    <div class="cc-data-container">
+                        <div class="cc-data cc_expiration_month">
+                            <label class="label">
+                                <span>Exp Month</span>
+                            </label>
+                            <select name="cc_expiration_month" id="cc_expiration_month" data-validate="{'validate-cc-exp':'#cc_expiration_year'}">
+                                <option>Month</option>
+                                <?php foreach($months as $key => $value): ?>
+                                    <option value="<?= $key+1 ?>"><?= $value?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+
+                        <div class="cc-data cc_expiration_year">
+                            <label class="label">
+                                <span>Exp Date</span>
+                            </label>
+                            <select name="cc_expiration_year" id="cc_expiration_year">
+                                <option>Year</option>
+                                <?php foreach($years as $year): ?>
+                                    <option value="<?= $year?>"><?= $year?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+
+                        <div class="cc-data cc_cvv">
+                            <label class="label">
+                                <span>CVV</span>
+                            </label>
+                            <input type="text" name="cc_cvv" id="cc_cvv" value="" data-validate="{'required-number':true,'validate-cc-cvn':'#cc_type'}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <label class="label">
+                        <span>Billing Address</span>
+                    </label>
+
+                    <select name="billing_address_id" id="billing_address_id" data-validate="{'required':true }">
+                        <option value disabled selected>Select Address</option>
+                        <?php foreach($billingAddresses as $address): ?>
+                            <option value="<?= $address->getId() ?>"><?= $address->getPostcode() ." ". $address->getRegion() . " " . $address->getCity() . " " . $address['street']  ?></option>
+                        <?php endforeach ?>
+                    </select>
+                    <div class="my-wallet-billing-tip">
+                        <span>To add a new address, go to <a href="/customer/address/">My Address Book</a> and create a new saved address. It will then be available for selection here.</span>
+                    </div>
+                </div>
+
+                <div class="form-field checkbox-field">
+                    <input type="checkbox" name="is_default" id="is_default">
+                    <label class="label" for="is_default">
+                        <span>Make this my default credit card</span>
+                    </label>
+                    <input type="hidden" name="cc_type" id="cc_type">
+                </div>
+            </form>
+
+            <div class="actions">
+                <a class="action create btn btn-primary" id="create_card" href="#">
+                    <span><?= /* @escapeNotVerified */ __('Save Card') ?></span>
+                </a>
+                <a class="action cancel btn btn-secondary" id="cancel_card" href="#">
+                    <span><?= /* @escapeNotVerified */ __('Cancel') ?></span>
+                </a>
+            </div>
+        </div>
+        <div id="loader">
+        </div>
+    </div>
+</div>
+<?php endif;?>
+<script type="text/x-magento-init">
+    {
+        "#block-edit-card": {
+            "Capgemini_MyWallet/js/addWalletForm": {
+                "loaderUrl": "<?= $block->getViewFileUrl('images/loader-1.gif') ?>",
+                "addWalletUrl" : "<?= $block->getAddWalletUrl() ?>"
+            }
+        },
+          "#wallet_form": {
+            "validation": {}
+        }
+    }
+</script>

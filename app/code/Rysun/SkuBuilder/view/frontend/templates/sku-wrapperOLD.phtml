@@ -1,0 +1,329 @@
+<?php
+$exceptionRuleList = $block->getExceptionRules();
+?>
+
+<div class="sku_list_wrapper">
+    <?php 
+        // Get Main Product SKU Builder
+        $results = $block->getProductAttributeList();
+
+        ?>
+        <div class="sku_builder_container">
+        <div class="display_sku">
+            <?php foreach ($results as $item): ?>
+                <div id="display_<?php echo "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>"></div>
+            <?php endforeach; ?>
+    
+        </div>
+
+        <div>
+            <span  onclick="clearData()">Clear/Reset data</span>
+        </div>
+        <div class='d-flex align-items-start justify-content-center w-100 sku_list_attributes'>
+        <?php
+        // Render SKU Options with text input
+
+            foreach($results as $key => $item){
+        ?>
+            <div class="sku_list">
+                <div class="sku_list_fields">
+                    <label><?php echo $item['label'] ?></label>
+                    <input type="text" class="sku_input" id="sku_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" name="array[]" value="" readonly/>
+                </div>
+                <table class="sku_list_box">
+                    <tbody>                        
+                        <?php 
+                            foreach($item['options'] as $label ){
+                                $option_arr = explode(":", $label);
+                        ?>
+                        <tr class="sku_list_identity"  data-targetinput="sku_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" data-targetdisplay="display_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>">
+                            <td class="sku_list_code" data-element="<?php echo ($key - 1) ."-".$option_arr[0]; ?>">
+                                <?php echo $option_arr[0] ?>
+                            </td>
+                            <td class="sku_list_label">
+                                <?php echo $option_arr[1]?>
+                            </td>
+                        </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php
+        } 
+        ?>
+        </div>
+        </div>
+
+        <?php
+
+        $trimProducts = $block->getTrimProducts();
+
+        foreach($trimProducts as $trim){
+
+            $results = $block->getProductAttributeList($trim);
+
+            ?>
+
+            <div class="sku_builder_container">
+
+            <div class="display_sku">
+
+            <?php foreach ($results as $item): ?>
+                <div id="display_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>"></div>
+            <?php endforeach; ?>
+    
+             </div>
+
+             <div class='d-flex align-items-start justify-content-center w-100 sku_list_attributes'>
+             <?php
+
+            foreach($results as $key => $item){
+                ?>
+                    <div class="sku_list">
+                        <div class="sku_list_fields">
+                            <label><?php echo $item['label'] ?></label>
+                            <input type="text" class="sku_input" id="sku_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" name="array[]" value="" readonly/>
+                            
+                        </div>
+                        <table class="sku_list_box">
+                            <tbody>
+                                <?php 
+                                    foreach($item['options'] as $label ){
+                                        $option_arr = explode(":", $label);
+                                ?>
+                                 <tr class="sku_list_identity" onclick="clickevent(this)" data-targetinput="sku_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" data-targetdisplay="display_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>">
+                                    <td class="sku_list_code" data-element="<?php echo $key."-".$option_arr[0]; ?>">
+                                        <?php echo $option_arr[0] ?>
+                                    </td>
+                                    <td class="sku_list_label">
+                                        <?php echo $option_arr[1]?>
+                                    </td>
+                                </tr>
+                                <?php
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>            
+                <?php
+            }
+            ?>
+            </div>
+            </div>
+            <?php   
+        }
+    ?>
+</div>
+
+
+<script>
+
+    function clearData(){
+        const options = document.querySelectorAll('.sku_list_attributes .sku_list .sku_list_box .sku_list_identity');
+        options.forEach(cellData => {
+            cellData.classList.remove('option-disable');
+            let childElement = cellData.querySelector('.sku_list_code');
+            childElement.classList.remove('selected');
+            cellData.classList.remove('selected');
+        });
+        const inputBoxes = document.querySelectorAll('.sku_input');
+        inputBoxes.forEach(textBox => {
+            textBox.value="";
+        });
+        
+    }
+
+        const exceptionRule = <?php echo json_encode($exceptionRuleList); ?>
+
+        /*
+        const exceptionRule =  [
+            ['0-E3R','1-E3S','2-E3P'],
+            ['0-E3RRS','2-E3PAB'],
+            ['2-E3PA','3-E3jB','0-E3RR']
+        ]; */
+        
+        //const options = document.querySelectorAll('.sku_list_attributes .sku_list .sku_list_box .sku_list_identity .sku_list_code');
+        const options = document.querySelectorAll('.sku_list_attributes .sku_list .sku_list_box .sku_list_identity');
+        options.forEach(optionTr => {
+            optionTr.addEventListener('click', () => {
+               // alert('hello');
+               if(optionTr.classList.contains('option-disable')){
+                    return;
+                }
+
+
+                let targetinput = optionTr.getAttribute("data-targetinput");
+                let targetdisplay = optionTr.getAttribute("data-targetdisplay");
+                let val = optionTr.querySelector(".sku_list_code").innerText
+                document.getElementById(targetinput).value = "";
+                document.getElementById(targetinput).value = val.trim();
+                document.getElementById(targetdisplay).innerHTML = "";
+                document.getElementById(targetdisplay).innerHTML = val.trim();
+
+                let option = optionTr.querySelector('.sku_list_code');
+
+                //Get current data-element
+                let currentClickedOption = option.getAttribute("data-element");
+
+
+                //Iterate disabled option and enable it if rule disregard by selecting other option
+                //const optionsDisabled = document.querySelectorAll('.sku_list_attributes .sku_list .sku_list_box .sku_list_identity.disabled');
+                const optionsDisabled = document.querySelectorAll('.sku_list_attributes .sku_list .sku_list_box .sku_list_identity.option-disable');
+                
+                
+                
+
+                let columnValues = option.closest('.sku_list_box');
+                let arrayValues = columnValues.querySelectorAll(".sku_list_identity .sku_list_code");
+                arrayValues.forEach(column => {
+                    //console.log(column.getAttribute("data-element"));
+                   
+
+
+                //console.log("check seletected condition");
+                //console.log(column.classList.contains('selected'));
+
+                if(!column.classList.contains('selected')){
+                    return;
+                }
+
+                let currentAndDisableOption = [];
+                currentAndDisableOption.push(column.getAttribute("data-element"));
+
+                //console.log('before');
+                //console.log(currentAndDisableOption);
+                optionsDisabled.forEach(disableItem => {
+
+
+                    //console.log(disableItem.querySelector('.sku_list_code'));
+                    let childDisableOpton = disableItem.querySelector('.sku_list_code');
+                    currentAndDisableOption.push(childDisableOpton.getAttribute("data-element"));
+
+                    //console.log("Updated");
+                    //console.log(currentAndDisableOption);
+                    //check combination for disable and de-selected option in exception rule, remove disable if rule no longer valid
+                    exceptionRule.forEach(ruleList => {
+
+                        let intersection = ruleList.filter(x => !currentAndDisableOption.includes(x));
+
+                        if(intersection.length <= 1){
+                           // disableItem.classList.remove('disabled');
+                            disableItem.classList.remove('option-disable');
+                            
+                        // console.log(intersection);
+                        // let optionDisable = document.querySelectorAll('[data-element="'+intersection+'"]');
+                        // optionDisable.forEach(idCell => {
+                        //     idCell.parentElement.classList.add('disabled');
+                        // });
+                        }
+
+                    });
+                    currentAndDisableOption.pop();
+                    console.log("removed");
+                    console.log(currentAndDisableOption);
+                    
+                   //console.log();
+                });
+
+                column.classList.remove('selected');
+                column.parentElement.classList.remove('selected');
+
+
+
+                });
+
+
+                
+                console.log('completed disabled');
+
+                //Add selected to current clicked option
+                option.classList.add('selected');
+                option.parentElement.classList.add('selected');
+
+                //De-select from the same attribute column if any previous option selected
+
+
+
+                //Find all selected options
+                const optionsSelected = document.querySelectorAll('.sku_list_attributes .sku_list .sku_list_box .sku_list_identity .sku_list_code.selected');
+        
+
+                let selectedCount = [];
+               // alert(option.getAttribute("data-element"));
+                // Disable all cells except the clicked one
+                optionsSelected.forEach(otherCell => {
+                  
+                    
+                    selectedCount.push(otherCell.getAttribute("data-element"));
+                    /*
+                    if (otherCell !== option) {
+                        console.log(option);
+                        otherCell.parentElement.classList.add('disabled');
+                    }*/
+
+                });
+
+                //Found number of existing selected cell along with clicked
+                // selectedCount
+
+
+               // console.log(selectedCount);
+                console.log(exceptionRule.length);
+                console.log(selectedCount.length);
+                let remainCell = selectedCount;
+
+                //foreach two dimension array of exception rule
+
+                exceptionRule.forEach(ruleList => {
+
+                    let intersection = ruleList.filter(x => !remainCell.includes(x));
+
+                    if(intersection.length == 1){
+
+                    console.log(intersection);
+                    let optionDisable = document.querySelectorAll('[data-element="'+intersection+'"]');
+
+                    optionDisable.forEach(idCell => {
+                        //idCell.parentElement.classList.add('disabled');
+                        idCell.parentElement.classList.add('option-disable');
+                        
+                    });
+
+                    }
+
+                });
+                
+                
+                //let intersection = exceptionRule.filter(x => !remainCell.includes(x));
+                //console.log(intersection.length);
+
+                /* Working code for single array exception rule
+                if(intersection.length == 1){
+
+                    console.log(intersection);
+                    let optionDisable = document.querySelectorAll('[data-element="'+intersection+'"]');
+
+                    optionDisable.forEach(idCell => {
+                        idCell.parentElement.classList.add('disabled');
+                    });
+
+                }
+                */
+
+                /*
+                exceptionRule.forEach(rule => {
+
+                    remainCell.forEach(remainCellId => {
+                        console.log(remainCellId);
+                    });
+                    
+                    //console.log(rule);
+                });
+                */
+
+            });
+        });
+   // }
+    </script>

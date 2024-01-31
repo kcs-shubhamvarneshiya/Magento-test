@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Company\Block\Company\Account\Create" type="Capgemini\Company\Block\Company\Account\Create"/>
+    <preference for="Magento\Company\Block\Company\Register\Profile" type="Capgemini\Company\Block\Company\Register\Profile"/>
+    <preference for="Magento\Company\Controller\Account\CreatePost" type="Capgemini\Company\Controller\Account\CreatePost" />
+    <type name="Magento\Company\Model\Customer\Company">
+        <plugin name="capgemini_customer_before_create_customer"
+                type="Capgemini\Company\Plugin\Customer\CompanyPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Controller\Cart\Index">
+        <plugin name="capgemini_cart_before_execute"
+                type="Capgemini\Company\Plugin\Checkout\CartPlugin" sortOrder="10" disabled="true"/>
+    </type>
+    <type name="Magento\Catalog\Controller\Product\View">
+        <plugin name="capgemini_product_view_before_execute"
+                type="Capgemini\Company\Plugin\Product\ProductViewPlugin" sortOrder="10" disabled="true"/>
+    </type>
+    <type name="Magento\Company\Model\Authorization\AclPolicy">
+        <plugin name="capgemini_company_authorization_acl_before_allow"
+                type="Capgemini\Company\Plugin\Authorization\AclPolicyPlugin" sortOrder="10"/>
+    </type>
+</config>

@@ -1,0 +1,15 @@
+<?php
+/** @var \Capgemini\BloomreachWidget\Block\Widget $block */
+?>
+
+<?php $toRender = $block->obtainData() ?>
+<?php if (!empty($toRender)): ?>
+    <div class="widget-type"><?= $block->widgetTitle() ?>:</div>
+    <div class="br-widget items">
+        <ul class="br-widget related-item">
+            <?php foreach ($toRender as $item): ?>
+                <li><a href="<?= $item['url'] ?>"><?= ucwords($item['anchor']) ?></a></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

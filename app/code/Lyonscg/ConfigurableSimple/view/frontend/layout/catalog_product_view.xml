@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Lyonscg_ConfigurableSimple::css/owl_carousel/owl.carousel.min.css"/>
+    </head>
+
+    <body>
+        <referenceBlock name="product.info.description" remove="true" />
+        <referenceBlock name="product.info.overview" remove="true"/>
+        <referenceBlock name="product.attributes" remove="true" />
+
+        <referenceContainer name="product.info.main">
+            <block class="Lyonscg\ConfigurableSimple\Block\Specifications" name="configurable.product.specifications" before="product.info"/>
+        </referenceContainer>
+
+        <referenceContainer name="page.wrapper">
+            <!--Sticky anchor links-->
+            <block class="Lyonscg\ConfigurableSimple\Block\Specifications" name="pdp-additional-sticky-links" after="pdp-olapic"
+                   template="Lyonscg_ConfigurableSimple::product/view/additional/sticky_links.phtml"/>
+
+            <!--Video-->
+            <block class="Lyonscg\ConfigurableSimple\Block\Specifications" name="pdp-vimeo" after="pdp-additional-sticky-links"
+                   template="Lyonscg_ConfigurableSimple::product/view/additional/pdp_vimeo.phtml"/>
+
+            <!--Specifications-->
+            <block class="Lyonscg\ConfigurableSimple\Block\Specifications" name="pdp-additional-specifications" after="pdp-360"
+                   template="Lyonscg_ConfigurableSimple::product/view/additional/pdp_specs.phtml"/>
+
+            <!--Collection-->
+            <block class="Lyonscg\ConfigurableSimple\Block\Specifications" name="pdp-additional-collection" after="pdp-additional-specifications"
+                   template="Lyonscg_ConfigurableSimple::product/view/additional/pdp_collection.phtml">
+                <block class="Lyonscg\Catalog\Block\Product\ProductList\Collection" name="product.collection" as="collection" template="Lyonscg_Catalog::product/list/collection.phtml">
+                    <block class="Magento\Framework\View\Element\RendererList" name="collection.product.type.details.renderers" as="details.renderers">
+                        <block class="Magento\Framework\View\Element\Template" as="default"/>
+                        <block class="Magento\Swatches\Block\Product\Renderer\Listing\Configurable" as="configurable" template="Magento_Swatches::product/listing/renderer.phtml">
+                            <arguments>
+                                <argument name="configurable_view_model"
+                                          xsi:type="object">Magento\Swatches\ViewModel\Product\Renderer\Configurable</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                </block>
+            </block>
+
+            <!--Designer-->
+            <block class="Lyonscg\ConfigurableSimple\Block\Specifications" name="pdp-additional-designer" after="pdp-additional-paper-model"
+                   template="Lyonscg_ConfigurableSimple::product/view/additional/pdp_designer.phtml"/>
+
+            <!--Photography-->
+<!--            <block class="Lyonscg\ConfigurableSimple\Block\Specifications" name="pdp-additional-photography" after="pdp-additional-designer"-->
+<!--                   template="Lyonscg_ConfigurableSimple::product/view/additional/pdp_photography.phtml"/>-->
+
+            <!--Tips-->
+            <block class="Lyonscg\ConfigurableSimple\Block\Specifications" name="pdp-additional-tips" after="pdp-additional-collection"
+                   template="Lyonscg_ConfigurableSimple::product/view/additional/pdp_tips.phtml"/>
+
+            <!--Accessories-->
+            <block class="Lyonscg\ConfigurableSimple\Block\Specifications" name="pdp-additional-accessories" after="pdp-additional-tips"
+                   template="Lyonscg_ConfigurableSimple::product/view/additional/pdp_accessories.phtml">
+                <block class="Lyonscg\Catalog\Block\Product\ProductList\Accessories" name="product.accessories" as="accessories" template="Lyonscg_Catalog::product/list/accessories.phtml" >
+                    <block class="Magento\Framework\View\Element\RendererList" name="accessories.product.type.details.renderers" as="details.renderers">
+                        <block class="Magento\Framework\View\Element\Template" as="default"/>
+                        <block class="Magento\Swatches\Block\Product\Renderer\Listing\Configurable" as="configurable" template="Magento_Swatches::product/listing/renderer.phtml">
+                            <arguments>
+                                <argument name="configurable_view_model"
+                                          xsi:type="object">Magento\Swatches\ViewModel\Product\Renderer\Configurable</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                </block>
+            </block>
+        </referenceContainer>
+
+        <move element="pdp-dimensions-grouped" destination="pdp-additional-specifications" />
+        <move element="pdp-rating" destination="pdp-additional-specifications" />
+        <move element="pdf.product.specs" destination="pdp-additional-specifications" />
+        <move element="pdp-technical-resources" destination="pdp-additional-specifications" />
+    </body>
+</page>

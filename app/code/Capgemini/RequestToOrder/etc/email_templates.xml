@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="order_request_submit"
+              label="Order Request Submit Email"
+              file="order_request_submit.html"
+              type="html"
+              module="Capgemini_RequestToOrder"
+              area="frontend"/>
+</config>

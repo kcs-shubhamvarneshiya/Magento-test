@@ -1,0 +1,254 @@
+body {
+    box-sizing: border-box;
+    font-family: "proxima-nova", sans-serif;
+    color: #454545;
+}
+hr {
+    height: 1px;
+    color: #e3e3e3;
+    background-color: #e3e3e3;
+    border: none;
+}
+
+.wishlist-pdf__wrapper{
+    width: 725px;
+    margin: 0 auto;
+}
+
+/*logo*/
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--page-logo {
+    text-align: center;
+    padding: 0;
+    margin-bottom: 15px;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--page-logo img {
+    width: auto;
+    height: 35px;
+    object-fit: contain;
+}
+
+/*wishlist name*/
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--name {
+    font-family: 'goudy-old-style', serif;
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    color: #454545;
+    padding: 18px 0 18px;
+    text-align: left;
+}
+
+/*table styling*/
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
+    list-style: none none;
+    box-sizing: border-box;
+}
+
+/*table thead*/
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table thead {
+    width: 100%;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table thead tr {
+    border: 1px solid #d1d1d1;
+    width: 100%;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table thead tr th.col {
+    background-color: #f8f8f8;
+    padding: 15px 10px;
+    font-family: "proxima-nova", sans-serif;
+    font-size: 7px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: 0.25px;
+    color: #454545;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table thead tr th.col.product {
+    padding-left: 25px;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table thead tr th.col.comments {
+    padding-right: 25px;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody tr td.col.product {
+    padding-left: 25px;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody tr td.col.description {
+    padding-right: 25px;
+}
+
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table thead tr th.col > div {
+    background-color: #f8f8f8;
+    padding: 13px 10px;
+    font-family: "proxima-nova", sans-serif;
+    font-size: 7px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.17;
+    letter-spacing: 0.25px;
+    color: #454545;
+    text-transform: uppercase;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table thead tr th.col {
+    text-align: left;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table thead tr th.col.qty {
+    text-align: center;
+}
+
+/*table tbody*/
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .item-info {
+    border: 1px solid #d1d1d1;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody > tr {
+    border-bottom: 1px solid #e3e3e3;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody > tr > td.col {
+    padding: 14px 10px;
+    border-top: 1px solid #d1d1d1;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody > tr > td.col > div {
+    font-family: "proxima-nova", sans-serif;
+}
+table > tbody > tr > th, table > tfoot > tr > th, table > tbody > tr > td, table > tfoot > tr > td {
+    vertical-align: top;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.product {
+    width: 110px;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.product > div{
+    padding: 0;
+    box-sizing: border-box;
+}
+.wishlist-pdf__wrapper img.product-image {
+    max-width: 110px;
+    height: auto;
+    background: #f8f8f8;
+}
+/*table tbody attributes*/
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes {
+    font-family: "proxima-nova", sans-serif;
+    font-size: 8px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes .product-name {
+    font-size: 7px;
+    letter-spacing: 0.25px;
+    line-height: 2;
+    color: #454545;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes .designer {
+    font-size: 6px;
+    letter-spacing: 0.75px;
+    color: #717171;
+    text-transform: uppercase;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes .sku {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes .sku .label {
+    letter-spacing: 0.25px;
+    color: #454545;
+    font-weight: 600;
+}
+
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes .sku .value {
+    line-height: 1.5;
+    letter-spacing: 0.25px;
+    color: #454545;
+}
+
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes .availability {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes .availability .label {
+    font-family: "proxima-nova", sans-serif;
+    font-size: 7px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0.25px;
+    color: #454545;
+    font-weight: bolder;
+}
+
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes .availability .value {
+    font-family: "proxima-nova", sans-serif;
+    font-size: 7px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0.25px;
+    color: #454545;
+}
+
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes .item-options {
+    display: flex;
+    margin: 0;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes .item-options .label {
+    font-family: "proxima-nova", sans-serif;
+    font-size: 7px;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0.25px;
+    color: #454545;
+    font-weight: bolder;
+}
+
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.attributes .item-options .value {
+    font-family: "proxima-nova", sans-serif;
+    font-size: 7px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: 0.25px;
+    color: #454545;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.price {
+    font-family: "proxima-nova", sans-serif;
+    font-size: 7px;
+    font-weight: bold;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.qty {
+    text-align: center;
+    font-family: "proxima-nova", sans-serif;
+    font-size: 7px;
+    font-weight: bold;
+}
+.wishlist-pdf__wrapper .wishlist-pdf__wrapper--table tbody .col.description {
+    font-family: "proxima-nova", sans-serif;
+    font-size: 8px;
+    font-weight: normal;
+}
+
+@media print {
+    table tbody tr td:before,
+    table tbody tr td:after {
+        content: "";
+        height: 4px;
+        display: block;
+    }
+}

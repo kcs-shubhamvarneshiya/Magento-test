@@ -1,0 +1,39 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Magento\RequisitionList\Block\Requisition\View\Details
+ */
+
+/** @var \Lyonscg\RequisitionList\ViewModel\RequisitionListTotal $requisitionTotalViewModel */
+$requisitionTotalViewModel = $block->getViewModel();
+if (!empty($requisitionTotalViewModel)) {
+    $requisitionTotalViewModel
+    ->setRequisitionList($block->getRequisitionList())
+        ->setTaxRate(0);
+}
+$itemCount = (!empty($requisitionTotalViewModel)) ?
+    $requisitionTotalViewModel->getRequisitionListItemsTotal() : $block->getItemCount();
+
+?>
+<div class="requisition-toolbar">
+    <?= $block->getChildHtml('requisition.list.toolbar.select_all') ?>
+    <?php if ($itemCount) : ?>
+        <div class="requisition-info">
+            <span class="counter qty">
+                <?= (int)$itemCount ?>
+                <?php if ($itemCount > 1) : ?>
+                    <?= $block->escapeHtml(__('item(s)')) ?>
+                <?php else : ?>
+                    <?= $block->escapeHtml(__('item')) ?>
+                <?php endif ?>
+            </span>
+        </div>
+    <?php endif ?>
+    <div class="requisition-toolbar-actions">
+        <?= $block->getChildHtml('massactions') ?>
+    </div>
+</div>

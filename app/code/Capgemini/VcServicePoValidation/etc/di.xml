@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_VcServicePoValidation
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Capgemini\OrderSplit\Model\Checkout\PoNumberValidationProcessor">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="vc_service"
+                      xsi:type="object">Capgemini\VcServicePoValidation\Model\Checkout\PoValidator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Capgemini\VcServicePoValidation\Model\Method\VirtualDebug" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/po_validation.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Capgemini\VcServicePoValidation\Model\Method\VirtualLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Capgemini\VcServicePoValidation\Model\Method\VirtualDebug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Capgemini\VcServicePoValidation\Service\PoValidation">
+        <arguments>
+            <argument name="logger" xsi:type="object">Capgemini\VcServicePoValidation\Model\Method\VirtualLogger</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Lyonscg
+ * @package     Lyonscg_Contact
+ * @copyright   Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Logan Montgomery <logan.montgomery@capgemini.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <contact>
+            <email>
+                <send_copy_enabled>1</send_copy_enabled>
+            </email>
+            <contact_info>
+                <phone>877.762.2323</phone>
+                <email>customerservice@visualcomfort.com</email>
+                <wholesalephone>281.500.7500</wholesalephone>
+                <wholesaleemail>support@visualcomfort.com</wholesaleemail>
+            </contact_info>
+        </contact>
+    </default>
+    <stores>
+        <default>
+            <contact>
+                <contact_info>
+                    <phone>877.762.2323</phone>
+                    <email>customerservice@visualcomfort.com</email>
+                    <wholesalephone>281.500.7500</wholesalephone>
+                    <wholesaleemail>support@visualcomfort.com</wholesaleemail>
+                </contact_info>
+            </contact>
+        </default>
+        <uk>
+            <contact>
+                <contact_info>
+                    <phone>44 (0)20 3925 0708</phone>
+                    <email>customerservice.uk@visualcomfort.com</email>
+                    <wholesalephone>44 (0)19 0320 4411</wholesalephone>
+                    <wholesaleemail>support.eu@visualcomfort.com</wholesaleemail>
+                </contact_info>
+            </contact>
+        </uk>
+        <eu>
+            <contact>
+                <contact_info>
+                    <phone>44 (0)20 3925 0708</phone>
+                    <email>customerservice.uk@visualcomfort.com</email>
+                    <wholesalephone>44 (0)19 0320 4411</wholesalephone>
+                    <wholesaleemail>support.eu@visualcomfort.com</wholesaleemail>
+                </contact_info>
+            </contact>
+        </eu>
+    </stores>
+    <websites>
+        <base>
+            <contact>
+                <contact_info>
+                    <phone>877.762.2323</phone>
+                    <email>customerservice@visualcomfort.com</email>
+                    <wholesalephone>281.500.7500</wholesalephone>
+                    <wholesaleemail>support@visualcomfort.com</wholesaleemail>
+                </contact_info>
+            </contact>
+        </base>
+        <uk>
+            <contact>
+                <contact_info>
+                    <phone>44 (0)20 3925 0708</phone>
+                    <email>customerservice.uk@visualcomfort.com</email>
+                    <wholesalephone>44 (0)19 0320 4411</wholesalephone>
+                    <wholesaleemail>support.eu@visualcomfort.com</wholesaleemail>
+                </contact_info>
+            </contact>
+        </uk>
+        <eu>
+            <contact>
+                <contact_info>
+                    <phone>44 (0)20 3925 0708</phone>
+                    <email>customerservice.uk@visualcomfort.com</email>
+                    <wholesalephone>44 (0)19 0320 4411</wholesalephone>
+                    <wholesaleemail>support.eu@visualcomfort.com</wholesaleemail>
+                </contact_info>
+            </contact>
+        </eu>
+    </websites>
+</config>

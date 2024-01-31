@@ -1,0 +1,7 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Capgemini\BloomreachWidget\ViewModel\Vars $vars */
+$vars = $block->getData('vars');
+?>
+<script type="text/javascript">var <?= $vars::BR_RELATED_RID ?> = "<?= $vars->getBrRelatedRid() ?>";</script>
+<script type="text/javascript">var <?= $vars::BR_IUID ?> = "<?= $vars->getBrIuid() ?>";</script>

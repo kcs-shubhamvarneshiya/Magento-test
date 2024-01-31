@@ -1,0 +1,31 @@
+<div class="totals">
+    <h2><?= /* @noEscape */ __('Order Summary') ?></h2>
+<?php  foreach ($block->getTotals() as $_code => $_total): ?>
+    <?php if ($_total->getBlockName()): ?>
+        <div class="tax-wrapper"><?= $block->getChildHtml('tax')?></div>
+    <?php else:?>
+        <div class="<?= $escaper->escapeHtmlAttr($_code) ?>">
+            <div <?= /* @noEscape */ $block->getLabelProperties() ?>>
+                <?php if ($_total->getStrong()): ?>
+                    <strong>
+                        <?php if ($_total->getLabel() == 'Grand Total'): ?>
+                            <?= /* @noEscape */ __('Order Total') ?>
+                        <?php else: ?>
+                            <?= /* @noEscape */ $escaper->escapeHtml($_total->getLabel()) ?>
+                        <?php endif; ?>
+                    </strong>
+                <?php else: ?>
+                    <?= /* @noEscape */ $escaper->escapeHtml($_total->getLabel()) ?>
+                <?php endif; ?>
+            </div>
+            <div <?= /* @noEscape */ $block->getValueProperties() ?> data-th="<?= $escaper->escapeHtmlAttr($_total->getLabel()) ?>">
+                <?php if ($_total->getStrong()): ?>
+                    <strong><?= /* @noEscape */ $block->formatValue($_total) ?></strong>
+                <?php else: ?>
+                    <?= /* @noEscape */ $block->formatValue($_total) ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endif;  ?>
+<?php endforeach; ?>
+</div>

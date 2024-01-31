@@ -1,0 +1,42 @@
+<?php
+
+use Capgemini\ProductDimensions\Block\Product;
+
+/**
+ * Capgemini_ProductDimensions
+ *
+ * @category  Capgemini
+ * @author    Oleksander Tolkach <oleksander.tolkach@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ *
+ * @var Product $block
+ */
+$product = $block->getProduct();
+?>
+
+<div class="product-dimensions-wrapper"
+     id="product-dimensions-comp"
+     data-bind="scope:'product-dimensions-comp'">
+
+    <div id="product-dimensions">
+        <!-- ko template: "Capgemini_ProductDimensions/dimensions" --><!-- /ko -->
+    </div>
+
+    <div id="product-specifications-bottom">
+        <!-- ko template: "Capgemini_ProductDimensions/specifications" --><!-- /ko -->
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "#product-dimensions": {
+            "Magento_Ui/js/core/app": {
+               "components": {
+                    "product-dimensions-comp": {
+                        "component": "Capgemini_ProductDimensions/js/view/dimensions",
+                        "config": <?= $block->getJsonConfig($product) ?>
+                    }
+                }
+            }
+        }
+    }
+</script>

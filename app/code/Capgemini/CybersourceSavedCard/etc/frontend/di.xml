@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_Cybersource
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="CyberSource\SecureAcceptance\Controller\Index\LoadIFrame">
+        <plugin name="wholesale_saved_card"
+                type="Capgemini\CybersourceSavedCard\Plugin\Controller\Index\LoadIframePlugin"/>
+    </type>
+</config>

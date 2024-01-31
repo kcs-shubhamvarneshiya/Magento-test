@@ -1,0 +1,146 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Capgemini\ProductPdf\Block\Product
+ */
+$product = $block->getProduct();
+?>
+
+<div>
+    <p class="page-logo">
+        <?= __('Visual Comfort & Co.'); ?>
+    </p>
+    <div class="row info-block">
+        <div class="column" >
+            <!-- Base image -->
+            <div>
+                <img alt="" src="<?= $block->getImageUrl('product_base_image') ?>" />
+            </div>
+        </div>
+        <div class="column">
+            <!-- Right content block -->
+            <!-- Designer -->
+            <p class="designer"> <?= __('Designer'); ?> : <?= $product->getAttributeText('designer') ?></p>
+
+            <!-- Product Name -->
+            <p class="name"><?= $product->getName() ?></p>
+
+            <!-- Product Brand -->
+            <p class="brand"><?= $product->getAttributeText('brand') ?></p>
+
+            <!-- Product Sku -->
+            <p class="sku"><?= $product->getSku() ?></p>
+
+            <!-- Specifications -->
+            <div class="specifications">
+                <p class="block-title"><?= __('Specifications') ?></p>
+                <?php foreach ($block->getSpecifications() as $spec) : ?>
+                    <p class="option"><span class="label"><?= $spec['label'] ?>:</span><span class="value"><?= $spec['value'] ?></span></p>
+                <?php endforeach; ?>
+            </div>
+
+            <!-- Selected Options -->
+            <div class="options">
+                <?php foreach ($block->getSelectedOptions() as $option) : ?>
+                    <p class="option"><span class="label"><?= $option['label'] ?>:</span><span class="value"><?= $option['value'] ?></span></p>
+                <?php endforeach; ?>
+            </div>
+
+            <?php if ($block->isPricingEnable()): ?>
+                <!-- Product Price -->
+                <p class="price">$<?= number_format($block->getProductPrice(), 2, '.', ','); ?></p>
+            <?php endif; ?>
+
+        </div>
+    </div>
+
+    <hr/>
+
+    <p class="section-title">
+        <?= __('Specifications'); ?>
+    </p>
+
+    <div class="row specifications-block">
+        <div class="column" >
+            <!-- Thumbnail image -->
+            <div>
+                <img alt="" src="<?= $block->getImageUrl('product_thumbnail_image') ?>" />
+            </div>
+        </div>
+        <div class="column">
+            <!-- Product Description -->
+            <p class="block-title"><?= __('Description') ?></p>
+            <hr/>
+            <p class="description"><?= $product->getDescription() ?? '' ?></p>
+
+            <!-- Dimensions -->
+            <?php $dimensions = $block->getDimensionsSpecifications() ?>
+            <?php if ($dimensions && count($dimensions) > 0): ?>
+                <div class="dimensions">
+                    <table class="options">
+                        <thead>
+                        <tr>
+                            <th><?= __('Dimensions') ?></th>
+                            <th><?= __('In') ?></th>
+                            <th><?= __('Cm') ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($dimensions as $spec) : ?>
+                            <tr>
+                                <td class="label"><?= $spec['label'] ?></td>
+                                <td><?= $spec['value'] ?></td>
+                                <td><?= $spec['metric'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
+
+            <!-- Placeholder attributes -->
+            <?php $placeholders = $block->getSpecificationsBottom() ?>
+            <?php if ($placeholders && count($placeholders) > 0): ?>
+                <div class="placeholder">
+                    <table class="options">
+                        <thead>
+                        <tr>
+                            <th colspan="2"><?= __('Additional Product Information') ?></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($placeholders as $option) : ?>
+                            <tr>
+                                <td class="label"><?= $option['label'] ?></td>
+                                <td><?= $option['value'] ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php endif; ?>
+
+            <!-- Rating block-->
+            <?php $ratings = $block->getRatingsData(); ?>
+            <?php if ($ratings): ?>
+                <p class="block-title"><?= __('Rating') ?></p>
+                <hr/>
+                <div class="rating">
+                        <?php foreach ((array)$ratings as $rating) : ?>
+                            <div class="rating-item">
+                                <?php if (isset($rating['img'])): ?>
+                                    <img src="<?=$rating['img']?>" />
+                                <?php endif; ?>
+                                <p><?=$rating['label']?></p>
+                            </div>
+                        <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<?php
+/**
+ * Lyonscg_ConfigurableSimple
+ *
+ * @category  Lyons
+ * @package   Lyonscg_ConfigurableSimple
+ * @author    Tanya Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var \Lyonscg\ConfigurableSimple\Block\Specifications $block */
+?>
+
+<?php if (!empty($block->getProductCustomAttributeValue('designer', true))) : ?>
+    <div><span><?= __('Designer') ?></span>: <span><?= $block->getBaseChildProduct()->getAttributeText('designer') ?></span></div>
+<?php endif; ?>

@@ -1,0 +1,19 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko foreach: getRegion('messages') -->
+<!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+<div class="registration__block">
+    <!-- ko if: isFormVisible -->
+    <h2 class="create-acc__title" data-bind="i18n: 'Create Account'"></h2>
+    <p data-bind="i18n: 'Creating an account has many benefits: check out faster, keep more than one address, track orders and more.'"></p>
+    <p class="email__note"><span data-bind="i18n: 'Email Address'"></span>: <span data-bind="text: getEmailAddress()"></span></p>
+    <a class="action primary" data-bind="attr: { href: getUrl() }">
+        <span data-bind="i18n: 'Create an Account'" />
+    </a>
+    <!--/ko-->
+</div>

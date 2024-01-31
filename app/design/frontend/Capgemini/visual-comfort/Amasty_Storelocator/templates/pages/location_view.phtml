@@ -1,0 +1,128 @@
+<?php
+/** @var \Amasty\Storelocator\Model\Location $location */
+/** @var \Amasty\Storelocator\Block\View\Location $block */
+/** @var \Magento\Framework\Escaper $escaper */
+$location = $block->getCurrentLocation();
+$location->setTemplatesHtml();
+$galleryImages = $block->getLocationGallery();
+$addressString = $location->getAddress() . '<br/>' . $location->getCity() . ', ' . $block->getStateName($location->getState()) .  ' ' . $location->getZip();
+
+/* @var \Capgemini\AmastyStoreLocator\ViewModel\LocationUtils $locationUtils */
+$locationUtils = $block->getLocationUtils();
+$storeHours = $locationUtils->getStoreHours($location);
+$message = $locationUtils->getMessage($location);
+?>
+<div class="amlocator-location-main">
+    <div class="amlocator-location-container">
+        <div class="amlocator-column -left">
+            <?php if($message): ?>
+                <div class="amlocator-block__message"><?= $escaper->escapeHtml($message) ?></div>
+            <?php endif; ?>
+            <div class="amlocator-block__address"><?php echo $addressString ?></div>
+
+            <div class="amlocator-block amlocator-location-info">
+                <?= $block->getChildHtml('extra_info') ?>
+                <div class="amlocator-block -contact">
+                    <?php if (!empty($location->getPhone())): ?>
+                    <div class="amlocator-block__phone">
+                        <span><?= $escaper->escapeHtml('Phone')?></span>
+                        <a href="tel:<?= $escaper->escapeHtml($location->getPhone())?>" class="amlocator-link">
+                            <?= $escaper->escapeHtml($location->getPhone())?>
+                        </a>
+                    </div>
+                    <?php endif;?>
+                    <?php if ($storeHours): ?>
+                    <div class="store_hours">
+                        <span><?= $storeHours ?></span>
+                    </div>
+                    <?php endif;?>
+                    <?php if (!empty($location->getWebsite())): ?>
+                        <div class="amlocator-block__website">
+                            <span><?= $escaper->escapeHtml('Website')?></span>
+                            <a href="<?= $escaper->escapeUrl($location->getWebsite())?>"
+                               class="amlocator-link"
+                               title="<?= $escaper->escapeHtml($location->getName()); ?>"
+                               target="_blank"><?= $escaper->escapeUrl($location->getWebsite())?></a>
+                        </div>
+                    <?php endif;
+                    if (!empty($location->getEmail())): ?>
+                        <div class="amlocator-block__email">
+                            <span><?= $escaper->escapeHtml('Email')?></span>
+                            <a href="mailto:<?= $escaper->escapeUrl($location->getEmail())?>"
+                               class="amlocator-link"
+                               title="<?= $escaper->escapeHtml($location->getName()); ?>">
+                                <?= $escaper->escapeUrl($location->getEmail())?>
+                            </a>
+                        </div>
+                    <?php endif;?>
+                </div>
+            </div>
+            <div class="amlocator-block__schedule">
+                <?= $block->getChildBlock('amasty_store_locator_schedule')->setData('location', $location)->toHtml(); ?>
+            </div>
+
+            <div class="amlocator-block -separator"><hr class="hr"/></div>
+
+            <!--TODO: add additional attribute for store location and get url for each button -->
+
+            <div class="amlocator-block__buttons-wrap">
+                <?php if ($locationUtils->getAppointmentUrl($location)): ?>
+                    <a href="<?= $locationUtils->getAppointmentUrl($location) ?>" class="btn btn-primary action primary">Book An Appointment</a>
+                <?php endif; ?>
+            </div>
+
+            <div class="amlocator-block__description">
+                <?= /** @escapeNotVerified */ $location->getLocationDescription() ?>
+            </div>
+        </div>
+
+        <div class="amlocator-column -right">
+            <?php if (count($galleryImages)): ?>
+                <div class="amlocator-block amlocator-location-gallery">
+                    <div class="amlocator-wrapper" data-amlocator-js="locator-gallery">
+                        <?php foreach ($galleryImages as $image): ?>
+                            <a class="amlocator-link"
+                               href="<?= $escaper->escapeHtml($image['path']) ?>"
+                               data-amlocator-js="location-image"
+                               data-fancybox="gallery">
+                                <img class="amlocator-image"
+                                     title="<?= $escaper->escapeHtml($location->getName()) ?>"
+                                     src="<?= $escaper->escapeHtml($image['path']) ?>"/>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            <?php endif;?>
+            <div class="amlocator-block -map" data-amlocator-js="location-map"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    require([
+        'jquery',
+        'Amasty_Storelocator/js/location-view',
+        'domReady!',
+        'https://maps.googleapis.com/maps/api/js?libraries=places&key=<?= $block->escapeHtml(
+            $block->configProvider->getApiKey()
+        ); ?>'
+    ], function ($) {
+        $('[data-amlocator-js="location-map"]').amLocationPage({
+            locationData: {
+                lat: <?= (float)$location->getLat() ?>,
+                lng: <?= (float)$location->getLng() ?>,
+                marker_url: '<?= $escaper->escapeHtml($location->getMarkerMediaUrl()) ?>'
+            }
+        });
+
+        if ($('.store_hours').length) {
+            let daysArray = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+
+            $(".store_hours span").html(function(_, html) {
+                return html.replace(new RegExp("(\\W|^)(" + daysArray.map(function(x) {
+                    return x.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
+                }).join('|') + ")(?!\\w)", "gi"), '$1<b>$2</b>')
+            });
+        }
+    });
+</script>

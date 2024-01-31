@@ -1,0 +1,78 @@
+<?php
+/** @var $block \Capgemini\Configurable\Block\Configurable\Child */
+$attributeList = $block->getData('attribute_list');
+if (is_array($attributeList)) {
+    $options = array_values($attributeList);
+} else {
+    $options = [];
+}
+$block->convertToJson();
+$optionsString = \Magento\Framework\Serialize\JsonConverter::convert($options);
+$productId = $block->getChildProduct()->getId();
+$_product = $block->getChildProduct();
+
+$pdp_360 = '/media/docs/360/'.$_product->getResource()->getAttribute('pdp_360')->getFrontend()->getValue($_product);
+$isProductListing = $block->getIsProductListing();
+$listImageId = (!empty($isProductListing) && $isProductListing) ? $block::SWATCH_IMAGE_ID : $block::LIST_IMAGE_ID;
+$imageData = $block->getProductImageData($block->getChildProduct(), $listImageId);
+$clpPrice = $block->getCLPPrice($block->getChildProduct());
+$href = $block->getIsClpSearch() ? $block->escapeUrl($block->getChildUrl($block->getChildProduct())) : '#';
+
+
+//$finishName = $block->getChildProduct()->getAttributeText('detail_description');
+$finishName = $block->getDetailDescription($block->getChildProduct());//($block->getChildProduct()->getAttributeText('detail_description'))?$block->getChildProduct()->getAttributeText('detail_description'):$block->getChildProduct()->getData('detail_description');
+$baseCode = $block->getChildProduct()->getData('basecode');
+list ($badgeLabel, $badgeClass) = $block->getBadgeData($block->getChildProduct());
+$sku = $block->getChildProduct()->getData('sku');
+$imageHelper = $this->helper('Magento\Catalog\Helper\Image');
+$isThematicProduct = $block->getChildProduct()
+    ->getData(\Capgemini\BloomreachThematic\Model\TechnicalProduct::IS_THEMATIC_PRODUCT_DATA_KEY);
+$productImage = !$isThematicProduct
+    ? $imageHelper->init($block->getChildProduct(), 'category_page_grid')->getUrl()
+    : $block->getProductImageData($block->getChildProduct(), 'category_page_grid')['src'];
+$productZoomImage = !$isThematicProduct
+    ? $imageHelper->init($block->getChildProduct(), 'product_page_image_large')->getUrl()
+    : $block->getProductImageData($block->getChildProduct(), 'product_page_image_large')['src'];;
+$productMediumImage = !$isThematicProduct
+    ? $imageHelper->init($block->getChildProduct(), 'product_page_image_medium')->getUrl()
+    : $block->getProductImageData($block->getChildProduct(), 'product_page_image_medium')['src'];;
+$productStyle = $block->getProductStyle($block->getChildProduct());
+$productProp65 = $block->getChildProduct()->getData('prop65');
+?>
+
+<div class="variation-item">
+    <div>
+        <a class="configurable-thumbnail"
+           href="<?= $href ?>"
+           data-pdp-360="<?= $block->escapeHtmlAttr($pdp_360) ?>"
+           data-options="<?= $block->escapeHtmlAttr($optionsString) ?>"
+           data-clp-finish="<?= $block->escapeHtmlAttr($finishName) ?>"
+           data-clp-basecode="<?= $block->escapeHtmlAttr($baseCode) ?>"
+           data-clp-badge-label="<?= $block->escapeHtmlAttr($badgeLabel) ?>"
+           data-clp-sku="<?= $block->escapeHtmlAttr($sku) ?>"
+           data-clp-badge-class="<?= $block->escapeHtmlAttr($badgeClass) ?>"
+           data-clp-image="<?= $block->escapeHtmlAttr($productImage) ?>"
+           data-pdp-large-image="<?= $block->escapeHtmlAttr($productZoomImage) ?>"
+           data-pdp-medium-image="<?= $block->escapeHtmlAttr($productMediumImage) ?>"
+           data-clp-image-alt="<?= $block->escapeHtmlAttr($imageData['alt']) ?>"
+        <?php /*data-clp-price="<?= $block->escapeHtmlAttr($clpPrice) ?>" */ ?>
+        <?php foreach ($clpPrice as $attr => $price): ?>
+            <?= $attr ?>="<?= $block->escapeHtmlAttr($price) ?>"
+        <?php endforeach; ?>
+        data-product-sku="<?= $block->escapeHtmlAttr($block->getChildProduct()->getSku()) ?>"
+        data-product-availability-label="<?= $block->escapeHtmlAttr($block->getAvailabilityFrontendInfo('label')) ?>"
+        data-product-availability-value="<?= $block->escapeHtmlAttr($block->getAvailabilityFrontendInfo('value')) ?>"
+        data-product-id="<?= $block->escapeHtmlAttr($productId) ?>"
+        data-product-style="<?= $block->escapeHtmlAttr($productStyle) ?>"
+        data-product-prop65="<?= $block->escapeHtmlAttr($productProp65) ?>"
+        data-product-name="<?= $block->escapeHtmlAttr($block->getChildProduct()->getName()) ?>">
+        <img
+            src="<?= $imageData['src']  ?>"
+            alt="<?= $block->escapeHtmlAttr($imageData['alt']) ?>"
+            width="100"
+            height="100"
+            loading="lazy"
+        />
+        </a>
+    </div>
+</div>

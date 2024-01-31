@@ -1,0 +1,100 @@
+{
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^18.0.1",
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "cypress-junit-reporter": "^1.3.1",
+    "init": "^0.1.2",
+    "junit-report-merger": "^6.0.3"
+  },
+  "devDependencies": {
+    "cypress": "^13.5.1",
+    "multiple-cucumber-html-reporter": "^3.4.0",
+    "playwright-webkit": "^1.35.1"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": [
+      "cypress/e2e/stepDefinitions/*.js"
+    ],
+    "omitFiltered": true,
+    "filterSpecs": true,
+    "json": {
+      "enabled": true,
+      "output": "./cucumberHTMLReport/testResult.json"
+    }
+  },
+  "scripts": {
+    "production": "npx cypress run --record --tag \"production,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=production,country=US,tags=\"@us and @all\"",
+    "stage": "npx cypress run --record --tag \"stage,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging,country=US,tags=\"@us and @all\"",
+    "stage2": "npx cypress run --record --tag \"stage2,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging2,country=US,tags=\"@us and @all\"",
+    "stage3": "npx cypress run --record --tag \"stage3,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging3,country=US,tags=\"@us and @all\"",
+    "stage4": "npx cypress run --record --tag \"stage4,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging4,country=US,tags=\"@us and @all\"",
+    "stage5": "npx cypress run --record --tag \"stage5,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging5,country=US,tags=\"@us and @all\"",
+    "stage6": "npx cypress run --record --tag \"stage6,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging6,country=US,tags=\"@us and @all\"",
+    "stage7": "npx cypress run --record --tag \"stage7,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging7,country=US,tags=\"@us and @all\"",
+    "stage8": "npx cypress run --record --tag \"stage8,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging8,country=US,tags=\"@us and @all\"",
+    "stage9": "npx cypress run --record --tag \"stage9,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging9,country=US,tags=\"@us and @all\"",
+    
+    "production-uk": "npx cypress run --record --tag \"production,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=production,country=UK,tags=\"@uk and @all\"",
+    "stage-uk": "npx cypress run --record --tag \"stage,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging,country=UK,tags=\"@uk and @all\"",
+    "stage2-uk": "npx cypress run --record --tag \"stage2,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging2,country=UK,tags=\"@uk and @all\"",
+    "stage3-uk": "npx cypress run --record --tag \"stage3,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging3,country=UK,tags=\"@uk and @all\"",
+    "stage4-uk": "npx cypress run --record --tag \"stage4,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging4,country=UK,tags=\"@uk and @all\"",
+    "stage5-uk": "npx cypress run --record --tag \"stage5,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging5,country=UK,tags=\"@uk and @all\"",
+    "stage6-uk": "npx cypress run --record --tag \"stage6,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging6,country=UK,tags=\"@uk and @all\"",
+    "stage7-uk": "npx cypress run --record --tag \"stage7,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging7,country=UK,tags=\"@uk and @all\"",
+    "stage8-uk": "npx cypress run --record --tag \"stage8,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging8,country=UK,tags=\"@uk and @all\"",
+    "stage9-uk": "npx cypress run --record --tag \"stage9,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging9,country=UK,tags=\"@uk and @all\"",
+    
+    "production-eu": "npx cypress run --record --tag \"production,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=production,country=EU,tags=\"@eu and @all\"",
+    "stage-eu": "npx cypress run --record --tag \"stage,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging,country=EU,tags=\"@eu and @all\"",
+    "stage2-eu": "npx cypress run --record --tag \"stage2,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging2,country=EU,tags=\"@eu and @all\"",
+    "stage3-eu": "npx cypress run --record --tag \"stage3,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging3,country=EU,tags=\"@eu and @all\"",
+    "stage4-eu": "npx cypress run --record --tag \"stage4,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging4,country=EU,tags=\"@eu and @all\"",
+    "stage5-eu": "npx cypress run --record --tag \"stage5,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging5,country=EU,tags=\"@eu and @all\"",
+    "stage6-eu": "npx cypress run --record --tag \"stage6,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging6,country=EU,tags=\"@eu and @all\"",
+    "stage7-eu": "npx cypress run --record --tag \"stage7,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging7,country=EU,tags=\"@eu and @all\"",
+    "stage8-eu": "npx cypress run --record --tag \"stage8,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging8,country=EU,tags=\"@eu and @all\"",
+    "stage9-eu": "npx cypress run --record --tag \"stage9,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging9,country=EU,tags=\"@eu and @all\"",
+    
+    "production-sanity": "npx cypress run --record --tag \"production,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=production,country=US,tags=\"@us and @sanity\"",
+    "stage-sanity": "npx cypress run --record --tag \"stage,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging,country=US,tags=\"@us and @sanity\"",
+    "stage2-sanity": "npx cypress run --record --tag \"stage2,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging2,country=US,tags=\"@us and @sanity\"",
+    "stage3-sanity": "npx cypress run --record --tag \"stage3,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging3,country=US,tags=\"@us and @sanity\"",
+    "stage4-sanity": "npx cypress run --record --tag \"stage4,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging4,country=US,tags=\"@us and @sanity\"",
+    "stage5-sanity": "npx cypress run --record --tag \"stage5,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging5,country=US,tags=\"@us and @sanity\"",
+    "stage6-sanity": "npx cypress run --record --tag \"stage6,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging6,country=US,tags=\"@us and @sanity\"",
+    "stage7-sanity": "npx cypress run --record --tag \"stage7,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging7,country=US,tags=\"@us and @sanity\"",
+    "stage8-sanity": "npx cypress run --record --tag \"stage8,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging8,country=US,tags=\"@us and @sanity\"",
+    "stage9-sanity": "npx cypress run --record --tag \"stage9,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging9,country=US,tags=\"@us and @sanity\"",
+    
+    "production-uk-sanity": "npx cypress run --record --tag \"production,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=production,country=UK,tags=\"@uk and @sanity\"",
+    "stage-uk-sanity": "npx cypress run --record --tag \"stage,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging,country=UK,tags=\"@uk and @sanity\"",
+    "stage2-uk-sanity": "npx cypress run --record --tag \"stage2,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging2,country=UK,tags=\"@uk and @sanity\"",
+    "stage3-uk-sanity": "npx cypress run --record --tag \"stage3,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging3,country=UK,tags=\"@uk and @sanity\"",
+    "stage4-uk-sanity": "npx cypress run --record --tag \"stage4,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging4,country=UK,tags=\"@uk and @sanity\"",
+    "stage5-uk-sanity": "npx cypress run --record --tag \"stage5,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging5,country=UK,tags=\"@uk and @sanity\"",
+    "stage6-uk-sanity": "npx cypress run --record --tag \"stage6,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging6,country=UK,tags=\"@uk and @sanity\"",
+    "stage7-uk-sanity": "npx cypress run --record --tag \"stage7,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging7,country=UK,tags=\"@uk and @sanity\"",
+    "stage8-uk-sanity": "npx cypress run --record --tag \"stage8,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging8,country=UK,tags=\"@uk and @sanity\"",
+    "stage9-uk-sanity": "npx cypress run --record --tag \"stage9,UK\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging9,country=UK,tags=\"@uk and @sanity\"",
+    
+    "production-eu-sanity": "npx cypress run --record --tag \"production,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=production,country=EU,tags=\"@eu and @sanity\"",
+    "stage-eu-sanity": "npx cypress run --record --tag \"stage,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging,country=EU,tags=\"@eu and @sanity\"",
+    "stage2-eu-sanity": "npx cypress run --record --tag \"stage2,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging2,country=EU,tags=\"@eu and @sanity\"",
+    "stage3-eu-sanity": "npx cypress run --record --tag \"stage3,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging3,country=EU,tags=\"@eu and @sanity\"",
+    "stage4-eu-sanity": "npx cypress run --record --tag \"stage4,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging4,country=EU,tags=\"@eu and @sanity\"",
+    "stage5-eu-sanity": "npx cypress run --record --tag \"stage5,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging5,country=EU,tags=\"@eu and @sanity\"",
+    "stage6-eu-sanity": "npx cypress run --record --tag \"stage6,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging6,country=EU,tags=\"@eu and @sanity\"",
+    "stage7-eu-sanity": "npx cypress run --record --tag \"stage7,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging7,country=EU,tags=\"@eu and @sanity\"",
+    "stage8-eu-sanity": "npx cypress run --record --tag \"stage8,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging8,country=EU,tags=\"@eu and @sanity\"",
+    "stage9-eu-sanity": "npx cypress run --record --tag \"stage9,EU\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=staging9,country=EU,tags=\"@eu and @sanity\"",
+   
+    "chrome-headed": "npx cypress run --record --tag \"stage,US\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --headed --browser chrome --env testingEnvironment=staging,country=US,tags=@us",
+    "chrome-no-dashboard": "npx cypress run --headed --browser chrome --env testingEnvironment=staging,country=US,tags=@us",
+    
+    "HTMLReport": "node cucumberHTMLReport/generateReport.js",
+    "merge-XMLResults": "jrm XMLResults/combined.xml \"XMLResults/*.xml\"",
+
+    "devops-ci:run:manual": "npx cypress run --record --parallel --ci-build-id $BUILD_BUILDNUMBER --group \"DevOps CI $BUILD_BUILDNUMBER\" --key ee5554f3-5d4c-4342-ada5-55e5de0b6519 --browser chrome --env testingEnvironment=$TARGET_ENVIRONMENT,country=$TARGET_REGION,tags=$FORMATTED_TAGS"
+  }
+}

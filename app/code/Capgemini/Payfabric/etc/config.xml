@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <payfabric>
+                <active>1</active>
+                <model>Capgemini\Payfabric\Model\Payfabric</model>
+                <title>Payfabric</title>
+                <request_timeout>60</request_timeout>
+                <failed_request_error>
+                    <![CDATA[There has been an error processing your payment, please call customer service to resolve this issue.]]>
+                </failed_request_error>
+                <payment_action>authorize</payment_action>
+                <allowspecific>0</allowspecific>
+                <cctypes>VI,MC</cctypes>
+                <debug>0</debug>
+                <device_id>2:ee46e703-3673-f638-3f25-26c38446869b</device_id>
+                <setup_id>AuthNet</setup_id>
+                <order_status>processing</order_status>
+                <default_payment_error>Something went wrong during payment process, please contact with site administrator.</default_payment_error>
+            </payfabric>
+        </payment>
+    </default>
+</config>

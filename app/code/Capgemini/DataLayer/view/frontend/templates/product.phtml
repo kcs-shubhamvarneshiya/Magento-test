@@ -1,0 +1,117 @@
+<?php
+/**
+ * @category    Capgemini
+ * @package     Capgemini_DataLayer
+ */
+?>
+<?php
+/** @var \Capgemini\DataLayer\Block\DataLayer $block */
+?>
+<script>
+    <?php $data = $block->getProductPageData(); ?>
+    window.productPageData = JSON.parse('<?= $data ?>');
+</script>
+
+<script type='text/javascript'>
+    window._gtmPageType = '<?= $block->escapeJs($block->getPageType()); ?>';
+    require([
+        'jquery',
+        'Capgemini_DataLayer/js/action/execute-push'
+    ], function ($, executePush) {
+        window.dataLayer = window.dataLayer || [];
+        const controlCookieName = "<?= \Capgemini\DataLayer\Observer\Sessid\ObserveSessid::CONTROL_COOKIE_NAME ?>",
+            ajaxUrl = "<?= $block->getAjaxUrl() ?>";
+
+        function pushData(data) {
+            var hasOlapicImage = false;
+            if ($(".olapic-item").length > 0) {
+                hasOlapicImage = true;
+            }
+            let pageTypeInd = false,
+                otherPageDataInd = false;
+            window.dataLayer.forEach(function (value, index) {
+                if (typeof value.pageType !== 'undefined') {
+                    pageTypeInd = index
+                } else if (typeof value.otherPageData !== 'undefined') {
+                    otherPageDataInd = index
+                }
+            })
+            var pageType = {
+                    'pageType': 'product_detail_page',
+                    'ecommerce': {
+                        'detail': {
+                            'products': [{
+                                'name': window.productPageData['name'],
+                                'id': window.productPageData['sku'],
+                                'price': window.productPageData['price'],
+                                'category': window.productPageData['category'],
+                                'fullPrice': window.productPageData['fullPrice'],
+                                'images': window.productPageData['images'],
+                                'olapic': hasOlapicImage,
+                                'brand': window.productPageData['brand'],
+                                'style': window.productPageData['style']
+                            }],
+                            'actionField': {
+                                'list': window.productPageData['list'],
+                                'action': 'detail'
+                            }
+                        }
+                    },
+                    'hashedEmail': data['hashedEmail'],
+                    'loggedinStatus': data['loggedinStatus'],
+                    'currencyCode': data['currencyCode'],
+                    'tradeCustomer': data['tradeCustomer'],
+                    'customerClass': data['customerClass']
+                },
+                otherPageData = {
+                    'otherPageData': {
+                        userEmail: data['userEmail']
+                    }
+                };
+            if (pageTypeInd !== false) {
+                window.dataLayer[pageTypeInd] = pageType;
+            } else {
+                window.dataLayer.push(pageType);
+            }
+            if (otherPageDataInd !== false) {
+                window.dataLayer[otherPageDataInd] = otherPageData;
+            } else {
+                window.dataLayer.push(otherPageData);
+            }
+        }
+
+        function addToWishlist() {
+            window.dataLayer = window.dataLayer || [];
+            var hasOlapicImage = false;
+            if ($(".olapic-item").length > 0) {
+                hasOlapicImage = true;
+            }
+            window.dataLayer.push({
+                'event': 'addToWishlist',
+                'pageType': 'product_detail_page',
+                'name': productPageData['name'],
+                'id': productPageData['sku'],
+                'price': productPageData['price'],
+                'category': productPageData['category'],
+                'fullPrice': productPageData['fullPrice'],
+                'olapic': hasOlapicImage,
+                'brand': productPageData['brand']
+            });
+        }
+
+        executePush(controlCookieName, ajaxUrl, pushData);
+
+        $(document).ready(function () {
+            // $('[data-action="add-to-wishlist"]').click(addToWishlist);
+
+            $('[data-download-type]').click(function() {
+                window.dataLayer = window.dataLayer || [];
+                var type = $(this).data('download-type');
+                window.dataLayer.push({
+                    'event': 'fileDownloads',
+                    'fileDownloaded': type
+                });
+            });
+        });
+    });
+</script>

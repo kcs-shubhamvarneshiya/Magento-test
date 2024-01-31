@@ -1,0 +1,44 @@
+<?php
+
+$_product = $this->getProduct();
+
+$_attValue = $_product->getResource()->getAttribute('pdp_360')->getFrontend()->getValue($_product);
+?>
+<?php if (!empty($_attValue)): ?>
+    <div
+        id="additional-360"
+        class="additional_block additional-360"
+        data-additional-content="additional-360"
+        data-bind='mageInit: {
+            "collapsible": {
+                "collapsible": true,
+                "openedState": "active",
+                "active": "true",
+                "icons": {"header": "plus", "activeHeader": "minus"}
+         }}'>
+
+        <div class="additional_block_inner">
+            <div class="block-title title" data-role="title">
+                <strong><?= __('3D Viewer'); ?></strong>
+            </div>
+            <div class="block" data-role="content">
+                <div id="360-container" class="threeDViewer">
+                    <div class="embed-container">
+                        <p style="text-align: center;">
+                            <!-- Import the component -->
+                            <script type="module"
+                                    src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+                            <script nomodule
+                                    src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+                            <!-- Use it like any other HTML element -->
+                            <model-viewer id="mv-360" alt="360 Viewer" src="/media/docs/360/<?php echo $_attValue; ?>"
+                                          ar="" ar-modes="webxr scene-viewer quick-look" environment-image="" poster=""
+                                          seamless-poster="" shadow-intensity="1" camera-controls=""
+                                          data-js-focus-visible="" ar-status="not-presenting"></model-viewer>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

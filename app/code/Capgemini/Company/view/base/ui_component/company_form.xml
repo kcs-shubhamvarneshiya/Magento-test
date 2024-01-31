@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <dataSource name="company_form_data_source">
+        <dataProvider class="Capgemini\Company\Model\Company\DataProvider" name="company_form_data_source"/>
+    </dataSource>
+    <fieldset name="information" sortOrder="20">
+        <field name="website" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">website</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Website</label>
+            </settings>
+        </field>
+        <field name="business_type" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">business_type</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Business Type</label>
+            </settings>
+        </field>
+        <field name="vat_number" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">vat_number</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">VAT Number</label>
+            </settings>
+        </field>
+        <field name="member_state" formElement="select">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">member_state</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">VAT Member State</label>
+                <visible>true</visible>
+            </settings>
+            <formElements>
+                <select>
+                    <settings>
+                        <options class="Capgemini\Company\Model\Company\Source\MemberStates"/>
+                    </settings>
+                </select>
+            </formElements>
+        </field>
+    </fieldset>
+    <fieldset name="address" sortOrder="30">
+        <field name="cell_phone" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">cell_phone</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Cell Phone</label>
+            </settings>
+        </field>
+        <field name="fax" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">fax</item>
+                </item>
+            </argument>
+            <settings>
+                <dataType>text</dataType>
+                <label translate="true">Fax</label>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="company_admin" sortOrder="40">
+        <field name="extension_attributes.sales_pad_customer_num" formElement="input">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">customer</item>
+                </item>
+            </argument>
+            <settings>
+                <label>SalesPad Customer Number</label>
+                <dataType>text</dataType>
+                <visible>true</visible>
+            </settings>
+        </field>
+    </fieldset>
+    <fieldset name="company_documents" sortOrder="65">
+        <settings>
+            <collapsible>true</collapsible>
+            <label translate="true">Trade Documents</label>
+            <dataScope>company_documents</dataScope>
+        </settings>
+        <container name="documents_list_block">
+            <htmlContent name="documents_list_html">
+                <block name="documents_list" class="Capgemini\Company\Block\Adminhtml\DocumentList"/>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

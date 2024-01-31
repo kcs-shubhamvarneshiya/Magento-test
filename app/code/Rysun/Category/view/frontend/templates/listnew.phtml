@@ -1,0 +1,185 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+
+<?php
+
+    $_productCollection = $block->getLoadedProductCollection();
+    $productSkus = $_productCollection->getColumnValues('sku');
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $current_category = $this->frameworkRegistry->registry('current_category');    
+    $storeManager = $objectManager->get('\Magento\Store\Model\StoreManagerInterface');
+    $baseUrl = $storeManager->getStore()->getBaseUrl();
+    $productDataCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+
+    /** Apply filters here */
+    $prodDatacollection = $productDataCollection->addAttributeToSelect('*');
+    $prodDatacollection->addCategoriesFilter(array('in' => [$current_category->getId()]))
+    ->addAttributeToFilter('sku',array('in' => $productSkus))
+    ->setOrder('product_sort_order','ASC')
+    ->load();
+    
+?>
+
+<div class="products-grid custom-products">
+    <div class="products-sep"></div>
+    <div class="products list items product-items">
+        <!-- <div class="item product product-item product-promotion">
+            <div class="promotion-content">
+                <a href="javascript:void(0);" class="product photo product-item-photo">
+                    <img src="<?= $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" width="381" height="511" />
+                </a>
+            </div>
+        </div> -->
+        <?php
+
+            //foreach ($productDataCollection as $item) {
+            foreach ($prodDatacollection as $item) {
+            
+        ?>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="<?= $item->getProductUrl()."?darkmode=Yes"; ?>" class="product photo product-item-photo">
+                    <?php
+
+                    $imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Catalog\Helper\Image::class);
+                    $imageURlPlaceHolder = $imageHelper->getDefaultPlaceholderUrl('image');
+
+                    //$image = $this->getViewFileUrl('Magento_Catalog::images/placeholder.png');
+                    $imageUrl = $baseUrl.'media/catalog/product'.$item->getSmallImage();
+                    //$_imgUrl = ($item->getThumbnail()) ?  $item->getThumbnail() : $image ;
+                    $_imgUrl = ($item->getSmallImage()) ?  $imageUrl : $imageURlPlaceHolder ;
+                    ?>
+                        <img src="<?php echo $_imgUrl.'?optimize=medium&fit=bounds&height=300&width=240&canvas=240:300';//$imageURlPlaceHolder; ?>" width="240" height="300" loading="lazy" />
+                    </a>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="<?= $item->getProductUrl()."?darkmode=Yes"; ?>">                                
+                                <?= $item->getName() ?>
+                            </a>
+                        </div>   
+
+                        <?php
+
+                             //WORKING CODE START
+                            //$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                            $specificationCollection = $objectManager->create('Rysun\SpecificationAttribute\Model\SpecificationAttribute');
+                            $specificationCol = $specificationCollection->getCollection();
+                            $specificationCol->addFieldToFilter('category_id',$current_category->getId());
+                           
+                            $specificationData = [];
+                            try {
+                                if (!empty($item->getAttributeText('minimum_delivered_lumens_arch_filter'))) {
+                                    $minimumDelivered = $item->getAttributeText('minimum_delivered_lumens_arch_filter');
+                                } elseif (!empty($item->getData('minimum_delivered_lumens_arch_filter'))) {
+                                    $minimumDelivered = $item->getData('minimum_delivered_lumens_arch_filter');
+                                } else {
+                                    $minimumDelivered = $item->getResource()->getAttribute('minimum_delivered_lumens_arch_filter')->getFrontend()->getValue($item);
+                                }
+                                if (!empty($item->getAttributeText('maximum_delivered_lumens_arch_filter'))) {
+                                    $maximumDelivered = $item->getAttributeText('maximum_delivered_lumens_arch_filter');
+                                } elseif (!empty($item->getData('maximum_delivered_lumens_arch_filter'))) {
+                                    $maximumDelivered = $item->getData('maximum_delivered_lumens_arch_filter');
+                                } else {
+                                    $maximumDelivered = $item->getResource()->getAttribute('maximum_delivered_lumens_arch_filter')->getFrontend()->getValue($item);
+                                }
+                                if (isset($minimumDelivered) && isset($maximumDelivered) &&
+                                !empty($minimumDelivered) && !empty($maximumDelivered)) {
+                                    if ((int)$minimumDelivered < (int)$maximumDelivered) {
+                                        $specificationData['min_max_lumens']['label'] = __('Delivered Lumens');
+                                        $specificationData['min_max_lumens']['value'] = $minimumDelivered .' - '. $maximumDelivered;
+                                    } else {
+                                        $specificationData['min_max_lumens']['label'] = __('Delivered Lumens');
+                                        $specificationData['min_max_lumens']['value'] = $minimumDelivered;
+                                    }
+                                }
+                            } catch (\Exception $th) {
+                                // nothing to do
+                            }
+                            foreach ($specificationCol as $specificationDetail) {
+                                $deliveredLumens = [];
+                                $subData = [];
+                                $attributeCode = $specificationDetail->getData('attribute_code');
+                                try {
+                                    if (!empty($item->getAttributeText($attributeCode))) {
+                                        $productValue = $item->getAttributeText($attributeCode);
+                                    } elseif (!empty($item->getData($attributeCode))) {
+                                        $productValue = $item->getData($attributeCode);
+                                    } else {
+                                        $productValue = $item->getResource()->getAttribute($attributeCode)->getFrontend()->getValue($item);
+                                    }
+                                } catch (\Exception $e) {
+                                    continue;
+                                }
+ 
+                                if (is_array($productValue)) {
+                                    foreach ($productValue  as $value) {
+                                        $deliveredLumens[] = $value;
+                                    }
+                                } else {
+                                    $deliveredLumens[] = $productValue ;
+                                }
+                                $deliveredString  = implode(", ", $deliveredLumens);
+ 
+                                if (empty($deliveredString)) {
+                                    continue;
+                                }
+                                $attributeLabel = $item->getResource()->getAttribute($attributeCode)->getStoreLabel();
+                                if ($attributeCode != 'minimum_delivered_lumens_arch_filter'
+                                && $attributeCode != 'maximum_delivered_lumens_arch_filter') {
+                                    $subData['label'] = $attributeLabel;
+                                    $subData['value'] = $deliveredString;
+                                    $specificationData[$attributeCode] = $subData;
+                                }
+                            }
+                            ?>
+                            <?php if (count($specificationData) > 0 ) { ?>
+                                <div class="product-attribute-head">Specifications</div>
+                            <?php  } ?>
+
+                            <?php
+                            foreach ($specificationData as $specAttribute) {
+                            ?>
+                            <div class="spec-inline">
+                                <ul class="product-attribute-list">
+                                    <span><?php echo $specAttribute['label']; ?></span>
+                                    
+                                    <li><?php echo $specAttribute['value'];?></li>
+                                </ul>
+                            </div>
+                            <?php
+                            }
+                            //WORKING CODE START 
+                            ?>
+
+                    </div>
+                </div>
+            </div>
+        <?php 
+            }
+        ?>
+    </div>
+</div>
+
+
+<script>
+    require([
+        'jquery',
+    ], function ($) {
+        $('body').addClass('architectural-category');
+    })
+</script>

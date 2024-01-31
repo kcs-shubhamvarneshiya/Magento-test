@@ -1,0 +1,115 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/** @var \Lyonscg\RequisitionList\Block\Details $block */
+/** @var \Magento\RequisitionList\Api\Data\RequisitionListInterface $requisitionList */
+$requisitionList = $block->getRequisitionList();
+$bulbsState = $block->getBulbsState();
+$bulbsStateHas = $block::BULBS_STATE_HAS;
+$bulbsStateHasNoButCanHave = $block::BULBS_STATE_HAS_NO_BUT_CAN_HAVE;
+$bulbsStateHasNoAndCanNotHave = $block::BULBS_STATE_HAS_NO_AND_CAN_NOT_HAVE;
+?>
+
+<div class="actions-toolbar requisition-view-buttons"
+     data-mage-init='{"requisitionActions":{
+        "requisitionId": "<?= $block->escapeJs($block->getRequest()->getParam('requisition_id')) ?>",
+                "quoteUrl": "<?= $block->getQuoteUrl() ?>",
+                "availableBulbsStates": {
+                    "bulbsStateHas": "<?= $bulbsStateHas ?>",
+                    "bulbsStateHasNoButCanHave": "<?= $bulbsStateHasNoButCanHave ?>",
+                    "bulbsStateHasNoAndCanNotHave": "<?= $bulbsStateHasNoAndCanNotHave ?>"
+                },
+                "bulbsState": "<?= $bulbsState ?>",
+                "bulbStateToButtonInscription": {
+                    "<?= $bulbsStateHas ?>": "<?= $block::getToggleBulbsButtonInscription($bulbsStateHas) ?>",
+                    "<?= $bulbsStateHasNoButCanHave ?>": "<?= $block::getToggleBulbsButtonInscription($bulbsStateHasNoButCanHave) ?>",
+                    "<?= $bulbsStateHasNoAndCanNotHave ?>": "<?= $block::getToggleBulbsButtonInscription($bulbsStateHasNoAndCanNotHave) ?>"
+                },
+                "saveErrorModalContent": "<?= __($block->escapeJs($block->getSaveErrorModalContent())) ?>"
+     }}'>
+    <div class="primary">
+        <?php if ($block->getItemCount()) : ?>
+            <button type="button"
+                    style="display: <?= $bulbsState === 3 ? 'none' : 'block' ?>"
+                    title="<?= $block->escapeHtmlAttr(__($block::getToggleBulbsButtonInscription($bulbsState))) ?>"
+                    class="action secondary add-bulbs-to-quote"
+                    data-action="toggle-bulbs"
+                    data-mobile-label="<?= $block->escapeHtmlAttr(__($block::getToggleBulbsButtonInscription($bulbsState))) ?>"
+            >
+                <span><?= $block->escapeHtml(__($block::getToggleBulbsButtonInscription($bulbsState))) ?></span>
+            </button>
+                <button type="button"
+                        title="<?= $block->escapeHtmlAttr(__('Add All Items to Cart')) ?>"
+                        class="action add-to-cart-button"
+                        data-mobile-label="<?= $block->escapeHtmlAttr(__('Add All Items to Cart')) ?>"
+                        data-mage-init='{"Magento_RequisitionList/js/quote-to-order":{
+                        "confirmation":{
+                            "title":"<?= __('Are you sure you want to add to cart?') ?>",
+                            "message":"<?= __('Once you move a quote to the cart to submit your order, the quote will no longer exist.') ?>",
+                            "cartNotEmptyTitle":"<?= __('You already have items in your cart') ?>",
+                            "urlReplace":"<?= $block->getUrl(
+                            'requisition_list/requisition/createorder',
+                            ['requisition_id' => $requisitionList->getId(), 'action' => 'replace']
+                        ) ?>",
+                            "urlMerge":"<?= $block->getUrl(
+                            'requisition_list/requisition/createorder',
+                            ['requisition_id' => $requisitionList->getId(), 'action' => 'merge']
+                        ) ?>",
+                             "urlCreateOrder":"<?= $block->getUrl(
+                            'requisition_list/requisition/createorder',
+                            ['requisition_id' => $requisitionList->getId()]
+                        ) ?>"
+                            }
+                    }}'
+                ><span><?= $block->escapeHtml(__('Add All Items to Cart')) ?></span>
+                </button>
+            <!-- ko scope: 'requisition.list.items.massaction.addtocart' -->
+            <button type="button"
+                    title="<?= $block->escapeHtmlAttr(__('Add Selected Item(s) to Cart')) ?>"
+                    class="action secondary disabled add-cart"
+                    data-bind="
+                    css: {
+                        disabled: !isEnable()
+                    },
+                    click: applyAction.bind($data, {
+                        requisition_id: '<?= (int)$block->getRequest()->getParam('requisition_id') ?>'
+                    })"
+                    data-mobile-label="<?= $block->escapeHtmlAttr(__('Add Selected Item(s) to Cart')) ?>">
+                <span><?= $block->escapeHtml(__('Add Selected Item(s) to Cart')) ?></span>
+            </button>
+            <!-- /ko -->
+            <button type="button"
+                    title="<?= $block->escapeHtmlAttr(__('Save Changes')) ?>"
+                    class="action secondary update-quote"
+                    data-action="update-list"
+                    data-mobile-label="<?= $block->escapeHtmlAttr(__('Save Changes')) ?>"
+                    data-update-list='{
+                    "updateUrl":"<?= $block->escapeUrl($block->getUrl('*/item/update', [
+                        'requisition_id' => (int)$block->getRequest()->getParam('requisition_id')
+                    ])) ?>"
+                    }'>
+                <span><?= $block->escapeHtml(__('Save Changes')) ?></span>
+            </button>
+            <script type="text/x-magento-init">
+            {
+                "*": {
+                    "Magento_Ui/js/core/app": {
+                        "components": {
+                            "requisition.list.items.massaction.addtocart": {
+                                "component": "Magento_RequisitionList/js/requisition/items/grid/massaction/add-to-cart",
+                                "selectProvider": "requisition.item.grid.selection.provider",
+                                "hasConfirm": true,
+                                "action": "<?= $block->escapeUrl($block->getUrl('requisition_list/item/addToCart')) ?>"
+                            }
+                        }
+                    }
+                }
+            }
+        </script>
+        <?php endif ?>
+    </div>
+</div>

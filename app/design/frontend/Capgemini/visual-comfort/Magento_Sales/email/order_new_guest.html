@@ -1,0 +1,122 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "%store_name: New Order # " store_name=$store.frontend_name}}{{var salespad_order_number}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var order_data.email_customer_note|escape|nl2br":"Email Order Note",
+"var order.billing_address.name":"Guest Customer Name",
+"var created_at_formatted":"Order Created At (datetime)",
+"var order.increment_id":"Order Id",
+"layout handle=\"sales_email_order_items\" order=$order":"Order Items Grid",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"var shipping_msg":"Shipping message",
+"var store.frontend_name":"Store Frontend Name",
+"var store_phone":"Store Phone",
+"var store_email":"Store Email",
+"var store_hours":"Store Hours",
+"var order_data.is_not_virtual":"Order Type",
+"var order":"Order",
+"var project_name":"Project Name",
+"var po_number":"PO Number",
+"var customer_number":"Customer Number",
+"var salespad_order_number":"SalesPad Order Number"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<div class="email-body">
+    <table>
+        <tr class="email-intro">
+            <td>
+                <p class="greeting">{{trans "%name," name=$order.billing_address.name}}</p>
+                <p class="greeting-text">
+                    {{trans "Thank you for ordering from %store_name." store_name=$store.frontend_name}}
+                    {{trans 'If you have any questions about your order, please contact us at <a href="mailto:customerservice@circalighting.com"><strong>customerservice@circalighting.com</strong></a> or call <a href="tel:877.762.2323"><strong>877.762.2323</strong></a>, Monday-Friday 9am-5pm EST. Below is a summary of your order
+                    for reference.'|raw}}
+                </p>
+            </td>
+        </tr>
+        <tr class="email-summary">
+            <td>
+                <p>{{trans '<span class="label">Your Order #: </span><span class="no-link">%increment_id</span>' increment_id=$salespad_order_number |raw}}</p>
+                {{depend customer_number}}
+                <p>{{trans '<span class="label">Customer #: </span><span class="no-link">%customer_num</span>' customer_num=$customer_number|raw}}</p>
+                {{/depend}}
+                <p class="order-date">{{trans 'Placed on <span class="no-link">%created_at</span>' created_at=$created_at_formatted |raw}}</p>
+            </td>
+        </tr>
+        <tr class="order-info">
+            <td>
+                {{depend project_name}}
+                <p>{{trans '<span class="label">Project Name: </span>%project_name' project_name=$project_name|raw}}</p>
+                {{/depend}}
+                {{depend po_number}}
+                <p>{{trans '<span class="label">PO Number: </span>%po_number' po_number=$po_number|raw}}</p>
+                {{/depend}}
+
+                {{depend order_data.email_customer_note}}
+                <p>{{trans '<span class="label">Order Comments: </span>' |raw}}{{var order_data.email_customer_note|escape|nl2br}}</p>
+                {{/depend}}
+            </td>
+        </tr>
+        <tr class="email-information">
+            <td>
+                {{layout handle="sales_email_order_items" order=$order}}
+            </td>
+        </tr>
+        <tr class="email-order-details">
+            <td>
+                <div class="order-details">
+                    <div class="column address-details">
+                        <h3 class="label">{{trans "Bill To"}}</h3>
+                        <p>{{var formattedBillingAddress|raw}}</p>
+                    </div>
+
+                    {{depend order_data.is_not_virtual}}
+                    <div class="column address-details">
+                        <h3 class="label">{{trans "Ship To"}}</h3>
+                        <p>{{var formattedShippingAddress|raw}}</p>
+                    </div>
+                    {{/depend}}
+
+                    <div class="column">
+                        {{depend order_data.is_not_virtual}}
+                        <div class="method-info">
+                            <h3 class="label">{{trans "Shipping Method"}}</h3>
+                            <p>{{var order.shipping_description}}</p>
+                            {{if shipping_msg}}
+                            <p>{{var shipping_msg}}</p>
+                            {{/if}}
+                        </div>
+                        {{/depend}}
+
+                        <div class="method-info">
+                            <h3 class="label">{{trans "Payment Method"}}</h3>
+                            {{var payment_html|raw}}
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <table class="button" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td>
+                <table class="inner-wrapper" border="0" cellspacing="0" cellpadding="0" align="center">
+                    <tr>
+                        <td align="center">
+                            <a href="{{store url=""}}" target="_blank">{{trans "Continue shopping"}}</a>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</div>
+
+{{template config_path="design/email/footer_template"}}

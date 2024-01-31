@@ -1,0 +1,163 @@
+//
+//  Store Locator
+//  ____________________________________________
+
+//
+//  Common
+//  ----------------------------------------------
+
+& when (@media-common = true) {
+    .showroom__wrapper {
+        .showroom__wrapper-holder {
+            .row {
+                display: flex;
+                align-items: stretch;
+
+                .showroom {
+                    margin: 0 !important;
+                    box-sizing: border-box;
+                    &:first-child {
+                        padding-left: 0 !important;
+                    }
+                    .title {
+                        font-family: 'goudy-old-style', sans-serif;
+                        font-size: 26px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: normal;
+                        letter-spacing: normal;
+                        color: #454545;
+                        margin-bottom: 20px;
+                        margin-top: 0;
+                    }
+                    .address {
+                        font-family: 'proxima-nova', sans-serif;
+                        font-size: 14px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.71;
+                        letter-spacing: 0.25px;
+                        color: #454545;
+                        margin-bottom: 20px;
+                    }
+                    .phone {
+                        font-family: 'proxima-nova', sans-serif;
+                        font-size: 14px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.71;
+                        letter-spacing: 0.25px;
+                        color: #454545;
+                        margin-bottom: 0;
+                    }
+                    .location-link,
+                    .appointment-link {
+                        a {
+                            font-family: 'proxima-nova', sans-serif;
+                            text-transform: uppercase;
+                            font-size: 12px;
+                            font-weight: 600;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: 1;
+                            letter-spacing: 0.25px;
+                            color: #454545;
+                        }
+                    }
+                    .location-link {
+                        margin-top: 20px;
+                        margin-bottom: 10px;
+                        a {
+                            margin-bottom: 0;
+                        }
+                    }
+                    .appointment-link {
+                        margin-bottom: 0;
+                        a {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+//
+//  Tablet +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .showroom__wrapper {
+        .showroom__wrapper-holder {
+            .row {
+                &:not(:first-child) {
+                    .showroom {
+                        .title {
+                            margin-top: 41px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .showroom__wrapper {
+        margin-top: 90px;
+        h1 {
+            margin-bottom: 29px;
+        }
+        .showroom__wrapper-holder {
+            .row {
+                &:not(:last-child) {
+                    border-bottom: 1px solid #e3e3e3;
+                }
+                .showroom {
+                    width: 25%;
+                    border-right: 1px solid #e3e3e3;
+                    padding: 0 19px 40px;
+                    &:nth-child(4n) {
+                        border: none;
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+//
+//  Mobile +
+//  --------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .showroom__wrapper {
+        margin-top: 0;
+        h1 {
+            display: none;
+        }
+        .showroom__wrapper-holder {
+            .row {
+                flex-direction: column;
+                &:not(:last-child) {
+                    border-bottom: 1px solid #e3e3e3;
+                }
+                .showroom {
+                    width: 100%;
+                    border-bottom: 1px solid #e3e3e3;
+                    padding: 30px 0;
+                    margin-bottom: 0;
+                    a {
+                        text-decoration: none;
+                    }
+                    &:last-child {
+                        border-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}

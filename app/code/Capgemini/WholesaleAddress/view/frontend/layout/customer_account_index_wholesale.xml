@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_WholesaleAddress
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_dashboard_address" remove="true" />
+    </body>
+</page>

@@ -1,0 +1,99 @@
+<?php
+/**
+ * @category    Capgemini
+ * @package     Capgemini_DataLayer
+ */
+?>
+<?php
+/** @var \Capgemini\DataLayer\Block\DataLayer $block */
+?>
+
+<script type='text/javascript'>
+    window._gtmPageType = '<?= $block->escapeJs($block->getPageType()); ?>';
+    require([
+        'jquery',
+        'md5'
+    ], function ($, md5) {
+
+        $( document ).ready(function() {
+            window.dataLayer = window.dataLayer || [];
+
+            $('#search').on('keyup',function(e) {
+                if (e.which == 13) {
+                    window.dataLayer.push({
+                        'event': 'siteSearch',
+                        'siteSearchTerm': $('#search').val()
+                    });
+                }
+            });
+
+            var pageData = JSON.parse('<?= $block->getEmailSubscriptionData() ?>');
+
+            $('#newsletter-validate-detail > div.actions > button').on('click',function(e) {
+                var emailAddress = $.trim($('#newsletter-validate-detail input[name=email]').val());
+                if (emailAddress) {
+                    window.dataLayer.push({
+                        'event': 'emailSubmit',
+                        'userEmail': emailAddress,
+                        'hashedEmail': md5(emailAddress),
+                        'submitLocation': pageData['submitLocation']
+                    });
+                }
+            });
+
+            $('.ammenu-link').on('mouseover',function(e) {
+
+                e.stopPropagation();
+                e.preventDefault();
+
+                window.dataLayer.push({
+                    'event': 'navHover',
+                    'eCategory':'Navigation',
+                    'eAction':'Hovers over Main Level',
+                    'eLabel': $(this).text()
+                });
+            });
+
+            $('li.ammenu-wrapper.category-item > a > span').on('click',function(e) {
+
+                window.dataLayer.push({
+                    'event': 'navClick',
+                    'eCategory':'Navigation',
+                    'eAction':'Clicks Submenu',
+                    'eLabel': $(this).closest('.-main').find('a.-parent').text().trim() + ' > ' + $(this).text().trim()
+                });
+            });
+
+            $('form.am-ranges > ol > li > a').on('click',function(e) {
+                var filterValue = this.innerText;
+                var filterName  = $(this).parents().find('.filter-options-item.allow.active').children()[0].innerText;
+                dataLayer.push({
+                    'event': 'filterOrSort',
+                    'eAction': 'Filter by ' + filterName,
+                    'eLabel':  filterValue
+                })
+            });
+
+            $('#sorter').on('click',function(e) {
+                var sortBy = $("#sorter option:selected" ).text().trim();
+                dataLayer.push({
+                    'event': 'filterOrSort',
+                    'eAction': 'Sort by ',
+                    'eLabel': sortBy
+                })
+            });
+
+            $('.am-filter-go').on('click',function(e) {
+                var fromPrice = $('.am-filter-price.-from').val();
+                var toPrice = $('.am-filter-price.-to').val();
+                dataLayer.push({
+                    'event': 'filterOrSort',
+                    'eAction': 'Filter by Price',
+                    'eLabel': 'From ' + fromPrice + ' to ' + toPrice
+                })
+            });
+
+        });
+    });
+
+</script>

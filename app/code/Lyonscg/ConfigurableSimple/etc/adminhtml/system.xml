@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="lyonscg" translate="label" sortOrder="150">
+            <label>Lyonscg</label>
+        </tab>
+        <section id="lyonscg_configurablesimple" translate="label" type="text" sortOrder="10" showInDefault="1">
+            <label>Configurable / Simple Product Settings</label>
+            <tab>lyonscg</tab>
+            <resource>Lyonscg_ConfigurableSimple::settings</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1">
+                <label>General Settings</label>
+                <field id="override_attributes" translate="label" type="multiselect" sortOrder="10" showInDefault="1">
+                    <label>Simple Product Attributes to Show on Configurable</label>
+                    <source_model>Lyonscg\ConfigurableSimple\Model\Config\Source\SimpleAttribute</source_model>
+                </field>
+                <field id="specification_attributes" translate="label" type="text" sortOrder="30" showInDefault="1">
+                    <label>Specification Attributes</label>
+                    <comment>CSV list of the specification attributes</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

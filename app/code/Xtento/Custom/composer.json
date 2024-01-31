@@ -1,0 +1,22 @@
+{
+    "name": "xtento/module-custom",
+    "description": "",
+    "type": "magento2-module",
+    "license": "proprietary",
+    "authors": [
+        {
+            "email": "info@xtento.com",
+            "name": "XTENTO"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Xtento\\Custom\\": ""
+        }
+    }
+}

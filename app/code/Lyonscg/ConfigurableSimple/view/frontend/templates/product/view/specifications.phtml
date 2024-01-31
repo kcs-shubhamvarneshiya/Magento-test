@@ -1,0 +1,29 @@
+<?php
+/** @var \Lyonscg\ConfigurableSimple\Block\Specifications $block */
+/** @var \Lyonscg\ConfigurableSimple\Helper\Output $_helper */
+$_helper = $this->helper(\Lyonscg\ConfigurableSimple\Helper\Output::class);
+$baseChildProduct = $block->getBaseChildProduct();
+$additionalData = $_helper->getAdditionalData($baseChildProduct);
+?>
+<?php if (!empty($additionalData)): ?>
+<div id="product-specifications" class="block">
+    <div class="block-title title">
+        <strong id="product-specifications-heading" role="heading"><?= __('Specifications'); ?></strong>
+    </div>
+    <table class="data-table product-attribute-specs-table">
+        <col width="25%"/>
+        <col/>
+        <tbody>
+        <?php foreach ($additionalData as $data): ?>
+            <tr>
+                <td class="data <?= $data['code'] ?>"><?= $data['value'] ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <a class="specs-link" href="#sticky-tabs"><?= __('Additional Specifications'); ?></a>
+</div>
+<script type="text/javascript">
+    window.specificationsData = <?= $block->getSpecificationsDataJson(); ?>;
+</script>
+<?php endif; ?>

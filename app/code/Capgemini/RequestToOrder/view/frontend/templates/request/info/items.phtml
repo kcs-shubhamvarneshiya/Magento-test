@@ -1,0 +1,79 @@
+<?php
+/** @var Items $block */
+
+/** @var Escaper $escaper */
+
+use Capgemini\RequestToOrder\Block\Request\Items;
+use Magento\Framework\Escaper;
+
+$priceHelper = $this->helper(Magento\Framework\Pricing\Helper\Data::class);
+
+?>
+
+<?php $items = $block->getRequestItems() ?>
+<?php $isQtyEditable = $block->isQtyEditable() ?>
+<?php $canRemoveItem = $block->isCanRemove() ?>
+
+<?php foreach ($items as $item) : ?>
+    <?php $product = $item->getProduct(); ?>
+    <tr class="item-info">
+        <td data-th="<?= $block->escapeHtml(__('Product')) ?>" class="col product">
+            <div class="product-image">
+                <img src="<?= $item->getImageUrl() ?>"/>
+            </div>
+        </td>
+        <td data-th="<?= $block->escapeHtml(__('Attributes')) ?>" class="col attributes">
+            <p class="mob-prod-name"><?= $product->getName(); ?> </p>
+            <p class="mob"><?= $block->escapeHtml(__('Designer')) ?> | <?= $product->getAttributeText('designer') ?></p>
+            <p class="ore-item-number"><span class="item-num-label"><?= $block->escapeHtml(__('Item #')) ?></span> : <?= $item->getSku() ?></p>
+            <p class="mob-p-available"><span class="availability-label"><?= $block->escapeHtml(__('Availability')) ?></span> : <span class="mob-ore-availability"><?= $product->getAvailabilityMessage() ?></span></p>
+            <div class="mobile-ore-viewport">
+                <div class="mob-ore-price">
+                    <span class="ore-price-label"><?= $block->escapeHtml(__('Price')) ?></span>
+                    <span class="price-value"><?= $priceHelper->currency($item->getPrice(), true, false) ?></span>
+                </div>
+                <?php if ($isQtyEditable) : ?>
+                    <div class="mob-ore-qty">
+                        <span class="qty-label"><?= $block->escapeHtml(__('Qty')) ?></span>
+                        <input type="number" product_id="<?= $product->getId() ?>" name="hold-qty" value="<?= $item->getQty() ?>" class="input-text qty"></span>
+                    </div>
+                 <?php elseif (!$isQtyEditable) : ?>
+                    <div class="mob-ore-qty">
+                        <span class="qty-label"><?= $block->escapeHtml(__('Qty')) ?></span>
+                        <span class="qty-value"><?= $item->getQty() ?></span>
+                    </div>
+                <?php endif;?>
+                <div class="mob-ore-subtotal">
+                    <span class="subtotal-label"><?= $block->escapeHtml(__('Subtotal')) ?></span>
+                    <span class="subtotal-value"><?= $priceHelper->currency($item->getPrice() * $item->getQty(), true, false) ?></span>
+                </div>
+            </div>
+            <?php if ($canRemoveItem) : ?>
+                <p class="mob-ore-remove-item"><a class="item-remove" href="<?= $block->getRemoveUrl($item) ?>">Remove</a></p>
+            <?php endif ?>
+        </td>
+        <td data-th="<?= $block->escapeHtml(__('Price')) ?>"
+            class="col price"><?= $priceHelper->currency($item->getPrice(), true, false) ?></td>
+
+        <td data-th="<?= $block->escapeHtml(__('Qty')) ?>" class="col qty">
+            <?php if ($isQtyEditable) : ?>
+                <input type="number" id="desk-prod-<?= $item->getId() ?>" name="qty" data-itemid="<?= $item->getId() ?>" value="<?= $item->getQty() ?>" class="input-text qty">
+            <?php else : ?>
+                <?= $item->getQty() ?>
+            <?php endif ?>
+        </td>
+
+        <td data-th="<?= $block->escapeHtml(__('Subtotal')) ?>" id="order-request-<?= $item->getId() ?>"
+            class="col subtotal"><span><?= $priceHelper->currency($item->getPrice() * $item->getQty(), true, false) ?></span></td>
+
+    </tr>
+<?php endforeach; ?>
+<script>
+    require(['jquery'], function ($) {
+        $(document).ready(function () {
+            $('.qty').on("wheel", function (e) {
+                $(this).blur();
+            });
+        });
+    });
+</script>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="search_result_list">
+            <block class="Capgemini\Configurable\Block\Configurable\Children" name="configurable.children.options"
+                template="Capgemini_Configurable::configurable/children.phtml"
+                   ifconfig="capgemini_configurable/general/enable_catalog_search">
+                <block class="Capgemini\Configurable\Block\Configurable\Child" name="configurable.children.options.child"
+                    template="Capgemini_Configurable::configurable/child.phtml">
+                    <action method="setIsClpSearch">
+                        <argument name="is_clp_search" xsi:type="boolean">true</argument>
+                    </action>
+                    <arguments>
+                        <argument name="is_product_listing" xsi:type="boolean">true</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" name="configurable.children.options.js"
+                template="Capgemini_Configurable::configurable/js/clp.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

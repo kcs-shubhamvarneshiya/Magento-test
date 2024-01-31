@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Lyonscg
+ * @package     Lyonscg_Logger
+ * @copyright   Copyright (c) 2021 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Tanya Mamchik <tanya.mamchik@capgemini.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="lyonscg_logger" translate="label" type="text" sortOrder="140" showInDefault="1">
+            <label>Logger config</label>
+            <tab>lyonscg</tab>
+            <resource>Lyonscg_Logger::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1">
+                <label>General Settings</label>
+                <field id="debug_enabled" translate="label" type="select" sortOrder="10" showInDefault="1">
+                    <label>Debug Log Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>When in Production mode this setting is always cast to YES</comment>
+                </field>
+                <field id="info_enabled" translate="label" type="select" sortOrder="20" showInDefault="1">
+                    <label>Info Log Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="notice_enabled" translate="label" type="select" sortOrder="30" showInDefault="1">
+                    <label>Notice Log Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="warning_enabled" translate="label" type="select" sortOrder="40" showInDefault="1">
+                    <label>Warning Log Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="error_enabled" translate="label" type="select" sortOrder="50" showInDefault="1">
+                    <label>Error Log Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="critical_enabled" translate="label" type="select" sortOrder="60" showInDefault="1">
+                    <label>Critical Log Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="alert_enabled" translate="label" type="select" sortOrder="70" showInDefault="1">
+                    <label>Alert Log Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="energency_enabled" translate="label" type="select" sortOrder="80" showInDefault="1">
+                    <label>Emergency Log Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

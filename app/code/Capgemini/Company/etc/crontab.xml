@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job instance="Capgemini\Company\Cron\TempFilesCleanup" method="execute" name="capgemini_company_temp_files_cleanup">
+            <config_path>company/general/tmp_files_cleanup_schedule</config_path>
+        </job>
+    </group>
+</config>

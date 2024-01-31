@@ -1,0 +1,27 @@
+<?php
+/** @var $block \Capgemini\Configurable\Block\Configurable\Children */
+?>
+<?php if ($block->isConfigurable()): ?>
+    <?php
+    /** @var \Capgemini\Configurable\Block\Configurable\Child $childBlock */
+    $childBlock = $block->getChildBlock('configurable.children.options.child');
+    $configurableChildren = $block->getConfigurableChildren();
+    ?>
+    <?php if ($childBlock && !empty($configurableChildren)): ?>
+    <div class="product-item-variation-carousel-wrapper">
+        <span class="swatch-attribute-label">
+            <?= $block->escapeHtml(__('Option:'))?> <span class="selected-option-label" id="selected-option-label"></span>
+        </span>
+        <div class="variation-carousel owl-carousel">
+        <?php foreach ($configurableChildren as $childProductData): ?>
+            <?php $childProduct = $childProductData['product']; ?>
+            <?= $childBlock->setChildProduct($childProduct)
+                           ->setData('is_active', $childProductData['is_active'])
+                           ->setData('attribute_list', $childProductData['attributes'])
+                           ->toHtml() ?>
+        <?php endforeach; ?>
+        </div>
+    </div>
+    <?= $block->getChildHtml('configurable.children.options.js') ?>
+    <?php endif; /* if ($childBlock) */ ?>
+<?php endif; /* if ($block->isConfigurable()) */ ?>

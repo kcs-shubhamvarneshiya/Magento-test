@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Lyonscg\SalesPad\Api\Data\CustomerSyncInterface" type="Lyonscg\SalesPad\Model\Sync\Customer"/>
+    <preference for="Lyonscg\SalesPad\Api\Data\OrderSyncInterface" type="Lyonscg\SalesPad\Model\Sync\Order"/>
+    <preference for="Lyonscg\SalesPad\Api\SyncRepositoryInterface" type="Lyonscg\SalesPad\Model\SyncRepository"/>
+    <preference for="Lyonscg\SalesPad\Api\DeletedQuoteRepositoryInterface" type="Lyonscg\SalesPad\Model\DeletedQuoteRepository"/>
+    <preference for="Lyonscg\SalesPad\Api\Data\DeletedQuoteInterface" type="Lyonscg\SalesPad\Model\DeletedQuote"/>
+    <preference for="Lyonscg\SalesPad\Api\Data\CustomerLinkInterface" type="Lyonscg\SalesPad\Model\CustomerLink"/>
+    <preference for="Lyonscg\SalesPad\Api\CustomerLinkRepositoryInterface" type="Lyonscg\SalesPad\Model\CustomerLinkRepository"/>
+    <preference for="Lyonscg\SalesPad\Api\Data\Api\ErrorLogInterface" type="Lyonscg\SalesPad\Model\Api\ErrorLog"/>
+    <preference for="Lyonscg\SalesPad\Api\ErrorLogRepositoryInterface" type="Lyonscg\SalesPad\Model\Api\ErrorLogRepository"/>
+    <preference for="Lyonscg\SalesPad\Api\Data\QuoteSyncInterface" type="Lyonscg\SalesPad\Model\Sync\Quote" />
+    <virtualType name="Lyonscg\SalesPad\Model\Api\VirtualDebug" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">/var/log/salespad.log</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Lyonscg\SalesPad\Model\Api\VirtualLogger" type="Lyonscg\Logger\Logger\Framework\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Lyonscg\SalesPad\Model\Api\VirtualDebug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Lyonscg\SalesPad\Model\Api\Logger">
+        <arguments>
+            <argument name="logger" xsi:type="object">Lyonscg\SalesPad\Model\Api\VirtualLogger</argument>
+        </arguments>
+    </type>
+    <virtualType name="Lyonscg\SalesPad\Model\VirtualContext" type="Magento\Framework\Model\Context">
+        <arguments>
+            <argument name="logger" xsi:type="object">Lyonscg\SalesPad\Model\Api\VirtualLogger</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="SalesPadCustomerNumHandler" type="Lyonscg\SalesPad\Indexer\Handler\SalesPadCustomerNumHandler"/>
+
+    <!-- change logging to use salespad.log -->
+    <type name="Lyonscg\SalesPad\Model\Sync\Customer">
+        <arguments>
+            <argument name="context" xsi:type="object">Lyonscg\SalesPad\Model\VirtualContext</argument>
+        </arguments>
+    </type>
+    <type name="Lyonscg\SalesPad\Model\Sync\Order">
+        <arguments>
+            <argument name="context" xsi:type="object">Lyonscg\SalesPad\Model\VirtualContext</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandListInterface">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="salesPadRunApi" xsi:type="object">Lyonscg\SalesPad\Console\Command\RunApi</item>
+                <item name="salesPadGenerateDocs" xsi:type="object">Lyonscg\SalesPad\Console\Command\GenerateDocumentation</item>
+                <item name="salesPadRemoveDuplicates" xsi:type="object">Lyonscg\SalesPad\Console\Command\RemoveDuplicates</item>
+                <item name="salesPadCorrectCustomerLinks" xsi:type="object">Lyonscg\SalesPad\Console\Command\CorrectCustomerLinks</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="SalespadOrderRepositoryPlugin"
+                type="Lyonscg\SalesPad\Plugin\OrderRepositoryPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="SalespadCartRepositoryPlugin"
+            type="Lyonscg\SalesPad\Plugin\CartRepositoryPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Address">
+        <plugin name="SalespadOrderAddressPlugin"
+                type="Lyonscg\SalesPad\Plugin\OrderAddressPlugin"/>
+    </type>
+    <type name="Magento\RequisitionList\Api\RequisitionListRepositoryInterface">
+        <plugin name="SalespadRequisitionListRepositoryPlugin"
+                type="Lyonscg\SalesPad\Plugin\RequisitionListRepositoryPlugin"/>
+    </type>
+    <type name="Magento\RequisitionList\Model\RequisitionList\Items">
+        <plugin name="SalespadRequisitionListItemRepositoryPlugin"
+            type="Lyonscg\SalesPad\Plugin\RequisitionListItemRepositoryPlugin"/>
+    </type>
+    <type name="Magento\Customer\Api\CustomerRepositoryInterface">
+        <plugin name="SalespadUpdateCustomerNumFromCompany"
+            type="Lyonscg\SalesPad\Plugin\CustomerRepositoryPlugin"/>
+    </type>
+    <type name="Magento\Company\Api\CompanyRepositoryInterface">
+        <plugin name="SalespadAddCustomerNumExtension"
+            type="Lyonscg\SalesPad\Plugin\CompanyRepositoryPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="salespad_order_sync_listing_data_source"
+                    xsi:type="string">Lyonscg\SalesPad\Model\ResourceModel\Sync\Order\Grid\Collection</item>
+                <item name="salespad_quote_sync_listing_data_source"
+                    xsi:type="string">Lyonscg\SalesPad\Model\ResourceModel\Sync\Quote\Grid\Collection</item>
+                <item name="salespad_customer_sync_listing_data_source"
+                    xsi:type="string">Lyonscg\SalesPad\Model\ResourceModel\Sync\Customer\Grid\Collection</item>
+                <item name="salespad_errorlog_listing_data_source"
+                    xsi:type="string">Lyonscg\SalesPad\Model\ResourceModel\Api\ErrorLog\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Lyonscg\SalesPad\Model\ResourceModel\Sync\Order\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">salespad_order_sync</argument>
+            <argument name="eventPrefix" xsi:type="string">salespad_order_sync_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">order_sync_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Lyonscg\SalesPad\Model\ResourceModel\Sync\Order</argument>
+        </arguments>
+    </type>
+
+    <type name="Lyonscg\SalesPad\Model\ResourceModel\Sync\Quote\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">salespad_quote_sync</argument>
+            <argument name="eventPrefix" xsi:type="string">salespad_quote_sync_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">quote_sync_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Lyonscg\SalesPad\Model\ResourceModel\Sync\Quote</argument>
+        </arguments>
+    </type>
+
+    <type name="Lyonscg\SalesPad\Model\ResourceModel\Sync\Customer\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">salespad_customer_sync</argument>
+            <argument name="eventPrefix" xsi:type="string">salespad_customer_sync_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">customer_sync_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Lyonscg\SalesPad\Model\ResourceModel\Sync\Customer</argument>
+        </arguments>
+    </type>
+    <type name="Lyonscg\SalesPad\Model\ResourceModel\Api\ErrorLog\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">salespad_api_errors</argument>
+            <argument name="eventPrefix" xsi:type="string">salespad_errorlog_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">errorlog_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Lyonscg\SalesPad\Model\ResourceModel\Api\ErrorLog</argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Sales\Model\ResourceModel\Order\Grid">
+        <arguments>
+            <argument name="columns" xsi:type="array">
+                <item name="salespad_sales_doc_num" xsi:type="string">sales_order.salespad_sales_doc_num</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- CLMI-807 - replace the default sender with ours -->
+    <virtualType name="SalesOrderSendEmails" type="Lyonscg\SalesPad\Model\EmailSenderHandler">
+        <arguments>
+            <argument name="emailSender" xsi:type="object">Magento\Sales\Model\Order\Email\Sender\OrderSender</argument>
+            <argument name="entityResource" xsi:type="object">Magento\Sales\Model\ResourceModel\Order</argument>
+            <argument name="entityCollection" xsi:type="object" shared="false">Magento\Sales\Model\ResourceModel\Order\Collection</argument>
+            <argument name="identityContainer" xsi:type="object" shared="false">Magento\Sales\Model\Order\Email\Container\OrderIdentity</argument>
+        </arguments>
+    </virtualType>
+    <type name="Lyonscg\SalesPad\Model\Sync\AbstractSync">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="status" xsi:type="const">Lyonscg\SalesPad\Api\Data\AbstractSyncInterface::STATUS_PENDING</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_save_commit_after">
+        <observer name="create_customer_sync_entry" instance="Lyonscg\SalesPad\Observer\CustomerSaveCommitAfter"/>
+    </event>
+    <event name="sales_order_save_commit_after">
+        <!-- cannot use sales_order_place_after since the order hasn't been saved in the DB yet -->
+        <observer name="create_order_sync_entry" instance="Lyonscg\SalesPad\Observer\SalesOrderSaveCommitAfter"/>
+    </event>
+    <event name="sales_order_address_collection_load_after">
+        <observer name="load_order_address_salespad_ext_attributes" instance="Lyonscg\SalesPad\Observer\OrderAddressCollectionLoadAfter"/>
+    </event>
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="lyonscg_salespad_sales_model_service_quote_submit_before" instance="Lyonscg\SalesPad\Observer\QuoteSubmitBefore"/>
+    </event>
+</config>

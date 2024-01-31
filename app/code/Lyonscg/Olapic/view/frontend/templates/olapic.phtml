@@ -1,0 +1,30 @@
+<?php
+/** @var \Lyonscg\Olapic\Block\Olapic $block */
+$_product = $block->getProduct();
+if (!$_product->getIsArchitechData()) {
+?>
+<div class="olapic olapic-container">
+    <div class="images">
+        <div class="tag">#visualcomfort</div>
+
+        <div class="olapic-wrapper">
+            <div class="olapic-btn-prev hidden-mobile"></div>
+
+            <div id="olapic_specific_widget"></div>
+            <script type="text/javascript"
+                    src="<?= $block->getScriptUrl(); ?>"
+                    data-olapic="olapic_specific_widget"
+                    data-instance="<?= $block->getInstance(); ?>"
+                    data-apikey="<?= $block->getApikey(); ?>"
+                    data-tags="<?= strtolower($block->getTags()); ?>"
+                    async="async"></script>
+
+            <div class="olapic-btn-next hidden-mobile"></div>
+        </div>
+    </div>
+
+    <div class="social hidden-desktop" style="display: none;">
+        <?= $block->getSocialLinksHtml(); ?>
+    </div>
+</div>
+<?php } ?>

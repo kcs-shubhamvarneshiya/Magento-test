@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="controller_front_send_response_before">
+        <observer name="observe_sessid_cookie_presence" instance="Capgemini\DataLayer\Observer\Sessid\ObserveSessid"/>
+    </event>
+    <event name="customer_login">
+        <observer name="login_unset_sessid_control_cookie" instance="Capgemini\DataLayer\Observer\Sessid\Login"/>
+    </event>
+    <event name="customer_logout">
+        <observer name="logout_unset_sessid_control_cookie" instance="Capgemini\DataLayer\Observer\Sessid\Logout"/>
+    </event>
+</config>

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <type name="Capgemini\Payfabric\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Capgemini\Payfabric\Logger\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">CapgeminiLogger</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="exception" xsi:type="object">Capgemini\Payfabric\Logger\Handler</item>
+                <item name="system" xsi:type="object">Capgemini\Payfabric\Logger\Handler</item>
+                <item name="debug" xsi:type="object">Capgemini\Payfabric\Logger\Handler</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\ReCaptchaValidation\Model\Validator">
+        <plugin
+            name="capgemeni_payfabric_request_validation_register"
+            type="Capgemini\Payfabric\Plugin\RegisterRequest"
+        />
+    </type>
+</config>

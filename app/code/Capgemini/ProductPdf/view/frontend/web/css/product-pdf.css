@@ -1,0 +1,146 @@
+/* Styles for the product PDF*/
+
+@page {
+    margin-top: 25px;
+    margin-bottom: 0;
+}
+
+body {
+    box-sizing: border-box;
+    font-family: "proxima-nova", sans-serif;
+    color: #454545;
+    font-size: 12px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #e3e3e3;
+}
+
+p {
+    margin: 0;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.page-logo {
+    font-family: 'goudy-old-style', serif;
+    font-size: 32px;
+    margin-bottom: 25px;
+}
+
+.name, .section-title {
+    font-family: 'goudy-old-style', serif;
+    font-size: 24px;
+}
+
+.name {
+    margin: 10px 0 10px 0;
+}
+
+.designer, .brand {
+    text-transform: uppercase;
+    color: #717171;
+}
+
+.sku {
+    margin: 20px 0 20px 0;
+}
+
+.block-title {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.specifications .option {
+    margin: 2px 0 2px 0;
+}
+
+.options p {
+    margin-top: 10px;
+}
+
+.options p span{
+    font-size: 14px;
+}
+
+.options .label{
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.price {
+    font-family: 'goudy-old-style', serif;
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 20px;
+}
+
+.info-block {
+    margin-bottom: 25px;
+}
+
+.section-title {
+    margin: 15px 0 10px 0;
+}
+
+.dimensions, .placeholder {
+    margin: 15px 0 15px;
+}
+
+table.options {
+    width: 100%;
+}
+
+table.options thead tr th {
+    border-bottom: 1px solid #e3e3e3;
+    font-size: 14px;
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+table.options tbody tr td {
+    padding-top: 5px;
+}
+
+table.options {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+table.options tr td, table.options tr th{
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+table.options td.label {
+    width: 30%;
+    font-weight: normal;
+}
+
+.gallery .page-logo {
+    display: block;
+    margin-bottom: 50px;
+}
+
+.gallery-image {
+    width: 40%;
+    display: inline-block;
+    margin: 20px 35px 0 35px;
+}
+
+.rating-item {
+    display: inline-block;
+    margin: 10px 20px 0 0;
+    text-align: center;
+}

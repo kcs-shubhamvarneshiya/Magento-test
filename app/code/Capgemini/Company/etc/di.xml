@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Capgemini\Company\Api\Data\CompanyDocumentInterface" type="Capgemini\Company\Model\Company\Document"/>
+    <preference for="Capgemini\Company\Api\CompanyDocumentRepositoryInterface" type="Capgemini\Company\Model\Company\DocumentRepository"/>
+    <preference for="Magento\Company\Model\Email\Sender" type="Capgemini\Company\Model\Company\Email\Sender"/>
+    <type name="Magento\Company\Model\Action\Customer\Assign">
+        <plugin name="CapgeminiCompanyBeforeAssignRole" type="Capgemini\Company\Plugin\Customer\RoleAssignPlugin"/>
+    </type>
+    <type name="Magento\Company\Model\ResourceModel\Company\Collection">
+        <plugin name="AddSalesPadCustomerNum" type="Capgemini\Company\Plugin\Company\CollectionPlugin"/>
+    </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="migrate_trade_documents" xsi:type="object">Capgemini\Company\Console\Command\MigrateDocs</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Capgemini\Company\Console\Command\MigrateDocs">
+        <arguments>
+            <argument name="name" xsi:type="string">circa:tradedocs:migrate</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Company\Model\ResourceModel\Company">
+        <plugin name="conllections_prepare"
+                type="Capgemini\Company\Plugin\Company\ConllectionsPreparePlugin"/>
+    </type>
+</config>

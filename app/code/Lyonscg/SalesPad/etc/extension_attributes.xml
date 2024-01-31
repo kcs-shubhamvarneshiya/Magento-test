@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Api/etc/extension_attributes.xsd">
+    <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+        <attribute code="salespad_sales_doc_num" type="string"/>
+        <attribute code="sales_pad_customer_num" type="string"/>
+        <attribute code="salespad_quote_num" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Quote\Api\Data\CartInterface">
+        <attribute code="salespad_quote_num" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\OrderItemInterface">
+        <attribute code="salespad_line_num" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\OrderAddressInterface">
+        <attribute code="salespad_address_code" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\RequisitionList\Api\Data\RequisitionListInterface">
+        <attribute code="salespad_sales_doc_num" type="string"/>
+        <attribute code="sales_pad_customer_num" type="string"/>
+        <attribute code="salespad_billing_address_code" type="string"/>
+        <attribute code="salespad_shipping_address_code" type="string"/>
+        <attribute code="store_id" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\RequisitionList\Api\Data\RequisitionListItemInterface">
+        <attribute code="salespad_sales_doc_num" type="string"/>
+        <attribute code="salespad_line_num" type="string"/>
+        <attribute code="salespad_component_seq_num" type="string"/>
+    </extension_attributes>
+    <!--
+    <extension_attributes for="Magento\Customer\Api\Data\AddressInterface">
+        <attribute code="salespad_address_code" type="string"/>
+    </extension_attributes>
+    -->
+    <extension_attributes for="Magento\Company\Api\Data\CompanyInterface">
+        <attribute code="sales_pad_customer_num" type="string"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Customer\Api\Data\CustomerInterface">
+        <attribute code="sales_pad_customer_num" type="string">
+            <join reference_table="salespad_customer_link" reference_field="customer_id" join_on_field="entity_id">
+                <field>sales_pad_customer_num</field>
+            </join>
+        </attribute>
+    </extension_attributes>
+</config>

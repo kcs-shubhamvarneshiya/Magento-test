@@ -1,0 +1,45 @@
+<?php if (($block->getCustomerType() == \Capgemini\CompanyType\Model\Config::WHOLESALE)||($block->isRestrictedGroup())): ?>
+<?php if (!$block->isRestrictedGroup()): ?>
+  <?= $block->getChildHtml('myaccount_downloads') ?>
+<?php else: ?>
+  <?= $block->getChildHtml('myaccount_downloads_price_list_catalogs') ?>
+<?php endif; ?>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var pdfSectionLinks = document.querySelectorAll('.pdf-section a');
+        
+        pdfSectionLinks.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                
+                var pdfUrl = this.href;
+                var modal = document.createElement('div');
+                modal.className = 'pdf-modal';
+                
+                var closeButton = document.createElement('button');
+                closeButton.className = 'pdf-close';
+                closeButton.innerHTML = 'X';
+                
+                closeButton.addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                });
+                
+                var pdfIframe = document.createElement('iframe');
+                pdfIframe.className = 'pdf-frame';
+                pdfIframe.src = pdfUrl;
+                pdfIframe.frameborder = '0';
+                pdfIframe.allowfullscreen = 'true';
+                
+                modal.appendChild(closeButton);
+                modal.appendChild(pdfIframe);
+                
+                modal.addEventListener('click', function() {
+                    document.body.removeChild(modal);
+                });
+                
+                document.body.appendChild(modal);
+            });
+        });
+    });
+</script>
+<?php endif; ?>

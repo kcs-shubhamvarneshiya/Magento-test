@@ -1,0 +1,17 @@
+{
+  "name": "capgemini/module-cms-lazy-load",
+  "version": "1.0.0",
+  "description": "Intercept pagebuilder content renders to add the loading='lazy' attribute to <img/> tags.  Include a system configuration at the website level to enable/disable this functionality",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "*"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Capgemini\\CmsLazyLoad\\": ""
+    }
+  }
+}

@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <bloomreach_thematic>
+            <sitemap>
+                <enabled>0</enabled>
+                <cron>30 3 * * *</cron>
+                <download_location_index>pub</download_location_index>
+                <download_location_maps>pub/shop</download_location_maps>
+                <append_to_robots>0</append_to_robots>
+            </sitemap>
+        </bloomreach_thematic>
+    </default>
+</config>

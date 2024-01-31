@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_RequisitionList
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Tanya Mamchik<tanya.mamchik@lyonscg.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="requisition_list">
+        <column xsi:type="varchar" name="po_number" nullable="true" length="40" comment="PO Number" />
+    </table>
+    <table name="requisition_list_item" resource="default" engine="innodb" comment="RequisitionList items">
+        <column xsi:type="text" name="sidemark" nullable="true"
+            comment="Requisition List Item Sidemark"/>
+        <column xsi:type="text" name="comments_line_item" nullable="true"
+            comment="Requisition LIst Item Comment"/>
+    </table>
+</schema>

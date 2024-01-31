@@ -1,0 +1,98 @@
+@all
+- use this tag to run all test cases
+
+@skip
+- use this tag to skip test cases during the execution
+
+@sanity
+- use this tag to run only sanity test cases
+
+@retail
+- use this tag to run only retail user related cases
+
+@wholesale
+- use this tag to run only wholesale user related cases
+
+@trade
+- use this tag to run only trade user related cases
+
+@user
+- use this tag to run only guest user related cases
+
+@eu
+- use this tag to run only EU country related cases
+
+@uk
+- use this tag to run only UK country related cases
+
+@us
+- use this tag to run only US country related cases
+
+@homePage
+- use this tag to run only home page cases
+
+@login
+- use this tag to run only login related cases
+
+@createNewAccount
+- use this tag to run only create new account related cases
+
+@paymentMethods
+- use this tag to run only payment methods related cases
+
+@shippingPage
+- use this tag to run only shipping page related cases
+
+@profileOptions
+- use this tag to run only profile options related cases
+
+@searchResults
+- use this tag to run only search results related cases
+
+@productListPage
+- use this tag to run only product list page related cases
+
+@productDescriptionPage
+- use this tag to run only product description page related cases
+
+@shoppingCartPage
+- use this tag to run only shopping cart page related cases
+
+@miniCart
+- use this tag to run only mini cart related cases
+
+@invoicesPage
+- use this tag to run only invoices page related cases
+
+@ordersPage
+- use this tag to run only orders page related cases
+
+@creditMemosPage
+- use this tag to run only credit memos page related cases
+
+@accountPage
+- use this tag to run only account page related cases
+
+@projectsPage
+- use this tag to run only projects page related cases
+
+@inventoryPage
+- use this tag to run only inventory page related cases
+
+@paymentsPage
+- use this tag to run only payments page related cases
+
+@footer
+- use this tag to run only footer section related cases
+
+@requestToOrderPage
+- use this tag to run only request to order page related cases
+
+@companyUsersPage
+- use this tag to run only company users page related cases
+
+@checkoutSuccessPage
+- use this tag to run only checkout success page related cases
+
+@checkoutPaymentPage
+- use this tag to run only checkout payment page related cases

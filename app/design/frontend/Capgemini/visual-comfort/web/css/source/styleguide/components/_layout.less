@@ -1,0 +1,378 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    #sg-container {
+        display: flex;
+        margin-top: 50px;
+        flex-direction: column;
+
+        .section:not(.buttons) {
+            background: @color-transparent;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-top: 0;
+            padding-bottom: 0;
+            padding-top: 0;
+            // 1 column containers
+            & > div {
+                display: flex;
+                flex-basis: 100%;
+                flex-direction: row;
+                flex-grow: 1;
+                flex-shrink: 0;
+                flex-wrap: wrap;
+                margin-bottom: 20px;
+                max-width: 100%;
+
+                // 3-column inner content
+                & > * {
+                    flex-grow: 1;
+                    flex-shrink: 1;
+                    flex-basis: 30%;
+                }
+
+                code {
+                    margin: 0 10px;
+                    padding: 10px;
+                }
+            }
+
+            &.quarter {
+                & > div {
+                    flex-basis: 25%;
+                    max-width: 25%;
+                }
+            }
+
+            &.palette,
+            &.shadows {
+                & > div {
+                    flex-basis: 18%;
+                    margin: 0 1% 10px;
+                    max-width: 18%;
+                    text-align: center;
+
+                    & > * {
+                        flex-basis: 100%;
+                    }
+
+                    code {
+                        background: @color-transparent;
+                        margin: 0;
+                    }
+                }
+
+                .title {
+                    display: block;
+                    font-weight: bold;
+                }
+
+                .color {
+                    border-radius: 10px;
+                    height: 200px;
+                    margin: 0 auto 20px;
+                    position: relative;
+                    width: 200px;
+
+                    &::before {
+                        color: @color-white;
+                        left: 50%;
+                        position: absolute;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+
+                    &.invert {
+                        border: 1px solid @color-black;
+
+                        &::before {
+                            color: @color-black;
+                        }
+                    }
+                }
+            }
+
+            &.iconography {
+                & > div {
+                    flex-basis: 18%;
+                    margin: 0 1% 10px;
+                    max-width: 18%;
+                    text-align: center;
+
+                    & > * {
+                        flex-basis: 100%;
+                    }
+
+                    code {
+                        background: @color-transparent;
+                        margin: 0;
+                    }
+                }
+            }
+
+            // Style Guide Form Examples
+            &.form {
+                margin-bottom: 0;
+
+                & > div {
+                    flex-basis: 100%;
+                    max-width: 100%;
+
+                    & > * {
+                        flex-basis: 100%;
+                    }
+
+                    input[type="checkbox"],
+                    input[type="radio"] {
+                        max-width: 15px;
+                    }
+                }
+            }
+
+            &.select {
+                & > div {
+                    display: block;
+                }
+            }
+
+            &.logos {
+                display: block;
+            }
+        }
+    }
+
+    .section.buttons {
+        background: @color-transparent;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 0;
+        padding-bottom: 0;
+        padding-top: 0;
+        // 1 column containers
+        & > div {
+            display: flex;
+            flex-grow: 1;
+            flex-shrink: 0;
+            width: 100%;
+            align-items: center;
+            margin: 0 auto;
+
+            // 3-column inner content
+            & > * {
+                flex-grow: 1;
+                flex-shrink: 1;
+                flex-basis: 30%;
+            }
+
+            code {
+                margin: 0 10px;
+                padding: 10px;
+            }
+        }
+    }
+
+    .section-title {
+        background: @color-section-title-bg;
+        padding: 25px 30px;
+    }
+
+    .section-subtitle {
+        border-left: 3px solid #495056;
+        margin: 15px 0;
+        padding: 10px;
+    }
+
+    .code-example {
+        align-self: start;
+    }
+
+    h3,
+    h4 {
+        & + .usage {
+            margin-bottom: 20px;
+        }
+    }
+
+    h4 {
+        & + .usage {
+            margin-top: 0;
+        }
+    }
+
+    .usage {
+        .type-usage-text();
+        margin: 10px;
+
+        span {
+            .type-usage-title();
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    }
+
+    // Style guide color palettes
+    //.brand-palette {
+    //    & > div {
+    //        // Generates color palettes from the given list
+    //        .generate-palettes(@brand-colors);
+    //    }
+    //}
+    .accent-palette {
+        & > div {
+            // Generates color palettes from the given list
+            .generate-palettes(@accent-colors);
+        }
+    }
+
+    .ui-palette {
+        & > div {
+            // Generates color palettes from the given list
+            .generate-palettes(@ui-colors);
+        }
+    }
+
+    .gray-palette {
+        & > div {
+            // Generates color palettes from the given list
+            .generate-palettes(@gray-colors);
+        }
+    }
+
+    // Style Guide Border Examples
+    .borders {
+        & > div {
+            .example {
+                height: 20px;
+                width: 20px;
+            }
+        }
+    }
+
+    //Style Guide Breadcrumb Examples
+    .section.breadcrumbs {
+        padding: 0;
+        width: 100%;
+
+        & > div {
+            display: block;
+        }
+    }
+
+    // Style Guide Tab Examples
+    .section.tabs {
+        & > div {
+            display: block;
+        }
+    }
+
+    // Borders
+    .sg-border-success {
+        border-bottom: @border-success;
+        border-left: @border-success;
+    }
+
+    .sg-border-error {
+        border-bottom: @border-error;
+        border-left: @border-error;
+    }
+
+    .sg-border-warning {
+        border-bottom: @border-warning;
+        border-left: @border-warning;
+    }
+
+    .sg-border-content-1 {
+        border-bottom: @border-content-1;
+        border-left: @border-content-1;
+    }
+
+    .sg-border-content-2 {
+        border-bottom: @border-content-2;
+        border-left: @border-content-2;
+    }
+
+    //.sg-border-content-3 {
+    //	border-bottom: @border-content-3;
+    //	border-left: @border-content-3;
+    //}
+
+    .sg-border-form-default {
+        border-bottom: @border-form-default;
+        border-left: @border-form-default;
+    }
+
+    .sg-border-form-disabled {
+        border-bottom: @border-form-disabled;
+        border-left: @border-form-disabled;
+    }
+
+    .sg-border-form-focus {
+        border-bottom: @border-form-focus;
+        border-left: @border-form-focus;
+    }
+
+    //Style Guide Shadow Examples
+    .section.shadows {
+        & > div {
+            div {
+                height: 200px;
+                width: 200px;
+            }
+        }
+    }
+
+    // Style Guide Button Examples
+    .section.buttons {
+        & > div {
+            padding: 20px;
+        }
+    }
+
+    // Style Guide Gray Background
+    .gray-btn {
+        background: @color-gray-bg;
+    }
+
+    // Style Guide Typography Examples
+    .sg-font-title-bold {
+        //.type-font-libre-bold-example();
+    }
+
+    .sg-font-title {
+        //.type-font-reg-red-example();
+    }
+
+    // Style Guide Logos
+    .mobile-logo {
+        height: 40px;
+        width: 40px;
+    }
+
+    .hidden {
+        display: none;
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .hidden-mobile {
+        display: none;
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .hidden-desktop {
+        display: none;
+    }
+}

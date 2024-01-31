@@ -1,0 +1,172 @@
+<?php
+/** @var $block \Capgemini\OrderView\Block\RecentData */
+if ($block->getCustomerType() == \Capgemini\CompanyType\Model\Config::WHOLESALE) {
+    $customerNumber = $this->getRequest()->getParam('account_id') ?? $block->getCustomerVcNumber();
+} else {
+    $customerNumber = $block->getCustomerNumber();
+}
+$params = ($accountId=$block->getRequest()->getParam('account_id'))?['account_id'=>$accountId]:[];
+/**
+ * @var $invoices \Capgemini\OrderView\Model\InvoiceList
+ */
+$invoices = $block->getInvoiceSummary();
+/**
+ * @var $orders \Capgemini\OrderView\Model\OrderList
+ */
+
+$orders = $block->getOrderSummary();
+/**
+ * @var $creditmemos \Capgemini\OrderView\Model\CreditmemoList
+ */
+$creditmemos = $block->getCreditmemoSummary();
+
+?>
+<div class="order-list-main">
+    <h4 class="label"><?= $block->escapeHtml(__('Orders')) ?></h4>
+    <?php if ($orders && count($orders)): ?>
+    <div class="table-wrapper orders-history data-grid-wrap">
+
+        <table class="data-grid table table-order-items history">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Orders')) ?></caption>
+            <thead>
+            <th scope="col" class="data-grid-th col id"><?= $block->escapeHtml(__('Order No')) ?></th>
+            <th scope="col" class="data-grid-th col purchase"><?= $block->escapeHtml(__('Purchase Order')) ?></th>
+            <th scope="col" class="data-grid-th col date"><?= $block->escapeHtml(__('Order Date')) ?></th>
+            <th scope="col" class="data-grid-th col total"><?= $block->escapeHtml(__('Status')) ?></th>
+            <th scope="col" class="data-grid-th col total"><?= $block->escapeHtml(__('Action')) ?></th>
+            </thead>
+            <tbody>
+            <?php foreach ($orders as $order): ?>
+                <tr class="order-row data-row">
+                    <td class="col id">
+                        <span>
+                            <?= $order['id'] ?>
+                        </span>
+
+                    </td>
+                    <td class="col id">
+                        <span>
+                            <?= $order['purchase_order'] ?>
+                        </span>
+                    </td>
+                    <td class="col date">
+                        <span>
+                            <?= $order['created_at'] ?>
+                        </span>
+                    </td>
+                    <td class="col shipping">
+                        <span>
+                            <?= $order['status'] ?>
+                        </span>
+                    </td>
+                    <td class="col actions data-grid-actions-cell">
+                        <span>
+                        <a href="<?= $block->getUrl('orderview/orders/view', ['id' => $order['id']]) ?>" class="view-action" target="_blank">
+                            <?= $block->escapeHtml(__('View Order')) ?>
+                        </a>
+                        </span>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <span class="view-all"> <a href="<?= $block->getUrl("orderview/orders/history",$params)?>" title="<?= __('View All')?>"><?= __('View All')?></a></span>
+    </div>
+<?php else: ?>
+    <div class="message info empty"><span><?= $block->escapeHtml(__('You have no orders.')) ?></span><span class="action close"></span></div>
+<?php endif; ?>
+</div>
+
+<div class="recent-invoice">
+    <h4 class="label"><?= $block->escapeHtml(__('Invoices')) ?></h4>
+    <?php if ($invoices && count($invoices)): ?>
+        <div class="table-wrapper orders-history data-grid-wrap">
+
+            <table class="data-grid table table-order-items history">
+                <caption class="table-caption"><?= $block->escapeHtml(__('Invoice')) ?></caption>
+                <thead>
+                <th scope="col" class="data-grid-th col id"><?= $block->escapeHtml(__('Invoice')) ?></th>
+                <th scope="col" class="data-grid-th col purchase"><?= $block->escapeHtml(__('Purchase Order')) ?></th>
+                <th scope="col" class="data-grid-th col date"><?= $block->escapeHtml(__('Invoice Date')) ?></th>
+                    <th scope="col" class="data-grid-th col total"><?= $block->escapeHtml(__('Invoice Due Date')) ?></th>
+                <th scope="col" class="data-grid-th col total"><?= $block->escapeHtml(__('Action')) ?></th>
+                </thead>
+                <tbody>
+                <?php foreach ($invoices as $invoice): ?>
+                    <tr class="order-row data-row">
+                        <td class="col id">
+                            <span><?= $invoice['id'] ?></span>
+                        </td>
+                        <td class="col id">
+                            <span><?= $invoice['purchase_invoice'] ?></span>
+                        </td>
+                        <td class="col date">
+                            <span><?= $invoice['created_at'] ?></span>
+                        </td>
+                        <td class="col shipping">
+                            <span><?= $invoice['due_date'] ?></span>
+                        </td>
+                        </td>
+                        <td class="col actions data-grid-actions-cell">
+                            <span>
+                            <a href="<?= $block->getUrl('orderview/invoices/view', ['id' => $invoice['id']]) ?>" class="view-action" target="_blank">
+                                <?= $block->escapeHtml(__('View Invoice')) ?>
+                            </a>
+                            </span>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <span class="view-all"> <a href="<?= $block->getUrl("orderview/invoices/history",$params)?>" title="<?= __('View All')?>"><?= __('View All')?></a></span>
+        </div>
+    <?php else: ?>
+            <div class="message info empty"><span><?= $block->escapeHtml(__('You have no invoices.')) ?></span><span class="action close"></span></div>
+    <?php endif; ?>
+</div>
+<div class="recent-credit-memo">
+    <h4 class="label"><?= $block->escapeHtml(__('Credit Memos')) ?></h4>
+    <?php if ($creditmemos && count($creditmemos)): ?>
+        <div class="table-wrapper orders-history data-grid-wrap">
+
+            <table class="data-grid table table-order-items history">
+                <caption class="table-caption"><?= $block->escapeHtml(__('Credit Memos')) ?></caption>
+                <thead>
+                <th scope="col" class="data-grid-th col id"><?= $block->escapeHtml(__('Credit Memos')) ?></th>
+                <th scope="col" class="data-grid-th col purchase"><?= $block->escapeHtml(__('Purchase Order')) ?></th>
+                <th scope="col" class="data-grid-th col date"><?= $block->escapeHtml(__('Credit Memos Date')) ?></th>
+                <th scope="col" class="data-grid-th col total"><?= $block->escapeHtml(__('Amount')) ?></th>
+                <th scope="col" class="data-grid-th col total"><?= $block->escapeHtml(__('Action')) ?></th>
+                </thead>
+                <tbody>
+                <?php foreach ($creditmemos as $creditmemo): ?>
+                    <tr class="order-row data-row">
+                        <td class="col id">
+                            <span><?= $creditmemo['id'] ?></span>
+                        </td>
+                        <td class="col id">
+                            <span><?= $creditmemo['purchase_order'] ?></span>
+                        </td>
+                        <td class="col date">
+                            <span><?= $creditmemo['created_at'] ?></span>
+                        </td>
+                        <td class="col shipping">
+                            <span><?= $block->getPrice($creditmemo['amount']) ?></span>
+                        </td>
+                        <td class="col actions data-grid-actions-cell">
+                            <span>
+                            <a href="<?= $block->getUrl('orderview/creditmemos/view', ['id' => $creditmemo['id']]) ?>" class="view-action" target="_blank">
+                                <?= $block->escapeHtml(__('View Credit Memo')) ?>
+                            </a>
+                            </span>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <span class="view-all"> <a href="<?= $block->getUrl("orderview/creditmemos/history",$params)?>" title="<?= __('View All')?>"><?= __('View All')?></a> </span>
+        </div>
+    <?php else: ?>
+        <div class="message info empty"><span><?= $block->escapeHtml(__('You have no credit memos.')) ?></span><span class="action close"></span></div>
+    <?php endif; ?>
+</div>

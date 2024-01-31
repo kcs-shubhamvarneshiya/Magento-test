@@ -1,0 +1,69 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Newsletter\Block\Subscribe $block */
+?>
+<?php
+    /** @var \Lyonscg\CircaLighting\ViewModel\WebsiteSwitcher $storeResolver */
+    $storeResolver = $block->getData('store_resolver');
+    $storeDataUsedInTemplate = $storeResolver ? $storeResolver->getStoreDataUsedInTemplate() : [];
+    $currentStoreCode = $storeResolver->getCurrentStoreCode();
+    $storeCode = $storeDataUsedInTemplate[$currentStoreCode]['uppercase'] ?? '';
+?>
+<div class="block newsletter">
+
+    <div class="title"><?= $block->escapeHtml(__('Stay In Touch')) ?></div>
+    <div class="content">
+        <div class="copy">
+            Get all of Visual Comfort's latest news and events delivered straight to your inbox.
+        </div>
+        <div class="signup-form">
+        <form class="form subscribe"
+            novalidate
+            action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+            method="post"
+            data-mage-init='{
+                "validation": {"errorClass": "mage-error"},
+                "Capgemini_ExponeaSubscription/js/onsubmit-subscription": {
+                    "emailInFormSelector": "#newsletter",
+                    "importSource": "Footer",
+                    "storeCode": "<?= $storeCode ?>",
+                    "successMessage": "<?= __('Thank you for your subscription.') ?>",
+                    "errorMessageTrack": "<?= __('Something went wrong when trying to subscribe. Please try again later.') ?>",
+                    "errorMessageIdentify": "<?= __('Something went wrong when trying to subscribe. Please try again later.') ?>"
+                }
+            }'
+            id="newsletter-validate-detail">
+            <div class="field newsletter">
+                <div class="control">
+                    <label for="newsletter">
+                    <span>Email </span>
+                        <input name="email" type="email" id="newsletter"
+                               placeholder="<?= $block->escapeHtmlAttr(__('email@domain.com')) ?>"
+                               data-mage-init='{"mage/trim-input":{}}'
+                               data-validate="{required:true, 'validate-email':true}"
+                        />
+                    </label>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="action subscribe primary" title="Sign Up" type="submit" aria-label="Sign Up">SUBMIT</button>
+            </div>
+        </form>
+        </div>
+        <div class="subscribe-msg" style="display: none;">
+            <div class="message-success success message">
+                <div></div>
+            </div>
+        </div>
+        <div></div>
+        <?php
+            echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('vc_footer_social')->toHtml();
+        ?>
+       
+       
+    </div>
+</div>

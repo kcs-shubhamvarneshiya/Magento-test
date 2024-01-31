@@ -1,0 +1,33 @@
+<?php
+/** @var $block \Capgemini\Configurable\Block\Configurable\Child */
+$block->convertToJson();
+$productId = $block->getChildProduct()->getId();
+$_product = $block->getChildProduct();
+$isProductListing = $block->getIsProductListing();
+$listImageId = (!empty($isProductListing) && $isProductListing) ? $block::SWATCH_IMAGE_ID : $block::LIST_IMAGE_ID;
+$imageData = $block->getProductImageData($block->getChildProduct(), $listImageId);
+$clpPrice = $block->getCLPPrice($block->getChildProduct());
+$href = $block->getIsClpSearch() ? $block->escapeUrl($block->getChildUrl($block->getChildProduct())) : '#';
+list ($badgeLabel, $badgeClass) = $block->getBadgeData($block->getChildProduct());
+?>
+<div
+    class="single-variation-item"
+    data-clp-badge-label="<?= $block->escapeHtmlAttr($badgeLabel) ?>"
+    data-clp-badge-class="<?= $block->escapeHtmlAttr($badgeClass) ?>"
+    data-product-sku="<?= $block->escapeHtmlAttr($block->getChildProduct()->getSku()) ?>"
+    data-product-id="<?= $block->escapeHtmlAttr($productId) ?>"
+>
+<div>
+<a class="configurable-thumbnail"
+           href="<?= $href ?>">
+           <img
+            src="<?= $imageData['src']  ?>"
+            alt="<?= $block->escapeHtmlAttr($imageData['alt']) ?>"
+            width="100"
+            height="100"
+            loading="lazy"
+        />
+</a>
+</div>
+</div>
+

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_Wishlist
+ *
+ * @category  Lyons
+ * @package   Lyonscg_Wishlist
+ * @author    Tanya Mamchik <tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2021 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+<!--    <preference for="Magento\Wishlist\Block\Share\Email\Items" type="Lyonscg\Wishlist\Block\Share\Email\Items" />-->
+    <type name="Magento\Wishlist\Controller\Index\Add">
+        <plugin name="afterAdd" type="Lyonscg\Wishlist\Plugin\AddPlugin" sortOrder="10" disabled="false"/>
+    </type>
+</config>

@@ -1,0 +1,259 @@
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+@import 'source/lib/_lib.less'; // Global lib
+@import 'source/_theme.less'; // Theme overrides
+@import 'source/_variables.less'; // Local theme variables
+
+@baseDir: '../'; // Default
+
+//  Magento/blank
+.page-print {
+    .logo {
+        display: block;
+        float: none;
+        text-align: left;
+    }
+}
+
+@media print {
+    * {
+        -webkit-filter: none !important; // Use in 41 Chrome
+        background: transparent !important;
+        color: @color-black !important;
+        filter: none !important;
+        text-shadow: none !important;
+    }
+
+    //  Black prints faster:h5bp.com/s
+    a,
+    a:visited {
+        text-decoration: underline !important;
+    }
+
+    //  Don't show links for images, or javascript/internal links
+    pre,
+    blockquote {
+        border: 1px solid @color-gray60;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    .table-wrapper table {
+        width: 100%;
+
+        td {
+            width: auto;
+        }
+
+        table-layout: fixed;
+
+        & > tfoot > tr:first-child {
+            border-top: 1px solid @color-gray60;
+        }
+    }
+
+    .box,
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 1cm;
+    }
+
+    .block-content,
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    .block-content {
+        page-break-before: avoid;
+    }
+
+    .block-title,
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+
+    .nav-toggle {
+        display: none !important;
+    }
+
+    .sidebar,
+    .nav-sections,
+    .header.content > *[class],
+    .panel.wrapper > *[class],
+    .footer.content > *[class] {
+        display: none;
+    }
+
+    .logo,
+    .footer .copyright {
+        display: block !important;
+        margin: 10px 0;
+    }
+
+    .order-details-items {
+        .order-items {
+            .order-gift-message {
+                &:not(.expanded-content) {
+                    height: auto;
+                    visibility: visible;
+                }
+            }
+        }
+    }
+
+    .column.main {
+        float: none !important;
+        width: 100% !important;
+    }
+
+    .breadcrumbs {
+        margin: 0 auto;
+        text-align: right;
+    }
+
+    .footer.content {
+        padding: 0;
+    }
+
+    .hidden-print {
+        display: none !important;
+    }
+
+    //
+    //  Print pdp
+    //  ---------------------------------------------
+    .catalog-product-view {
+        // Hide from print
+        .weblayer--bar-simple,
+        .breadcrumbs,
+        .page-footer,
+        .copyright-wrapper,
+        .sticky-tabs-wrapper,
+        .product-social-links,
+        .product-options-bottom .price-final_price,
+        #lightbulbs-list,
+        .product-info-extrahint-affirm,
+        .box-tocart,
+        .product-social-links,
+        .additional-tips .action,
+        .product.media .olapic-container,
+        .panel.wrapper,
+        .collection-link,
+        .swatch-attribute-label,
+        #product-options-wrapper,
+        #sticky-tabs,
+        #additional-specs,
+        #additional-paper-model {
+            .hidden-print();
+        }
+
+        .product-item-variation-carousel-wrapper::before {
+            content: "Options";
+            font-weight: 600;
+            font-size: 1.6rem;
+        }
+
+        // Page breaks
+        .page-main,
+        .additional-collection {
+            clear: both;
+            //page-break-after: always;
+        }
+
+        .page-header {
+            .header.content {
+                padding: 10px 0 0;
+                max-width: 100%;
+            }
+        }
+
+        .page-wrapper {
+            display: block;
+            flex: none;
+            float: none;
+        }
+
+        .page-main {
+            padding-top: 17px;
+        }
+
+        .product-info-main {
+            float: right;
+            width: 50%;
+
+            .page-title {
+                text-align: left;
+            }
+        }
+
+        .product.media {
+            float: left;
+            width: 50%;
+        }
+
+        .sticky-details-tabs {
+            position: static;
+        }
+
+        // Owl carousel
+        .owl-stage {
+            width: 100% !important; //override inline
+
+            .owl-item {
+                display: none;
+
+                &.active {
+                    display: block;
+                }
+            }
+        }
+
+        // PDP options
+        .variation-carousel {
+            .owl-item {
+                width: ~"calc(25% - 10px)" !important; //override inline
+            }
+        }
+
+        // More from the collection
+        .additional-collection {
+            .owl-item {
+                margin: 0 15px !important;
+                width: ~"calc(33% - 30px)" !important; //override inline
+            }
+        }
+
+        // Photography
+        .additional-photography {
+            .owl-item {
+                margin: 0 10px !important;
+                width: ~"calc(50% - 20px)" !important; //override inline
+            }
+        }
+
+        // Tips
+        .additional-tips {
+            .owl-item {
+                width: 100% !important; //override inline
+            }
+        }
+    }
+}

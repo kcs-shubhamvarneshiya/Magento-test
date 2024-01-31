@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_RequisitionList
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Tetiana Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\RequisitionList\Block\Requisition\View\Details" type="Lyonscg\RequisitionList\Block\Details"/>
+    <preference for="Magento\Framework\Serialize\Serializer\Json" type="Lyonscg\RequisitionList\Serialize\Serializer\Json" />
+    <preference for="Magento\RequisitionList\Ui\DataProvider\DataProvider" type="Lyonscg\RequisitionList\Ui\DataProvider\DataProvider"/>
+    <type name="Magento\RequisitionList\Api\RequisitionListRepositoryInterface">
+        <plugin name="circa_lighting_requisition_list_repository_plugin"
+                type="Lyonscg\RequisitionList\Plugin\RequisitionListRepositoryPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\RequisitionList\Model\RequisitionList\Items">
+        <plugin name="circa_lighting_requisition_list_item_repository_plugin"
+                type="Lyonscg\RequisitionList\Plugin\RequisitionListItemRepositoryPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\RequisitionList\Model\RequisitionListItem\CartItemConverter">
+        <plugin name="circa_lighting_requisition_list_cart_item_converter"
+                type="Lyonscg\RequisitionList\Plugin\CartItemConverterPlugin"/>
+    </type>
+    <type name="Magento\RequisitionList\Model\AddToCartProcessorInterface">
+        <plugin name="circa_lighting_requisition_list_add_to_cart_processor"
+                type="Lyonscg\RequisitionList\Plugin\AddToCartProcessorPlugin"/>
+    </type>
+    <preference for="Magento\RequisitionList\Model\Action\RequestValidator" type="Lyonscg\RequisitionList\Model\Action\RequestValidator"/>
+</config>

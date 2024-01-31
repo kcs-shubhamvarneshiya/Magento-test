@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_WholesaleAddress
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Controller\Address">
+        <plugin name="wholesale_restriction"
+                type="Capgemini\WholesaleAddress\Plugin\AddressControllerPlugin"/>
+    </type>
+    <type name="Magento\Customer\Controller\Account\Index">
+        <plugin name="wholesale_account_dashboard"
+                type="Capgemini\WholesaleAddress\Plugin\AccountDashboardControllerPlugin"/>
+    </type>
+</config>

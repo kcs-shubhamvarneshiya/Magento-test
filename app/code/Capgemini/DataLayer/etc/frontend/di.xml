@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Checkout\CustomerData\DefaultItem" type="Capgemini\DataLayer\CustomerData\DefaultItem" />
+    <preference for="Magento\GoogleTagManager\Block\ListJson" type="Capgemini\DataLayer\GoogleTagManager\Block\ListJson" />
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="set_google_analytics_on_cart_remove" disabled="true"/>
+        <plugin name="capgemini_company_set_google_analytics_on_cart_remove" type="Capgemini\DataLayer\Plugin\Quote\SetGoogleAnalyticsOnCartRemove" />
+    </type>
+</config>

@@ -1,0 +1,18 @@
+<?php
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Info $block */
+
+/** @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+/** @var  \Capgemini\DataLayer\Helper\Data $helper */
+$helper = $this->helper('Capgemini\DataLayer\Helper\Data');
+?>
+<span class="wishlist-item-data-layer"
+      data-product-name="<?= $block->escapeHtmlAttr($product->getName()) ?>"
+      data-product-sku="<?= $block->escapeHtmlAttr($product->getSku()) ?>"
+      data-product-price="<?= $block->escapeHtmlAttr($product->getPrice()) ?>"
+      data-product-brand="<?= $block->escapeHtmlAttr($product->getAttributeText('brand')) ?>"
+      data-product-currency="<?= $block->escapeHtmlAttr($product->getStore()->getBaseCurrency()->getCurrencyCode()) ?>"
+      data-product-style="<?= $block->escapeHtmlAttr($helper->getProductStyle($product)) ?>"
+></span>

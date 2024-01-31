@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="api_url">
+        <field id="use_magento_as_proxy"
+               type="select"
+               translate="label,comment"
+               sortOrder="55"
+               showInDefault="1"
+               showInWebsite="1"
+               showInStore="1">
+            <label>Use Magento as Proxy</label>
+            <comment>When enabled, all Bloomreach search and category requests will pass through Magento as a proxy.</comment>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+    </group>
+    <group id="general">
+        <field id="pixel_domain_key" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Pixel Domain</label>
+        </field>
+    </group>
+</include>

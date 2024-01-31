@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="price_validation" translate="label" type="text" sortOrder="170" showInDefault="1">
+            <label>Product Price</label>
+            <tab>lyonscg</tab>
+            <resource>Capgemini_VcServiceProductPrice::config</resource>
+            <group id="wholesale_pricing" translate="label" type="text" sortOrder="10" showInDefault="1">
+                <label>Advanced Wholesale Pricing</label>
+                <field id="enabled" translate="Enabled" type="select" sortOrder="10" showInDefault="1" >
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="advanced_pricing_brands" translate="label" type="multiselect" sortOrder="20" showInDefault="1">
+                    <label>Advanced Pricing Brands</label>
+                    <source_model>Capgemini\WholesalePrice\Model\Adminhtml\Source\PricingBrands</source_model>
+                </field>
+                <field id="advanced_pricing_cache_lifetime" translate="label" type="text" sortOrder="30" showInDefault="1">
+                    <label>Advanced Price Cache Lifetime (seconds)</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

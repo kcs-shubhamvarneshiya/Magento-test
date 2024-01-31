@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="requisition.list.item.view">
+            <arguments>
+                <argument name="availability_info_view_model" xsi:type="object">Capgemini\Configurable\ViewModel\AvailabilityInfo</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

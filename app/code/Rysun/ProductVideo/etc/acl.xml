@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+	<acl>
+		<resources>
+			<resource id="Magento_Backend::admin">
+				<resource id="Rysun_ProductVideo::ProductVideo" title="ProductVideo" sortOrder="10">
+					<resource id="Rysun_ProductVideo::ProductVideo_save" title="Save ProductVideo" sortOrder="10"/>
+					<resource id="Rysun_ProductVideo::ProductVideo_delete" title="Delete ProductVideo" sortOrder="20"/>
+					<resource id="Rysun_ProductVideo::ProductVideo_update" title="Update ProductVideo" sortOrder="30"/>
+					<resource id="Rysun_ProductVideo::ProductVideo_view" title="View ProductVideo" sortOrder="40"/>
+				</resource>
+				<resource id="Rysun_ProductVideo::ProducVideoLink" title="ProducVideoLink" sortOrder="10">
+					<resource id="Rysun_ProductVideo::ProducVideoLink_save" title="Save ProducVideoLink" sortOrder="10"/>
+					<resource id="Rysun_ProductVideo::ProducVideoLink_delete" title="Delete ProducVideoLink" sortOrder="20"/>
+					<resource id="Rysun_ProductVideo::ProducVideoLink_update" title="Update ProducVideoLink" sortOrder="30"/>
+					<resource id="Rysun_ProductVideo::ProducVideoLink_view" title="View ProducVideoLink" sortOrder="40"/>
+				</resource>
+			</resource>
+		</resources>
+	</acl>
+</config>

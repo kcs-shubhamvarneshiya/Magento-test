@@ -1,0 +1,28 @@
+<?php
+/**
+ * @var \Lyonscg\AddressRestrictions\Block\Adminhtml\AddressDeleteLog\View $block
+ */
+$log = $block->getLog();
+?>
+<?php if ($log !== null): ?>
+<table class="admin__table-secondary">
+<?php $logData = $log->getAddressData(); ?>
+<?php foreach ($logData->getData() as $key => $value): ?>
+    <?php if (is_array($value) && empty($value)): ?>
+        <?php continue; ?>
+    <?php endif; ?>
+    <tr>
+        <th><?= $block->escapeHtml($key); ?></th>
+        <td>
+            <?php if (is_array($value)): ?>
+                <pre><?= implode("\n", array_map(function($val) use ($block) {
+                        return $block->escapeHtml(strval($val));
+                    }, $value)); ?></pre>
+            <?php else: ?>
+                <?= $block->escapeHtml($value); ?>
+            <?php endif; ?>
+        </td>
+    </tr>
+<?php endforeach; ?>
+</table>
+<?php endif; ?>

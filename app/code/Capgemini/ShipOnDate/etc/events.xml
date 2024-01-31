@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="sales_order_quote_to_order_ship_on_date"
+                  instance="Capgemini\ShipOnDate\Observer\SaveOrderBeforeSalesModelQuoteObserver" />
+    </event>
+    <event name="email_order_set_template_vars_before">
+        <observer name="sales_order_quote_to_order_ship_on_date_email_template"
+                  instance="Capgemini\ShipOnDate\Observer\OrderEmailObserver"/>
+    </event>
+</config>

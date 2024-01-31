@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="general">
+        <field id="enabled_proxy_category" translate="label,comment" type="select" sortOrder="210" showInDefault="1" showInStore="1" showInWebsite="1">
+            <label>Enable Backend Proxy For Category</label>
+            <comment>Replace the Magento category pages with Bloomreach ranked category pages, with API calls made at the server level.</comment>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            <depends>
+                <field id="enabled">0</field>
+            </depends>
+        </field>
+    </group>
+</include>

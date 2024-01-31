@@ -1,0 +1,22 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Image $block */
+
+/** @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+$product = $item->getProduct();
+$productForThumbnail = $block->getProductForThumbnail($item);
+/** @var \Lyonscg\Catalog\Helper\Data $_helper */
+$_helper = $this->helper(\Lyonscg\Catalog\Helper\Data::class);
+?>
+<a class="product-item-photo" tabindex="-1" href="<?= $block->escapeUrl($block->getProductUrl($item)) ?>" title="<?= $block->escapeHtmlAttr($product->getName()) ?>">
+    <?php if ($productForThumbnail->getThumbnail() == 'no_selection' || $productForThumbnail->getTypeId() == 'configurable') : ?>
+        <?= $block->getImage($_helper->getChildProduct($product), 'wishlist_thumbnail')->toHtml() ?>
+    <?php else : ?>
+        <?= $block->getImage($block->getProductForThumbnail($item), 'wishlist_thumbnail')->toHtml() ?>
+    <?php endif; ?>
+</a>

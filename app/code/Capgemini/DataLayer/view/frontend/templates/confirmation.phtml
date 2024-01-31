@@ -1,0 +1,54 @@
+<?php
+/**
+ * @category    Capgemini
+ * @package     Capgemini_DataLayer
+ */
+?>
+<?php
+/** @var \Capgemini\DataLayer\Block\DataLayer $block */
+?>
+
+<script type='text/javascript'>
+    window._gtmPageType = '<?= $block->escapeJs($block->getPageType()); ?>';
+    require([
+        'jquery'
+    ], function ($) {
+        window.dataLayer = window.dataLayer || [];
+        var confirmationPageData = JSON.parse('<?= $block->getCheckoutSuccessPageData() ?>');
+
+        var pageType = {
+            'pageType': 'order_confirmation',
+            'event': 'purchase',
+            'event_id': confirmationPageData['event_id'],
+            'ecommerce': {
+                'purchase': {
+                    'actionField': {
+                        'id': confirmationPageData['id'],
+                        'revenue': confirmationPageData['revenue'],
+                        'salesRevenue': confirmationPageData['salesRevenue'],
+                        'tax': confirmationPageData['tax'],
+                        'shipping': confirmationPageData['shipping'],
+                        'coupon': confirmationPageData['coupon'],
+                        'couponAmount': confirmationPageData['couponAmount'],
+                        'shippingOption': confirmationPageData['shippingOption'],
+                        'orderQuantity': confirmationPageData['orderQuantity'],
+                    },
+                    'products': confirmationPageData['products']
+                }
+            },
+            'hashedEmail': confirmationPageData['hashedEmail'],
+            'loggedinStatus': confirmationPageData['loggedinStatus'],
+            'currencyCode': confirmationPageData['currencyCode'],
+            'tradeCustomer': confirmationPageData['tradeCustomer'],
+            'customerClass': confirmationPageData['customerClass']
+        };
+        window.dataLayer.push(pageType);
+
+        var otherPageData = {
+            'otherPageData': {
+                userEmail: confirmationPageData['userEmail']
+            }
+        };
+        window.dataLayer.push(otherPageData);
+    });
+</script>

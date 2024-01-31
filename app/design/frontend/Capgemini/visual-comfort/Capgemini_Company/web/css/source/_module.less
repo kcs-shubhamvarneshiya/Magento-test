@@ -1,0 +1,838 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .account {
+        &.company-users-index {
+            .quotes-grid-toolbar {
+                .limiter {
+                    .control select {
+                        height: 38px;
+                        border-radius: 0;
+                        padding: 1px 30px 1px 15px;
+                        background-color: @color-white;
+                        background-position: right 12px top 50%;
+                        min-width: 90px;
+                    }
+
+                    label {
+                        cursor: text;
+                        text-transform: none;
+                        color: @color-gray-middle5;
+                    }
+                }
+            }
+        }
+
+        &.company-profile-index {
+            .block-content {
+                .box-content,
+                .payment-methods-list li {
+                    font-size: 14px !important;
+                    font-weight: normal;
+
+                    font-style: normal;
+                    line-height: 1.57 !important;
+                    letter-spacing: 0.6px;
+                    color: @color-gray-middle5;
+
+                    address,
+                    p {
+                        font-size: 14px !important;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.57 !important;
+                        letter-spacing: 0.6px;
+                        color: @color-gray-middle5;
+                    }
+                }
+
+                .company-profile-payment-methods .payment-methods-label {
+                    line-height: 1.15 !important;
+                }
+            }
+        }
+
+        &.company-index-index {
+            .manage-company-accounts .block-dashboard-company .box-actions button {
+                color: @primary__color;
+
+                &.action.expand:after {
+                    content: none;
+                }
+            }
+        }
+    }
+
+    .fieldset > .field > .label,
+    .fieldset > .fields > .field > .label {
+        color: @color-gray-800;
+    }
+    .form-create-account {
+        fieldset.fieldset.info {
+            .field.street {
+                .control {
+                    text-align: right;
+                }
+            }
+        }
+    }
+    .company-account-create {
+        .field-control.field-uploader {
+            border: solid 1px #e3e3e3;
+            background-color: #f8f8f8;
+            padding: 15px 0 21px;
+            box-sizing: border-box;
+            .field-uploader__wrap {
+                text-align: center;
+                .copy {
+                    font-size: 14px;
+                    font-weight: 500;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: normal;
+                    letter-spacing: 0.25px;
+                    color: #454545;
+                    margin-bottom: 19px;
+                }
+                .file-uploader {
+                    .file-uploader-area {
+                        margin-bottom: 17px;
+                        .file-uploader-button.action-default {
+                            max-width: 160px;
+                            width: 100%;
+                            margin: 0 auto;
+                            white-space: nowrap;
+                        }
+                    }
+                    .documents-count {
+                        > span {
+                            font-size: 12px;
+                            font-weight: 500;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: normal;
+                            letter-spacing: 0.21px;
+                            color: #454545;
+                        }
+                    }
+                }
+            }
+        }
+        div[name="companyDocuments.taxExempt"] {
+            display: none;
+        }
+        .admin__field.company-documents {
+            label.label:not(.heading) {
+                .lib-visibility-hidden();
+                margin: 0;
+            }
+        }
+    }
+
+    .customer-account-create {
+        #remember-me-box .tooltip.wrapper {
+            display: none;
+            background-color: @color-white;
+        }
+    }
+
+    .company-account-index {
+        .page-title-wrapper {
+            display: none;
+        }
+    }
+
+    .company-account-documents {
+        .form.form-create-account {
+            min-width: unset;
+            width: 100%;
+
+            legend {
+                text-align: left;
+                padding-bottom: 15px;
+                margin-bottom: 19px;
+            }
+        }
+
+
+        #trade-documents-container {
+            .document-attach {
+                margin-top: 12px;
+                max-width: 570px;
+                width: 100%;
+
+                .documents-count {
+                    margin-bottom: 10px;
+
+                    span {
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.57;
+                        letter-spacing: 0.6px;
+                        color: @color-gray-middle5;
+                    }
+                }
+
+                .documents-list {
+                    list-style-type: none;
+                    background: transparent;
+                    padding-left: 0;
+
+                    li {
+                        border: solid 1px #939393;
+                        padding: 10px 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        a {
+                            font-size: 12px;
+                            font-weight: 600;
+
+                            font-style: normal;
+                            line-height: 1.17;
+                            letter-spacing: 0.5px;
+                            color: @color-gray-900;
+
+                            &.remove-link {
+                                text-decoration: underline;
+                            }
+
+                            &.item-link {
+                                &:before {
+                                    content: '\e915';
+                                    font-family: @font-vc-icons;
+                                    font-size: 16px;
+                                    line-height: 28px;
+                                    color: @color-gray-800;
+                                    margin-right: 5px;
+                                }
+                            }
+
+                            &:hover {
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .form-create-account {
+            #trade-documents-container {
+                .container-area {
+                    .documents-wrapper {
+                        box-sizing: border-box;
+                        margin-top: 35px;
+                    }
+                }
+            }
+        }
+    }
+
+    &.company-account-documents {
+        .form-create-account {
+            .admin__field-control {
+                width: 100%;
+                height: auto;
+                min-height: 250px;
+                border: solid 1px @color-gray-400;
+                background-color: @color-gray-300;
+                padding: 20px;
+                box-sizing: border-box;
+
+                .copy {
+                    font-family: @font-proxima-nova;
+                    font-size: 14px;
+                    font-weight: normal;
+
+                    font-style: normal;
+                    line-height: 22px;
+                    letter-spacing: 0.6px;
+                    color: @color-gray-700;
+                    padding-top: 10px;
+                    padding-bottom: 20px;
+                }
+
+                .field-control {
+                    padding-bottom: 30px;
+                }
+            }
+
+            #trade-documents-container {
+                .container-area {
+                    max-width: 620px;
+                    width: 100%;
+
+                    .legend {
+                        > span {
+                            .font-goudy-old-style(26px, 1.23);
+                        }
+                    }
+
+                    .trade-copy {
+                        p {
+                            font-family: @font-proxima-nova;
+                            font-size: 14px;
+                            font-weight: normal;
+                            font-style: normal;
+                            line-height: 1.71;
+                            letter-spacing: 0.25px;
+                            color: @color-gray-800;
+                            margin-bottom: 0;
+
+                            &.like-title {
+                                line-height: 24px;
+                                strong {
+                                    .font-proxima-nova(12px, 1.33);
+                                    font-weight: 600;
+                                    font-stretch: normal;
+                                    font-style: normal;
+                                    text-transform: uppercase;
+                                    letter-spacing: 0.25px;
+                                    color: @color-gray-800;
+                                }
+                            }
+                        }
+
+                        ul {
+                            list-style-type: none;
+                            padding-left: 0;
+                        }
+
+                        li {
+                            font-family: @font-proxima-nova;
+                            font-size: 14px;
+                            font-weight: normal;
+                            margin-bottom: 0;
+                            font-style: normal;
+                            letter-spacing: 0.25px;
+                            color: @color-gray-800;
+
+                            a {
+                                font-family: @font-proxima-nova;
+                                font-size: 12px;
+                                letter-spacing: 0.8px;
+                                color: @color-gray-800;
+                            }
+                            &:before {
+                                content: '-';
+                                margin-right: 3px;
+                            }
+                        }
+                    }
+
+                    .documents-wrapper {
+                        .admin__field {
+                            .field {
+                                .label {
+                                    span {
+                                        .font-proxima-nova(12px, 1.33);
+                                        font-weight: 600;
+                                        font-stretch: normal;
+                                        font-style: normal;
+                                        letter-spacing: 0.25px;
+                                        color: @color-gray-800;
+                                        text-transform: uppercase;
+                                    }
+                                }
+                                .control {
+                                    .field-uploader__wrap {
+                                        .label.heading {
+                                            .lib-visually-hidden();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .copy {
+                            font-family: @font-proxima-nova;
+                            font-size: 14px;
+                            font-weight: normal;
+                            font-style: normal;
+                            line-height: 1.71;
+                            letter-spacing: 0.25px;
+                            color: @color-gray-800;
+                            padding-bottom: 8px;
+                        }
+                    }
+                }
+            }
+
+            .field-control {
+                .file-uploader {
+                    .file-uploader-button {
+                        .lib-button-primary();
+                        .lib-css(width, 260px);
+                        .lib-css(height, 45px);
+                        .lib-css(display, flex);
+                        .lib-css(justify-content, center);
+                        .lib-css(align-items, center);
+                    }
+
+                    .documents-count {
+                        .lib-visually-hidden();
+                    }
+
+                    .file-uploader-summary {
+                        .file-uploader-placeholder {
+                            width: 280px;
+
+                            &:before {
+                                content: '';
+                            }
+                        }
+
+                        .file-uploader-placeholder-text {
+                            padding: 0 35px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .company-account-create {
+
+        .page-main > .page-title-wrapper .page-title {
+            font-size: 26px;
+            line-height: 1.23;
+            letter-spacing: normal;
+            margin: 20px 0 15px;
+        }
+
+        .fieldset {
+            > .legend {
+                font-size: 26px;
+                font-family: @font-goudy-old-style;
+                border: none;
+            }
+
+            > .field > .label {
+                text-transform: none;
+                font-size: 14px;
+                font-weight: 600;
+                font-style: normal;
+                line-height: 1;
+                letter-spacing: 0.25px;
+            }
+
+            > .fields {
+                > .field > .label {
+                    text-transform: capitalize;
+                    font-size: 14px;
+                    font-weight: 600;
+                    font-style: normal;
+                    line-height: 1;
+                    letter-spacing: 0.25px;
+                }
+            }
+        }
+
+        .vc-company-right {
+            figure {
+                text-align: center;
+
+            }
+            .pagebuilder-button-secondary {
+                .lib-button-reset();
+            }
+        }
+
+        input[type="checkbox"] + label,
+        input[type="checkbox"].checkbox + label {
+            margin-bottom: 10px;
+            line-height: 1.4;
+
+            &:before {
+                margin: 0;
+            }
+        }
+    }
+
+    .pl-thm-capgemini-visual-comfort.cms-trade- {
+        .page-main-full-width {
+            max-width: 1340px;
+            padding-left: 30px;
+            padding-right: 30px;
+            box-sizing: border-box;
+            margin-left: auto;
+            margin-right: auto;
+
+            .columns {
+                padding-top: 40px;
+
+                .pagebuilder-column-group {
+                    .pagebuilder-column-line {
+                        justify-content: space-between;
+
+                        .pagebuilder-column {
+                            &:first-child {
+                                max-width: 700px;
+                                width: 50%;
+
+                                h1 {
+                                    margin-bottom: 15px;
+                                }
+
+                                h2 {
+                                    margin-top: 0;
+                                    margin-bottom: 1rem;
+                                }
+
+                                form.amform-form {
+                                    .fields {
+                                        .amform-layout-two {
+                                            margin-right: 2% !important;
+                                        }
+
+                                        .fb-file {
+                                            border: solid 1px #e3e3e3;
+                                            background-color: #f8f8f8;
+                                            padding: 15px 0 21px;
+                                            box-sizing: border-box;
+                                            text-align: center;
+
+                                            label {
+                                                width: 45%;
+                                                line-height: 24px;
+                                                font-weight: 600;
+                                            }
+
+                                            .control {
+                                                margin-left: auto;
+                                                margin-right: auto;
+                                                margin-top: 20px;
+                                                width: 35%;
+                                            }
+                                        }
+
+                                        .amcform-toolbar {
+                                            .action.primary.amcform-submit {
+                                                width: 260px;
+                                                float: left;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            &:last-child {
+                                max-width: 520px;
+                                width: 42%;
+                                margin-top: 20px;
+                                display: block !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+//
+//  Mobile @screen__m
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .company-account-create {
+        .vc-company-right {
+            figure[data-content-type='image'] {
+                height: 396px;
+
+                > img {
+                    height: 100% !important;
+                    width: 100%;
+                }
+            }
+
+            h2[data-content-type='heading'] {
+                margin: 21px 0 16px;
+            }
+
+            div[data-content-type='text'] {
+                > p {
+                    margin-bottom: 16px;
+                }
+            }
+
+            div[data-content-type='buttons'] {
+                .btn.btn-secondary {
+                    .pagebuilder-button-secondary {
+                        span {
+                            font-size: 12px;
+                            font-weight: 600;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: 1;
+                            letter-spacing: 0.25px;
+                            text-align: center;
+                            color: #454545;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .company-account-create {
+        .page-title {
+            span {
+                font-size: 0;
+            }
+
+            &:before {
+                content: 'Request An Account';
+            }
+        }
+
+        .vc-company-right {
+            margin-bottom: 30px;
+            width: 100%;
+
+            [data-content-type="button-item"],
+            .pagebuilder-button-secondary {
+                width: 100%;
+                margin: 0;
+                display: block;
+            }
+        }
+        .form-create-account {
+            fieldset.fieldset.info {
+                display: flex;
+                flex-direction: column;
+                .field {
+                    &.website {
+                        order: 1;
+                    }
+                    &.business_type {
+                        order: 2;
+                    }
+                    &.collections {
+                        order: 3;
+                    }
+                }
+            }
+        }
+        .field-uploader__wrap {
+            label.label.heading {
+                font-size: 14px;
+                font-weight: 600;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.71;
+                letter-spacing: 0.25px;
+                color: #454545;
+                text-transform: capitalize;
+            }
+        }
+        .admin__field-control {
+            .file-uploader-button {
+                .lib-button();
+                font-weight: 600;
+                height: 45px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        #collections_group {
+            display: flex !important;
+            flex-flow: row wrap;
+            padding-top: 7px;
+
+            input[type="checkbox"] + label {
+                display: flex;
+                flex: 1 0 30%;
+                float: none;
+                &:nth-child(4n) {
+                    margin-right: 0 !important;
+                }
+            }
+        }
+
+        .fields {
+            margin-bottom: 13px;
+        }
+    }
+
+    .company-account-documents {
+        #trade-documents-container {
+            .document-attach {
+                .documents-list {
+                    li {
+                        flex-direction: column;
+                        align-items: unset !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .account.company-account-documents {
+        .page-title {
+            font-size: 26px;
+            margin-top: 0;
+            line-height: 1.23;
+        }
+
+        .form.form-create-account legend {
+            margin-top: 10px;
+            border-bottom: 1px solid @color-gray-400;
+        }
+    }
+}
+
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .company-account-create {
+        .page-main > .page-title-wrapper .page-title {
+            font-size: 36px;
+        }
+
+        .vc-company-right {
+            figure[data-content-type='image'] {
+                height: 596px;
+                > img {
+                    height: 100% !important;
+                }
+            }
+            h2[data-content-type='heading'] {
+                margin: 22px 0 16px;
+            }
+            div[data-content-type='text'] {
+                > p {
+                    margin-bottom: 13px;
+                }
+            }
+            div[data-content-type='buttons'] {
+                .btn.btn-secondary {
+                    max-width: 230px;
+                    width: 100%;
+                    .pagebuilder-button-secondary {
+                        span {
+                            font-size: 12px;
+                            font-weight: 600;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: 1;
+                            letter-spacing: 0.25px;
+                            text-align: center;
+                            color: #454545;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
+        }
+
+        .page-main {
+            max-width: 1340px;
+
+            .columns .column.main {
+                .lib-vendor-prefix-display(flex);
+                justify-content: space-between;
+
+                .form-create-account {
+                    min-width: unset;
+                }
+            }
+        }
+
+        .fieldset {
+            > .legend {
+                margin: 0 0 15px;
+            }
+
+            #collections_group {
+                .lib-vendor-prefix-display(flex);
+                justify-content: space-between;
+                padding-top: 5px;
+            }
+
+            input[type="checkbox"] + label {
+                float: none;
+                margin-right: 0;
+            }
+
+            > .fields {
+                .lib-vendor-prefix-display(flex);
+                justify-content: space-between;
+
+                > .field {
+                    width: ~'calc(50% - 15px)';
+                }
+            }
+        }
+
+        .form.create.account {
+            max-width: 630px;
+        }
+
+        .vc-company-right {
+            max-width: 520px;
+            width: 40%;
+            margin-top: -20px;
+            order: 1;
+        }
+
+        .admin__field-control {
+            p {
+                line-height: 1.71;
+                margin-bottom: 0;
+                &:first-child {
+                    margin-bottom: 30px;
+                }
+            }
+
+            .field._required {
+                .label {
+                    font-size: 14px;
+                    font-weight: 600;
+                    font-style: normal;
+                    line-height: 1;
+                    letter-spacing: normal;
+                    text-transform: capitalize;
+                    margin-top: 15px;
+                }
+
+                .file-uploader-button {
+                    .lib-button();
+                    line-height: 43px;
+                }
+            }
+        }
+
+        .action.save {
+            width: 260px;
+            white-space: nowrap;
+        }
+    }
+
+    .company-account-documents {
+        .form-create-account {
+            .admin__field-control {
+                box-sizing: border-box;
+                width: 100%;
+            }
+        }
+    }
+}

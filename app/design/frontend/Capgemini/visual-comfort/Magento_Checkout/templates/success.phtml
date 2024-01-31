@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<?php
+$contactUsLink = '<a href="' . $block->getUrl('contact') . '" title="' . __('Contact us') . '">' . __('Contact us') . '</a>';
+?>
+<div class="checkout-success">
+    <p><?= $block->escapeHtml(__('Thank you for your purchase! You will receive an email confirming your order shortly. %1 if you have any questions about your order.', $contactUsLink), ['a']); ?></p>
+
+    <?= $block->getAdditionalInfoHtml() ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?= $block->escapeUrl($block->getContinueUrl()) ?>"><span><?= $block->escapeHtml(__('Continue Shopping')) ?></span></a>
+        </div>
+    </div>
+</div>
+<!--fix for items count after success checkout-->
+<script>
+    require([
+        'Magento_Customer/js/customer-data'
+    ], function (customerData) {
+        var sections = ['cart'];
+        customerData.invalidate(sections);
+    });
+</script>

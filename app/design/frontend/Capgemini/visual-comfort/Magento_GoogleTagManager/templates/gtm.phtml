@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\GoogleTagManager\Block\Ga $block */
+
+$accountType = $block->getConfig(\Magento\GoogleTagManager\Helper\Data::XML_PATH_TYPE);
+$gtmAccountId = $block->getConfig(\Magento\GoogleTagManager\Helper\Data::XML_PATH_CONTAINER_ID);
+$gtmServer = $block->getConfig('google/analytics/gtm_server');
+if (empty($gtmServer)) {
+    $gtmServer = 'https://www.googletagmanager.com/';
+}
+if ($accountType === \Magento\GoogleTagManager\Helper\Data::TYPE_TAG_MANAGER && $gtmAccountId) : ?>
+    <noscript>
+        <iframe src="<?= $gtmServer ?>ns.html?id=<?= $block->escapeHtmlAttr($gtmAccountId) ?>"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+<?php endif; ?>

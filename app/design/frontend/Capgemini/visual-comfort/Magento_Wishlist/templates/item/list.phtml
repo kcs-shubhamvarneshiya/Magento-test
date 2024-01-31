@@ -1,0 +1,109 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Items $block */
+$columns = $block->getColumns();
+
+$helper = $this->helper('Capgemini\WishListViewList\Helper\Data');
+$productPrice = $this->helper('Magento\Framework\Pricing\Helper\Data');
+$bulbProductText = "";
+?>
+
+<div class="products-grid wishlist">
+    <?php if (count($block->getItems())) : ?>
+    <table class="wishlist-items">
+        <thead>
+            <tr>
+                <th></th>
+                <th><?php echo __('PRODUCT') ?></th>
+                <th><?php echo __('PRICE') ?></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            /* @var \Magento\Wishlist\Model\Item $item */
+            foreach ($block->getItems() as $item) : ?>
+                <?php $product = $helper->loadMyProduct($item->getProduct()->getSku());
+                ?>
+                <tr>
+                    <td style="width: 50px;" data-row="product-item" class="product-item" id="item_<?= $block->escapeHtmlAttr($item->getId()) ?>">
+                        <?php echo $this->getLayout()->createBlock("Magento\MultipleWishlist\Block\Customer\Wishlist\Item\Column\Selector")->setTemplate("Magento_MultipleWishlist::item/column/selector.phtml")->setItem($item)->toHtml(); ?>
+                    </td>
+                    <td>
+                        <div class="imagesection">
+                            <div class="imageleft">
+                                <?php echo $this->getLayout()->createBlock("Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Image")->setTemplate("Magento_Wishlist::item/column/image.phtml")->setItem($item)->toHtml(); ?>
+                            </div>
+                            <div class="itemdescriptionright">
+                                <?php echo $this->getLayout()->createBlock("Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Info")->setTemplate("Magento_Wishlist::item/column/name.phtml")->setItem($item)->toHtml(); ?>
+                                <div class="wishlist-extra-info">
+                                    <div class="sku"><b>Item #:</b> <?php echo $product->getSku(); ?></div>
+                                    <?php if($product->getAvailabilityMessage()) : ?>
+                                    <div class="availability">
+                                        <div class="stock available" title="<?= $block->escapeHtmlAttr(__('Availability')) ?>">
+                                            <span><b>Availability:</b> <?php echo $product->getAvailabilityMessage() ?></span>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                                </div>
+                                <?php if($product->getFinishFilter()) : ?>
+                                <div class="finish-filter">
+                                    <div class="stock available" title="<?= $block->escapeHtmlAttr(__('Finish')) ?>">
+                                        <span><b>Finish:</b> <?php echo $product->getAttributeText('finish_filter') ?></span>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+                                <?php if($product->getFormatedPrice()) : ?>
+                                <div class="pro-price">
+                                    <div class="stock available">
+                                        <span><b>Price:</b> <?php echo $product->getFormatedPrice() ?></span>
+                                    </div>
+                                </div>
+                                <?php endif; ?>
+                                <div class="itemaction">
+                                    <?php echo $this->getLayout()->createBlock("Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Edit")->setTemplate("Magento_Wishlist::item/column/edit.phtml")->setItem($item)->toHtml(); ?>
+                                    <?php echo $this->getLayout()->createBlock("Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Remove")->setTemplate("Magento_Wishlist::item/column/remove.phtml")->setItem($item)->toHtml(); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="min-width: 100px;">
+                        <?php echo $productPrice->currency($product->getFinalPrice(), true, false);
+                        ?>
+                    </td>
+                    <td style="width: 350px;">
+                        <?php echo $this->getLayout()->createBlock("Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Comment")->setTemplate("Magento_Wishlist::item/column/comment.phtml")->setItem($item)->toHtml(); ?>
+                        <?php echo $this->getLayout()->createBlock("Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Cart")->setTemplate("Magento_Wishlist::item/column/cart.phtml")->setItem($item)->toHtml(); ?>
+                        <?php echo $this->getLayout()->createBlock("Magento\MultipleWishlist\Block\Customer\Wishlist\Item\Column\Management")->setTemplate("Magento_MultipleWishlist::item/column/management.phtml")->setItem($item)->toHtml(); ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php else : ?>
+        <div class="message info empty">
+            <span><?= $block->escapeHtml(__('This Wish List has no Items')) ?></span>
+            <span class="action close"></span>
+        </div>
+    <?php endif; ?>
+</div>
+
+<?php foreach ($columns as $column) : ?>
+    <?= $column->getAdditionalHtml() ?>
+<?php endforeach; ?>
+
+<script>
+    require(['jquery'], function ($) {
+        //simulate close btn
+        if ($('.message.info.empty').length) {
+            $('.action.close').click(function () {
+                $('.message.info.empty').hide();
+            })
+        }
+    })
+</script>

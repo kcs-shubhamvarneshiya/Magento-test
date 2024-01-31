@@ -1,0 +1,25 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+}
+
+
+//
+//  Mobile (0-768)
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    #button-update-qty-wrap button.action.button.update-qty {
+        background: @color-white;
+        color: @primary__color;
+        border: 1px solid @primary__color;
+    }
+}

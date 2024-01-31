@@ -1,0 +1,18 @@
+<?php
+/**
+ * @category    Capgemini
+ * @package     Capgemini_DataLayer
+ */
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Capgemini_DataLayer/js/default": {
+                "controlCookieName": "<?= \Capgemini\DataLayer\Observer\Sessid\ObserveSessid::CONTROL_COOKIE_NAME; ?>",
+                "ajaxUrl": "<?= $block->getUrl(\Capgemini\DataLayer\Block\DataLayer::AJAX_URL); ?>"
+            }
+        }
+    }
+</script>

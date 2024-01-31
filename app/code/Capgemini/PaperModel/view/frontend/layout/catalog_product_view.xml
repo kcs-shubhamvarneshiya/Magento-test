@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+        <body>
+        <referenceContainer name="page.wrapper">
+            <!--Paper Model-->
+            <block class="Capgemini\PaperModel\Block\PaperModel" name="pdp-additional-paper-model" before="pdp-additional-collection"
+                   template="Capgemini_PaperModel::product/view/additional/pdp_paper_model.phtml">
+                <arguments>
+                    <argument name="paper_model_product_view_model" xsi:type="object">Capgemini\PaperModel\ViewModel\PaperModelProduct</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

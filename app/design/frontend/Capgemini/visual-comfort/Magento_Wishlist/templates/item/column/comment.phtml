@@ -1,0 +1,17 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/* @var \Magento\Wishlist\Block\Customer\Wishlist\Item\Column\Comment $block  */
+
+/* @var \Magento\Wishlist\Model\Item $item */
+$item = $block->getItem();
+?>
+
+<div class="field comment-box">
+    <div class="control">
+        <textarea rows="3" onfocusout="javascript: document.getElementById('wishlist-view-form').submit();" placeholder="Enter Comments" id="product-item-comment-<?= $block->escapeHtmlAttr($item->getWishlistItemId()) ?>" name="description[<?= $block->escapeHtmlAttr($item->getWishlistItemId()) ?>]" title="<?= $block->escapeHtmlAttr(__('Comment')) ?>" class="product-item-comment" <?= $item->getProduct()->isSaleable() ? '' : 'disabled="disabled"' ?>><?= ($block->escapeHtml($item->getDescription())) ?></textarea>
+            </div>
+</div>

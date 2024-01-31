@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_TechConfiguratorImport
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_ImportExport:etc/import.xsd">
+    <entity name="product_configurator" label="Product Configurator" model="Capgemini\TechConfiguratorImport\Model\Import\ProductConfigurator"
+            behaviorModel="Capgemini\TechConfiguratorImport\Model\Source\Import\Behaviour" />
+</config>

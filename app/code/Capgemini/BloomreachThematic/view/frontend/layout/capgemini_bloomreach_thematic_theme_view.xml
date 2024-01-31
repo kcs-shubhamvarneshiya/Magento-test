@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="catalog_category_view"/>
+    <update handle="catalog_category_view_type_layered"/>
+    <body>
+        <attribute name="class" value="catalog-category-view"/>
+        <referenceBlock name="category.products.list" class="Capgemini\BloomreachThematic\Block\Product\ListProduct"/>
+
+        <referenceContainer name="content">
+            <container
+                name="bloomreach.thematic.plp.productlist.after.container"
+                label="Bloomreach Thematic PLP ProductList Container"
+                htmlTag="div"
+                htmlClass="br-plp-productlist-after-container"
+            >
+                <block
+                    class="Magento\Framework\View\Element\Template"
+                    name="bloomreach.thematic.content.placement.3"
+                    template="Capgemini_BloomreachThematic::category/after_product_grid.phtml"
+                    after="category.products"
+                />
+            </container>
+        </referenceContainer>
+    </body>
+</page>

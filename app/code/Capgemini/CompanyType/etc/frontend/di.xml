@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_CompanyType
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Block\Account\Navigation">
+        <plugin name="saved_card_restriction"
+                type="Capgemini\CompanyType\Plugin\Customer\Block\Account\NavigationPlugin"/>
+    </type>
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="checkout_wholesale_address_provider" xsi:type="object">Capgemini\CompanyType\Model\CheckoutConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Customer\CustomerData\Customer">
+        <plugin name="company_type_data"
+                type="Capgemini\CompanyType\Plugin\CustomerDataPlugin"/>
+    </type>
+    <type name="Capgemini\LightBulbs\Helper\Data">
+        <plugin name="wholesale_bulb_restriction"
+                type="Capgemini\CompanyType\Plugin\BulbHelperPlugin"/>
+    </type>
+    <type name="Magento\Catalog\Pricing\Render\FinalPriceBox">
+        <plugin name="special_price_restriction"
+                type="Capgemini\CompanyType\Plugin\SpecialPriceRestriction"/>
+    </type>
+</config>

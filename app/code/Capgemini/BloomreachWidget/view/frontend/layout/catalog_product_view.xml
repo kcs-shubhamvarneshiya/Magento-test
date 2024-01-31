@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.wrapper">
+            <block class="Magento\Framework\View\Element\Template" name="pdp-brseo" after="pdp-additional-accessories" template="Capgemini_BloomreachWidget::brseo.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template"  name="brseo_vars" template="Capgemini_BloomreachWidget::brseo_vars.phtml">
+                <arguments>
+                    <argument name="vars" xsi:type="object">Capgemini\BloomreachWidget\ViewModel\Vars</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

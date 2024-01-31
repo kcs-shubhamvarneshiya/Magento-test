@@ -1,0 +1,39 @@
+<?php
+/** @var $block \Capgemini\Configurable\Block\Configurable\Children */
+?>
+<?php if ($block->isConfigurable()): ?>
+    <?php
+    /** @var \Capgemini\Configurable\Block\Configurable\Child $childBlock */
+    $childBlock = $block->getChildBlock('configurable.children.options.child');
+    $configurableChildren = $block->getConfigurableChildren();
+    ?>
+    <?php if ($childBlock && (!empty($configurableChildren) && count($configurableChildren) > 1)): ?>
+        <div class="product-item-variation-carousel-wrapper">
+            <div class="variation-carousel owl-carousel">
+            <?php foreach ($configurableChildren as $childProductData): ?>
+                <?php $childProduct = $childProductData['product']; ?>
+                <?= $childBlock->setChildProduct($childProduct)
+                               ->setTemplate('Capgemini_Configurable::configurable/child.phtml')
+                               ->setData('is_active', $childProductData['is_active'])
+                               ->setData('attribute_list', $childProductData['attributes'])
+                               ->toHtml() ?>
+            <?php endforeach; ?>
+            </div>
+        </div>
+        <?= $block->getChildHtml('configurable.children.options.js') ?>
+    <?php elseif ($childBlock && (!empty($configurableChildren) && count($configurableChildren) === 1)): ?>
+        <div class="product-item-single-variant-wrapper">
+            <div class="variation-carousel owl-carousel">
+            <?php foreach ($configurableChildren as $childProductData): ?>
+                <?php $childProduct = $childProductData['product']; ?>
+                <?= $childBlock->setChildProduct($childProduct)
+                               ->setTemplate('Capgemini_Configurable::configurable/child-one-variant.phtml')
+                               ->setData('is_active', $childProductData['is_active'])
+                               ->setData('attribute_list', $childProductData['attributes'])
+                               ->toHtml() ?>
+            <?php endforeach; ?>
+            </div>
+        </div>
+        <?= $block->getChildHtml('configurable.children.options.js') ?>
+    <?php endif; /* if ($childBlock) */ ?>
+<?php endif; /* if ($block->isConfigurable()) */ ?>

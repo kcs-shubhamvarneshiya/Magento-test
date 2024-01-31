@@ -1,0 +1,34 @@
+<?php
+/**
+ * @category  Capgemini
+ * @author    Oleksander Tolkach <oleksander.tolkach@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ *
+ * @var Resources $block
+ */
+
+use Capgemini\TechnicalResources\Block\Resources;
+
+?>
+
+<div class="additional-data">
+    <div class="additional_block_inner">
+        <div class="tech-resources-wrapper" data-bind="scope: 'technical_resources'">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        </div>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "technical_resources": {
+                        "component": "Capgemini_TechnicalResources/js/view/resources",
+                        "config": <?= $block->getConfigJson() ?>
+                    }
+                }
+            }
+        }
+    }
+</script>

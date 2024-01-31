@@ -1,0 +1,58 @@
+<?php
+/** @var $block \Capgemini\CustomHeight\Block\Configurable\CustomHeight */
+?>
+<?php
+$_helper = $this->helper('Capgemini\OrderView\Helper\Data');
+$customerType = $_helper->getCustomerType();
+if ($customerType != \Capgemini\CompanyType\Model\Config::WHOLESALE) :
+?>
+<?php if ($block->isCustomHeightDisplayed() && (count($block->getHeightPricing()) > 0)):?>
+    <?php $customHeightValue = $block->getSelectedCustomHeightValue(); ?>
+    <div class="fieldset">
+        <div class="field custom_height_wrapper">
+            <label class="label" for="custom_height">
+                <span><?=  /* @noEscape */  __("Custom Height")?></span>
+            </label>
+            <div class="legend">
+                <?= __('Use our %1calculator%2 for height recommendation.', '<a id="custom_height_calculator" href="#">', '</a>') ?>
+            </div>
+            <div class="control select-btn">
+                <select name="custom_height" id="custom_height">
+                    <?php foreach ($block->getHeightPricing() as $heightPricing):?>
+                        <?php if ($heightPricing['price'] == 0 && empty($customHeightValue)):?>
+                            <option selected value="<?= $heightPricing['price'] ?>" data-height-value="<?= $heightPricing['height'] ?>"> <?= $heightPricing['label']?></option>
+                        <?php elseif (!empty($customHeightValue) && $customHeightValue == $heightPricing['height']): ?>
+                            <option selected value="<?= $heightPricing['price'] ?>" data-height-value="<?= $heightPricing['height'] ?>"> <?=$heightPricing['label']?></option>
+                            <?php $customHeightPrice = $heightPricing['price']; ?>
+                        <?php else: ?>
+                            <option value="<?= $heightPricing['price'] ?>" data-height-value="<?= $heightPricing['height'] ?>"> <?=$heightPricing['label']?></option>
+                        <?php endif; ?>
+                    <?php endforeach;?>
+                </select>
+                <input type="hidden" id="custom_height_value"
+                       class="checkbox admin__control-checkbox product-custom-option"
+                       name="custom_height_value" value="<?= (!empty($customHeightValue)) ? $customHeightValue : 0 ?>"/>
+                <input type="hidden" id="custom_height_price"
+                       class="checkbox admin__control-checkbox product-custom-option"
+                       name="custom_height_price" value="<?= (!empty($customHeightPrice)) ? $customHeightPrice : 0 ?>"/>
+            </div>
+            <div id="custom_height_note" class="ch-note" style="display: none"></div>
+            <div id="availability_message" class="stock available" style="display: none"></div>
+        </div>
+    </div>
+    <div>
+        <?= $block->getChildHtml('custom.height.calculator')?>
+    </div>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "Capgemini_CustomHeight/js/customHeight" : {
+                  "staticNoteText": "<?= $block->getStaticNoteText() ?>",
+                  "availabilityMessageText": "<?= $block->getAvailabilityMessage() ?>",
+                  "heightPricingForAllProducts": <?= $block->getHeightPricingForAllProducts() ?>
+            }
+        }
+    }
+    </script>
+<?php endif; ?>
+<?php endif;?>

@@ -1,0 +1,23 @@
+<?php
+/**
+ * @var $block PrintButton
+ */
+
+use Capgemini\ProductPdf\Block\PrintButton;
+
+?>
+<button class="btn btn-secondary" id="modal-btn">Print as PDF</button>
+<div id="pdf-modal-wrap" style="display: none;"></div>
+<div id="validation-modal-wrap" style="display: none;">
+    <p><?= __('Please select required product options') ?></p>
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Capgemini_ProductPdf/js/button": {
+                "isCompanyPrice": "<?= json_encode($block->isCompanyPrice()) ?>"
+            }
+        }
+    }
+</script>

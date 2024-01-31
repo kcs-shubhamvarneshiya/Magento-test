@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+     <system>
+        <tab id="Rysun" translate="label" sortOrder="200">
+           <label>Rysun</label>
+        </tab>
+        <section id="archi_import" translate="label" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+           <class>separator-top</class>
+           <label>Architectural Import</label>
+           <tab>Rysun</tab>
+           <resource>Rysun_DataTransfer::configuration</resource>
+           <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Import file path</label>
+                <field id="category_import_path" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category Import Path</label>
+                </field>
+                <field id="product_collection_import_path" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category collection Import path</label>
+                </field>
+                <field id="product_platform_import_path" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Category platform Import path</label>
+                </field>
+                <field id="attribute_import_path" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Attribute Import path</label>
+                </field>
+                <field id="attribute_range_import_path" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Attribute Range Import path</label>
+                </field>
+                <field id="product_import_path" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Import path</label>
+                </field>
+                <field id="product_exception_import_path" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Exception Import path</label>
+                </field>
+                <field id="accessories_import_path" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Accessories Import path</label>
+                </field>
+                <field id="cross_product_import_path" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cross Product Import path</label>
+                </field>
+                <field id="product_document_import_path" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Document Import path</label>
+                </field>
+                <field id="product_video_import_path" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Product Video Import path</label>
+                </field>
+          </group>
+       </section>
+     </system>
+</config>

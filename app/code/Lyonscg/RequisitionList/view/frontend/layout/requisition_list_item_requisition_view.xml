@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_RequisitionList
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Tetiana Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="requisition.list.title">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_RequisitionList::requisition/view/items/details.phtml</argument>
+            </action>
+            <arguments>
+                <argument name="viewExtraDataModel" xsi:type="object">Lyonscg\RequisitionList\ViewModel\ExtraData</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="requisition.create">
+            <arguments>
+                <argument name="viewModel" xsi:type="object">Lyonscg\RequisitionList\ViewModel\ExtraData</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="requisition.list.pdf" after="requisition.items.buttons"
+               template="Magento_RequisitionList::requisition/view/items/to_pdf.phtml">
+            <arguments>
+                <argument name="viewRequisitionTotalModel" xsi:type="object">Lyonscg\RequisitionList\ViewModel\RequisitionListTotal</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

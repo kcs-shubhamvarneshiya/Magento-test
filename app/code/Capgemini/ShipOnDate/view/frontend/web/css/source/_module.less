@@ -1,0 +1,160 @@
+& when (@media-common = true) {
+    .col-ship-date {
+        display: flex;
+        align-items: center;
+
+        .lib-icon-font(
+            @_icon-font-content: @icon-calendar,
+            @_icon-font-size: 24px,
+            @_icon-font-display: flex,
+            @_icon-font-color: @color-gray-800,
+            @_icon-font-color-hover: @color-gray-700
+        );
+
+        &:before {
+            width: 28px;
+        }
+
+        input.input-text {
+            background: transparent;
+            border: none;
+            font-family: 'proxima-nova';
+            font-weight: 600;
+            font-size: 1.4rem;
+            line-height: 2.4rem;
+            letter-spacing: 0.25px;
+            color: @color-gray-800;
+            min-width: 200px;
+            width: 100%;
+            padding-top: 5px;
+
+            &::placeholder {
+                font-family: 'proxima-nova';
+                font-weight: 600;
+                font-size: 1.4rem;
+                line-height: 2.4rem;
+                letter-spacing: 0.25px;
+                color: @color-gray-800;
+            }
+        }
+    }
+
+    .ui-datepicker {
+        background: @color-white;
+        border: 1px solid @color-gray-400;
+        padding: 27px 22px 12px;
+        box-shadow: none;
+
+        .ui-datepicker-title {
+            font-family: 'goudy-old-style';
+            font-weight: 400;
+            font-size: 2rem;
+            line-height: 3rem;
+            text-transform: uppercase;
+        }
+
+        .ui-datepicker-calendar {
+            background: @color-white;
+            border: none;
+
+            th,
+            td {
+                border: none;
+                background: @color-white;
+                padding: 10px;
+                font-family: 'proxima-nova';
+                font-weight: 600;
+                font-size: 1.2rem;
+                line-height: 1.6rem;
+                letter-spacing: 0;
+                color: @color-gray-800;
+                text-align: center;
+            }
+
+            .ui-state-disabled {
+                background: @color-white;
+
+                span {
+                    color: @color-gray-800;
+                }
+            }
+
+            td {
+                a {
+                    font-family: 'proxima-nova';
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    line-height: 1.6rem;
+                    border: 1px solid @color-gray-800;
+                    border-radius: 9999px;
+                    text-align: center;
+
+                    &.ui-state-hover,
+                    &.ui-state-active {
+                        color: @color-white;
+                        background: @color-gray-800;
+                    }
+                }
+            }
+        }
+
+        .ui-datepicker-prev,
+        .ui-datepicker-next {
+            top: -4px;
+
+            span {
+                width: auto;
+                height: auto;
+                border: none;
+            }
+        }
+
+        .ui-datepicker-prev span {
+            &:before {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size: 14px;
+                line-height: 24px;
+                color: #454545;
+                content: "\e617";
+                font-family: 'visual-comfort-icons';
+                vertical-align: middle;
+                display: inline-block;
+                font-weight: normal;
+                overflow: hidden;
+                speak: none;
+                text-align: center;
+            }
+
+            &:hover {
+                &:before {
+                    color: #717171;
+                }
+            }
+        }
+
+        .ui-datepicker-next span {
+            &:before {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                font-size: 14px;
+                line-height: 24px;
+                color: #454545;
+                content: "\e608";
+                font-family: 'visual-comfort-icons';
+                vertical-align: middle;
+                display: inline-block;
+                font-weight: normal;
+                overflow: hidden;
+                speak: none;
+                text-align: center;
+            }
+
+            &:hover {
+                &:before {
+                    color: #717171;
+                }
+            }
+        }
+    }
+}

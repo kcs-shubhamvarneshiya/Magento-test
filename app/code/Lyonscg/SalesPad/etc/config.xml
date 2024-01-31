@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <lyonscg_salespad>
+            <general>
+                <staging_enabled>1</staging_enabled>
+                <active_user_limit>6</active_user_limit>
+                <logging_enabled>1</logging_enabled>
+                <sales_person_id>99WEB</sales_person_id>
+                <warehouse_code>99</warehouse_code>
+                <currency_id>Z-US$</currency_id>
+                <currency_dec>2</currency_dec>
+                <use_entity_id_in_aggregation>1</use_entity_id_in_aggregation>
+            </general>
+            <sync>
+                <customer_sync_enabled>1</customer_sync_enabled>
+                <customer_sync_update_enabled>0</customer_sync_update_enabled>
+                <customer_sync_limit>10</customer_sync_limit>
+                <customer_sync_name_class>1</customer_sync_name_class>
+                <customer_sync_schedule>* * * * *</customer_sync_schedule>
+                <order_sync_enabled>0</order_sync_enabled>
+                <order_sync_limit>10</order_sync_limit>
+                <order_sync_schedule>* * * * *</order_sync_schedule>
+                <quote_sync_enabled>1</quote_sync_enabled>
+                <quote_sync_limit>10</quote_sync_limit>
+                <quote_sync_schedule>* * * * *</quote_sync_schedule>
+            </sync>
+        </lyonscg_salespad>
+    </default>
+</config>

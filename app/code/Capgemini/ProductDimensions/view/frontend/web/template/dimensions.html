@@ -1,0 +1,20 @@
+<table class="options">
+    <!-- ko if: (hasDimensions)-->
+    <thead>
+    <tr>
+        <th data-bind="i18n: 'Dimensions'"></th>
+        <th data-bind="i18n: 'IN'"></th>
+        <th data-bind="i18n: 'CM'"></th>
+    </tr>
+    </thead>
+    <tbody data-bind="foreach: {data: getDimensions(), as: 'dim'}">
+    <tr>
+        <td class="label"><span data-bind="i18n: dim.label"></span></td>
+        <td class="label"><span data-bind="text: dim.value"></span></td>
+        <td class="label"><span data-bind="text: dim.metric"></span></td>
+    </tr>
+    </tbody>
+    <!-- /ko -->
+    <!-- ko ifnot: (hasDimensions) -->
+    <!-- /ko -->
+</table>

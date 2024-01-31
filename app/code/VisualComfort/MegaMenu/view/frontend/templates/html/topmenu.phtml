@@ -1,0 +1,30 @@
+<?php
+$desktopcmsblock = $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('header-desktop-menu')->toHtml();
+$mobilecmsblock = $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('header-mobile-menu')->toHtml();
+?>
+
+<div class="mega-menu-main">
+    <div class="vsmenu-wrapper">
+        <!-- left megamenu section -->
+    </div>
+</div>
+
+<script>
+require(['jquery', 'megamenu'], function($, megamenu) {
+    function loadMegaMenuContent(event) {
+        let windowWidth = window.innerWidth;
+        let desktopSize = windowWidth > 1280;
+        if(desktopSize){
+            $(".vsmenu-wrapper").html(`<?php echo $desktopcmsblock; ?>`);
+
+        } else {
+            $(".vsmenu-wrapper").html(`<?php echo $mobilecmsblock; ?>`);
+            $(".nav-right-mobile").show();
+        }
+        $(document).trigger('vsmenuLoaded');
+    }
+    $(document).ready(loadMegaMenuContent);
+    $(window).resize(loadMegaMenuContent);
+    megamenu();
+});
+</script>

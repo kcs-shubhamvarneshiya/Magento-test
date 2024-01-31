@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="capgemini_plpad" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" identity="true"/>
+        <column xsi:type="varchar" name="name" nullable="true" />
+        <column xsi:type="tinyint" name="enabled" nullable="true" default="0"/>
+        <column xsi:type="int" name="position" nullable="true"/>
+        <column xsi:type="text" name="content" nullable="true" />
+        <column xsi:type="timestamp" name="created_at" default="CURRENT_TIMESTAMP" on_update="false"
+                nullable="false" comment="Timestamp when entry was created"/>
+        <column xsi:type="timestamp" name="updated_at" default="CURRENT_TIMESTAMP" on_update="true"
+                nullable="false" comment="Timestamp when entry was updated"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="CAPGEMINI_PLPAD_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+    <table name="capgemini_plpad_category" resource="default" engine="innodb">
+        <column xsi:type="int" name="entity_id" identity="true"/>
+        <column xsi:type="int" name="category_id" unsigned="true" nullable="false" />
+        <column xsi:type="int" name="plpad_id" />
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="CAPGEMINI_PLPAD_CATEGORY_CATEGORY_ID_CATALOG_CATEGORY_ENTITY_ENTITY_ID"
+                    table="capgemini_plpad_category" column="category_id" referenceTable="catalog_category_entity"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+        <constraint xsi:type="foreign" referenceId="CAPGEMINI_PLPAD_CATEGORY_PLPAD_ID_CAPGEMINI_PLPAD_ENTITY_ID"
+                    table="capgemini_plpad_category" column="plpad_id" referenceTable="capgemini_plpad"
+                    referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="CAPGEMINI_PLPAD_CATEGORY_ENTITY_ID" indexType="btree">
+            <column name="entity_id"/>
+        </index>
+    </table>
+</schema>

@@ -1,0 +1,440 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+
+<?php
+
+    $_productCollection = $block->getLoadedProductCollection();
+    $productSkus = $_productCollection->getColumnValues('sku');
+    $attributeLabel = [];
+    $current_category = $this->frameworkRegistry->registry('current_category');    
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $productCollectionFactory = $objectManager->create('Rysun\ArchiCollection\Model\ArchiCollection');
+    $collection = $productCollectionFactory->getCollection();
+    $collection->addFieldToFilter('category_id',$current_category->getId());
+    $collection->setOrder('sort_order','ASC');
+
+?>
+<div class="products-grid custom-products">
+    <div class="products-sep"></div>
+    <?php 
+        foreach ($collection as $collectionlist) {
+
+            $platformCollectionFactory = $objectManager->create('Rysun\ArchiCollection\Model\ArchiPlatform');
+            $platformCollection = $platformCollectionFactory->getCollection();
+            $platformCollection->addFieldToFilter('category_id',$current_category->getId());
+            $platformCollection->addFieldToFilter('collection_id',$collectionlist->getId());
+            $platformCollection->setOrder('sort_order','ASC');
+            $productCollectionLabel = strtolower($collectionlist->getWebName());
+            $productCollectionLabel = str_replace(' ', '', $productCollectionLabel);
+
+        $platformAllIds = implode(',',$platformCollection->getAllIds());
+
+        /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
+        $productDataCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+        /** Apply filters here */
+        $prodDatacollection = $productDataCollection->addAttributeToSelect('*');
+        $prodDatacollection->addAttributeToFilter(
+            'collection_id',array("eq"=>$collectionlist->getId())
+        )
+        ->addAttributeToFilter(
+            'platform_id',array("in"=>$platformAllIds)
+        )
+        ->addAttributeToFilter('sku',array('in' => $productSkus))
+                    ->load();
+                    if (count($prodDatacollection) < 1) {
+                        continue;
+                    }
+
+    ?>
+        <h2 id="<?= $productCollectionLabel ?>"> <?= $collectionlist->getWebName() ?> </h2>
+        <h5><?= $collectionlist->getCollectionDesc() ?> </h5>
+        <p><?= $collectionlist->getCollectionDescSecond() ?> </p>
+        <div class="products list items product-items">
+            <!-- <div class="item product product-item product-promotion">
+                <div class="promotion-content">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="<?= $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" width="381" height="511" />
+                    </a>
+                </div>
+            </div> -->
+            <?php 
+            foreach ($platformCollection as $platformlist) {
+
+                $productVisibility = $objectManager->create('Magento\Catalog\Model\Product\Visibility');
+                /** @var \Magento\Catalog\Model\ResourceModel\Product\Collection $productCollection */
+                $productDataCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+                /** Apply filters here */
+                $prodDatacollection = $productDataCollection->addAttributeToSelect('*');
+                $prodDatacollection->setVisibility($productVisibility->getVisibleInSiteIds());
+                $prodDatacollection->addAttributeToFilter(
+                    'collection_id',array("eq"=>$collectionlist->getId())
+                )
+                ->addAttributeToFilter(
+                    'platform_id',array("eq"=>$platformlist->getId())
+                )
+                ->addAttributeToFilter('sku',array('in' => $productSkus))
+                ->setOrder('product_sort_order','ASC')
+                            ->load();
+
+                if (count($prodDatacollection) < 1) {
+                    continue;       
+                }
+
+                //Render Product collection
+
+                $productList =  $deliveredLumens = $bining= $beamSpread = $housing = $dimming =$ratingCertification = [];
+
+                $productIds = implode(',',$prodDatacollection->getAllIds());
+
+                $imageURl = [];
+                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                $trimModel = $objectManager->create('Rysun\DataTransfer\Model\ProductTrim');
+                $listCollection = $trimModel->getCollection();
+                $listCollection->addFieldToFilter('product_id', array('in' => $productIds));
+
+                $trimProductList = [];
+                foreach($listCollection as $listData){
+                    $trimProductList[] = $listData['trim_product_id'];
+               }
+               $trimListProduct = array_unique($trimProductList);
+              // echo '<pre>';
+              // echo $listCollection->getSelect()->__toString();
+               //print_r($trimListProduct);
+               //echo '</pre>';
+                foreach ($trimListProduct as $listData) {
+
+                    $productCreateObject = $objectManager->create('Magento\Catalog\Model\ProductFactory');
+                    $_product = $productCreateObject->create()->load($listData);
+                    $productImages = $_product->getMediaGalleryImages();
+                   
+                    foreach ($productImages as $image) {
+                        $imageURl[] = $image->getUrl();
+                    }
+                }
+
+                $attributeData = [];
+                $finalArrayValues = [];
+                $minimumDeliverLumens = $maximumDeliverLumens = [];
+
+                foreach ($prodDatacollection as $key =>  $item) {
+                    $productData = [];
+                    //List for printing Product List
+                    $productData['name'] = $item->getName(); 
+                    $productData['url'] = $item->getProductUrl(); 
+                    $productData['sort'] = $item->getProductSortOrder(); 
+                    $productData['type'] = $item->getTypeId();
+                    $productList[] = $productData;
+
+                     //WORKING CODE START
+                     $specificationCollection = $objectManager->create('Rysun\SpecificationAttribute\Model\SpecificationAttribute');
+                     $specificationCol = $specificationCollection->getCollection();
+                     $specificationCol->addFieldToFilter('category_id',$current_category->getId());
+                     $specificationCol->addFieldToFilter('collection_id',$collectionlist->getSqlServId());
+                     
+                     $deliverLumenFlag = false;
+                     foreach ($specificationCol as $specificationDetail) {
+                        $deliveredLumens = [];
+
+                         $attributeCode = $specificationDetail->getData('attribute_code');
+                         if ($attributeCode == 'minimum_delivered_lumens_arch_filter' ) {
+                            $deliverLumenFlag = true;
+                            if (!empty($item->getData($attributeCode))) {
+                                $minimumDeliverLumens[] =  $item->getData($attributeCode);
+                            }
+                            
+                         }
+                         if ($attributeCode == 'maximum_delivered_lumens_arch_filter'){
+                            $deliverLumenFlag = true;
+                            if (!empty($item->getData($attributeCode))) {
+                                $maximumDeliverLumens[] =  $item->getData($attributeCode);
+                            }
+                            
+                        }
+
+                         $productValue = $item->getAttributeText($attributeCode);
+
+                         if ($attributeCode == 'minimum_delivered_lumens_arch_filter' || $attributeCode == 'maximum_delivered_lumens_arch_filter') {
+                            continue;
+                         }
+
+                         if (is_array($productValue)) {
+                             foreach ($productValue  as $value) {
+                                 $deliveredLumens[] = $value;
+                                 $attributeData[$attributeCode][] =  $value;
+
+                             }
+                         } else {
+                             $deliveredLumens[] = $productValue ;
+                             $attributeData[$attributeCode][] = $productValue ;
+                         }
+                         
+                         $attributeLabel[$attributeCode][] = $item->getResource()->getAttribute($attributeCode)->getStoreLabel();
+
+                     }
+
+                        $deliveryLumenSpec = [];
+
+                     if ($deliverLumenFlag && !empty($minimumDeliverLumens) && !empty($maximumDeliverLumens)) {
+                        $minDeliverLumen = min($minimumDeliverLumens);
+                        $maxDeliverLumen = max($maximumDeliverLumens);
+
+                        $test = implode(',',$minimumDeliverLumens);
+                        $test1 = implode(',',$maximumDeliverLumens);
+                        $deliveryLumenSpec['label'] = "Delivered Lumens";
+                        $value = ($minDeliverLumen == $maxDeliverLumen) ? [$minDeliverLumen] : [$minDeliverLumen. " - ". $maxDeliverLumen];
+                         $deliveryLumenSpec['data'] = $value;
+                     }
+
+                    if (is_array($item->getAttributeText('maximum_delivered_lumens_arch_filter'))) {
+                        $values = $item->getAttributeText('maximum_delivered_lumens_arch_filter');
+                        foreach ($values  as $value) {
+                            $deliveredLumens[] = $value;
+                        }
+                      
+                    } else {
+                        if (!empty($item->getAttributeText('maximum_delivered_lumens_arch_filter'))) {
+                        $deliveredLumens[] = $item->getAttributeText('maximum_delivered_lumens_arch_filter');
+                        }
+                    }
+
+                    if (is_array($item->getAttributeText('color_consistency_sdcm_binning_arch_filter'))) {
+                        $values = $item->getAttributeText('color_consistency_sdcm_binning_arch_filter');
+                        foreach ($values  as $value) {
+                            if (!empty($value)) {
+                                $bining[] = $value;
+                            }
+                        }
+                    } else {
+                        if (!empty($item->getAttributeText('color_consistency_sdcm_binning_arch_filter'))) {
+                            $bining[] = $item->getAttributeText('color_consistency_sdcm_binning_arch_filter');
+                        }
+                    }
+
+                    if (is_array($item->getAttributeText('beam_spread_arch_option'))) {
+                        $values = $item->getAttributeText('beam_spread_arch_option');
+                        foreach ($values  as $value) {
+                            if (!empty($value)) {
+                            $beamSpread[] = $value;
+                            }
+                        }
+                    } else {
+                        if (!empty($item->getAttributeText('beam_spread_arch_option'))) {
+                            $beamSpread[] = $item->getAttributeText('beam_spread_arch_option');
+                        }
+                    }
+
+                    if (is_array($item->getAttributeText('housing_type_arch_filter'))) {
+                        $values = $item->getAttributeText('housing_type_arch_filter');
+                        foreach ($values  as $value) {
+                            if (!empty($value)) {
+                            $housing[] = $value;
+                            }
+                        }
+                    } else {
+                        if (!empty($item->getAttributeText('housing_type_arch_filter'))) {
+                            $housing[] = $item->getAttributeText('housing_type_arch_filter');
+                        }
+                    }
+
+                    if (is_array($item->getAttributeText('dimming_type_arch_filter'))) {
+                        $values = $item->getAttributeText('dimming_type_arch_filter');
+                        foreach ($values  as $value) {
+                            if (!empty($value)) {
+                            $dimming[] = $value;
+                            }
+                        }
+                    } else {
+                        if (!empty($item->getAttributeText('dimming_type_arch_filter'))) {
+                         $dimming[] = $item->getAttributeText('dimming_type_arch_filter');
+                        }
+                    }
+
+                    if (is_array($item->getAttributeText('rating_certification_arch_filter'))) {
+                        $values = $item->getAttributeText('rating_certification_arch_filter');
+                        foreach ($values  as $value) {
+                            if (!empty($value)) {
+                            $ratingCertification[] = $value;
+                            }
+                        }
+                    } else {
+                        if (!empty($item->getAttributeText('rating_certification_arch_filter'))) {
+                        $ratingCertification[] = $item->getAttributeText('rating_certification_arch_filter');
+                        }
+                    }
+
+                }
+
+                foreach ($attributeData as $keyIndex => $keyItem) {
+                    $newArray = [];
+                    $newArray['label'] = $attributeLabel[$keyIndex][0];
+                    $newArray['data'] = array_unique($keyItem);
+                    $finalArrayValues[] = $newArray;
+                 }
+
+                if ($deliverLumenFlag){
+                    array_unshift($finalArrayValues , $deliveryLumenSpec);
+                 }
+
+            ?>
+
+                <div class="item product product-item">
+                    <div class="product-item-info">
+
+                    <?php 
+                    
+                    if (count($imageURl) <= 0) {
+                        $imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Catalog\Helper\Image::class);
+                        $imageURlPlaceHolder = $imageHelper->getDefaultPlaceholderUrl('image');
+                    ?>
+                    <div id="placeholderImage" class="product-item-slider">
+                    <div class="product photo product-item-photo item" data-hash="slide">
+                        <img src="<?= $imageURlPlaceHolder ?>" width="240" height="300" loading="lazy" />
+                    </div>
+                    </div>
+                    <?php
+
+                    } else {
+                    
+                    ?>
+                    <div id="slider-<?= $platformlist->getId(); ?>" class="product-item-slider owl-carousel owl-theme">
+                            
+                    <?php 
+                    foreach ($imageURl as $key => $image) {
+                    ?>
+                            <div class="product photo product-item-photo item" data-hash="slide-<?php echo $platformlist->getId().$key; ?>">
+                                <img src="<?= $image.'?optimize=medium&fit=bounds&height=300&width=240&canvas=240:300' ?>" width="240" height="300" loading="lazy" />
+                            </div>
+                    <?php
+                    }
+                    ?>
+                        </div>
+
+                        <div id="thumb-<?= $platformlist->getId(); ?>" class="product-item-thumb owl-carousel owl-theme">
+                            
+                    <?php
+                    foreach ($imageURl as $key => $image) {
+                    ?>
+                             <a href="#slide-<?php echo $platformlist->getId().$key; ?>" class="item" data-hash="slide-<?php echo $platformlist->getId().$key; ?>">
+                                <img src="<?= $image.'?optimize=medium&fit=bounds&height=50&width=50&canvas=50:50' ?>" width="50" height="50" loading="lazy" />
+                            </a>
+                    <?php
+                    }
+                    ?>
+                        </div>
+
+                        
+                        <script>
+                            require([
+                                'jquery',
+                                'owlcarousel'
+                            ],function($) {
+                                $(document).ready(function(){
+                                    $('#slider-<?= $platformlist->getId(); ?>').owlCarousel({
+                                        loop: true,
+                                        items: 1,
+                                        dots: false,
+                                        URLhashListener: true
+                                    });
+                                    $('#thumb-<?= $platformlist->getId(); ?>').owlCarousel({
+                                        loop: false,
+                                        nav: true,
+                                        autoPlay: false,
+                                        items: 5,
+                                        dots: false,
+                                        URLhashListener: true
+                                    })
+                                });
+                            })
+                        </script>
+
+                        <?php } ?>
+                        <div class="product details product-item-details">
+                            <div class="product name product-item-name">
+                                <a class="product-item-link" href="javascript:void(0);">
+                                    <?= $platformlist->getWebName(); ?>
+                                </a>
+                            </div>
+                            <div class="product-attribute-head">Specifications</div>
+                          
+                            <?php foreach ($finalArrayValues as $specificationData) { ?>
+                                <div class="spec-inline">
+                                    <ul class="product-attribute-list">
+                                <?php if (isset($specificationData['data'])) {
+                                        $specData = array_filter(array_unique($specificationData['data']));
+                                            if (in_array('New Construction, Remodel', $specData)) {
+                                                if (in_array('New Construction', $specData)) {
+                                                    foreach ($specData as $key => $value) {
+                                                    if ($value == 'New Construction') {
+                                                        unset($specData[$key]);
+                                                    }
+                                                    }
+                                                }
+                                                if (in_array('Remodel', $specData)) {
+                                                    foreach ($specData as $key => $value) {
+                                                    if ($value == 'Remodel') {
+                                                        unset($specData[$key]);
+                                                    }
+                                                    }
+                                                }
+                                            }
+                                        $newSpec = implode(', ',$specData);
+                                        if ($newSpec != '') {
+                                        ?>
+                                        <span>
+                                        <?php echo $specificationData['label'].":"; ?>
+                                        </span>
+                                        <li>
+                                        <?php
+                                        echo $newSpec; ?>
+                                        </li>
+                                    <?php }
+                                    } ?>
+                                    </ul>
+                                </div>
+                            <?php } ?>
+
+                            <?php if (!empty($productList)) { ?>
+                            <div class="product-attribute-head">Products</div>
+                            <div class="tech-attributes">
+                                <ul class="product-attribute-list">
+                                    <?php
+
+                                        foreach ($productList as $item) {
+
+                                    ?>
+                                        <li><a href="<?= $item['url'] ?>?darkmode=Yes"><?= $item['name']; ?></a></li>
+                                    <?php } ?>
+                                </ul>
+                            <?php } ?>                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php  } ?>
+        </div>
+    <?php  } ?>
+</div>
+
+
+<script>
+    require([
+        'jquery',
+    ], function ($) {
+        $('body').addClass('architectural-category');
+    })
+</script>

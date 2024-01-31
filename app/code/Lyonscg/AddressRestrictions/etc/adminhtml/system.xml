@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="lyonscg" translate="label" sortOrder="150">
+            <label>Lyonscg</label>
+        </tab>
+        <section id="lyonscg_addressrestrictions" translate="label" type="text" sortOrder="20" showInDefault="1">
+            <label>Address Restrictions</label>
+            <tab>lyonscg</tab>
+            <resource>Lyonscg_AddressRestrictions::settings</resource>
+            <group id="address_delete_log" translate="label" type="text" sortOrder="10" showInDefault="1">
+                <label>Address Delete Log Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1">
+                    <label>Address Delete Logs Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="customer_groups" translate="label" type="multiselect" sortOrder="20" showInDefault="1">
+                    <label>Customer Groups To Log</label>
+                    <source_model>Magento\Customer\Model\Config\Source\Group\Multiselect</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

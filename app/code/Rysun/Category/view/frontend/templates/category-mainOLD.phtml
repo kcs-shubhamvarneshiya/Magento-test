@@ -1,0 +1,88 @@
+<?php if ($description = $block->getCurrentCategory()->getDescription()):?>
+    <div class="category-cms text-center">
+        <h1 class="category__heading"><?=$block->getCurrentCategory()->getName(); ?></h1>
+        <div class="category__description common-desc">
+            <?php $descriptionHtml = $this->helper(Magento\Catalog\Helper\Output::class)->categoryAttribute($block->getCurrentCategory(),$description,'description');?>
+            <?php if (stripos($description, 'data-appearance') === false):?>
+            <div data-content-type="row" data-appearance="contained" data-element="main">
+                <div data-enable-parallax="0" data-parallax-speed="0.5" data-background-images="{}" data-element="inner">
+                    <div data-content-type="html" data-appearance="default" data-element="main">
+                        <p><?= $descriptionHtml; ?></p>
+                    </div>
+                </div>
+                <?php else: ?>
+                    <h1><?=$block->getCurrentCategory()->getName(); ?></h1>
+                    <p><?= $descriptionHtml; ?></p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+    <?php
+        $category = $block->getCurrentCategory();
+        if ($category) {
+            $subcats = $category->getChildrenCategories();
+
+            //echo '<pre>';
+            //print_r($subcats->getData());
+            //exit('coming here');
+            $_helper = $this->helper('Magento\Catalog\Helper\Output');
+        ?>
+        <div class="maincategory-grid">
+            <?php foreach ($subcats as $subcat) {
+                if ($subcat->getIsActive()) {
+                    $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+
+                    $_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                    $_category = $_objectManager->create('Magento\Catalog\Model\Category')->load($subcat->getId());
+                    //echo "<pre>";
+
+                    //$_category = $block->category->load($subcat->getId());
+                    $_imgHtml = '';
+                    $_description = $_category->getDescription();
+                   
+                   
+                    $subcaturl = $_category->getUrl();
+                    $subcatname = $_category->getName();
+                    //echo ' name ';
+                    //print_r($subcatname);
+                    //echo ' || ';
+                    //echo '<pre> Description:';
+                    // echo '<div>';
+                    //print_r($_description);
+                    //echo ' || ';
+                    //echo '<br>';
+                   // exit('coming here');
+                    //echo '</div>';
+
+                    $imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Catalog\Helper\Image::class);
+                    $image = $imageHelper->getDefaultPlaceholderUrl('image');
+
+                    $subcatdesc = $_helper->categoryAttribute($_category, $_description,'description');
+                    $_imgUrl = ($_category->getImageUrl()) ?  $_category->getImageUrl() : $image ;                      
+                    $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+                    $_imgHtml = '<img src="'.$block->escapeUrl($_imgUrl).'" height="425" />';
+                    echo '<div class="maincategory-grid-box">
+                            <a href="' . $subcaturl . '" class="d-block text-center">' . $_imgHtml . '</a>' . 
+                            '<h2>'. $subcatname .'</h2>';
+                    ?>
+
+                        <?php if (!empty($_description)): ?>
+                            <?php echo $subcatdesc; ?>
+                        <?php else: ?>
+                            <?php echo "blank"; ?>
+                        <?php endif; ?>
+                            
+                    <?php echo '</div>';
+                }
+            } ?>
+        </div>
+    <?php } ?>
+<script>
+    require([
+        'jquery',
+    ], function ($) {
+        $('body .page-wrapper').css('overflow-x', 'hidden').css('overflow-y', 'hidden');
+        $('body #amasty-shopby-product-list').css('display', 'none');        
+    })
+</script>
+<?php endif; ?>

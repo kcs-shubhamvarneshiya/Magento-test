@@ -1,0 +1,125 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var $block \Magento\Sales\Block\Order\Email\Items\DefaultItems */
+/** @var \Magento\Framework\Escaper $escaper */
+
+/** @var $_item \Magento\Sales\Model\Order\Item */
+$_item = $block->getItem();
+
+/** @var  \Capgemini\CustomHeight\Helper\PriceHeight $customHeightHelper */
+$customHeightHelper = $this->helper(Capgemini\CustomHeight\Helper\PriceHeight::class);
+
+$_order = $_item->getOrder();
+$_itemExt = $_item->getExtensionAttributes();
+$sidemark = '';
+$comments = '';
+if ($_itemExt) {
+    $sidemark = $_itemExt->getSidemark();
+    $comments = $_itemExt->getCommentsLineItem();
+}
+if (!$sidemark) {
+    $sidemark = $_item->getSidemark();
+}
+if (!$comments) {
+    $comments = $_item->getCommentsLineItem();
+}
+$availability = $_item->getProduct()->getAttributeText('availability');
+?>
+<tr>
+    <td class="item-image">
+        <?= $this->helper(\Capgemini\OrderView\Helper\Product::class)->getOrderItemImage($_item, $block->getData('image_template')) ?>
+    </td>
+    <td class="item-info<?= ($block->getItemOptions() ? ' has-extra' : '') ?>">
+        <p class="product-name"><?= $block->escapeHtml($_item->getName()) ?></p>
+
+        <ul class="item-options">
+            <li>
+                <p>
+                    <span class="label">Item Number:</span>
+                    <?= $block->escapeHtml($_item->getSku()) ?>
+                </p>
+            </li>
+            <?php if (!empty($availability)): ?>
+            <li>
+                <p>
+                    <span class="label">Availability:</span>
+                    <?= $block->escapeHtml($availability) ?>
+                </p>
+            </li>
+            <?php endif; ?>
+        </ul>
+
+        <?php if ($block->getItemOptions()) : ?>
+            <ul class="item-options">
+            <?php foreach ($block->getItemOptions() as $option) : ?>
+                <li>
+                    <p>
+                        <span class="label"><?= $block->escapeHtml($option['label']) ?>: </span>
+                        <?= /* @noEscape */  nl2br($block->escapeHtml($option['value'])) ?>
+                    </p>
+                </li>
+            <?php endforeach; ?>
+            <?php if (!empty($_item->getCustomHeightValue())) : ?>
+                <li>
+                    <p>
+                        <span class="label"><?= __("Custom Height") ?>: </span>
+                        <?=  $_item->getCustomHeightValue() ?>"
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <?= $escaper->escapeHtml($customHeightHelper->getAvailabilityMessage()) ?>
+                    </p>
+                </li>
+            <?php endif; ?>
+            </ul>
+        <?php endif; ?>
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock) :?>
+            <?= $addInfoBlock->setItem($_item)->toHtml() ?>
+        <?php endif; ?>
+        <?= $block->escapeHtml($_item->getDescription()) ?>
+
+        <div class="sidemark">
+            <span class="label">Side Mark</span>
+            <p><?= $block->escapeHtml($sidemark) ?></p>
+        </div>
+        <div class="comments">
+            <span class="label">Comments</span>
+            <p><?= $block->escapeHtml($comments) ?></p>
+        </div>
+    </td>
+    <td class="item-sku">
+        <p class="sku"><?= $block->escapeHtml(__('SKU')) ?>: <?= $block->escapeHtml($block->getSku($_item)) ?></p>
+    </td>
+    <td class="item-qty"><?= (float) $_item->getQtyOrdered() ?></td>
+    <td class="item-price">
+        <?= /* @noEscape */ $block->getItemPrice($_item) ?>
+    </td>
+</tr>
+<?php if ($_item->getGiftMessageId()
+    && $_giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)
+        ->getGiftMessage($_item->getGiftMessageId())
+) : ?>
+    <tr>
+    <td colspan="3" class="item-extra">
+        <table class="message-gift">
+            <tr>
+                <td>
+                    <h3><?= $block->escapeHtml(__('Gift Message')) ?></h3>
+                    <strong><?= $block->escapeHtml(__('From:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+                    <br /><strong><?= $block->escapeHtml(__('To:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                    <br /><strong><?= $block->escapeHtml(__('Message:')) ?></strong>
+                    <br /><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<?php endif; ?>

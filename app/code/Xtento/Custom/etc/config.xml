@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <data_feed>
+            <connection>
+                <environment>stage</environment>
+                <stage_endpoint>https://api-staging.connect.bloomreach.com/dataconnect/api/v1/</stage_endpoint>
+                <prod_endpoint>https://api.connect.bloomreach.com/dataconnect/api/v1/</prod_endpoint>
+            </connection>
+        </data_feed>
+    </default>
+</config>

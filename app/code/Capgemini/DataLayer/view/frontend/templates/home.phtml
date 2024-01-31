@@ -1,0 +1,58 @@
+<?php
+/**
+ * @category    Capgemini
+ * @package     Capgemini_DataLayer
+ */
+?>
+<?php
+/** @var \Capgemini\DataLayer\Block\DataLayer $block */
+?>
+
+<script type='text/javascript'>
+    window._gtmPageType = '<?= $block->escapeJs($block->getPageType()); ?>';
+    require([
+        'jquery',
+        'Capgemini_DataLayer/js/action/execute-push'
+    ], function ($, executePush) {
+        window.dataLayer = window.dataLayer || [];
+        const controlCookieName = "<?= \Capgemini\DataLayer\Observer\Sessid\ObserveSessid::CONTROL_COOKIE_NAME ?>",
+              ajaxUrl = "<?= $block->getAjaxUrl() ?>";
+
+        function pushData(data) {
+            let pageTypeInd = false,
+                otherPageDataInd = false;
+            window.dataLayer.forEach(function (value, index) {
+                if (typeof value.pageType !== 'undefined') {
+                    pageTypeInd = index
+                } else if (typeof value.otherPageData !== 'undefined') {
+                    otherPageDataInd = index
+                }
+            });
+            let pageType = {
+                    'pageType': 'homepage',
+                    'hashedEmail': data['hashedEmail'],
+                    'loggedinStatus': data['loggedinStatus'],
+                    'currencyCode': data['currencyCode'],
+                    'tradeCustomer': data['tradeCustomer'],
+                    'customerClass': data['customerClass']
+                },
+                otherPageData = {
+                    'otherPageData': {
+                        userEmail: data['userEmail']
+                    }
+                };
+            if (pageTypeInd !== false) {
+                window.dataLayer[pageTypeInd] = pageType;
+            } else {
+                window.dataLayer.push(pageType);
+            }
+            if (otherPageDataInd !== false) {
+                window.dataLayer[otherPageDataInd] = otherPageData;
+            } else {
+                window.dataLayer.push(otherPageData);
+            }
+        }
+
+        executePush(controlCookieName, ajaxUrl, pushData);
+    });
+</script>

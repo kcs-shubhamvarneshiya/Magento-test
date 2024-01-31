@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_AmastyStoreLocator
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="main">
+            <block class="Capgemini\AmastyStoreLocator\Block\ShowroomList" name="amasty.locator.showroom_list"
+                   template="Capgemini_AmastyStoreLocator::showroom_list.phtml" output="1">
+                <arguments>
+                    <argument name="location_utils" xsi:type="object">Capgemini\AmastyStoreLocator\ViewModel\LocationUtils</argument>
+                </arguments>
+            </block>
+            <referenceBlock name="amasty.locator.center">
+                <arguments>
+                    <argument name="location_utils" xsi:type="object">Capgemini\AmastyStoreLocator\ViewModel\LocationUtils</argument>
+                    <argument name="filters_utils" xsi:type="object">Capgemini\AmastyStoreLocator\ViewModel\FiltersUtils</argument>
+                </arguments>
+            </referenceBlock>
+        </referenceContainer>
+    </body>
+</page>

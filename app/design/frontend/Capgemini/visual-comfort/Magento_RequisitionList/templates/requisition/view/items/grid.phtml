@@ -1,0 +1,114 @@
+<?php
+/**
+ * Lyonscg_RequisitionList
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Tetiana Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+?>
+<?php
+/**
+ * @var $block \Magento\RequisitionList\Block\Requisition\View\Items\Grid
+ */
+
+$itemsList =  $block->getRequisitionListItems();
+$bulbsCalculationData = $block->getData('bulbs_calculation_data');
+$fakeIdsToSkus = $block->getData('fake_ids_to_skus');
+?>
+<div class="requisition-content" data-mage-init='{"requisitionActions":{"bulbsCalculationData": <?= $bulbsCalculationData ?>}}'>
+    <?= $block->getChildHtml('requisition.management') ?>
+    <?php if (empty($itemsList)) : ?>
+        <div class="message info empty"><span><?= $block->escapeHtml(__('You have no items in this requisition list.'))  ?></span><span class="action close"></span></div>
+    <?php else : ?>
+        <div class="requisition-grid table-wrapper">
+            <form
+                action="<?= $block->escapeUrl($block->getUrl('*/item/update', [
+                    'requisition_id' => (int)$block->getRequest()->getParam('requisition_id')
+                ])) ?>"
+                method="post"
+                data-mage-init='{"validation":{}}'
+                id="form-requisition-list"
+                >
+                <table class="data-table table">
+                    <thead>
+                    <tr class="headings">
+                        <th>&nbsp;</th>
+                        <th class="col product">
+                            <span data-print-label="<?= $block->escapeHtmlAttr(__('Project Name')) ?>">
+                                <?= $block->escapeHtml(__('Product')) ?>
+                            </span>
+                        </th>
+                        <th class="col price">
+                            <span><?= $block->escapeHtml(__('Price')) ?></span>
+                        </th>
+                        <th class="col qty">
+                            <span><?= $block->escapeHtml(__('Qty')) ?></span>
+                        </th>
+                        <th class="col subtotal action">
+                            <span><?= $block->escapeHtml(__('Subtotal')) ?></span>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php $i = 0 ?>
+                    <?php foreach ($itemsList as $item) : $i++ ?>
+                        <?php $itemId = (int) $item->getId(); ?>
+                        <tr class="_<?= ($i % 2) ? 'even' : 'odd' ?> item"
+                            data-product-id="<?= $itemId ?>"
+                            data-is-bulb-product="<?= $item->getData('is_bulb_product') ? 'true' : 'false'?>"
+                            <?= $itemId < 0 ? 'style="display: none"' : '' ?>
+                        >
+                            <?php
+                                $block->getChildBlock('requisition.list.item.view')
+                                    ->setItem($item)
+                                    ->setItemErrors($block->getItemErrors($item));
+                            ?>
+                            <?= $block->getChildHtml('requisition.list.item.view', false) ?>
+                            <?php if ($itemId < 0) : ?>
+                                <input name="fake-bulbs[<?= $itemId ?>]" type="hidden" value="<?= $item->getSku() ?>"/>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    <?php endif; ?>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "requisition.item.grid.selection.provider": {
+                        "component": "Magento_RequisitionList/js/requisition/items/grid/selection-provider",
+                        "selectionSelector": "[data-action='requisition-item-check']"
+                    }
+                }
+            }
+        }
+    }
+</script>
+<script type="text/javascript">
+require(['jquery'], function($) {
+    var changing = false;
+    $('.control.sidemark textarea, .control.comment textarea').on('change', function(e) {
+        if (changing) {
+            return;
+        }
+        changing = true;
+        var value = $(this).val();
+        $('[name="' + this.name + '"]').val(value);
+        changing = false;
+        $(this).trigger('changeFinished');
+    });
+    //simulate close btn
+    if ($('.message.info.empty').length) {
+        $('.action.close').click(function () {
+            $('.message.info.empty').hide();
+        })
+    }
+});
+</script>

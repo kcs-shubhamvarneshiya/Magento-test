@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="capgemini_urapidcron_advanced_price_import" instance="Capgemini\UrapidCron\Cron\AdvancedPriceImport"
+             method="execute">
+            <schedule>5 10 * * *</schedule>
+        </job>
+        <job name="product_delta_us_import" instance="Capgemini\UrapidCron\Cron\ProductDeltaUSImport"
+             method="execute">
+            <schedule>15 11 * * *</schedule>
+        </job>
+        <job name="product_delta_eu_import" instance="Capgemini\UrapidCron\Cron\ProductDeltaEUImport"
+             method="execute">
+            <schedule>20 11 * * *</schedule>
+        </job>
+        <job name="product_delta_uk_import" instance="Capgemini\UrapidCron\Cron\ProductDeltaUKImport"
+             method="execute">
+            <schedule>25 11 * * *</schedule>
+        </job>
+        <job name="product_supplement_us_import" instance="Capgemini\UrapidCron\Cron\ProductSupplementUSImport"
+             method="execute">
+            <schedule>30 11 * * *</schedule>
+        </job>
+        <job name="product_supplement_eu_import" instance="Capgemini\UrapidCron\Cron\ProductSupplementEUImport"
+             method="execute">
+            <schedule>35 11 * * *</schedule>
+        </job>
+        <job name="product_supplement_uk_import" instance="Capgemini\UrapidCron\Cron\ProductSupplementUKImport"
+             method="execute">
+            <schedule>40 11 * * *</schedule>
+        </job>
+        <job name="product_vcb_supplement_us_import" instance="Capgemini\UrapidCron\Cron\ProductVCBSupplementUSImport"
+             method="execute">
+            <schedule>45 11 * * *</schedule>
+        </job>
+    </group>
+</config>

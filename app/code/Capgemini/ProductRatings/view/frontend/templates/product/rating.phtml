@@ -1,0 +1,27 @@
+<?php
+/**
+ * @category  Capgemini
+ * @author    Oleksander Tolkach <oleksander.tolkach@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ *
+ * @var Rating $block
+ */
+
+use Capgemini\ProductRatings\Block\Product\Rating;
+
+?>
+<div class="rating-wrapper">
+    <?php if ($block->getRatingsData()): ?>
+        <p class="rating-title"><?= __('Rating') ?></p>
+        <div class="rating-flex">
+            <?php foreach ((array)$block->getRatingsData() as $request) : ?>
+                <div class="rating-item">
+                    <?php if (isset($request['img'])): ?>
+                        <img src="/<?=$request['img']?>" />
+                    <?php endif; ?>
+                    <p><?=$request['label']?></p>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+</div>

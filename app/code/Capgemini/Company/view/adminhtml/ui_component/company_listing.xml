@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="company_columns">
+        <column name="sales_pad_customer_num" sortOrder="100">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">SalesPad Customer Number</label>
+            </settings>
+        </column>
+        <column name="business_type" sortOrder="100">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Business Type</label>
+            </settings>
+        </column>
+        <column name="collections" sortOrder="100">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Collections</label>
+            </settings>
+        </column>
+        <column name="website" sortOrder="100">
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Website URL</label>
+            </settings>
+        </column>
+    </columns>
+</listing>

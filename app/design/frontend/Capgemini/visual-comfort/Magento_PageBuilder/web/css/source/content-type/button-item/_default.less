@@ -1,0 +1,122 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Default appearance styles
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    .pagebuilder-btn() {
+        .font-proxima-nova-semibold(1.2rem, 1.2rem);
+        font-size: 1.2rem !important;
+        letter-spacing: 0.25px;
+        background-color: @button__background;
+        border: 1px solid @color-btn-default-background;
+        box-sizing: border-box;
+        color: @color-gray-800;
+        display: inline-block;
+        height: @btn-default-height;
+        line-height: @btn-default-height !important;
+        text-align: center;
+        text-decoration: none;
+        text-transform: uppercase;
+        vertical-align: middle;
+        padding: @button-primary__padding !important;
+
+        &:hover {
+            background-color: @color-btn-primary-background-hover;
+            border: @border-trans;
+            text-decoration: none;
+            color: @color-white;
+        }
+
+        &.btn-focus {
+            .btn-focus();
+        }
+
+        &:active,
+        &.btn-active {
+            border: @border-trans;
+            text-decoration: none;
+            color: @color-white;
+            background-color: @color-btn-primary-background-hover;
+            box-shadow: none !important;
+        }
+    }
+
+    [data-content-type='button-item'] {
+        max-width: 100%;
+        [data-element='link'],
+        [data-element='empty_link'] {
+            max-width: 100%;
+            word-wrap: break-word;
+        }
+        [data-element='empty_link'] {
+            cursor: default;
+        }
+    }
+
+    a,
+    button,
+    div {
+        &.pagebuilder-button-link {
+            .lib-button-l();
+            .lib-button-as-link(
+                @_margin: 0 10px 10px 0,
+                @_padding: @button__padding__l
+            );
+            .lib-css(font-weight, @font-weight__semibold);
+            box-shadow: none;
+            box-sizing: border-box;
+            display: inline-block;
+        }
+
+        &.pagebuilder-button-primary {
+            .pagebuilder-btn();
+
+            background-color: @color-btn-primary-background;
+            color: @color-btn-primary-text;
+
+            &:hover {
+                background-color: @color-btn-primary-background-hover;
+                color: @color-btn-primary-text-hover;
+            }
+
+            &:disabled,
+            &[disabled] {
+                background-color: @color-btn-primary-background-disabled;
+                border: @border-trans;
+                color: @color-btn-primary-text-disabled;
+            }
+        }
+
+        &.pagebuilder-button-secondary {
+            .pagebuilder-btn();
+
+            background-color: @color-btn-secondary-background;
+            border-color: @color-btn-secondary-border;
+            color: @color-btn-secondary-text;
+
+            &:hover {
+                background-color: @color-btn-secondary-background-hover;
+                border-color: @color-btn-secondary-border-hover;
+                color: @color-btn-secondary-text-hover;
+                text-decoration: none;
+
+                span {
+                    color: @color-btn-secondary-text-hover;
+                }
+            }
+
+            &:disabled,
+            &[disabled] {
+                background-color: @color-btn-primary-background-disabled;
+                border: @border-trans;
+                color: @color-btn-primary-text-disabled;
+            }
+        }
+    }
+}

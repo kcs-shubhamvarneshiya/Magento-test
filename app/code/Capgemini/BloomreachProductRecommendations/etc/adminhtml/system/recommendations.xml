@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<include>
+    <group id="general">
+        <field id="template_text" showInDefault="0" showInWebsite="0" showInStore="0"/>
+        <field id="field_list" showInDefault="0" showInWebsite="0" showInStore="0"/>
+    </group>
+</include>

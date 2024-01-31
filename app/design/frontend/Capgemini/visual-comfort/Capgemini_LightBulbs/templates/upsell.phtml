@@ -1,0 +1,175 @@
+<?php
+/**
+ * @var \Magento\Framework\Escaper $escaper
+ */
+/** @var $block \Capgemini\LightBulbs\Block\Upsell */
+use Magento\Framework\App\Action\Action;
+
+/** @var \Magento\Catalog\Helper\Output $_helper */
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+/** @var  \Capgemini\CustomHeight\Helper\PriceHeight $customHeightHelper */
+$customHeightHelper = $this->helper(Capgemini\CustomHeight\Helper\PriceHeight::class);
+/** @var \Lyonscg\Catalog\Helper\Data $lcgCatalogHelper */
+$lcgCatalogHelper = $this->helper(\Lyonscg\Catalog\Helper\Data::class);
+$_products = $block->getProducts();
+/** @var \Magento\Quote\Model\Quote\Item $_item */
+$_item = $block->getLastOrderedItem();
+$customHeightValue = $_item->getExtensionAttributes()->getCustomHeightValue() ?? $_item->getCustomHeightValue();
+$usedSimpleProduct = $block->getSimpleProductFromQuoteItem($_item);
+$usedSimpleProductId = $usedSimpleProduct ? $usedSimpleProduct->getId() : null;
+
+$product = $usedSimpleProduct ?? $_item->getProduct();
+$brandText = $product->getAttributeText('brand');
+$designerText = $product->getAttributeText('designer');
+
+$options = null;
+$optionsData = $_item->getProduct()->getTypeInstance()->getOrderOptions($_item->getProduct());
+if (isset($optionsData['attributes_info'])) {
+    foreach ($optionsData['attributes_info'] as $option) {
+        $options[] = $option;
+    }
+}
+?>
+
+<div class="lightbulb-header">
+    <strong><?= $escaper->escapeHtml('Item Added to Cart') ?></strong>
+</div>
+<hr/>
+<div class="item-added modal-row">
+    <div class="modal-column-left">
+        <?php $productImage = $block->getProductImage($lcgCatalogHelper->getChildProduct($_item->getProduct())); ?>
+        <div class="product photo product-item-photo">
+            <?= $productImage->toHtml() ?>
+        </div>
+    </div>
+    <div class="modal-column-right">
+
+        <div class="product-item-data__top">
+            <div class="product-item-data-name__col">
+                <strong class="product name product-item-name">
+                    <span><?= $escaper->escapeHtml($_item->getName()) ?></span>
+                </strong>
+
+                <?php if ($brandText && $designerText):?>
+                    <div class="product-item-info-extra">
+                        <span class="brand"><?= $brandText ?></span>
+                        <span class="designer"><?= $designerText ?></span>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="product-item-data__price hidden-mobile">
+                <div class="product-info-price">
+                    <?= $block->getItemPrice($_item) ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="product-item-sku">
+            <span><?= $escaper->escapeHtml(__('Item #:')); ?></span>
+            <?= $_item->getSku(); ?>
+        </div>
+
+        <div class="product-stock">
+            <?php if ($product->isAvailable()):?>
+                <span><?= $escaper->escapeHtml(__('In Stock')); ?></span>
+            <?php else:?>
+                <span><?= $escaper->escapeHtml(__('Out Of Stock')); ?></span>
+            <?php endif; ?>
+        </div>
+
+        <?php if($options) : ?>
+            <?php foreach ($options as $option): ?>
+                <dl class="item-options">
+                    <dt><?= $escaper->escapeHtml(__($option['label'].':')) ?></dt>
+                    <dd><?= $escaper->escapeHtml(__($option['value'])) ?></dd>
+                </dl>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <?php if(!empty($customHeightValue)) : ?>
+            <div class="product-item-details">
+                <dl class="item-options">
+                    <dt class="ch">Custom Height</dt>
+                    <dt class="ch"><?= $customHeightValue ?>"</dt>
+                    <dt class="ch"><?= $customHeightHelper->getAvailabilityMessage() ?></dt>
+                </dl>
+            </div>
+        <?php endif; ?>
+
+        <div class="product-qty">
+            <span><?= $escaper->escapeHtml(__('Qty:')) ?> <?= $_item->getQtyToAdd() ?></span>
+        </div>
+
+        <div class="product-info-price hidden-desktop">
+            <?= $block->getItemPrice($_item) ?>
+        </div>
+    </div>
+</div>
+
+<?php if (!empty($_products) && isset($_products[$usedSimpleProductId])) : ?>
+    <ol class="products list items product-items">
+        <li class="accessories"><?= $escaper->escapeHtml(__('Would you like bulbs with that?')) ?></li>
+        <hr />
+        <?php foreach ($_products[$usedSimpleProductId] as $_product): ?>
+            <?php $qty = $block->getProductQty($_product) * $_item->getQtyToAdd(); ?>
+            <li class="item product product-item modal-row">
+                <div class="modal-column-left">
+                    <?php $productImage = $block->getProductImage($_product); ?>
+                    <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
+                       class="product photo product-item-photo"
+                       tabindex="-1">
+                        <?= $productImage->toHtml() ?>
+                    </a>
+
+                </div>
+                <div class="modal-column-right">
+
+                    <div class="product-name__data">
+                        <strong class="product name product-item-name">
+                            <a class="product-item-link"
+                               href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>">
+                                <?= /* @noEscape */ $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                            </a>
+                        </strong>
+                        <div class="product-info-price hidden-mobile">
+                            <span><?= $block->getProductPriceMultipleTo($_product, $_item->getQtyToAdd()) ?></span>
+                        </div>
+                    </div>
+
+                    <div class="product-qty__data">
+                        <span>Qty: <?= $qty ?></span>
+                    </div>
+
+                    <div class="product-info-price hidden-desktop">
+                        <span><?= $block->getProductPriceMultipleTo($_product, $_item->getQtyToAdd()) ?></span>
+                    </div>
+
+                    <div class="lightbulb-form-container">
+                        <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                        <form data-role="tocart-form"
+                              data-product-sku="<?= $escaper->escapeHtmlAttr($_product->getSku()) ?>"
+                              action="<?= $escaper->escapeUrl($postParams['action']) ?>"
+                              method="post">
+                            <input type="hidden"
+                                   name="product"
+                                   value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
+                            <input type="hidden" name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                   value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
+                            <input type="hidden" name="qty" value="<?= $qty ?>">
+                            <?= $block->getFormkey(); ?>
+                            <button type="submit"
+                                    title="<?= $escaper->escapeHtmlAttr(__('Add to Cart')) ?>"
+                                    class="action tocart primary">
+                                <span><?= $escaper->escapeHtml(__('Add to Cart')) ?></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </li>
+        <?php endforeach; ?>
+    </ol>
+<?php endif; ?>
+<hr />
+<div class="a-center">
+    <a class="lightbulb-cart-link" href="<?= $block->getCartUrl(); ?>"><?= $escaper->escapeHtml(__('View Shopping Cart')) ?></a>
+</div>

@@ -1,0 +1,38 @@
+<?php
+$data =  $block->getProductDocument();
+if(isset($data) && count($data)):
+    ?>
+<div class="block-downloads">
+    <div class="block-header">
+        <h5>Downloads</h5>
+    </div>
+    <div class="block-content block-content-downloads d-grid">
+        <?php 
+            
+            foreach($data as $documentItem) {
+        ?>
+            <div class="text-center">
+                <a href="<?php echo $documentItem['url']?>">
+                    <div class="text-center">
+                        <svg width="16.8888889px" height="24px" viewBox="0 0 16.8888889 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <g id="Architectural-v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g id="Element-3inch-Adjustable-Next-Gen-PDP-without-Pricing" transform="translate(-928, -4068)">
+                                    <rect fill="#FFFFFF" x="0" y="0" width="1600" height="4500"></rect>
+                                    <g id="Icons-/-File" transform="translate(928, 4068)" fill="#454545" fill-rule="nonzero">
+                                        <path d="M11.5555556,0 L16.8888889,6.22222222 L16.8888889,22.2304044 C16.8888889,23.1574442 16.1645991,23.9270602 15.2459094,23.9951099 L15.1134028,24 L1.77548614,24 C0.83664061,24 0.0723898775,23.2721174 0.00485230165,22.3488707 L0,22.2157068 L0,1.78429328 C0,0.843330693 0.726225558,0.0729798703 1.64737048,0.00489211488 L1.78023123,0 L11.5555556,0 Z M10.6666667,0.888888889 L1.77384667,0.888888889 C1.28509798,0.888888889 0.888888889,1.293567 0.888888889,1.77373958 L0.888888889,22.2262604 C0.888888889,22.71495 1.2930746,23.1111111 1.7777424,23.1111111 L15.1111465,23.1111111 C15.6020468,23.1111111 16,22.7156033 16,22.2280909 L16,7.11111111 L12.4425894,7.11111111 C11.4617744,7.11111111 10.6666667,6.3230624 10.6666667,5.32807196 L10.6666667,0.888888889 Z M11.5555556,1.33333333 L11.5555556,5.32552465 C11.5555556,5.82075704 11.9561343,6.22222222 12.4415456,6.22222222 L15.73329,6.22222222 L11.5555556,1.33333333 Z" id="Combined-Shape"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <span>
+                        <?php echo $documentItem['filename'] ?>
+                    </span>
+                </a>
+            </div>
+        <?php
+            }
+        ?>
+    </div>
+</div>
+<?php endif; ?>

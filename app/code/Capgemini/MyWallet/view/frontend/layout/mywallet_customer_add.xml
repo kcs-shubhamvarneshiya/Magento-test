@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_MyWallet
+ *
+ * @author    Yaroslav Protsko <yaroslav.protsko@capgemini.com>
+ * @copyright 2020 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Wallet</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Capgemini\MyWallet\Block\Customer\Index" name="my_wallet_customer_add" template="Capgemini_MyWallet::customer/walletAdd.phtml" cacheable="false">
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,50 @@
+<?php
+/**
+ * @category    Capgemini
+ * @package     Capgemini_DataLayer
+ */
+?>
+<?php
+/** @var \Capgemini\DataLayer\Block\DataLayer $block */
+
+/**
+ * @var \Capgemini\DataLayer\Helper\Data $_helper
+ */
+$_helper = $this->helper(\Capgemini\DataLayer\Helper\Data::class)
+?>
+
+<script type='text/javascript'>
+    window._gtmPageType = '<?= $block->escapeJs($block->getPageType()); ?>';
+
+    require([
+        'jquery',
+        'Magento_Customer/js/customer-data'
+    ], function ($,customerData) {
+        var checkoutPageData = JSON.parse('<?= $block->getCheckoutPageData() ?>');
+        var homePageData = <?= @json_encode($_helper->getCustomerData(), true) ?>;
+        dataLayer = [{
+            'event': 'checkout',
+            'ecommerce': {
+                'checkout': {
+                    'actionField': {
+                        'step': [
+                            '2'
+                        ]
+                    },
+                }
+            }
+        }];
+
+        dataLayer[0].ecommerce.checkout.products = checkoutPageData['products'];
+
+        window.dataLayer.push({
+            'pageType': 'checkout',
+            'hashedEmail': homePageData['hashedEmail'],
+            'loggedinStatus': homePageData['loggedinStatus'],
+            'currencyCode': homePageData['currencyCode'],
+            'tradeCustomer': homePageData['tradeCustomer'],
+            'customerClass': homePageData['customerClass']
+        });
+    })
+
+</script>

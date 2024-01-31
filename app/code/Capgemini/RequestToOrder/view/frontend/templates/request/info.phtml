@@ -1,0 +1,68 @@
+<?php
+/** @var View $block */
+
+/** @var Escaper $escaper */
+
+use Capgemini\RequestToOrder\Block\Request\View;
+use Magento\Framework\Escaper;
+
+?>
+
+<?php $request = $block->getRequest() ?>
+<?php $items = $request->getItems() ?>
+<div>
+    <div class="request-order-top">
+        <h2 class="req-top-detail"><?= $escaper->escapeHtml(__('Details')) ?></h2>
+        <a class="action primary request-back" href="<?= $block->getUrl('*/request/history/', ['_current' => false, '_use_rewrite' => true])?>"><span><?= $escaper->escapeHtml(__('Back')) ?></span></a>
+    </div>
+
+    <div class="ore-leng-top">
+        <table class="request-legend items table">
+        <tbody class="legend item">
+            <tr class="legend-item-info">
+                <td class="header order"><span><?= $escaper->escapeHtml(__('Request To Order #')) ?>:</span></td>
+                <td class="col order"><span> <?= $request->getId() ?></span></td>
+            </tr>
+            <tr class="legend-item-info">
+                <td class="header created-on"><span><?= $escaper->escapeHtml(__('Created On')) ?>: </span></td>
+                <td class="col created-on"><span> <?= $request->getCreatedAt() ?></span></td>
+            </tr>
+            <tr class="legend-item-info">
+                <td class="header name"><span><?= $escaper->escapeHtml(__('Name')) ?>:</span></td>
+                <td class="col name"><span> <?= $request->getName() ?></span></td>
+            </tr>
+            <tr class="legend-item-info">
+                <td class="header phone"><span><?= $escaper->escapeHtml(__('Phone #')) ?>:</span></td>
+                <td class="col phone"><span> <?= $request->getPhone() ?></span></td>
+            </tr>
+            <tr class="legend-item-info">
+                <td class="header email"><span><?= $escaper->escapeHtml(__('Email Address')) ?>:</span></td>
+                <td class="col email"><?= $request->getEmail() ?></span></td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+    <div>
+        <table class="request-to-order items data table">
+            <thead>
+                <tr>
+                    <th scope="col" class="col product"><?= $escaper->escapeHtml(__('Product')) ?></th>
+                    <th scope="col" class="col attributes"></th>
+                    <th scope="col" class="col price"><?= $escaper->escapeHtml(__('Price')) ?></th>
+                    <th scope="col" class="col qty"><?= $escaper->escapeHtml(__('Qty')) ?></th>
+                    <th scope="col" class="col subtotal"><?= $escaper->escapeHtml(__('Subtotal')) ?></th>
+                </tr>
+            </thead>
+            <tbody class="request item">
+            <?= $block->getChildBlock('items')->setRequestItems($items)->toHtml() ?>
+            </tbody>
+        </table>
+        <div class="request-comment">
+            <label class="comment-label"><span><?= $escaper->escapeHtml(__('Comments')) ?></span></label>
+            <p>
+                <?= $escaper->escapeHtml(__($request->getComments())) ?>
+            </p>
+        </div>
+
+    </div>
+</div>

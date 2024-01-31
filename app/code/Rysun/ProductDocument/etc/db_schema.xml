@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+	<table name="rysun_productdocument_productdocument" resource="default" engine="innodb" comment="rysun_productdocument_productdocument Table">
+		<column xsi:type="int" name="productdocument_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="productdocument_id"/>
+		</constraint>
+		<column name="document_caption" nullable="false" xsi:type="varchar" comment="Document caption" length="255"/>
+		<column name="document_description" nullable="false" xsi:type="text" comment="document_description"/>
+		<column name="document_url" nullable="false" xsi:type="varchar" comment="document_url" length="255"/>
+		<column name="document_file_name" nullable="false" xsi:type="varchar" comment="document_file_name" length="255"/>
+		<column name="document_type" nullable="true" xsi:type="varchar" comment="document_type" length="255"/>
+		<column name="is_active" nullable="true" xsi:type="boolean" comment="is_active"/>
+		<column name="sql_serv_id" nullable="true" xsi:type="text" comment="sql_serv_id"/>
+	</table>
+	<table name="rysun_productdocument_productdocumentlink" resource="default" engine="innodb" comment="rysun_productdocument_productdocumentlink Table">
+		<column xsi:type="int" name="productdocumentlink_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="productdocumentlink_id"/>
+		</constraint>
+		<column name="sql_serv_prod_id" nullable="true" xsi:type="text" comment="sql_serv_prod_id"/>
+		<column name="document_id" nullable="true" xsi:type="text" comment="document_id"/>
+		<column name="sort_order" nullable="true" xsi:type="text" comment="sort_order"/>
+		<column name="is_active" nullable="true" xsi:type="boolean" comment="is_active"/>
+		<column name="sql_serv_id" nullable="true" xsi:type="text" comment="sql_serv_id"/>
+	</table>
+</schema>

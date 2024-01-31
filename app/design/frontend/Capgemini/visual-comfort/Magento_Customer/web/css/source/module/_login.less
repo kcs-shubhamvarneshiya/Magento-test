@@ -1,0 +1,274 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .customer-account-login {
+        .page-main {
+            max-width: 1330px;
+        }
+
+        #remember-me-box {
+            float: left;
+            width: 100%;
+        }
+        .customer-login__wrapper {
+            .block {
+                border: 1px solid @color-gray-400;
+                padding: 15px 20px 20px;
+
+                h2 {
+                    margin-top: 0;
+                }
+
+                h2,
+                .block-title {
+                    font-family: @font-goudy-old-style;
+                    font-size: 26px;
+                    line-height: 1;
+                    letter-spacing: normal;
+                    padding-bottom: 15px;
+                    border-bottom: 1px solid @color-gray-400;
+                    color: @color-gray-800;
+                    margin-bottom: 14px;
+
+                    strong {
+                        font-weight: normal;
+                    }
+                }
+
+                .block-content {
+                    .actions-toolbar {
+                        margin-top: 30px;
+
+                        > .primary {
+                            display: block;
+                            float: none;
+                        }
+
+                        > .secondary {
+                            float: none;
+
+                            a {
+                                text-decoration: underline;
+                                font-family: @font-proxima-nova;
+                                line-height: 30px;
+                                margin-left: 15px;
+                            }
+                        }
+                    }
+
+                    .action.primary {
+                        width: 100%;
+                        max-width: 280px;
+                    }
+                }
+
+                div[data-content-type='buttons'] {
+                    margin-top: 30px;
+                    div[data-content-type='button-item'] {
+                        width: 100%;
+                        max-width: 280px;
+                        .pagebuilder-button-primary {
+                            margin: 0;
+                            .lib-button-primary();
+                        }
+                    }
+                }
+            }
+        }
+
+        .customer-login__wrapper {
+            .block {
+                &-new-customer .actions-toolbar {
+                    margin-top: 25px;
+                }
+            }
+
+            .fieldset {
+                .lib-form-hasrequired(bottom);
+
+                &:after {
+                    margin-top: 35px;
+                }
+            }
+
+            input {
+                font-size: 1.6rem;
+
+                &:focus {
+                    color: @color-gray-800;
+                    border: 1px solid @color-gray-800;
+                }
+            }
+
+            .fieldset:after {
+                display: none;
+            }
+        }
+
+        .form-login {
+            .fieldset.login {
+                .field {
+                    &.note {
+                        margin-bottom: 23px;
+                    }
+
+                    &.choice .label {
+                        padding-bottom: 10px;
+                        width: 100%;
+                        margin-bottom: 15px;
+                    }
+                }
+
+                > .field {
+                    &.required > .label:after {
+                        content: none;
+                    }
+
+                    > .label {
+                        letter-spacing: 0;
+                        text-transform: none;
+                        font-size: 14px;
+                        line-height: 0.93;
+                    }
+                }
+            }
+
+            .tooltip.wrapper {
+                display: none;
+            }
+        }
+    }
+
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .customer-account-login {
+        .customer-login__wrapper {
+            .block {
+                div[data-content-type='buttons'] {
+                    div[data-content-type='button-item'] {
+                        max-width: 100%;
+                    }
+                }
+            }
+        }
+    }
+    .customer-login__wrapper {
+        .fieldset {
+            &:after {
+                text-align: center;
+            }
+        }
+    }
+
+    .customer-account-login {
+        .customer-login__wrapper {
+            padding-bottom: 20px;
+
+            .block {
+                margin-bottom: 20px;
+
+                .block-content {
+                    .action.primary {
+                        max-width: 100%;
+                    }
+                }
+            }
+
+            .fieldset.login {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+
+
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    #html-body {
+        .customer-login__wrapper {
+            display: flex;
+            align-items: stretch;
+            .customer-create__wrapper {
+                display: flex;
+                flex-direction: column;
+                max-width: 610px;
+                width: 100%;
+                box-sizing: border-box;
+                .block {
+                    float: none;
+                    width: 100%;
+                }
+            }
+            .block {
+                &.block-customer-login {
+                    max-width: 610px;
+                    width: 100%;
+                    box-sizing: border-box;
+                    margin-right: 69px;
+                    margin-bottom: 0;
+                }
+
+            }
+        }
+    }
+
+    .customer-login__wrapper {
+        &:extend(.abs-add-clearfix-desktop all);
+
+        .block {
+            &:extend(.abs-blocks-2columns all);
+            box-sizing: border-box;
+
+            &.login {
+                .actions-toolbar {
+                    > .primary {
+                        margin-bottom: 0;
+                        margin-right: @indent__l;
+                    }
+
+                    > .secondary {
+                        float: left;
+                    }
+                }
+            }
+
+            &-new-customer {
+                margin-bottom: 69px;
+            }
+
+            &.block-customer-login {
+                padding-bottom: 95px;
+            }
+        }
+
+        .fieldset {
+            > .field {
+                > .control {
+                    width: 80%;
+                }
+            }
+        }
+    }
+    .customer-account-login {
+        .page-title {
+            margin-bottom: 30px;
+        }
+    }
+}

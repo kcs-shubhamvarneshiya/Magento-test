@@ -1,0 +1,9 @@
+<?php
+
+/** @var \Magento\Customer\Block\Account\AuthorizationLink $block
+ * @var \Magento\Framework\Escaper $escaper
+ */
+?>
+<?php if (!$block->isLoggedIn()) : ?>
+    <a class="btn btn-primary" href="<?php echo $escaper->escapeUrl($block->getUrl('customer/account/create')) ?>"><?php echo __('Create an Account') ?></a>
+<?php endif;?>

@@ -1,0 +1,650 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+//use Capgemini\BloomreachThematic\Model\TechnicalProduct;
+//use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+
+<?php
+
+$_productCollection = $block->getLoadedProductCollection();
+//echo count($_productCollection);
+//exit('hello');
+
+
+$attributeDetails = "";
+$allParams = $block->request->getParams();
+//print_r($allParams);
+//exit;
+//print_r([array('attribute' => 'platform_filter', 'finset' => '86580'),array('attribute' => 'platform_filter', 'finset' => '86581')]);exit;
+/*foreach ($allParams as $allParams_k => $allParams_v) {
+    if ($allParams_k != 'id') {
+        $attributeDetails = $block->config->getAttribute("catalog_product", $allParams_k);
+        //echo "CAlled...".$allParams_k;
+        //echo $attributeDetails->getFrontendInput();exit;
+        if ($attributeDetails->getFrontendInput() == 'multiselect') {
+            //$_productCollection->addAttributeToFilter([['attribute' => $allParams_k, 'finset'=>$allParams_v], ['attribute' => $allParams_k, 'finset'=>'86581']]);
+            $_productCollection->addAttributeToFilter([['attribute' => $allParams_k, 'finset' => $allParams_v],['attribute' => $allParams_k, 'finset' => '86581']]);
+            //->orWhere($allParams_k, ['finset'=>'86581']);
+        }
+    }
+}*/
+foreach ($allParams as $allParams_k => $allParams_v) {
+    if ($allParams_k != 'id') {
+        $attributeDetails = $block->config->getAttribute("catalog_product", $allParams_k);
+        //echo "CAlled...".$allParams_k;
+        //echo $attributeDetails->getFrontendInput();exit;
+        $final_array = [];
+        if ($attributeDetails->getFrontendInput() == 'multiselect') {
+            $params = urldecode($allParams_v);
+            $param_array = explode(",", $params);
+            //print_r($param_array);exit;
+            if (count($param_array) > 1) {
+                foreach ($param_array as $param_array_k => $param_array_v) {
+                    $final_array[] = array('attribute' => (string)$allParams_k, 'finset' => (string)$param_array_v);
+                }
+                //print_r($final_array);exit;
+                $_productCollection->addAttributeToFilter($final_array);
+            } else {
+                $final_array[] = array('attribute' => (string)$allParams_k, 'finset' => (string)$allParams_v);
+                //print_r($final_array[0]);exit;
+                $_productCollection->addAttributeToFilter($final_array);
+            }
+        }
+    }
+}
+
+//echo "Called...";exit;
+$current_category = $this->frameworkRegistry->registry('current_category'); //get current category
+//echo $current_category->getName();
+//echo " - Id : ".$current_category->getEntityId();
+//exit;
+//$productCollectionFactory = $block->getProductCollectionFactory();
+//$productCollection = $block->getProductCollectionFactory();
+
+
+//$_productCollection->addAttributeToSelect('*');
+//$_productCollection->addCategoriesFilter(['in' => $current_category->getEntityId()]);
+
+
+
+// === START get distinct available collection_filter options under products which are under current category ===
+//$productCollection->addFieldToFilter('collection_filter', ['finset' => '86816']); // ELEMENT
+$collection_attributeValue = "";
+$collection_attributeLabel = "";
+$collection_attributeValues = [];
+$collection_attributeLabels = [];
+
+$platform_attributeValue = "";
+$platform_attributeLabel = "";
+$platform_attributeValues = [];
+$platform_attributeLabels = [];
+
+$minimum_delivered_lumens_filter_attributeValue = "";
+$minimum_delivered_lumens_filter_attributeLabel = "";
+$minimum_delivered_lumens_filter_attributeValues = [];
+$minimum_delivered_lumens_filter_attributeLabels = [];
+
+$maximum_delivered_lumens_filter_attributeValue = "";
+$maximum_delivered_lumens_filter_attributeLabel = "";
+$maximum_delivered_lumens_filter_attributeValues = [];
+$maximum_delivered_lumens_filter_attributeLabels = [];
+
+$color_consistency_sdcm_binning_filter_attributeValue = "";
+$color_consistency_sdcm_binning_filter_attributeLabel = "";
+$color_consistency_sdcm_binning_filter_attributeValues = [];
+$color_consistency_sdcm_binning_filter_attributeLabels = [];
+
+$beam_spread_filter_attributeValue = "";
+$beam_spread_filter_attributeLabel = "";
+$beam_spread_filter_attributeValues = [];
+$beam_spread_filter_attributeLabels = [];
+
+$housing_type_filter_attributeValue = "";
+$housing_type_filter_attributeLabel = "";
+$housing_type_filter_attributeValues = [];
+$housing_type_filter_attributeLabels = [];
+
+$dimming_type_filter_attributeValue = "";
+$dimming_type_filter_attributeLabel = "";
+$dimming_type_filter_attributeValues = [];
+$dimming_type_filter_attributeLabels = [];
+
+$rating_certification_filter_attributeValue = "";
+$rating_certification_filter_attributeLabel = "";
+$rating_certification_filter_attributeValues = [];
+$rating_certification_filter_attributeLabels = [];
+
+$product_name_attributeValue = "";
+$product_name_attributeLabel = "";
+$product_name_attributeValues = [];
+$product_name_attributeLabels = [];
+
+
+foreach ($_productCollection as $productCollection_k => $productCollection_v) {
+    $collection_attributeValue = $productCollection_v->getData('collection_filter');
+    $collection_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'collection_filter', $collection_attributeValue);
+    if (!empty($collection_attributeLabel) && !empty($collection_attributeValue)) {
+        $collection_attributeValues = array_merge($collection_attributeValues, explode(',', $collection_attributeValue));
+        $collection_attributeLabels = array_merge($collection_attributeLabels, explode(',', $collection_attributeLabel));
+    }
+}
+
+//$distinctAttributeValues = array_unique($attributeValues);
+/*$collection_distinctAttributeLabels = array_unique($collection_attributeLabels);
+foreach ($collection_distinctAttributeLabels as $collection_label) {
+    echo ' : '. $collection_label .' : ';
+}*/
+
+$all_data = [];
+$collection_distinctAttributeValues = array_unique($collection_attributeValues);
+
+foreach ($collection_distinctAttributeValues as $collectionValue) {
+
+    //echo ' : '. $collectionValue .' : ';
+    
+
+
+    $productCollection_2 = $block->getProductCollectionFactory();
+    /*foreach ($allParams as $allParams_k => $allParams_v) {
+        if ($allParams_k != 'id') {
+            $attributeDetails = $block->config->getAttribute("catalog_product", $allParams_k);
+            //echo "CAlled...".$allParams_k;
+            //echo $attributeDetails->getFrontendInput();exit;
+            if($attributeDetails->getFrontendInput() == 'multiselect') {
+                //$productCollection_2->addAttributeToFilter($allParams_k, ['finset'=>$allParams_v]);
+                $productCollection_2->addAttributeToFilter([['attribute' => $allParams_k, 'finset' => $allParams_v],['attribute' => $allParams_k, 'finset' => '86581']]);
+            }
+        }
+    }*/
+    
+    foreach ($allParams as $allParams_k => $allParams_v) {
+        if ($allParams_k != 'id') {
+            $attributeDetails = $block->config->getAttribute("catalog_product", $allParams_k);
+            //echo "CAlled...".$allParams_k;
+            //echo $attributeDetails->getFrontendInput();exit;
+            $final_array = [];
+            if ($attributeDetails->getFrontendInput() == 'multiselect') {
+                $params = urldecode($allParams_v);
+                $param_array = explode(",", $params);
+                //print_r($param_array);exit;
+                if (count($param_array) > 1) {
+                    foreach ($param_array as $param_array_k => $param_array_v) {
+                        $final_array[] = array('attribute' => (string)$allParams_k, 'finset' => (string)$param_array_v);
+                    }
+                    //print_r($final_array);exit;
+                    $productCollection_2->addAttributeToFilter($final_array);
+                } else {
+                    $final_array[] = array('attribute' => (string)$allParams_k, 'finset' => (string)$allParams_v);
+                    //print_r($final_array[0]);exit;
+                    $productCollection_2->addAttributeToFilter($final_array);
+                }
+            }
+        }
+    }
+    $productCollection_2->addAttributeToSelect('*');
+    $productCollection_2->addCategoriesFilter(['in' => $current_category->getEntityId()]);
+    $productCollection_2->addAttributeToFilter('collection_filter', ['finset' => $collectionValue]); // ELEMENT
+    //$productCollection_2->addAttributeToFilter('platform_filter', ['finset' => $collectionValue]); // PLATFORM
+
+    //$_productCollection->addAttributeToFilter('collection_filter', ['finset' => $collectionValue]); // ELEMENT
+    //echo "Called...";exit;
+    foreach ($productCollection_2 as $productCollection_2_k => $productCollection_2_v) {
+    //foreach ($_productCollection as $productCollection_2_k => $productCollection_2_v) {
+        $platform_attributeValue = $productCollection_2_v->getData('platform_filter');
+        $platform_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'platform_filter', $platform_attributeValue);
+
+        $collection_Label = $block->getOptionLabelByOptionId('catalog_product', 'collection_filter', $collectionValue);
+
+        $productCollection_3 = $block->getProductCollectionFactory();
+        /*foreach ($allParams as $allParams_k => $allParams_v) {
+            if ($allParams_k != 'id') {
+                $attributeDetails = $block->config->getAttribute("catalog_product", $allParams_k);
+                //echo "CAlled...".$allParams_k;
+                //echo $attributeDetails->getFrontendInput();exit;
+                if($attributeDetails->getFrontendInput() == 'multiselect') {
+                    //$productCollection_3->addAttributeToFilter($allParams_k, ['finset'=>$allParams_v]);
+                    $productCollection_3->addAttributeToFilter([['attribute' => $allParams_k, 'finset' => $allParams_v],['attribute' => $allParams_k, 'finset' => '86581']]);
+                }
+            }
+        }*/
+        foreach ($allParams as $allParams_k => $allParams_v) {
+            if ($allParams_k != 'id') {
+                $attributeDetails = $block->config->getAttribute("catalog_product", $allParams_k);
+                //echo "CAlled...".$allParams_k;
+                //echo $attributeDetails->getFrontendInput();exit;
+                $final_array = [];
+                if ($attributeDetails->getFrontendInput() == 'multiselect') {
+                    $params = urldecode($allParams_v);
+                    $param_array = explode(",", $params);
+                    //print_r($param_array);exit;
+                    if (count($param_array) > 1) {
+                        foreach ($param_array as $param_array_k => $param_array_v) {
+                            $final_array[] = array('attribute' => (string)$allParams_k, 'finset' => (string)$param_array_v);
+                        }
+                        //print_r($final_array);exit;
+                        $productCollection_3->addAttributeToFilter($final_array);
+                    } else {
+                        $final_array[] = array('attribute' => (string)$allParams_k, 'finset' => (string)$allParams_v);
+                        //print_r($final_array[0]);exit;
+                        $productCollection_3->addAttributeToFilter($final_array);
+                    }
+                }
+            }
+        }
+        $productCollection_3->addAttributeToSelect('*');
+        $productCollection_3->addCategoriesFilter(['in' => $current_category->getEntityId()]);
+        $productCollection_3->addAttributeToFilter('collection_filter', ['finset' => $collectionValue]); // ELEMENT
+        $productCollection_3->addAttributeToFilter('platform_filter', ['finset' => $platform_attributeValue]); // PLATFORM
+
+        //$_productCollection->addAttributeToFilter('platform_filter', ['finset' => $platform_attributeValue]);
+        //echo "Called...";exit;
+        $minimum_delivered_lumens_filter_attributeValue = "";
+        $minimum_delivered_lumens_filter_attributeLabel = "";
+        $minimum_delivered_lumens_filter_attributeValues = [];
+        $minimum_delivered_lumens_filter_attributeLabels = [];
+
+        $maximum_delivered_lumens_filter_attributeValue = "";
+        $maximum_delivered_lumens_filter_attributeLabel = "";
+        $maximum_delivered_lumens_filter_attributeValues = [];
+        $maximum_delivered_lumens_filter_attributeLabels = [];
+        
+        $color_consistency_sdcm_binning_filter_attributeValue = "";
+        $color_consistency_sdcm_binning_filter_attributeLabel = "";
+        $color_consistency_sdcm_binning_filter_attributeValues = [];
+        $color_consistency_sdcm_binning_filter_attributeLabels = [];
+        
+        $beam_spread_filter_attributeValue = "";
+        $beam_spread_filter_attributeLabel = "";
+        $beam_spread_filter_attributeValues = [];
+        $beam_spread_filter_attributeLabels = [];
+        
+        $housing_type_filter_attributeValue = "";
+        $housing_type_filter_attributeLabel = "";
+        $housing_type_filter_attributeValues = [];
+        $housing_type_filter_attributeLabels = [];
+        
+        $dimming_type_filter_attributeValue = "";
+        $dimming_type_filter_attributeLabel = "";
+        $dimming_type_filter_attributeValues = [];
+        $dimming_type_filter_attributeLabels = [];
+        
+        $rating_certification_filter_attributeValue = "";
+        $rating_certification_filter_attributeLabel = "";
+        $rating_certification_filter_attributeValues = [];
+        $rating_certification_filter_attributeLabels = [];
+        
+        $product_name_attributeLabels = [];
+        $product_name_distinctAttributeLabels = [];
+
+        $count = $productCollection_3->count();
+        //$count = $_productCollection->count();
+        $i = 0;
+        foreach ($productCollection_3 as $productCollection_3_k => $productCollection_3_v) {
+        //foreach ($_productCollection as $productCollection_3_k => $productCollection_3_v) {
+            
+            $minimum_delivered_lumens_filter_attributeValue = $productCollection_3_v->getData('minimum_delivered_lumens_filter');
+            $minimum_delivered_lumens_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'minimum_delivered_lumens_filter', $minimum_delivered_lumens_filter_attributeValue);
+            if (!empty($minimum_delivered_lumens_filter_attributeLabel)) {
+                //$minimum_delivered_lumens_filter_attributeValues = array_merge($minimum_delivered_lumens_filter_attributeValues, explode(',', $minimum_delivered_lumens_filter_attributeValue));
+                $minimum_delivered_lumens_filter_attributeLabels = array_merge($minimum_delivered_lumens_filter_attributeLabels, explode(',', $minimum_delivered_lumens_filter_attributeLabel));
+            }
+            
+            $maximum_delivered_lumens_filter_attributeValue = $productCollection_3_v->getData('maximum_delivered_lumens_filter');
+            $maximum_delivered_lumens_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'maximum_delivered_lumens_filter', $maximum_delivered_lumens_filter_attributeValue);
+            if (!empty($maximum_delivered_lumens_filter_attributeLabel)) {
+                //$maximum_delivered_lumens_filter_attributeValues = array_merge($maximum_delivered_lumens_filter_attributeValues, explode(',', $maximum_delivered_lumens_filter_attributeValue));
+                $maximum_delivered_lumens_filter_attributeLabels = array_merge($maximum_delivered_lumens_filter_attributeLabels, explode(',', $maximum_delivered_lumens_filter_attributeLabel));
+            }
+            
+            /*$color_consistency_sdcm_binning_filter_attributeValue = $productCollection_3_v->getData('color_consistency_sdcm_binning_filter');
+            $color_consistency_sdcm_binning_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'color_consistency_sdcm_binning_filter', $color_consistency_sdcm_binning_filter_attributeValue);
+            if (!empty($color_consistency_sdcm_binning_filter_attributeLabel)) {
+                //$color_consistency_sdcm_binning_filter_attributeValues = array_merge($color_consistency_sdcm_binning_filter_attributeValues, explode(',', $color_consistency_sdcm_binning_filter_attributeValue));
+                $color_consistency_sdcm_binning_filter_attributeLabels = array_merge($color_consistency_sdcm_binning_filter_attributeLabels, explode(',', $color_consistency_sdcm_binning_filter_attributeLabel));
+            }*/
+            $color_consistency_sdcm_binning_filter_attributeValue_arr = [];
+            $color_consistency_sdcm_binning_filter_attributeValue = $productCollection_3_v->getData('color_consistency_sdcm_binning_filter');
+            if (!empty($color_consistency_sdcm_binning_filter_attributeValue) && strpos($color_consistency_sdcm_binning_filter_attributeValue,",")) {
+                $color_consistency_sdcm_binning_filter_attributeValue_arr = explode(",",$color_consistency_sdcm_binning_filter_attributeValue);
+            }
+            foreach ($color_consistency_sdcm_binning_filter_attributeValue_arr as $color_consistency_sdcm_binning_filter_attributeValue_arr_k => $color_consistency_sdcm_binning_filter_attributeValue_arr_v) {
+                $color_consistency_sdcm_binning_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'color_consistency_sdcm_binning_filter', $color_consistency_sdcm_binning_filter_attributeValue_arr_v);
+                //print_r($color_consistency_sdcm_binning_filter_attributeLabel);exit;
+                if (!empty($color_consistency_sdcm_binning_filter_attributeLabel)) {
+                    //$color_consistency_sdcm_binning_filter_attributeValues = array_merge($color_consistency_sdcm_binning_filter_attributeValues, explode(',', $color_consistency_sdcm_binning_filter_attributeValue));
+                    $color_consistency_sdcm_binning_filter_attributeLabels = array_merge($color_consistency_sdcm_binning_filter_attributeLabels, explode(',', $color_consistency_sdcm_binning_filter_attributeLabel));
+                }
+            }
+            
+            /*$beam_spread_filter_attributeValue = $productCollection_3_v->getData('beam_spread_filter');
+            $beam_spread_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'beam_spread_filter', $beam_spread_filter_attributeValue);
+            if (!empty($beam_spread_filter_attributeLabel)) {
+                //$beam_spread_filter_attributeValues = array_merge($beam_spread_filter_attributeValues, explode(',', $beam_spread_filter_attributeValue));
+                $beam_spread_filter_attributeLabels = array_merge($beam_spread_filter_attributeLabels, explode(',', $beam_spread_filter_attributeLabel));
+            }*/
+            $beam_spread_filter_attributeValue_arr = [];
+            $beam_spread_filter_attributeValue = $productCollection_3_v->getData('beam_spread_filter');
+            if (!empty($beam_spread_filter_attributeValue) && strpos($beam_spread_filter_attributeValue,",")) {
+                $beam_spread_filter_attributeValue_arr = explode(",",$beam_spread_filter_attributeValue);
+            }
+            foreach ($beam_spread_filter_attributeValue_arr as $beam_spread_filter_attributeValue_arr_k => $beam_spread_filter_attributeValue_arr_v) {
+                $beam_spread_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'beam_spread_filter', $beam_spread_filter_attributeValue_arr_v);
+                //print_r($beam_spread_filter_attributeLabel);exit;
+                if (!empty($beam_spread_filter_attributeLabel)) {
+                    //$beam_spread_filter_attributeValues = array_merge($beam_spread_filter_attributeValues, explode(',', $beam_spread_filter_attributeValue));
+                    $beam_spread_filter_attributeLabels = array_merge($beam_spread_filter_attributeLabels, explode(',', $beam_spread_filter_attributeLabel));
+                }
+            }
+            
+            $housing_type_filter_attributeValue_arr = [];
+            $housing_type_filter_attributeValue = $productCollection_3_v->getData('housing_type_filter');
+            if (!empty($housing_type_filter_attributeValue) && strpos($housing_type_filter_attributeValue,",")) {
+                $housing_type_filter_attributeValue_arr = explode(",",$housing_type_filter_attributeValue);
+            }
+            foreach ($housing_type_filter_attributeValue_arr as $housing_type_filter_attributeValue_arr_k => $housing_type_filter_attributeValue_arr_v) {
+                $housing_type_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'housing_type_filter', $housing_type_filter_attributeValue_arr_v);
+                //print_r($housing_type_filter_attributeLabel);exit;
+                if (!empty($housing_type_filter_attributeLabel)) {
+                    //$housing_type_filter_attributeValues = array_merge($housing_type_filter_attributeValues, explode(',', $housing_type_filter_attributeValue));
+                    $housing_type_filter_attributeLabels = array_merge($housing_type_filter_attributeLabels, explode(',', $housing_type_filter_attributeLabel));
+                }
+            }
+            //print_r($housing_type_filter_attributeLabels);
+            //exit;
+            
+            /*$housing_type_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'housing_type_filter', $housing_type_filter_attributeValue);
+            print_r($housing_type_filter_attributeLabel);exit;
+            if (!empty($housing_type_filter_attributeLabel)) {
+                //$housing_type_filter_attributeValues = array_merge($housing_type_filter_attributeValues, explode(',', $housing_type_filter_attributeValue));
+                $housing_type_filter_attributeLabels = array_merge($housing_type_filter_attributeLabels, explode(',', $housing_type_filter_attributeLabel));
+            }*/
+            
+            /*$dimming_type_filter_attributeValue = $productCollection_3_v->getData('dimming_type_filter');
+            $dimming_type_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'dimming_type_filter', $dimming_type_filter_attributeValue);
+            if (!empty($dimming_type_filter_attributeLabel)) {
+                //$dimming_type_filter_attributeValues = array_merge($dimming_type_filter_attributeValues, explode(',', $dimming_type_filter_attributeValue));
+                $dimming_type_filter_attributeLabels = array_merge($dimming_type_filter_attributeLabels, explode(',', $dimming_type_filter_attributeLabel));
+            }*/
+            
+            $dimming_type_filter_attributeValue_arr = [];
+            $dimming_type_filter_attributeValue = $productCollection_3_v->getData('dimming_type_filter');
+            if (!empty($dimming_type_filter_attributeValue) && strpos($dimming_type_filter_attributeValue,",")) {
+                $dimming_type_filter_attributeValue_arr = explode(",",$dimming_type_filter_attributeValue);
+            }
+            foreach ($dimming_type_filter_attributeValue_arr as $dimming_type_filter_attributeValue_arr_k => $dimming_type_filter_attributeValue_arr_v) {
+                $dimming_type_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'dimming_type_filter', $dimming_type_filter_attributeValue_arr_v);
+                //print_r($dimming_type_filter_attributeLabel);exit;
+                if (!empty($dimming_type_filter_attributeLabel)) {
+                    //$dimming_type_filter_attributeValues = array_merge($dimming_type_filter_attributeValues, explode(',', $dimming_type_filter_attributeValue));
+                    $dimming_type_filter_attributeLabels = array_merge($dimming_type_filter_attributeLabels, explode(',', $dimming_type_filter_attributeLabel));
+                }
+            }
+
+            /*$rating_certification_filter_attributeValue = $productCollection_3_v->getData('rating_certification_filter');
+            $rating_certification_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'rating_certification_filter', $rating_certification_filter_attributeValue);
+            if (!empty($rating_certification_filter_attributeLabel)) {
+                //$rating_certification_filter_attributeValues = array_merge($rating_certification_filter_attributeValues, explode(',', $rating_certification_filter_attributeValue));
+                $rating_certification_filter_attributeLabels = array_merge($rating_certification_filter_attributeLabels, explode(',', $rating_certification_filter_attributeLabel));
+            }*/
+            
+            $rating_certification_filter_attributeValue_arr = [];
+            $rating_certification_filter_attributeValue = $productCollection_3_v->getData('rating_certification_filter');
+            if (!empty($rating_certification_filter_attributeValue) && strpos($rating_certification_filter_attributeValue,",")) {
+                $rating_certification_filter_attributeValue_arr = explode(",",$rating_certification_filter_attributeValue);
+            }
+            foreach ($rating_certification_filter_attributeValue_arr as $rating_certification_filter_attributeValue_arr_k => $rating_certification_filter_attributeValue_arr_v) {
+                $rating_certification_filter_attributeLabel = $block->getOptionLabelByOptionId('catalog_product', 'rating_certification_filter', $rating_certification_filter_attributeValue_arr_v);
+                //print_r($rating_certification_filter_attributeLabel);exit;
+                if (!empty($rating_certification_filter_attributeLabel)) {
+                    //$rating_certification_filter_attributeValues = array_merge($rating_certification_filter_attributeValues, explode(',', $rating_certification_filter_attributeValue));
+                    $rating_certification_filter_attributeLabels = array_merge($rating_certification_filter_attributeLabels, explode(',', $rating_certification_filter_attributeLabel));
+                }
+            }
+
+            $product_name_attributeLabels[] = $productCollection_3_v->getName();
+            //echo " : ".$productCollection_3_v->getName();
+            $i++;
+        }
+        
+        // === Start Minimum Delivered Lumens ===
+        //$minimum_delivered_lumens_filter_distinctAttributeLabels = array_unique($minimum_delivered_lumens_filter_attributeLabels);
+        $all_data[$collection_Label][$platform_attributeLabel]['minimum_delivered_lumens_filter'] = array_unique($minimum_delivered_lumens_filter_attributeLabels);
+        /*echo "<br>Minimum Delivered Lumens: <br>";
+        foreach ($minimum_delivered_lumens_filter_distinctAttributeLabels as $minimum_delivered_lumens_filter_value) {
+            echo ' : '. $minimum_delivered_lumens_filter_value .' : <br>';
+        }*/
+        // === End Minimum Delivered Lumens ===
+
+        // === Start Maximum Delivered Lumens ===
+        //$maximum_delivered_lumens_filterAttributeLabels = array_unique($maximum_delivered_lumens_filter_attributeLabels);
+        $all_data[$collection_Label][$platform_attributeLabel]['maximum_delivered_lumens_filter'] = array_unique($maximum_delivered_lumens_filter_attributeLabels);
+        /*echo "<br>Maximum Delivered Lumens: <br>";
+        foreach ($maximum_delivered_lumens_filterAttributeLabels as $maximum_delivered_lumens_filter_value) {
+            echo ' : '. $maximum_delivered_lumens_filter_value .' : <br>';
+        }*/
+        // === End Minimum Delivered Lumens ===
+
+        // === Start Beam Spread ===
+        //$beam_spread_filter_distinctAttributeLabels = array_unique($beam_spread_filter_attributeLabels);
+        $all_data[$collection_Label][$platform_attributeLabel]['beam_spread_filter'] = array_unique($beam_spread_filter_attributeLabels);
+        /*echo "<br>Beam Spread: <br>";
+        foreach ($beam_spread_filter_distinctAttributeLabels as $beam_spread_filter_value) {
+            echo ' : '. $beam_spread_filter_value .' : <br>';
+        }*/
+        // === End Beam Spread ===
+
+        // === Start Housing Type ===
+        //$housing_type_filter_distinctAttributeLabels = array_unique($housing_type_filter_attributeLabels);
+        $all_data[$collection_Label][$platform_attributeLabel]['housing_type_filter'] = array_unique($housing_type_filter_attributeLabels);
+        /*echo "<br>Housing Type: <br>";
+        foreach ($housing_type_filter_distinctAttributeLabels as $housing_type_filter_value) {
+            echo ' : '. $housing_type_filter_value .' : <br>';
+        }*/
+        // === End Housing Type ===
+        
+        // === Start Dimming Type ===
+        //$dimming_type_filter_distinctAttributeLabels = array_unique($dimming_type_filter_attributeLabels);
+        $all_data[$collection_Label][$platform_attributeLabel]['dimming_type_filter'] = array_unique($dimming_type_filter_attributeLabels);
+        /*echo "<br>Dimming Type: <br>";
+        foreach ($dimming_type_filter_distinctAttributeLabels as $dimming_type_filter_value) {
+            echo ' : '. $dimming_type_filter_value .' : <br>';
+        }*/
+        // === End Dimming Type ===
+
+        // === Start Rating/Certification ===
+        //$rating_certification_filter_distinctAttributeLabels = array_unique($rating_certification_filter_attributeLabels);
+        $all_data[$collection_Label][$platform_attributeLabel]['rating_certification_filter'] = array_unique($rating_certification_filter_attributeLabels);
+        /*echo "<br>Rating/Certification: <br>";
+        foreach ($rating_certification_filter_distinctAttributeLabels as $rating_certification_filter_value) {
+            echo ' : '. $rating_certification_filter_value .' : <br>';
+        }*/
+        // === End Rating/Certification ===
+
+        // === Start Products ===
+        //$product_name_distinctAttributeLabels = array_unique($product_name_attributeLabels);
+        $all_data[$collection_Label][$platform_attributeLabel]['product_name'] = array_unique($product_name_attributeLabels);
+        /*echo "<br>Products: <br>";
+        foreach ($product_name_distinctAttributeLabels as $product_name_value) {
+            echo ' : '. $product_name_value .' : <br>';
+        }*/
+        // === End Products ===
+
+        //}
+    }
+    //echo "<pre>";
+    //print_r($all_data);
+    //exit;
+
+}
+//echo "<pre>";
+//print_r($all_data);
+//echo "</pre>";
+//exit;
+
+?>
+
+<style>
+    
+</style>
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $medai_url = $objectManager->get('Magento\Store\Model\StoreManagerInterface')
+                    ->getStore()
+                    ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+
+    $viewMode = 'grid';
+    $imageDisplayArea = 'category_page_grid';
+    $showDescription = false;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+?>
+<div class="<?= /* @noEscape */ $viewMode ?> products-<?= /* @noEscape */ $viewMode ?> custom-products">
+    <div class="products-sep"></div>
+    <?php foreach ($all_data as $all_data_k => $all_data_v) : ?>
+        <h2 id="<?= $all_data_k ?>"><?= ucfirst(strtolower($all_data_k)) ?></h2>
+        <div class="products list items product-items">
+            <div class="item product product-item product-promotion">
+                <div class="product-promotion-content">                    
+                    <a href="javascript:void(0);" class="product photo product-item-photo" tabindex="-1">
+                        <img src="<?php echo $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" width="381" height="511" />
+                    </a>
+                </div>
+            </div>
+            <?php foreach ($all_data_v as $all_data_v_k => $all_data_v_v): ?>
+                <div class="item product product-item">
+                    <div class="product-item-info">                    
+                        <a href="javascript:void(0);" class="product photo product-item-photo" tabindex="-1">
+                            <img src="<?php echo $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" alt="<?= $all_data_v_k; ?>" width="240" height="300" />
+                        </a>
+                        <div class="d-flex product-item-thumb">
+                            <a href="javascript:void(0);">
+                                <img src="<?php echo $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" width="50" height="50" />
+                            </a>
+                            <a href="javascript:void(0);">
+                                <img src="<?php echo $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" width="50" height="50" />
+                            </a>
+                            <a href="javascript:void(0);">
+                                <img src="<?php echo $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" width="50" height="50" />
+                            </a>
+                            <a href="javascript:void(0);">
+                                <img src="<?php echo $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" width="50" height="50" />
+                            </a>
+                            <a href="javascript:void(0);">
+                                <img src="<?php echo $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" width="50" height="50" />
+                            </a>
+                        </div>
+                        <div class="product details product-item-details">
+                            <div class="product name product-item-name">
+                                <a class="product-item-link" href="javascript:void(0);"><?= $all_data_v_k; ?></a>
+                            </div>
+
+                            <div class="product-attribute-head">
+                                <?= __('Specifications') ?>
+                            </div>
+
+                            <?php if ($all_data_v_v['minimum_delivered_lumens_filter']): ?>
+                                <div class="tech-trim-options spec-inline">
+                                    <ul class="product-attribute-list">
+                                        <span><?= __('Minimum Delivered Lumans:') ?></span>
+                                        <?php //foreach ($all_data_v_v['minimum_delivered_lumens_filter'] as $mdlOption): ?>
+                                        <li><?= min($all_data_v_v['minimum_delivered_lumens_filter']) ?></li>
+                                        <?php //endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($all_data_v_v['maximum_delivered_lumens_filter']): ?>
+                                <div class="tech-housing-options spec-inline">
+                                    <ul class="product-attribute-list">
+                                        <span><?= __('Maximum Delivered Lumans:') ?></span>
+                                        <?php //foreach ($all_data_v_v['maximum_delivered_lumens_filter'] as $madlOption): ?>
+                                        <li>
+                                            <?= max($all_data_v_v['maximum_delivered_lumens_filter']) ?>
+                                        </li>
+                                        <?php //endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($all_data_v_v['beam_spread_filter']): ?>
+                                <div class="tech-attributes spec-inline">
+                                    <ul class="product-attribute-list">
+                                        <span><?= __('Beam Spread:') ?></span>
+                                        <?php foreach ($all_data_v_v['beam_spread_filter'] as $key => $value): ?>
+                                            <li><?= $value ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($all_data_v_v['housing_type_filter']): ?>
+                                <div class="tech-attributes spec-inline">
+                                    <ul class="product-attribute-list">
+                                        <span><?= __('Housing Type:') ?></span>
+                                        <?php foreach ($all_data_v_v['housing_type_filter'] as $key => $value): ?>
+                                            <li><?= $value ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($all_data_v_v['dimming_type_filter']): ?>
+                                <div class="tech-attributes spec-inline">
+                                    <ul class="product-attribute-list">
+                                        <span><?= __('Dimming Type:') ?></span>
+                                        <?php foreach ($all_data_v_v['dimming_type_filter'] as $key => $value): ?>
+                                            <li><?= $value ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($all_data_v_v['rating_certification_filter']): ?>
+                                <div class="tech-attributes spec-inline">
+                                    <ul class="product-attribute-list">
+                                        <span><?= __('Rating Certification:') ?></span>
+                                        <?php foreach ($all_data_v_v['rating_certification_filter'] as $key => $value): ?>
+                                            <li><?= $value ?></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if ($all_data_v_v['product_name']): ?>
+                                <div class="product-attribute-head">
+                                    <?= __('Products') ?>
+                                </div>
+                                <div class="tech-attributes">
+                                    <ul class="product-attribute-list">
+                                        <?php foreach ($all_data_v_v['product_name'] as $key => $value): ?>
+                                            <li><a href="javascript:void(0);"><?= $value ?></a></li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endforeach; ?>
+</div>

@@ -1,0 +1,147 @@
+
+<?php
+/** @var $block \Capgemini\OrderView\Block\Inventory */
+$search = ($block->getRequest()->getParam('search'))?$block->getDecodeValue($block->getRequest()->getParam('search')):"";
+if($block->getCustomerType() == \Capgemini\CompanyType\Model\Config::WHOLESALE || $block->getCustomerType() == \Capgemini\CompanyType\Model\Config::TRADE) : ?>
+<div class="filter-container">
+    <div class="order-control-container">
+        <div class="inventory-searchbox-container">
+            <?php $skus =  preg_split('/[\\n\,]+/', $search); ?>
+            <form id="search-inventory" method="get" data-action="<?= $block->getSearchUrl()?>">
+                <div class="search_span">
+                    <span><label><?= $block->escapeHtml(__("Search Inventory"))?></label></span> 
+                </div>
+                <div class="search_button">
+                    <textarea id="searchbox" name="search" rows="4" cols="50"><?php echo $search; ?></textarea>
+                    <button type="submit" class="action primary"><?= $block->escapeHtml(__("Search"))?></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <?php if(count(array_filter($skus)) > 0): ?>
+        <div class="table_top">
+        <form id="add-to-cart-form" method="post" action="<?= $block->getUrl('orderview/inventory/addtocart') ?>" value="<?php /* @escapeNotVerified */ echo $block->getFormKey(); ?>">
+            <table>
+            <?php $i=0; foreach(array_unique(array_filter($skus)) as $sku){ ?>
+            <?php if($sku): $product = $block->getProductBySku($sku); ?>
+                <?php if($product !=null && $product->getTypeId() == 'simple' && $product->getId()): ?> 
+                        <?php if($i == 0){ ?>
+                        <tr>
+                            <th><?= $block->escapeHtml(__("IMAGE"))?></th>
+                            <th><?= $block->escapeHtml(__("SKU"))?></th>
+                            <th><?= $block->escapeHtml(__("PRODUCT"))?></th>
+                            <th><?= $block->escapeHtml(__("IN STOCK"))?></th>
+                            <th><?= $block->escapeHtml(__("DUE IN 14 DAYS"))?></th>
+                            <th><?= $block->escapeHtml(__("DUE IN 30 DAYS"))?></th>
+                            <th><?= $block->escapeHtml(__("DUE IN 60 DAYS"))?></th>
+                            <th><?= $block->escapeHtml(__("DUE OVER 60 DAYS"))?></th>
+                            <div class="field qty required">
+                                <label class="label">
+                                    <th><?= $block->escapeHtml(__('QTY')) ?></th>
+                                </label>
+                            </div>
+                        </tr>
+                        <?php } ?>
+                        <tr>
+                            <td><img src="<?= $product->getMediaConfig()->getMediaUrl($product->getImage()); ?>" alt="" style=" width: 70px; height: 40px;" /></td>
+                            <td><?= $product->getSku(); ?></td>
+                            <td><?= $product->getName(); ?></td>
+                            <td><?= $block->getQty($product->getSku()); ?></td>
+                            <td><?= $product->getDue14(); ?></td>
+                            <td><?= $product->getDue30(); ?></td>
+                            <td><?= $product->getDue60(); ?></td>
+                            <td><?= $product->getOver60(); ?></td>
+                            <td>
+                            <?php $customer = $block->getCustomerId();?>
+                                <?php if ($block->canPurchaseProduct($customer,$product) || $block->getCustomerType() == \Capgemini\CompanyType\Model\Config::TRADE): ?>
+                                    <div class="control">
+                                        <label class="label">
+                                            <input type="number" name="qty[<?= $sku ?>]" value="0" style="width: 72px; padding: 3px; box-sizing: border-box; text-align: center;" min="0" pattern="\d*"/>
+                                            <input type="hidden" name="sku[<?= $product->getSku(); ?>]" value="<?= $product->getSku(); ?>" />
+                                        </label>
+                                    </div>
+                                <?php else : ?>
+                                    <div class="request-to-order-link">
+                                    <?php ; ?>
+                                        <a href="<?= $block->escapeUrl($block->getDynamicProductUrl($product)) ?>" target="_blank" style="text-decoration: underline;">
+                                            <?= $block->escapeHtml(__('Request to Order')) ?>
+                                        </a>
+                                    </div>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                <?php $i++; else: ?>
+                    <span>
+                        <?php echo nl2br($block->escapeHtml(__('Sorry, we are unable to find '. $sku .'.'))); ?>
+                    </span>
+                <?php endif; ?>
+            <?php endif; ?>
+        <?php } ?>
+        </table> 
+    </div>
+    <div class="actions-toolbar" style="display: flex; justify-content: flex-end; margin: 8px 10px;">
+        <div class="primary">
+            <?php if($i > 0): ?>
+                <button type="submit"
+                        title="<?= $block->escapeHtmlAttr(__('Add to Cart')) ?>"
+                        class="action tocart primary"
+                        data-action="submit-sku"
+                        >
+                        <span><?= $block->escapeHtml(__('Add to Cart')) ?></span>
+                </button>
+            <?php endif; ?>
+        </div>
+    </div>
+    </form>
+    <?php else: ?>
+        <span>
+            <p><?= $block->escapeHtml(__('Search SKUs by pressing enter or separating by comma')) ?></p>
+        </span>
+    <?php endif; ?>
+    <script>
+    require(['jquery'], function ($) {
+        $(document).ready(function () {
+            // Input validation for numeric values
+            $('input[name^="qty["]').on('input', function () {
+                var value = $(this).val();
+                // Remove any trailing dots or non-numeric characters
+                value = value.replace(/[^\d]/g, '');
+                $(this).val(value);
+            });
+
+            // Toggle add to cart button based on input values
+            function toggleAddToCartButton() {
+                var disableButton = true;
+                $('input[name^="qty["]').each(function () {
+                    var qty = parseInt($(this).val());
+                    if (qty > 0) {
+                        disableButton = false;
+                        return false;
+                    }
+                });
+                $('.tocart').prop('disabled', disableButton);
+            }
+
+            toggleAddToCartButton();
+
+            $('input[name^="qty["]').on('input', function () {
+                toggleAddToCartButton();
+            });
+
+            // Disable add to cart button on form submission
+            $('#add-to-cart-form').on('submit', function () {
+                $('.tocart').prop('disabled', true);
+            });
+
+            // Search inventory form submission
+            $("#search-inventory").submit(function (e) {
+                window.location.href = $(this).attr('data-action') + "search/" + btoa($(this).find("[name=search]").val()) + "/";
+                return false;
+            });
+        });
+    });
+</script>
+
+<?php endif; ?>

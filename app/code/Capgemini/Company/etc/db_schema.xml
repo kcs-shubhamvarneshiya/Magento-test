@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="company" resource="default" engine="innodb" comment="Company Table">
+        <column xsi:type="varchar" name="website" nullable="true" length="40" comment="Company Website"/>
+        <column xsi:type="varchar" name="cell_phone" nullable="true" length="20" comment="Cell Phone"/>
+        <column xsi:type="varchar" name="fax" nullable="true" length="20" comment="Fax"/>
+        <column xsi:type="varchar" name="business_type" nullable="true" length="40" comment="Business Type"/>
+        <column xsi:type="varchar" name="member_state" nullable="true" length="40" comment="Member State"/>
+        <column xsi:type="varchar" name="vat_number" nullable="true" length="15" comment="VAT number"/>
+        <column xsi:type="text" name="collections" nullable="true" comment="Collections"/>
+    </table>
+    <table name="company_documents" resource="default" engine="innodb" comment="Company Documents Storage">
+        <column xsi:type="int" name="document_id" padding="10" unsigned="true" nullable="false" identity="true"
+            comment="Company Document Id"/>
+        <column xsi:type="varchar" name="document_type" length="32" nullable="false" comment="Document Type"/>
+        <column xsi:type="int" name="company_id" padding="10" unsigned="true" nullable="false" comment="Company Id"/>
+        <column xsi:type="varchar" name="added_by" length="255" nullable="false" comment="Account That Added The File"/>
+        <column xsi:type="varchar" name="filename" length="255" nullable="false" comment="Document File Name"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+            comment="Created At"/>
+        <column xsi:type="varchar" name="system_filename" length="128" nullable="false" default="" comment="Name of the file saved on server"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="document_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_COMPANY_DOCUMENTS_COMPANY_ENTITY" table="company_documents"
+            column="company_id" referenceTable="company" referenceColumn="entity_id" onDelete="CASCADE"/>
+        <index referenceId="COMPANY_DOCUMENTS_TYPE" indexType="btree">
+            <column name="document_type"/>
+        </index>
+        <index referenceId="COMPANY_DOCUMENTS_COMPANY_ID" indexType="btree">
+            <column name="company_id"/>
+        </index>
+    </table>
+    <table name="company_document_contents" resource="default" engine="innodb" comment="Company Documents Content">
+        <column xsi:type="int" name="document_id" padding="10" unsigned="true" nullable="false" identity="true"
+            comment="Company Document Id"/>
+        <column xsi:type="longblob" name="document_contents" nullable="false" comment="Document Contents"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="document_id"/>
+        </constraint>
+        <constraint xsi:type="foreign" referenceId="FK_COMPANY_DOCUMENT_CONTENTS_COMPANY_DOCUMENTS" table="company_document_contents"
+            column="document_id" referenceTable="company_documents" referenceColumn="document_id" onDelete="CASCADE"/>
+    </table>
+</schema>

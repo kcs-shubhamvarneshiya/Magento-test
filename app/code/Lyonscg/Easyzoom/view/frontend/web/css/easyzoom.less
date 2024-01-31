@@ -1,0 +1,135 @@
+div.zoomContainer, .gallery-placeholder > :not(#new_gallery):not(.easyzoom-flyout):not(.eazyzoom_disable):not(.fotorama-item) {
+    display: none !important;
+}
+
+.fotorama-item.fotorama {
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden;
+}
+
+.easyzoom {
+    position: relative; /* Shrink-wrap the element */
+    display: inline-block;
+    zoom: 1;
+}
+
+.easyzoom img {
+    vertical-align: bottom;
+}
+
+.easyzoom.is-loading img {
+    cursor: progress;
+}
+
+.easyzoom.is-ready img {
+    cursor: default;
+}
+
+.easyzoom.is-error img {
+    cursor: not-allowed;
+}
+
+.easyzoom-notice {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 150;
+    width: 10em;
+    margin: -1em 0 0 -5em;
+    line-height: 2em;
+    text-align: center;
+    background: #FFF;
+    box-shadow: 0 0 10px #888;
+}
+
+.easyzoom-flyout {
+    position: absolute;
+    z-index: 100;
+    overflow: hidden;
+    background: #FFF;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+div#new_gallery {
+    width: 100%;
+    text-align: center;
+    padding: 11rem 0;
+    padding-top: 0;
+    box-sizing: border-box;
+}
+
+#new_gallery a {
+    display: block;
+    text-align: center;
+    cursor: default;
+}
+
+.easyzoom-flyout img {
+    max-height: none !important;
+    max-width: none !important;
+    position: absolute;
+    cursor: zoom-in !important;
+}
+
+.zoom_disabled .easyzoom-flyout, .zoom_disabled .easyzoom-notice {
+    display: none !important;
+}
+
+.eazyzoom_disable {
+    display: block !important;
+    padding: 0 1rem;
+}
+
+.eazyzoom_disable span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+}
+
+.eazyzoom_disable > span.eazyzoom_mag {
+    height: 26px;
+    width: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNS44NTQiIGhlaWdodD0iMjUuODU0IiB2aWV3Qm94PSIwIDAgMjUuODU0IDI1Ljg1NCI+CiAgPGcgaWQ9Ikdyb3VwXzEiIGRhdGEtbmFtZT0iR3JvdXAgMSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoLTcyIC0yMjkpIj4KICAgIDxnIGlkPSJFbGxpcHNlXzEiIGRhdGEtbmFtZT0iRWxsaXBzZSAxIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3MiAyMjkpIiBmaWxsPSIjZmZmIiBzdHJva2U9IiMwNzFkMmMiIHN0cm9rZS13aWR0aD0iMSI+CiAgICAgIDxjaXJjbGUgY3g9IjExLjUiIGN5PSIxMS41IiByPSIxMS41IiBzdHJva2U9Im5vbmUiLz4KICAgICAgPGNpcmNsZSBjeD0iMTEuNSIgY3k9IjExLjUiIHI9IjExIiBmaWxsPSJub25lIi8+CiAgICA8L2c+CiAgICA8bGluZSBpZD0iTGluZV8xIiBkYXRhLW5hbWU9IkxpbmUgMSIgeDI9IjYiIHkyPSI2IiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg5MS41IDI0OC41KSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDcxZDJjIiBzdHJva2Utd2lkdGg9IjEiLz4KICAgIDxsaW5lIGlkPSJMaW5lXzMiIGRhdGEtbmFtZT0iTGluZSAzIiB4Mj0iOCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODAgMjQxKSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDcxZDJjIiBzdHJva2Utd2lkdGg9IjEiLz4KICA8L2c+Cjwvc3ZnPgo=");
+}
+
+.zoom_disabled .eazyzoom_disable > span.eazyzoom_mag {
+    background-image: url("data:image/svg+xml;base64,PHN2ZyBpZD0iQ29tcG9uZW50XzJfMSIgZGF0YS1uYW1lPSJDb21wb25lbnQgMiDigJMgMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjUuODU0IiBoZWlnaHQ9IjI1Ljg1NCIgdmlld0JveD0iMCAwIDI1Ljg1NCAyNS44NTQiPgogIDxnIGlkPSJFbGxpcHNlXzEiIGRhdGEtbmFtZT0iRWxsaXBzZSAxIiBmaWxsPSIjZmZmIiBzdHJva2U9IiM4ODgiIHN0cm9rZS13aWR0aD0iMSI+CiAgICA8Y2lyY2xlIGN4PSIxMS41IiBjeT0iMTEuNSIgcj0iMTEuNSIgc3Ryb2tlPSJub25lIi8+CiAgICA8Y2lyY2xlIGN4PSIxMS41IiBjeT0iMTEuNSIgcj0iMTEiIGZpbGw9Im5vbmUiLz4KICA8L2c+CiAgPGxpbmUgaWQ9IkxpbmVfMSIgZGF0YS1uYW1lPSJMaW5lIDEiIHgyPSI2IiB5Mj0iNiIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTkuNSAxOS41KSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjODg4IiBzdHJva2Utd2lkdGg9IjEiLz4KICA8bGluZSBpZD0iTGluZV8yIiBkYXRhLW5hbWU9IkxpbmUgMiIgeTI9IjgiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEyIDgpIiBmaWxsPSJub25lIiBzdHJva2U9IiM4ODgiIHN0cm9rZS13aWR0aD0iMSIvPgogIDxsaW5lIGlkPSJMaW5lXzMiIGRhdGEtbmFtZT0iTGluZSAzIiB4Mj0iOCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOCAxMikiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzg4OCIgc3Ryb2tlLXdpZHRoPSIxIi8+Cjwvc3ZnPgo=");
+}
+
+#new_gallery_product_labels .mpproductlabel-label, #new_gallery_product_labels .mpproductlabel-label img {
+    position: relative;
+    width: auto !important;
+    height: 12px !important;
+    margin-bottom: 5px;
+}
+
+#new_gallery_product_labels .mpproductlabel-text-label:empty {
+    display: none;
+}
+
+div#new_gallery_product_labels {
+    padding-bottom: 5px;
+}
+
+@media (max-width: 1400px) {
+    div#new_gallery {
+        padding: 5rem 0;
+    }
+}
+
+@media (max-width: 767px) {
+    div#new_gallery {
+        padding: 0 0;
+    }
+
+    div#new_gallery a {
+        padding: 0 1rem
+    }
+}

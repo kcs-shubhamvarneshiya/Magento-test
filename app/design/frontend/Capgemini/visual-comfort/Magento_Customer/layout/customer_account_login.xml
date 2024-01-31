@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+        <referenceContainer name="content">
+            <container name="customer.login.wrapper" label="Customer Login Wrapper" htmlTag="div" htmlClass="customer-login__wrapper" />
+            <container name="customer.create.wrapper" label="Customer Create Wrapper" htmlTag="div" htmlClass="customer-create__wrapper" />
+        </referenceContainer>
+        <move element="customer_form_login" destination="customer.login.wrapper" before="-" />
+        <move element="customer.create.wrapper" destination="customer.login.wrapper" after="customer_form_login" />
+        <move element="customer.new" destination="customer.create.wrapper" before="-" />
+        <move element="customer.login.container" destination="customer.create.wrapper" after="-" />
+    </body>
+</page>

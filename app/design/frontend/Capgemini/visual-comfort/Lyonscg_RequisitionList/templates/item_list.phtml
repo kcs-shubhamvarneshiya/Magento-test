@@ -1,0 +1,145 @@
+<?php
+/**
+ * PDF Requisition List Template
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2023 Capgemini, Inc (www.capgemini.com)
+ */
+/** @var \Lyonscg\RequisitionList\Block\Requisition\Pdf\Item $block */
+/* @var \Magento\Framework\Escaper $escaper */
+
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+
+$params = $this->getRequest()->getParams();
+$pdf_pricing = (!empty($params['pdf_pricing'])) ? $params['pdf_pricing'] : '';
+$item = $block->getItem();
+$product = $block->getFinalProduct();
+$sku = $block->getChildBlock('requisition.list.item.view.sku')->setItem($item)->toHtml();
+$availabilityInfo = $block->getData('availability_info_view_model');
+$collection = $product->getAttributeText('brand');
+$relatives = $product->getData('relatives');
+?>
+
+<td class="item-data image">
+    <img class="item-image" src="<?= $block->escapeUrl($block->getImageUrl()) ?>">
+</td>
+
+<td class="item-data product-info">
+    <?php if ($block->getRequisitionListProduct()) : ?>
+        <div class="product-info">
+            <div class="product-name">
+                <?= $escaper->escapeHtml($block->getRequisitionListProduct()->getName()) ?>
+            </div>
+            <?php if ($relatives || $collection) : ?>
+                <div class="collection">
+                    <?= $escaper->escapeHtml($collection) ?><?= ($collection && $relatives) ? ' | ' : '' ?><?= $relatives ? $escaper->escapeHtml("View the $relatives series") : '' ?>
+                </div>
+            <?php endif ?>
+            <div class="sku">
+                <span class="label"><?= $escaper->escapeHtml(__('Item #'));?>:</span>
+                <span class="value"><?= $escaper->escapeHtml($product->getSku()) ?></span>
+            </div>
+            <div class="product-stock">
+                <span class="label"><?= $availabilityInfo->getAvailabilityFrontendInfo($product, 'label') ?>:</span> <?= $availabilityInfo->getAvailabilityFrontendInfo($product, 'value') ?>
+            </div>
+            <?php $block->getChildBlock('requisition.list.item.options')->setItem($item); ?>
+            <div class="options">
+                <?= $block->getChildHtml('requisition.list.item.options', false) ?>
+            </div>
+            <div class="qty"><span class="label">Quantity:</span> <span class="value"><?= (float)($item->getQty() * 1) ?></span></div>
+            <?php if ($item->getExtensionAttributes()->getSidemark()) : ?>
+                <div class="sidemark">
+                    <div class="label">Sidemark</div>
+                    <div class="value"><?= $escaper->escapeHtml($item->getExtensionAttributes()->getSidemark()) ?></div>
+                </div>
+            <?php endif; ?>
+            <?php if ($item->getExtensionAttributes()->getCommentsLineItem()) : ?>
+                <div class="comments">
+                    <div class="label">Comments</div>
+                    <div class="value"><?= $escaper->escapeHtml($item->getExtensionAttributes()->getCommentsLineItem()) ?></div>
+                </div>
+            <?php endif; ?>
+            <?php if ($block->getParentBlock()->getRequisitionList()->getDescription()) : ?>
+                <div class="quote-notes">
+                    <div class="label">Quote Notes</div>
+                    <div class="value">
+                        <?= $escaper->escapeHtml($block->getParentBlock()->getRequisitionList()->getDescription()) ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+</td>
+
+<?php if ($pdf_pricing != 'none') : ?>
+    <td class="item-data price">
+        <?php if ($pdf_pricing == 'retail' || $pdf_pricing == 'both') : ?>
+            <div class="retail-price <?php echo($pdf_pricing == 'both') ? 'data-fade' : ''?>">
+                <span class="price-label">Retail</span>
+                <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+                    <?= /* @noEscape */
+                    $block->formatProductPrice($block->getRequisitionListProduct()->getPrice()) ?>
+                <?php endif ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($pdf_pricing == 'trade' || $pdf_pricing == 'both') : ?>
+            <div class="trade-price">
+                <span class="price-label">Trade</span>
+                <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+                    <?= /* @noEscape */
+                    $block->getFormattedPrice() ?>
+                    <?php if ($block->displayBothPrices()) : ?>
+                        <span class="price-excluding-tax"
+                              data-label="<?= $escaper->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                                            <?= /* @noEscape */
+                                            $block->getFormattedPriceExcludingTax() ?>
+                                        </span>
+                    <?php endif; ?>
+                <?php endif ?>
+            </div>
+        <?php endif; ?>
+    </td>
+<?php endif; ?>
+
+<td class="item-data qty">
+    <span class="pdf-data"><?= (float)($item->getQty() * 1) ?></span>
+</td>
+
+<?php if ($pdf_pricing != 'none') : ?>
+    <td class="item-data subtotal">
+        <?php if ($pdf_pricing == 'retail' || $pdf_pricing == 'both'): ?>
+            <div class="retail-price pdf-data <?php echo($pdf_pricing == 'both') ? 'data-fade' : ''?>">
+                <span class="price-label">Retail</span>
+                <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+                    <?= /* @noEscape */
+                    $block->getFormattedRetailSubtotal() ?>
+                    <?php if ($block->displayBothPrices()) : ?>
+                        <span class="price-excluding-tax"
+                              data-label="<?= $escaper->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                                    <?= /* @noEscape */
+                                    $block->getFormattedRetailSubtotalExcludingTax() ?>
+                                </span>
+                    <?php endif; ?>
+                <?php endif ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($pdf_pricing == 'trade' || $pdf_pricing == 'both') : ?>
+            <div class="trade-price pdf-data">
+                <span class="price-label">Trade</span>
+                <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+                    <?= /* @noEscape */
+                    $block->getFormattedSubtotal() ?>
+                    <?php if ($block->displayBothPrices()) : ?>
+                        <span class="price-excluding-tax"
+                              data-label="<?= $escaper->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                                    <?= /* @noEscape */
+                                    $block->getFormattedSubtotalExcludingTax() ?>
+                                </span>
+                    <?php endif; ?>
+                <?php endif ?>
+            </div>
+        <?php endif; ?>
+    </td>
+<?php endif; ?>

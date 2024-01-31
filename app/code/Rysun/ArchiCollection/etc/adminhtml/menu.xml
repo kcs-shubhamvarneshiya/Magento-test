@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Rysun_ArchiCollection::rysun_archicollection_archi_collection" title="Archi Collection" module="Rysun_ArchiCollection" sortOrder="9999" resource="Magento_Backend::content" parent="Rysun::top_level" action="rysun_archicollection/archicollection/index"/>
+		<add id="Rysun::top_level" title="Rysun" module="Rysun_ArchiCollection" sortOrder="9999" resource="Magento_Backend::content"/>
+		<add id="Rysun_ArchiCollection::rysun_archicollection_archi_platform" title="Archi Platform" module="Rysun_ArchiCollection" sortOrder="9999" resource="Magento_Backend::content" parent="Rysun::top_level" action="rysun_archicollection/archiplatform/index"/>
+	</menu>
+</config>

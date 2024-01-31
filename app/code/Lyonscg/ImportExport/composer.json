@@ -1,0 +1,20 @@
+{
+    "name": "lyonscg/module-import-export",
+    "description": "Adds additional functionality to the standard import/export and scheduled import/export functions.",
+    "version": "100.0.0",
+    "type": "magento2-module",
+    "require": {
+        "magento/framework": ">100.0"
+    },
+    "license": [
+        "proprietary"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Lyonscg\\ImportExport\\": ""
+        }
+    }
+}

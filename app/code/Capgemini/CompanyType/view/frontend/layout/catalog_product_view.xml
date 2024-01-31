@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.addtocart">
+            <arguments>
+                <argument name="company_purchase_rules_view_model"
+                          xsi:type="object">Capgemini\CompanyType\ViewModel\PurchaseValidator</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional">
+            <arguments>
+                <argument name="company_purchase_rules_view_model"
+                          xsi:type="object">Capgemini\CompanyType\ViewModel\PurchaseValidator</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="product.info.main">
+            <block name="product.info.purchase.limit"
+                   class="Capgemini\CompanyType\Block\Product\AddToPermissionConfig"
+                   template="Capgemini_CompanyType::product/purchase_limit.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

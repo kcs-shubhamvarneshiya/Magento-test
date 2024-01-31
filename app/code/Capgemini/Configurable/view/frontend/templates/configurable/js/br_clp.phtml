@@ -1,0 +1,49 @@
+<script type="text/javascript">
+    require([
+        'jquery', 'jquery/ui'
+    ], function($) {
+
+        $('body').on('mouseenter', '.product-item .product-item-info', function () {
+            var $t = $(this),
+                item = $t.find('.isActive');
+            $(item).addClass('active');
+        });
+
+        $('body').on('mouseenter', '.product-item .variation-item a', function () {
+            var $t = $(this),
+                image = $t.data('clp-image'),
+                $image = $t.closest('.product-item-info').find('.product-image-photo'),
+                $parentItem = $t.parents('.variation-item');
+            $image.data('old-src', $image.attr('src'));
+            $image.attr('src', image);
+
+            if ($('.variation-item.active').length) {
+                $('.variation-item').removeClass('active');
+            }
+            $parentItem.addClass('active');
+        });
+
+        $('body').on('mouseleave', '.product-item .variation-item a', function () {
+            var $t = $(this),
+                image = $t.data('clp-image'),
+                $image = $t.closest('.product-item-info').find('.product-image-photo'),
+                oldSrc = $image.data('old-src'),
+                $parentItem = $t.parents('.variation-item');
+            $image.attr('src', oldSrc);
+            $parentItem.removeClass('active');
+            $parentItem.parents('.variation-carousel').find('.isActive').addClass('active');
+        });
+
+        $('body').on('click', '.blm-product-search-sidebar-content .filter-options-item', function () {
+            $('.blm-product-search-sidebar-content .filter-options-content').css('display','none').css('visibility','hidden');
+            if ($(this).hasClass('active')) {
+                $(this).find('.filter-options-content').css('display', 'none').css('visibility', 'hidden');
+                $(this).removeClass('allow').removeClass('active');
+            } else {
+                $('.filter-options-item').removeClass('allow').removeClass('active');
+                $(this).addClass('allow').addClass('active');
+                $(this).find('.filter-options-content').css('display', 'block').css('visibility', 'visible');
+            }
+        });
+    });
+</script>

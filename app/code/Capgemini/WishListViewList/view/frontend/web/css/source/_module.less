@@ -1,0 +1,678 @@
+& when (@media-common = true) {
+    .cpwishlist-index-listview {
+        &#html-body {
+            .table-wrapper {
+                margin-top: 20px;
+            }
+
+            table {
+                &.data-grid.table {
+                    border-collapse: separate;
+                    border: 1px solid #e3e3e3;
+                    tbody {
+                        .data-row {
+                            .number-field {
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+                th {
+                    background-color: #f8f8f8;
+                    font-family: 'proxima-nova', sans-serif;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    line-height: 1.2rem;
+                    color: #454545;
+                    padding: 20px;
+                    border-bottom: none;
+                    & > span {
+                        font-family: 'proxima-nova', sans-serif;
+                        font-size: 12px;
+                        font-weight: 600;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.17;
+                        letter-spacing: 0.25px;
+                        color: #454545;
+                        text-transform: uppercase;
+                    }
+                }
+
+                // center # of items th and td
+                thead > tr > th:nth-child(5),
+                .data-grid-wrap .number-field {
+                    text-align: center;
+                }
+
+                .action-menu {
+                    display: flex;
+                    list-style: none;
+
+                    li {
+                        a {
+                            font-family: 'proxima-nova', sans-serif;
+                            font-size: 14px;
+                            font-weight: 600;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: 1.57;
+                            letter-spacing: normal;
+                            color: #454545;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+            .limiter {
+                .control {
+                    position: relative;
+                    &:after {
+                        content: '';
+                        display: block;
+                        position: absolute;
+                        left: 55%;
+                        top: 50%;
+                        transform: translate(-50%, -50%);
+                        height: 20px;
+                        width: 1px;
+                        background: #e3e3e3;
+                    }
+                    .limiter-options {
+                        height: 45px;
+                        width: 80px;
+                        background-position: right 5px top 50%;
+                    }
+                }
+                .limiter-text {
+                    font-family: 'proxima-nova', sans-serif;
+                    font-size: 14px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.71;
+                    letter-spacing: 0.25px;
+                    color: #454545;
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+
+    .cpwishlist-index-listview {
+        .modals-wrapper .modal-popup .modal-inner-wrap {
+            .modal-title {
+                text-transform: capitalize;
+            }
+        }
+
+        #create-wishlist-block {
+            width: 570px;
+
+            .popup-actions {
+                .close {
+                    width: 15px;
+                    padding-right: 34px;
+                    color: #454545;
+                    padding-top: 8px;
+                }
+            }
+
+            .popup-header {
+                border-bottom: 1px solid #E3E3F0;
+                margin-bottom: 30px;
+                padding-bottom: 16px;
+
+                .title {
+                    height: 32px;
+                    line-height: 1.23;
+                    font-size: 26px;
+                    margin-top: 1.5rem;
+                    font-family: 'GoudyOldSty-Reg';
+                    font-weight: normal;
+                    font-stretch: normal;
+                    font-style: normal;
+                    letter-spacing: normal;
+                    color: #454545;
+                    margin-bottom: 1rem;
+                }
+            }
+
+            .popup-content {
+                .field.name {
+                    border: none;
+                }
+
+                .fieldset {
+                &:last-child {
+                    margin: 0;
+                }
+
+                    > .field {
+                        &.choice {
+                            display: none;
+                        }
+
+                        &.name {
+                            > .label {
+                                height: 13px;
+                                font-family: 'proxima-nova';
+                                font-size: 14px;
+                                font-weight: 600;
+                                font-stretch: normal;
+                                font-style: normal;
+                                line-height: 0.93;
+                                letter-spacing: normal;
+                                color: #454545;
+                                padding-bottom: 4px;
+                                text-transform: capitalize;
+                            }
+                        }
+                    }
+                }
+
+                .actions-toolbar {
+                    display: flex;
+                align-items: unset;
+                    justify-content: flex-start;
+                    clear: both;
+                    border: 0;
+                margin-top: 25px;
+
+                .primary,
+                .secondary {
+                    margin: 0;
+                    padding: 0;
+
+                    .action {
+                        height: 45px;
+                        margin: 0;
+                        min-height: 0;
+                        width: 100%;
+                    }
+                }
+
+
+                    .primary {
+                        max-width: 260px;
+                    padding: 0;
+                        width: 100%;
+                        height: 40px;
+
+                        .primary {
+                            &.action {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+
+                    .secondary {
+                        margin: 0;
+                        max-width: 120px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        .modal-popup.confirm {
+            .modal-inner-wrap {
+                .modal-footer {
+                    display: flex !important;
+
+                    .action-secondary {
+                        &.action-dismiss {
+                            width: 154px;
+                            color: @color-gray-800;
+                            background: @color-white;
+                            border: 1px solid @color-gray-800;
+                            &:hover {
+                                background: @color-gray-300;
+                            }
+                        }
+                    }
+
+                    .action-primary {
+                        &.action-accept {
+                            max-width: 244px;
+                            width: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-right: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .cpwishlist-index-listview {
+        .products-grid {
+            .product-items {
+                margin: 0;
+            }
+
+            .product-item {
+                margin-bottom: @indent__base;
+                padding: 0;
+                position: relative;
+
+                .product-item-info {
+                    &:hover {
+                        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+                    }
+
+                    .product-item-name {
+                        text-align: center;
+
+                        a {
+                            font-family: 'HelveticaNeueLTPro-Lt', sans-serif;
+                            font-weight: normal;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: 1.22;
+                            letter-spacing: 0.6px;
+                            text-align: center;
+                            color: #717171;
+                        }
+                    }
+
+                    .designer_name {
+                        font-size: 12px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: normal;
+                        letter-spacing: 1.8px;
+                        display: block;
+                        text-align: center;
+                        color: #454545;
+                        text-transform: uppercase;
+                        font-family: @font-family__helv-md;
+                    }
+
+                    .price-box.price-final_price {
+                        text-align: center;
+                    }
+
+                    .product-item-inner {
+
+                        .field.comment-box {
+                            .label {
+                                position: static;
+                                text-align: left;
+                                width: auto;
+                                height: auto;
+                                font-size: 12px;
+                                font-weight: normal;
+                                font-stretch: normal;
+                                font-style: normal;
+                                line-height: 1.17;
+                                letter-spacing: 1.2px;
+                                color: #333333;
+                            }
+
+                            .product-item-comment {
+                                border: solid 1px #8f8f8f;
+                            }
+                        }
+
+                        .box-tocart {
+                            margin-top: 20px;
+                            margin-bottom: 0;
+                            border-bottom: 1px solid #e3e3e3;
+                        }
+
+                        .product-item-actions .action {
+                            &.edit,
+                            &.delete {
+                                position: absolute;
+
+                                &:before {
+                                    color: #000;
+                                }
+                            }
+                        }
+                    }
+
+                    .product-label-checkbox {
+                        position: absolute;
+                        top: 20px;
+                        left: 20px;
+                        z-index: 1;
+                    }
+
+                    .tooltip.wrapper.product-item-tooltip {
+                        display: none;
+                    }
+                }
+            }
+
+        }
+
+        .actions-toolbar {
+            border-top: 1px solid #e3e3e3;
+
+            .primary {
+                padding-top: 4px;
+                display: flex;
+
+                .remove {
+                    max-width: 240px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 50px;
+                    border: solid 1px #333333;
+
+                    &:hover {
+                        background: #f7f7f7;
+                    }
+                }
+            }
+        }
+    }
+
+    .cpwishlist-index-listview {
+        .column.main {
+            position: relative;
+        }
+
+        .form-wishlist-items {
+            .block-wishlist-management {
+
+                .small {
+                    font-size: 16px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.5;
+                    letter-spacing: 0.6px;
+                    color: #454545;
+                    margin-top: 30px;
+                    margin-bottom: 31px;
+                }
+
+                .wishlist-select {
+                    .wishlist-select-items {
+                        display: flex;
+                        padding: 0;
+
+                        .item {
+                            max-width: 191px;
+                            width: 100%;
+                            height: 38px;
+                            border: solid 1px #e3e3e3;
+                            border-bottom: 0;
+                            background-color: #f8f8f8;
+                            cursor: pointer;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-wrap: wrap;
+                            padding: 0;
+                            margin: 0 0 -2px 0;
+
+                            > a {
+                                font-family: 'HelveticaNeueLTPro-Md', sans-serif;
+                                font-size: 14px;
+                                font-weight: normal;
+                                font-stretch: normal;
+                                font-style: normal;
+                                line-height: 1.14;
+                                letter-spacing: 0.6px;
+                                color: #333333;
+                                display: flex;
+                                width: 100%;
+                                align-items: center;
+                                justify-content: center;
+                                height: 100%;
+                            }
+
+                            &.current {
+                                background: #fff;
+                                border-bottom: 2px solid #000;
+                                font-family: 'HelveticaNeueLTPro-Md', sans-serif;
+                                font-size: 14px;
+                                font-weight: normal;
+                                font-stretch: normal;
+                                font-style: normal;
+                                line-height: 1.14;
+                                letter-spacing: 0.6px;
+                                color: #333333;
+                            }
+
+                            &.wishlist-new {
+                                max-width: 280px;
+                                width: 100%;
+                                height: 50px;
+                                position: absolute;
+                                right: 0;
+                                top: 0;
+
+                                a {
+                                    font-size: 12px;
+                                    font-weight: normal;
+                                    font-stretch: normal;
+                                    font-style: normal;
+                                    line-height: 1.17;
+                                    letter-spacing: 1.2px;
+                                    text-align: center;
+                                    color: #ffffff !important;
+                                    text-transform: uppercase;
+                                    text-decoration: none;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .wishlist-title {
+                    strong {
+                        font-family: 'HelveticaNeueLTPro-Lt', sans-serif;
+                        font-size: 20px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.25;
+                        letter-spacing: 0.7px;
+                        color: #454545;
+                    }
+
+                    .action.edit {
+                        font-size: 0;
+
+                        &:before {
+                            content: '\e925';
+                            font-family: 'circa-icons';
+                            font-size: 16px;
+                            line-height: 20px;
+                            color: #333;
+                        }
+                    }
+
+                    .wishlist-notice {
+                        display: block;
+
+                        &.private {
+                            &:before {
+                                display: none;
+                            }
+                        }
+
+                        &.public {
+                            &:before {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+
+                .wishlist-toolbar {
+                    float: none;
+                    border-top: 1px solid #e3e3e3;
+                    border-bottom: 1px solid #e3e3e3;
+                    height: 50px;
+                    display: flex;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    padding-left: 20px;
+
+                    .wishlist-toolbar-select {
+                        .label {
+                            font-family: 'HelveticaNeueLTPro-Md', sans-serif;
+                            font-size: 14px;
+                            font-weight: normal;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: 1.14;
+                            letter-spacing: 0.6px;
+                            color: #333333;
+                            text-transform: capitalize;
+                        }
+                    }
+
+                    .wishlist-toolbar-actions {
+                        float: right;
+                        margin-left: auto;
+
+                        #wishlists-move,
+                        #wishlists-copy {
+                            > span {
+                                font-family: 'HelveticaNeueLTPro-Md', sans-serif;
+                                font-size: 14px;
+                                font-weight: normal;
+                                font-stretch: normal;
+                                font-style: normal;
+                                line-height: 1.14;
+                                letter-spacing: 0.6px;
+                                color: #333333;
+                            }
+
+                            .action.toggle {
+                                &:after {
+                                    font-size: 10px;
+                                    line-height: 10px;
+                                    color: #333;
+                                    content: '\e622';
+                                    font-family: 'circa-icons';
+                                }
+
+                                &.active {
+                                    &:after {
+                                        content: '\e621';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .wishlist {
+        &.window.popup {
+            bottom: auto;
+            .lib-css(top, @desktop-popup-position-top);
+            .lib-css(left, @desktop-popup-position-left);
+            .lib-css(margin-left, 0);
+            .lib-css(width, @desktop-popup-width);
+            transform: translateX(-50%);
+            right: auto;
+        }
+    }
+}
+
+// This page breaks at 640?  Ok.  Adjust if needed to @screen__l if needed
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    .cpwishlist-index-listview table .action-menu {
+        justify-content: flex-end;
+
+        li:first-child {
+            a {
+                margin-right: 25px;
+            }
+        }
+    }
+
+    .cpwishlist-index-listview {
+        table {
+            td {
+                padding: 20px;
+            }
+        }
+    }
+
+    .quotes-grid-toolbar {
+        margin-top: 20px;
+    }
+
+    .data-grid-wrap .number-field {
+        text-align: center;
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .cpwishlist-index-listview {
+        .wishlist-delete {
+            max-width: 240px;
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .cpwishlist-index-listview {
+        .wishlist-delete {
+            margin-top: 20px;
+        }
+
+        #create-wishlist-block {
+            bottom: auto;
+            height: auto;
+            left: 50%;
+            max-width: 410px;
+            top: 17%;
+            width: ~"calc(100% - 30px)";
+
+            .popup-content {
+                .actions-toolbar {
+                    display: block;
+                    width: 100%;
+
+                    > .primary,
+                    > .secondary {
+                        float: left;
+                        max-width: 100%;
+                    }
+
+                    > .primary {
+                        width: 60%;
+                    }
+
+                    > .secondary {
+                        box-sizing: border-box;
+                        width: 40%;
+
+                        .action {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

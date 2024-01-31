@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="instructions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="table" type="tableData">
+                    <xs:unique name="oneColumnNameForTableData">
+                        <xs:selector xpath="./*" />
+                        <xs:field xpath="@name" />
+                    </xs:unique>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="oneTableNameForInstructions">
+            <xs:selector xpath="./*" />
+            <xs:field xpath="@name" />
+        </xs:unique>
+    </xs:element>
+    <xs:complexType name="tableData">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="column" type="columnInfo" />
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="identity_column" type="xs:string" use="required" />
+        <xs:attribute name="referential_path" type="xs:string" use="required" />
+    </xs:complexType>
+    <xs:complexType name="columnInfo">
+        <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="placeholder" />
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+</xs:schema>

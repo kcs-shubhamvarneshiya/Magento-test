@@ -1,0 +1,162 @@
+<?php
+/**
+ * Lyonscg_ConfigurableSimple
+ *
+ * @category  Lyons
+ * @package   Lyonscg_ConfigurableSimple
+ * @author    Oleksii Kononenko<oleksii.kononenko@capgemini.com>
+ * @author    Tanya Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var \Lyonscg\ConfigurableSimple\Block\Specifications $block */
+/** @var \Lyonscg\ConfigurableSimple\Helper\Output $_helper */
+$_helper = $this->helper(\Lyonscg\ConfigurableSimple\Helper\Output::class);
+$additionalData = $_helper->getAdditionalData($block->getBaseChildProduct());
+
+
+$baseChildProduct = $block->getBaseChildProduct();
+$_designer = $block->getProductCustomAttributeValue('designer', true);
+$_designer = (!empty($_designer)) ? $baseChildProduct->getAttributeText('designer') : '';
+// strip out all whitespace
+$designer_clean = preg_replace('/\s+/', '_', $_designer);
+// convert the string to all lowercase
+$designer_block_id = (!empty($designer_clean)) ? 'pdp_designer_' . strtolower($designer_clean) : ''; /*TODO: need to check if this works for all cases as I assume there might be additional syblols as & or '*/
+$pdp_block_designer = (!empty($designer_block_id)) ?
+    $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($designer_block_id)->toHtml() : '';
+$_photography = $block->getProductCustomAttributeValue('photography_images', true);
+?>
+
+<?php  if (!empty($additionalData)): ?>
+    <div class="sticky-tabs-wrapper" id="sticky-tabs">
+        <div class="sticky-details-tabs">
+            <div class="sticky-tabs-inner">
+
+                <?php  if (!empty($additionalData)): ?>
+                    <div class="title-item active" data-label-id="additional-specs">
+                        <a class="tab-link" href="#tab-content">
+                            <?= __('Specification & Files'); ?>
+                        </a>
+                    </div>
+                <?php endif;?>
+
+                <?php  if (!empty($block->getProductCustomAttributeValue('relatives', true))): ?>
+                    <div class="title-item" data-label-id="additional-collection">
+                        <a class="tab-link" href="#tab-content">
+                            <?= __('Collection'); ?>
+                        </a>
+                    </div>
+                <?php endif;?>
+
+                <?php  if (!empty($_photography)): ?>
+                    <div class="title-item" data-label-id="additional-photography">
+                        <a class="tab-link" href="#tab-content">
+                            <?= __('Photography'); ?>
+                        </a>
+                    </div>
+                <?php endif;?>
+
+                <?php  if (!empty($block->getProductCustomAttributeValue('designer', true)) && !empty($pdp_block_designer)): ?>
+                    <div class="title-item" data-label-id="additional-designer">
+                        <a class="tab-link" href="#tab-content">
+                            <?= __('Designer'); ?>
+                        </a>
+                    </div>
+                <?php endif;?>
+
+                <?php  if (!empty($block->getProductCustomAttributeValue('pdp_tips_block', true))): ?>
+                    <div class="title-item" data-label-id="additional-tips">
+                        <a class="tab-link" href="#tab-content">
+                            <?= __('Tips'); ?>
+                        </a>
+                    </div>
+                <?php endif;?>
+
+                <?php  if (!empty($block->getProductCustomAttributeValue('accessories', true))): ?>
+                    <div class="title-item" data-label-id="additional-accessories">
+                        <a class="tab-link" href="#tab-content">
+                            <?= __('Accessories'); ?>
+                        </a>
+                    </div>
+                <?php endif;?>
+
+                <div id="btt-button" class="btt-button">
+                    <span>Back to Top</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        require([
+            'jquery',
+            'domReady!'
+        ], function ($) {
+            var stickyTabsWrapper = $('.sticky-tabs-wrapper'),
+                stickyTabsContainer = $('.sticky-details-tabs'),
+                stickyTabsContainerHeight = stickyTabsContainer.height(),
+                getAdditionalContentContainer = $('*[data-additional-content]'),
+                stickyTabItem = stickyTabsWrapper.find('.title-item'),
+                headerHeight = 46;
+
+
+            /*Set sticky tabs height to prevent content jumping*/
+            stickyTabsWrapper.css('height', stickyTabsContainerHeight);
+
+            /*Sticky on scroll*/
+            $(window).on('scroll', function() {
+                var currentScroll = $(window).scrollTop(),
+                    stickyTabsOffset = stickyTabsWrapper.offset().top - headerHeight; //Offset to determine when bar should become sticky
+
+                if($('.ammenu-menu-wrapper .-sticky').length > 0) {
+                    headerHeight = 46;
+                } else {
+                    headerHeight = 0;
+                }
+
+                /*Add/remove sticky class*/
+                if(currentScroll >= stickyTabsOffset) {
+                    stickyTabsContainer.addClass('sticky');
+
+                    stickyTabsContainer.css({
+                        top: headerHeight + 'px'
+                    });
+                } else {
+                    stickyTabsContainer.removeClass('sticky');
+                }
+
+                /*Add active class for active tabs*/
+                getAdditionalContentContainer.each(function(){
+                    var additionalContentOffset = $(this).offset().top,
+                        additionalContentId = $(this).attr('id');
+
+                    if (currentScroll >= additionalContentOffset - headerHeight - stickyTabsContainerHeight) {
+                        if(additionalContentId !== $('.title-item.active').attr('data-label-id')) {
+                            stickyTabsWrapper.find('.title-item').removeClass('active');
+                            stickyTabsWrapper.find('.title-item[data-label-id="' + additionalContentId + '"]').addClass('active');
+                        }
+                    }
+                });
+            });
+
+            /*On click action*/
+            stickyTabItem.on('click', function(){
+                var getTabName = $(this).attr('data-label-id'),
+                    additionalContentContainer = $('*[data-additional-content="' + getTabName + '"]');
+
+                $('body,html').animate({
+                scrollTop: additionalContentContainer.offset().top - headerHeight - stickyTabsContainerHeight + 1
+                }, 400);
+                return false;
+             });
+
+            /*Back to top button*/
+            $('#btt-button').on('click', function() {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 400);
+                return false;
+            });
+        });
+    </script>
+<?php endif;?>

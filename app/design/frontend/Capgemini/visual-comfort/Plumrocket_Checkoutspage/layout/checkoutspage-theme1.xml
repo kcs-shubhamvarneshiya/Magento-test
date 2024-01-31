@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="checkout_order_item_renderers"/>
+    <update handle="sales_order_item_price"/>
+    <body>
+        <referenceContainer name="order.info.header.container">
+            <block class="Magento\Sales\Block\Order\Info" name="order.info.header" template="Plumrocket_Checkoutspage::thanku/order-info-header.phtml" before="-">
+                <block class="Plumrocket\Checkoutspage\Block\Button" name="checkout.success.button.mobile" template="button.phtml"/>
+                <block class="Magento\Customer\Block\Account\AuthorizationLink" name="order.info.auth" template="Plumrocket_Checkoutspage::thanku/order-info-auth.phtml"/>
+                <arguments>
+                    <argument name="wholesale_detector" xsi:type="object">Capgemini\WholesaleAddress\ViewModel\WholesaleDetector</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <move element="order_totals" destination="checkoutspage.right.section" before="-" />
+        <move element="checkout.order.information" destination="checkoutspage.right.section" after="order_totals" />
+        <move element="checkout.success.continue.shopping" destination="checkoutspage.left.section" after="-" />
+
+        <referenceBlock name="checkout.registration" remove="true" />
+        <referenceBlock name="checkout.success.facebook" remove="true" />
+
+        <block class="Magento\Sales\Block\Order\Info" name="checkout.order.information" template="Plumrocket_Checkoutspage::order/order-information-theme1.phtml" before="-">
+            <arguments>
+                <argument name="wholesale_detector" xsi:type="object">Capgemini\WholesaleAddress\ViewModel\WholesaleDetector</argument>
+            </arguments>
+        </block>
+        <referenceContainer name="checkoutspage.left.section">
+            <block class="Magento\Sales\Block\Order\Items" name="order_items" template="Plumrocket_Checkoutspage::items/items-default.phtml">
+                <block class="Magento\Framework\View\Element\Template" name="prcheckoutspage.title" template="Plumrocket_Checkoutspage::items/title-theme1.phtml" />
+                <block class="Magento\Framework\View\Element\RendererList" name="checkout.order.items.renderers" as="renderer.list"/>
+                <block class="Magento\Sales\Block\Order\Totals" name="order_totals" template="Plumrocket_Checkoutspage::totals.phtml">
+                    <block class="Magento\Tax\Block\Sales\Order\Tax" name="tax" template="order/tax.phtml"/>
+                </block>
+                <block class="Magento\Framework\View\Element\Template" name="prcheckoutspage.table.head" template="Plumrocket_Checkoutspage::items/thead-default.phtml">
+                    <action method="setCssClass">
+                        <argument name="text" translate="true" xsi:type="string">__border-top</argument>
+                    </action>
+                </block>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="checkoutspage.order.thanku" remove="true" />
+        <referenceContainer name="checkoutspage.bottom.section" remove="true" />
+        <referenceBlock name="checkout.success.button" remove="true" />
+        <referenceBlock name="checkout.success.coupon" remove="true" />
+        <referenceBlock name="checkout.success.cms.right" remove="true" />
+    </body>
+</page>

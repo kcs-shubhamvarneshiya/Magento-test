@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Lyonscg_SalesPad::view_orders" title="SalesPad Order Sync" translate="title"
+            module="Lyonscg_SalesPad" sortOrder="100" action="salespad/order/"
+            parent="Magento_Integration::system_extensions" resource="Lyonscg_SalesPad::view_orders"/>
+        <add id="Lyonscg_SalesPad::view_quotes" title="SalesPad Quote Sync" translate="title"
+            module="Lyonscg_SalesPad" sortOrder="100" action="salespad/quote/"
+            parent="Magento_Integration::system_extensions" resource="Lyonscg_SalesPad::view_quotes"/>
+        <add id="Lyonscg_SalesPad::view_customers" title="SalesPad Customer Sync" translate="title"
+            module="Lyonscg_SalesPad" sortOrder="100" action="salespad/customer/"
+            parent="Magento_Integration::system_extensions" resource="Lyonscg_SalesPad::view_customers"/>
+        <add id="Lyonscg_SalesPad::view_errors" title="SalesPad API Errors" translate="title"
+            module="Lyonscg_SalesPad" sortOrder="100" action="salespad/errorLog/"
+            parent="Magento_Integration::system_extensions" resource="Lyonscg_SalesPad::view_errors"/>
+    </menu>
+</config>

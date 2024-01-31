@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2018 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="footer">
+<!--            <block class="Lyonscg\NeedleChat\Block\PageTag\Tag" name="needle_chat_successpagetag" template="Lyonscg_NeedleChat::successpagetag.phtml"/>-->
+        </referenceContainer>
+    </body>
+</page>

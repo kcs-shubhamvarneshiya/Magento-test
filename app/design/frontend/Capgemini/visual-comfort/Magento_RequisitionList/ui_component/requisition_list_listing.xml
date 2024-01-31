@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="requisition_list_listing_columns" component="lyonscgRequisitionListGrid">
+        <column name="name" sortOrder="1" component="Magento_RequisitionList/js/grid/columns/text_multiline">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataFields" xsi:type="array">
+                        <item name="0" xsi:type="string">name</item>
+                        <item name="1" xsi:type="string">test</item>
+                    </item>
+                </item>
+            </argument>
+            <settings>
+                <filter>textRange</filter>
+                <label translate="true">Project Name</label>
+                <headerTmpl>Magento_RequisitionList/grid/columns/text</headerTmpl>
+                <fieldClass>
+                    <class name="list-name-field">true</class>
+                </fieldClass>
+            </settings>
+        </column>
+<!--        <column name="items_total" sortOrder="2" class="Lyonscg\RequisitionList\Ui\Component\Listing\Column\ItemsTotal">-->
+<!--            <settings>-->
+<!--                <filter>textRange</filter>-->
+<!--                <label translate="true">Items</label>-->
+<!--                <headerTmpl>Magento_RequisitionList/grid/columns/text</headerTmpl>-->
+<!--                <fieldClass>-->
+<!--                    <class name="number-field">true</class>-->
+<!--                </fieldClass>-->
+<!--            </settings>-->
+<!--        </column>-->
+        <column name="items">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </column>
+        <column name="created_by" sortOrder="3" class="Lyonscg\RequisitionList\Ui\Component\Listing\Column\CreatedBy">
+            <settings>
+                <label translate="true">Created By</label>
+                <headerTmpl>Magento_RequisitionList/grid/columns/text</headerTmpl>
+            </settings>
+        </column>
+        <column name="quote_total" sortOrder="9" class="Lyonscg\RequisitionList\Ui\Component\Listing\Column\QuoteTotal">
+            <settings>
+                <label translate="true">Quote Total</label>
+                <headerTmpl>Magento_RequisitionList/grid/columns/text</headerTmpl>
+            </settings>
+        </column>
+        <actionsColumn name="actions" sortOrder="10" class="Magento\RequisitionList\Ui\Component\Listing\Column\Actions"
+                       component="Lyonscg_RequisitionList/js/grid/columns/actions">
+            <settings>
+                <label>Actions</label>
+                <headerTmpl>Magento_RequisitionList/grid/columns/text</headerTmpl>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+                <indexField>entity_id</indexField>
+            </settings>
+        </actionsColumn>
+        <column name="action">
+            <settings>
+                <visible>false</visible>
+            </settings>
+        </column>
+    </columns>
+</listing>

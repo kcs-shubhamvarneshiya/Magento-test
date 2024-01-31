@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!--
+    <event name="checkout_cart_product_add_before">
+        <observer name="lightbulb_upsell_cart_product_add_before" instance="Capgemini\LightBulbs\Observer\BeforeAddToCart"/>
+    </event>
+    -->
+    <event name="checkout_cart_product_add_after">
+        <observer name="lightbulb_upsell_cart_product_add_after" instance="Capgemini\LightBulbs\Observer\AfterAddToCart"/>
+    </event>
+</config>

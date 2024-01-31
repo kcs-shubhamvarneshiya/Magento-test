@@ -1,0 +1,114 @@
+<?php
+/**
+ * Lyonscg_ConfigurableSimple
+ *
+ * @category  Lyons
+ * @package   Lyonscg_ConfigurableSimple
+ * @author    Oleksii Kononenko<oleksii.kononenko@capgemini.com>
+ * @author    Tanya Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var \Lyonscg\ConfigurableSimple\Block\Specifications $block */
+/** @var \Lyonscg\ConfigurableSimple\Helper\Output $_helper */
+$_helper = $this->helper(\Lyonscg\ConfigurableSimple\Helper\Output::class);
+
+$_product = $block->getProduct();
+$baseChildProduct = $block->getBaseChildProduct();
+
+$additionalData = $block->getAdditionalData($baseChildProduct);
+
+/*Before and after blocks*/
+$pdp_block_before_specification = $block->getCmsBlockHtmlByAttributeValue('pdp_block_before_specification');
+$pdp_block_after_specification = $block->getCmsBlockHtmlByAttributeValue('pdp_block_after_specification');
+
+?>
+<?php if (!empty($additionalData)): ?>
+    <div id="additional-specs"
+         class="additional_block additional-specs"
+         data-additional-content="additional-specs"
+         data-bind='mageInit: {
+            "collapsible": {
+                "collapsible": true,
+                "openedState": "active",
+                "active": "true",
+                "icons": {"header": "plus", "activeHeader": "minus"}
+         }}'>
+
+        <div class="block-title title" data-role="title">
+            <strong><?= __('Specifications'); ?></strong>
+        </div>
+        <div class="additional_block_inner" data-role="content">
+            <?php if ($pdp_block_before_specification != ''): ?>
+                <div class="pdp_block_before_specification">
+                    <?php echo $pdp_block_before_specification; ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($fileUrl = $block->getPdpSchematicImage($baseChildProduct))): ?>
+                <div class="clear"></div>
+                <div class="block block-image">
+                    <img src="<?= $fileUrl ?>" alt=""/>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($baseChildProduct->getDescription())): ?>
+                <div class="additional-description">
+                    <div class="title"><?= __('Description'); ?></div>
+                    <div class="content">
+                        <?php /* @escapeNotVerified */
+                        echo $baseChildProduct->getDescription(); ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="specs-flex">
+                <div class="block block_left">
+                    <?= $block->getChildHtml('pdp-dimensions-grouped'); ?>
+                    <?= $block->getChildHtml('pdp-rating'); ?>
+                </div>
+
+                <div class="block block_right">
+                    <?= $block->getChildHtml('pdp-technical-resources'); ?>
+                    <?= $block->getChildHtml('pdf_button'); ?>
+                </div>
+
+                <?php if ($pdp_block_after_specification != ''): ?>
+                    <div class="pdp_block_after_specification">
+                        <?php echo $pdp_block_after_specification; ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <div class="prop65-description">
+                <div class="block-title title"  data-role="title"><?= __('California Proposition 65'); ?></div>
+                <div class="additional_block_inner" data-role="content">
+                    <?php if (!empty($_helper->productAttribute($baseChildProduct, $baseChildProduct->getData('prop65'), 'prop65'))): ?>
+                        <?php /* @escapeNotVerified */ echo $_helper->productAttribute($baseChildProduct, $baseChildProduct->getData('prop65'), 'prop65'); ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        window.specificationsData = <?= $block->getSpecificationsDataJson(); ?>;
+    </script>
+    <script type="text/javascript">
+        require([
+            "jquery",
+            "mage/mage",
+            "mage/collapsible"
+        ], function ($) {
+            $(document).ready(function () {
+                $('.prop65-description').collapsible({
+                    'active': false,
+                    'openedState': 'show',
+                    "collapsible": true,
+                    "animate": true,
+                    'icons': {"header": "plus", "activeHeader": "minus"}
+                })
+                $("body").on('DOMSubtreeModified', ".prop65-description", function() {
+                    $('.prop65-description').collapsible('deactivate')
+                })
+            });
+        });
+    </script>
+<?php endif; ?>

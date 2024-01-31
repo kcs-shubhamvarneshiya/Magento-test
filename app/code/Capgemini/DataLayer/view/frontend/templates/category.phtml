@@ -1,0 +1,78 @@
+<?php
+/**
+ * @category    Capgemini
+ * @package     Capgemini_DataLayer
+ */
+?>
+<?php
+/** @var \Capgemini\DataLayer\Block\DataLayer $block */
+/** @var \Magento\Framework\Escaper $escaper */
+?>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Capgemini_DataLayer/js/category": {
+                "elementIdentifier": ".product-item-info a",
+                "productsData": <?= $block->getCategoryPageData() ?>
+            }
+        }
+    }
+</script>
+
+
+
+
+<script type='text/javascript'>
+    window._gtmPageType = '<?= $block->escapeJs($block->getPageType()); ?>';
+    require([
+        'jquery',
+        'Capgemini_DataLayer/js/action/execute-push'
+    ], function ($, executePush) {
+        window.dataLayer = window.dataLayer || [];
+        <?php $impressions = $escaper->escapeJsQuote($block->getCategoryPageImpressions()); ?>
+        var categoryPageImpressions = JSON.parse('<?= $impressions ?>');
+        const controlCookieName = "<?= \Capgemini\DataLayer\Observer\Sessid\ObserveSessid::CONTROL_COOKIE_NAME ?>",
+              ajaxUrl = "<?= $block->getAjaxUrl() ?>";
+
+        function pushData(data) {
+            let pageTypeInd = false,
+                otherPageDataInd = false;
+            window.dataLayer.forEach(function (value, index) {
+                if (typeof value.pageType !== 'undefined') {
+                    pageTypeInd = index
+                } else if (typeof value.otherPageData !== 'undefined') {
+                    otherPageDataInd = index
+                }
+            });
+            var pageType = {
+                    'pageType': 'product_listing_page',
+                    'ecommerce': {
+                        'impressions': categoryPageImpressions
+                    },
+                    'hashedEmail': data['hashedEmail'],
+                    'loggedinStatus': data['loggedinStatus'],
+                    'currencyCode': data['currencyCode'],
+                    'tradeCustomer': data['tradeCustomer'],
+                    'customerClass': data['customerClass']
+                },
+                otherPageData = {
+                    'otherPageData': {
+                        userEmail: data['userEmail']
+                    }
+                };
+            if (pageTypeInd !== false) {
+                window.dataLayer[pageTypeInd] = pageType;
+            } else {
+                window.dataLayer.push(pageType);
+            }
+            if (otherPageDataInd !== false) {
+                window.dataLayer[otherPageDataInd] = otherPageData;
+            } else {
+                window.dataLayer.push(otherPageData);
+            }
+        }
+
+        executePush(controlCookieName, ajaxUrl, pushData);
+    });
+</script>

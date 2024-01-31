@@ -1,0 +1,63 @@
+<?php
+/**
+ * Lyonscg_ConfigurableSimple
+ *
+ * @category  Lyons
+ * @package   Lyonscg_ConfigurableSimple
+ * @author    Oleksii Kononenko<oleksii.kononenko@capgemini.com>
+ * @author    Tanya Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var  \Lyonscg\ConfigurableSimple\Block\Specifications $block */
+$_product = $block->getProduct();
+
+$pdp_block_before_accessories = $block->getCmsBlockHtmlByAttributeValue('pdp_block_before_accessories');
+$pdp_block_after_accessories = $block->getCmsBlockHtmlByAttributeValue('pdp_block_after_accessories');
+?>
+
+<?php if (!empty($block->getProductCustomAttributeValue('accessories', true))): ?>
+    <div id="additional-accessories" class="additional_block additional-accessories" data-additional-content="additional-accessories">
+        <div class="additional_block_inner">
+            <?php if (!empty($pdp_block_before_accessories)): ?>
+                <div class="pdp_block_before_accessories">
+                    <?= $pdp_block_before_accessories ?>
+                </div>
+            <?php endif; ?>
+
+            <?= $block->getChildHtml('accessories') ?>
+
+            <?php if (!empty($pdp_block_after_accessories)) : ?>
+                <div class="pdp_block_after_accessories">
+                    <?= $pdp_block_after_accessories ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <script>
+        require([
+            'jquery',
+            'owlcarousel'
+        ],function($) {
+            $(document).ready(function(){
+                $('.accesories-slider').owlCarousel({
+                    nav : true,
+                    autoPlay: false,
+                    responsive : {
+                        // breakpoint from 0 up
+                        0: {
+                            items : 2,
+                            margin: 15
+                        },
+                        // breakpoint from 768 up
+                        768: {
+                            items : 3,
+                            margin: 30
+                        }
+                    }
+                });
+            });
+        })
+    </script>
+<?php endif; ?>

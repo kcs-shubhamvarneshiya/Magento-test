@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_AvataxExempt
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="tax">
+            <group id="avatax_advanced">
+                <field id="enable_customer_group_exemption" type="select" sortOrder="1915" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Customer Group Exemption</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="exempt_customer_groups" translate="label" type="multiselect" sortOrder="1916" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Exempt customer groups</label>
+                    <source_model>Magento\Customer\Model\Customer\Source\Group</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

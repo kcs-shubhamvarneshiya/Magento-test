@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="salespad">
+        <job instance="Lyonscg\SalesPad\Cron\SyncCustomer" method="execute" name="salespad_sync_customer">
+            <config_path>lyonscg_salespad/sync/customer_sync_schedule</config_path>
+        </job>
+        <job instance="Lyonscg\SalesPad\Cron\SyncOrder" method="execute" name="salespad_sync_order">
+            <config_path>lyonscg_salespad/sync/order_sync_schedule</config_path>
+        </job>
+        <job instance="Lyonscg\SalesPad\Cron\SyncQuote" method="execute" name="salespad_sync_quote">
+            <config_path>lyonscg_salespad/sync/quote_sync_schedule</config_path>
+        </job>
+        <job instance="Lyonscg\SalesPad\Cron\ErrorLogCleanup" method="execute" name="salespad_errorlog_cleanup">
+            <schedule>0 3 * * *</schedule>
+        </job>
+        <job instance="Lyonscg\SalesPad\Cron\ExpiredSessionsCleanup" method="execute" name="salespad_expiredsessions_cleanup">
+            <schedule>*/30 * * * *</schedule>
+        </job>
+    </group>
+</config>

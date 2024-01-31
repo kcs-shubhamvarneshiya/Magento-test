@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+ * Capgemini_RequestToOrder
+ *
+ * @category  Capgemini
+ * @author    Oleksander Tolkach <oleksander.tolkach@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Capgemini\RequestToOrder\Block\Request\View\Success" name="request.history.success"
+                   cacheable="false"
+                   ifconfig="rto/general/active">
+                <block class="Capgemini\RequestToOrder\Block\Request\Items" name="request.info.items" as="items"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_WishlistPdf
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer.wishlist.management">
+            <block class="Capgemini\WishlistPdf\Block\Button" name="print.pdf.button" template="Capgemini_WishlistPdf::button.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

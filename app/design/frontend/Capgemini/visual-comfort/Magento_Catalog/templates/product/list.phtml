@@ -1,0 +1,157 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Capgemini\BloomreachThematic\Model\TechnicalProduct;
+use Magento\Framework\App\Action\Action;
+
+
+?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+
+/** @var \Magento\Catalog\Helper\Output $_helper */
+$_helper = $block->getData('outputHelper');
+/** @var \Lyonscg\Catalog\Helper\Data $lcgCatalogHelper */
+$lcgCatalogHelper = $this->helper(\Lyonscg\Catalog\Helper\Data::class);
+/** @var \Magento\Catalog\Block\Product\ProductList\Toolbar $toolBar */
+$toolBar = $block->getChildBlock('toolbar');
+
+$adViewModel = $block->getCategoryAdsViewModel();
+$adViewModel->setItemsCount($_productCollection->count());
+$productNum = 1;
+?>
+<?php if (!$_productCollection->count()) :?>
+    <div class="message info empty"><div><?= $escaper->escapeHtml(__('We can\'t find products matching the selection.')) ?></div></div>
+<?php else :?>
+    <?= $toolBar instanceof \Magento\Framework\View\Element\BlockInterface ? $toolBar->setIsBottom(false)->toHtml() : ''?>
+    <?= $block->getAdditionalHtml() ?>
+    <?php
+    if ($block->getMode() === 'grid') {
+        $viewMode = 'grid';
+        $imageDisplayArea = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $imageDisplayArea = 'category_page_list';
+        $showDescription = true;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+    <div class="products wrapper <?= /* @noEscape */ $viewMode ?> products-<?= /* @noEscape */ $viewMode ?>">
+        <ol class="products list items product-items">
+            <?php /** @var $_product \Magento\Catalog\Model\Product|\Capgemini\BloomreachThematic\Model\TechnicalProduct */ ?>
+            <?php foreach ($_productCollection as $_product) :
+                $isThematic = $_product->getData(TechnicalProduct::IS_THEMATIC_PRODUCT_DATA_KEY);
+                $adContent = $adViewModel->getCategoryAdSpot($productNum++);
+                ?>
+                <?php if (is_string($adContent)):?>
+                    <li class="category-banner">
+                        <?= $adContent ?>
+                    </li>
+                <?php endif; ?>
+
+            <li class="item product product-item" data-product-id="<?= $_product->getId() ?>">
+                <div id="product-item-info-<?=$_product->getId()?>" class="product-item-info" data-container="product-<?= /* @noEscape */ $viewMode ?>">
+                    <?php
+                    $productImage = $block->getImage($_product, $imageDisplayArea);
+                    if ($pos != null) {
+                        $position = ' style="left:' . $productImage->getWidth() . 'px;'
+                            . 'top:' . $productImage->getHeight() . 'px;"';
+                    }
+                    ?>
+                    <?php // Product Image ?>
+                    <a href="<?= $escaper->escapeUrl($_product->getProductUrl(null, $isThematic)) ?>"
+
+                       class="product photo product-item-photo"
+                       tabindex="-1">
+                        <?php if ($childBadgeBlock = $block->getChildBlock('capgemini.category.listing.badge')): ?>
+                            <?= $childBadgeBlock->setProduct($_product)->toHtml() ?>
+                        <?php endif; ?>
+
+                        <?= $productImage->toHtml() ?>
+                    </a>
+
+                    <?php if ($childOptionsBlock = $block->getChildBlock('configurable.children.options')): ?>
+                        <?= $childOptionsBlock->setProduct($_product)->toHtml() ?>
+                    <?php endif; ?>
+
+                    <div class="product details product-item-details">
+                        <?php
+                            $_productNameStripped = $block->stripTags($_product->getName(), null, true);
+                        ?>
+                        <strong class="product name product-item-name">
+ 
+                            <a class="product-item-link"
+                                href="<?= $escaper->escapeUrl($_product->getProductUrl(null, $isThematic)) ?>">
+                                <?= /* @noEscape */ $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                            </a>
+                        </strong>
+                        <?php
+                            $designer = !$isThematic
+                                ? $lcgCatalogHelper->getChildProduct($_product)->getAttributeText('designer')
+                                : $_product->getDesignerLabel()
+                        ?>
+                        <?php if ($designer): ?>
+                            <p class="designer">
+                                <?= $escaper->escapeHtml($designer) ?>
+                            </p>
+                        <?php endif; ?>
+
+                        <span class="product-sku">
+                            <?php /* @escapeNotVerified */ echo $_helper->productAttribute($_product, $_product->getSku(), 'sku'); ?>
+                        </span>
+
+                        <?= $block->getReviewsSummaryHtml($_product, $templateType) ?>
+                        <?= /* @noEscape */ $block->getProductPrice($_product) ?>
+                        <p class="custom-attribute basecode" data-clp-basecode-default="<?= $escaper->escapeHtmlAttr($lcgCatalogHelper->getChildProduct($_product)->getData('basecode'))?>"><?= $escaper->escapeHtmlAttr($lcgCatalogHelper->getChildProduct($_product)->getData('basecode'))?></p>
+                        <?php if ($_product->isAvailable()) :?>
+                            <?= $block->getProductDetailsHtml($_product) ?>
+                        <?php endif; ?>
+
+                        <?php
+                            if ($_product->getTypeId() == "configurable") {
+                                $configChildren = $_product->getTypeInstance()->getUsedProducts($_product);
+                            }
+                        ?>
+
+                        <?php if (!empty($configChildren) && count($configChildren) > 1) :?>
+                            <a href="<?= $escaper->escapeUrl($_product->getProductUrl()) ?>" class="view-more">
+                                <?= $escaper->escapeHtml(__('View Additional Finishes'))?>
+                            </a>
+                        <?php endif;?>
+                    </div>
+                </div>
+            </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+    <?= $toolBar instanceof \Magento\Framework\View\Element\BlockInterface ? $toolBar->setIsBottom(true)->toHtml() : ''?>
+    <script type="text/x-magento-init">
+    {
+        "[data-role=tocart-form], .form.map.checkout": {
+            "catalogAddToCart": {
+                "product_sku": "<?= $escaper->escapeJs($_product->getSku()) ?>"
+            }
+        }
+    }
+    </script>
+<?php endif; ?>

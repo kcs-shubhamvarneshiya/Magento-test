@@ -1,0 +1,50 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php /** @var $block \Magento\Sales\Block\Order\Info */ ?>
+<?php $_order = $block->getOrder() ?>
+<?php $_payment = $_order->getPayment(); ?>
+<?php
+$_helper = $this->helper('Capgemini\OrderView\Helper\Data');
+$customerType = $_helper->getCustomerType();
+?>
+<div class="block block-billing-details-view">
+    <div class="block-title">
+        <?php if($customerType != \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?>
+            <strong><?= $block->escapeHtml(__('Billing & Payment')) ?></strong>
+        <?php else : ?>
+            <strong><?= $block->escapeHtml(__('Billing')) ?></strong>
+        <?php endif; ?>
+    </div>
+    <div class="box box-order-billing-address">
+        <div class="box-content">
+            <span class="address-header">Billing Address</span>
+            <?php
+            $fbaddress = str_replace('T:','',$block->getFormattedAddress($_order->getBillingAddress()));
+            ?>
+            <address><?= /* @noEscape */ $fbaddress ?></address>
+        </div>
+    </div>
+    <div class="box box-order-billing-method">
+        <?php if($customerType != \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?>
+            <div class="box-content">
+                <span class="address-header">Payment Method</span>
+                <?php if (!$_payment->getData('_salespad_label')): ?>
+                    <span><?= $block->escapeHtml(__('No payment information available')) ?></span>
+                <?php else: ?>
+                    <div><span><?= $block->escapeHtml($_payment->getData('_salespad_label')) ?></span></div>
+                    <div><span><?= $block->escapeHtml($_payment->getData('_salespad_text')) ?></span></div>
+                <?php endif; ?>
+            </div>
+        <?php endif;?>
+    </div>
+</div>
+<?php if($customerType == \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?>
+<style>
+
+</style>
+
+<?php endif; ?>

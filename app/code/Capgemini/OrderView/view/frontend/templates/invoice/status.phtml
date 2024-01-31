@@ -1,0 +1,8 @@
+<?php /** @var  $block \Capgemini\OrderView\Block\View*/?>
+<?php
+    $status = $block->getOrder()->getSalesPadStatus();
+    if (!$status) {
+        $status = __('Pending');
+    }
+?>
+<span id="order-status-block"><?= $block->escapeHtml($status) ?></span>

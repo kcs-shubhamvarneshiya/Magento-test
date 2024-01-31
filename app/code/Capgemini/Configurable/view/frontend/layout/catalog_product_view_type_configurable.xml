@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="css/owl_carousel/owl.carousel.min.css"/>
+    </head>
+    <body>
+        <referenceBlock name="product.info.form.options">
+            <block class="Capgemini\Configurable\Block\Configurable\Children" name="configurable.children.options"
+                   template="Capgemini_Configurable::configurable/children-pdp.phtml" before="product.info.options.wrapper"
+                   ifconfig="capgemini_configurable/general/enable_catalog_product">
+                <block class="Capgemini\Configurable\Block\Configurable\Child" name="configurable.children.options.child"
+                       template="Capgemini_Configurable::configurable/child.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="configurable.children.options.js"
+                       template="Capgemini_Configurable::configurable/js/pdp.phtml"/>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

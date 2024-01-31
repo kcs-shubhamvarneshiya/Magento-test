@@ -1,0 +1,31 @@
+<?php
+use Capgemini\BloomreachSearchProxy\Block\SearchMessage;
+use Magento\Framework\Escaper;
+
+/** @var SearchMessage $block */
+/** @var Escaper $escaper */
+/**
+ * New variables appearing after extract function is executed
+ *
+ * @var $instead
+ * @var $didYouMean
+ */
+$queryCorrectionResults = $block->getQueryCorrectionResults();
+if (empty($queryCorrectionResults)) {
+    return;
+}
+$queryCorrectionResults = extract($queryCorrectionResults);
+?>
+<div class="blm-product-search-header">
+    <div class="blm-product-search-header-container">
+        <h1 class="blm-product-search-header-container__title">Results for
+            <i><?= $escaper->escapeHtml($instead) ?></i>
+            instead of <i class="blm-product-search-header-container__title__searched-word"><?= $escaper->escapeHtml($block->getSearchQuery()) ?></i></h1>
+            <div class="blm-did-you-mean-suggestion">
+                <label class="blm-did-you-mean-suggestion__label">Did you mean:</label>
+                <?php foreach ($didYouMean as $query): ?>
+                    <a href="<?= $block->getSearchUrl($query) ?>" class="blm-did-you-mean-suggestion__link"><?= $escaper->escapeHtml($query) ?></a>
+                <?php endforeach; ?>
+            </div>
+    </div>
+</div>

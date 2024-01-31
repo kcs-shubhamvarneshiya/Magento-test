@@ -1,0 +1,1414 @@
+<?php
+    $current_category = $this->frameworkRegistry->registry('current_category');    
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+
+    $productCollectionFactory = $objectManager->create('Rysun\ArchiCollection\Model\ArchiCollection');
+    $collection = $productCollectionFactory->getCollection();
+    $collection->addFieldToFilter('category_id',$current_category->getId());
+
+    echo '<div class="products-grid custom-products"><div class="products-sep"></div>';
+            foreach($collection as $collectionlist){
+                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                $platformCollectionFactory = $objectManager->create('Rysun\ArchiCollection\Model\ArchiPlatform');
+                $platformCollection = $platformCollectionFactory->getCollection();
+                $platformCollection->addFieldToFilter('category_id',$current_category->getId());
+                $platformCollection->addFieldToFilter('collection_id',$collectionlist->getId());
+
+                echo '<h2 id="'.$collectionlist->getWebName().'">' . $collectionlist->getWebName() . '</h2>
+                    <h5>' . $collectionlist->getCollectionDescSecond() . '</h5>
+                    <p>' . $collectionlist->getCollectionDesc() . '</p>';
+                
+                echo '<div class="products list items product-items">
+                        <div class="item product product-item product-promotion">
+                            <div class="promotion-content">
+                                <a href="javascript:void(0);" class="product photo product-item-photo">
+                                    <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="381" height="511" />
+                                </a>
+                                <div class="promotion-content-inner">
+                                    <h2>LEARN MORE ABOUT <strong>'.$collectionlist->getWebName().'</strong> RECESSED PLATFORMS</h2>
+                                    <p>Features, Benefits, Accessories, Controls. Installation, and More</p>
+                                    <a href="javascript:void(0);">Start your journey now ></a>
+                                </div>
+                            </div>
+                        </div>';
+                        foreach($platformCollection as $platformlist){
+                            echo '<div class="item product product-item"><div class="product-item-info">';
+                                    // Product Main Image
+                                    echo '<a href="javascript:void(0);" class="product photo product-item-photo">
+                                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                                        </a>';
+
+                                    // Product Thumbnails
+                                    echo '<div class="d-flex product-item-thumb owl-carousel">
+                                                <a href="javascript:void(0);">
+                                                    <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                                                </a>
+                                                <a href="javascript:void(0);">
+                                                    <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                                                </a>
+                                                <a href="javascript:void(0);">
+                                                    <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                                                </a>
+                                                <a href="javascript:void(0);">
+                                                    <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                                                </a>
+                                                <a href="javascript:void(0);">
+                                                    <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                                                </a>
+                                                <a href="javascript:void(0);">
+                                                    <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                                                </a>
+                                                <a href="javascript:void(0);">
+                                                    <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                                                </a>
+                                                <a href="javascript:void(0);">
+                                                    <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                                                </a>
+                                            </div>';
+
+                                        // Product Details
+                                    echo '<div class="product details product-item-details">
+                                                <div class="product name product-item-name">
+                                                    <a class="product-item-link" href="javascript:void(0);">'. $platformlist->getWebName() .'</a>
+                                                </div>
+                                                <div class="product-attribute-head">Specifications</div>                        
+                                                <div class="spec-inline">
+                                                    <ul class="product-attribute-list">
+                                                        <span>Delivered Lumens:</span>
+                                                        <li>850 - 1500</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="spec-inline">
+                                                    <ul class="product-attribute-list">
+                                                        <span>Binning:</span>
+                                                        <li>1-Step,</li>
+                                                        <li>2-Step</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="spec-inline">
+                                                    <ul class="product-attribute-list">
+                                                        <span>Beam Spread:</span>
+                                                        <li>20° - 60°,</li>
+                                                        <li>Wall Wash</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="spec-inline">
+                                                    <ul class="product-attribute-list">
+                                                        <span>Housings:</span>
+                                                        <li>IC,</li>
+                                                        <li>Non-IC,</li>
+                                                        <li>Chicago Plenum</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="spec-inline">
+                                                    <ul class="product-attribute-list">
+                                                        <span>Dimming:</span>
+                                                        <li>Phase/Triac,</li>
+                                                        <li>0-10V,</li>
+                                                        <li>DALI</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="spec-inline">
+                                                    <ul class="product-attribute-list">
+                                                        <span>Ratings/Certification:</span>
+                                                        <li>T24,</li>
+                                                        <li>Wet,</li>
+                                                        <li>Sauna/Steam,</li>
+                                                        <li>IC Spray Foam</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="product-attribute-head">Products</div>
+                                                <div class="tech-attributes">
+                                                    <ul class="product-attribute-list">
+                                                        <li><a href="javascript:void(0);">Adjustable Downlight</a></li>
+                                                        <li><a href="javascript:void(0);">Dual Adjustable Downlight</a></li>
+                                                        <li><a href="javascript:void(0);">Fixed Downlight</a></li>
+                                                        <li><a href="javascript:void(0);">Wall Wash</a></li>
+                                                        <li><a href="javascript:void(0);">Low-Profile Fixed Downlight</a></li>
+                                                        <li><a href="javascript:void(0);">Shallow Adjustable Downlight</a></li>
+                                                        <li><a href="javascript:void(0);">Ultra-Shallow Fixed Downlight</a></li>
+                                                        <li><a href="javascript:void(0);">Remodel Downlight Non-IC Adjustable</a></li>
+                                                        <li><a href="javascript:void(0);">Remodel Downlight Non-IC Fixed</a></li>
+                                                        <li><a href="javascript:void(0);">Downlight Remodel Adj & New Construction IC</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>';
+                            echo  '</div></div>';
+                        }
+                '</div>';
+            }
+        '</div>';
+?>
+
+<script>
+    require([
+        'jquery',
+        'owlcarousel'
+    ],function($) {
+        $(document).ready(function(){
+            $('.product-item-thumb').owlCarousel({
+                nav : true,
+                dots: false,
+                autoPlay: false,
+                margin: 10,
+                items : 5
+            });
+        });
+    })
+</script>
+<?php /* 
+    '<div class="products-grid custom-products"><div class="products-sep"></div>
+        <h2 id="ELEMENT">Element</h2>
+        <h5>Architectural Recessed Downlights</h5>
+        <p>ELEMENT is our specification-grade recessed lighting offering, designed and engineered to deliver critically specified light for any environment.<br/>Since its inception, ELEMENT has been defined by the needs of the design community</p>
+        <div class="products list items product-items">
+            <div class="item product product-item product-promotion">
+                <div class="promotion-content">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="381" height="511" />
+                    </a>
+                    <div class="promotion-content-inner">
+                        <h2>LEARN MORE ABOUT <strong>ELEMENT</strong> SPEC-GRADE  RECESSED PLATFORMS</h2>
+                        <p>Features, Benefits, Accessories, Controls. Installation, and More</p>
+                        <a href="javascript:void(0);">Start your journey now ></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">ELEMENT 2" LED</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Remodel Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Ultra Shallow Fixed</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">ELEMENT 3" LED</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight</a></li>
+                                <li><a href="javascript:void(0);">Dual Adjustable Downlight</a></li>
+                                <li><a href="javascript:void(0);">Fixed Downlight</a></li>
+                                <li><a href="javascript:void(0);">Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Low-Profile Fixed Downlight</a></li>
+                                <li><a href="javascript:void(0);">Shallow Adjustable Downlight</a></li>
+                                <li><a href="javascript:void(0);">Ultra-Shallow Fixed Downlight</a></li>
+                                <li><a href="javascript:void(0);">Remodel Downlight Non-IC Adjustable</a></li>
+                                <li><a href="javascript:void(0);">Remodel Downlight Non-IC Fixed</a></li>
+                                <li><a href="javascript:void(0);">Downlight Remodel Adj & New Construction IC</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">ELEMENT 3" HALOGEN</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Remodel Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Ultra Shallow Fixed</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">ELEMENT 4” LED</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Remodel Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Ultra Shallow Fixed</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">ELEMENT 4” LED PRO</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Remodel Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Ultra Shallow Fixed</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="ENTRA">Entra</h2>
+        <h5>Value-Priced Performance Downlights</h5>
+        <p>Entra adjustable downlights offer a quality alternative to meet reliability and performance specifications on budget-sensitive<br/>residential or commercial projects.</p>
+        <div class="products list items product-items">
+            <div class="item product product-item product-promotion">
+                <div class="promotion-content">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="381" height="511" />
+                    </a>
+                    <div class="promotion-content-inner">
+                        <h2>LEARN MORE ABOUT <strong>ENTRA</strong> SPEC-GRADE  RECESSED PLATFORMS</h2>
+                        <p>Features, Benefits, Accessories, Controls. Installation, and More</p>
+                        <a href="javascript:void(0);">Start your journey now ></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">ENTRA 2" NICHE LED</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Remodel Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Ultra Shallow Fixed</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">ENTRA 3" LED</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight</a></li>
+                                <li><a href="javascript:void(0);">Dual Adjustable Downlight</a></li>
+                                <li><a href="javascript:void(0);">Fixed Downlight</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="REFLECTIONS">Reflections</h2>
+        <h5>Innovative In-Direct Downlights</h5>
+        <p>Reflections redefine recessed lighting by allowing LED downlights to become an essential architectural component as well as a decorative design element.<br/>Reflections decorative recessed domes act as reflectors to a completely hidden ring of upward-firing LEDs that deliver reduced-glare illumination.</p>
+        <div class="products list items product-items">
+            <div class="item product product-item product-promotion">
+                <div class="promotion-content">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="381" height="511" />
+                    </a>
+                    <div class="promotion-content-inner">
+                        <h2>LEARN MORE ABOUT <strong>REFLECTIONS</strong> SPEC-GRADE  RECESSED PLATFORMS</h2>
+                        <p>Features, Benefits, Accessories, Controls. Installation, and More</p>
+                        <a href="javascript:void(0);">Start your journey now ></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">REFLECTIONS 5"/8"/12"</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Remodel Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Ultra Shallow Fixed</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">REFLECTIONS 6" RETROFIT</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight</a></li>
+                                <li><a href="javascript:void(0);">Dual Adjustable Downlight</a></li>
+                                <li><a href="javascript:void(0);">Fixed Downlight</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="VERSE">Verse</h2>
+        <h5>Innovative Direct Downlights</h5>
+        <p>VERSE offers a cost-effective alternate for residential, multifamily and hospitality applications without sacrificing aesthetics or quality.<br/>The integrated housing, light module and driver install quickly and easily in one wiring.</p>
+        <div class="products list items product-items">
+            <div class="item product product-item product-promotion">
+                <div class="promotion-content">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="381" height="511" />
+                    </a>
+                    <div class="promotion-content-inner">
+                        <h2>LEARN MORE ABOUT <strong>VERSE</strong> SPEC-GRADE  RECESSED PLATFORMS</h2>
+                        <p>Features, Benefits, Accessories, Controls. Installation, and More</p>
+                        <a href="javascript:void(0);">Start your journey now ></a>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">VERSE 3"</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Remodel Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Ultra Shallow Fixed</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+        
+        <h2 id="LUCARNE">Lucarne</h2>
+        <h5>Niche Downlights</h5>
+        <p>Lucarne LED Niche recessed in white is the perfect way to achieve your desired fashion or functional needs in your home. The Lucarne LED Niche lights combine a compact size with advanced LEDs to provide superior quality light from a small package. Available in fixed or adjustable downlights, these units feaure 90 CRI in white or antique bronze finishes, 2700K or 3000K CCTs and can be had in either 12-Volt or 24-Volt. For added flexibility, each light ships with both a 30° and 65° beam spread lens included so you can adjust as needed during installation or easily reconfigure at a later date.</p>
+        <div class="products list items product-items">
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">LUCARNE NICHE FIXED</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Remodel Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Ultra Shallow Fixed</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">LUCARNE NICHE GIMBAL</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight</a></li>
+                                <li><a href="javascript:void(0);">Dual Adjustable Downlight</a></li>
+                                <li><a href="javascript:void(0);">Fixed Downlight</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 id="TRADITIONAL%20RECESSED">Traditional Reccesed Lighting</h2>
+        <h5>Value-Priced Traditional Recessed Downlights</h5>
+        <p>Construction grade recessed downlights</p>
+        <div class="products list items product-items">
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">4" recessed downlights</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Remodel Adjustable Downlight & Wall Wash</a></li>
+                                <li><a href="javascript:void(0);">Ultra Shallow Fixed</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="javascript:void(0);" class="product photo product-item-photo">
+                        <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="240" height="300" />
+                    </a>
+                    <div class="d-flex product-item-thumb">
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                        <a href="javascript:void(0);">
+                            <img src="'. $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') .'" width="50" height="50" />
+                        </a>
+                    </div>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="javascript:void(0);">6" recessed downlights</a>
+                        </div>
+                        <div class="product-attribute-head">Specifications</div>                        
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                <li>850 - 1500</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                <li>1-Step,</li>
+                                <li>2-Step</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                <li>20° - 60°,</li>
+                                <li>Wall Wash</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                <li>IC,</li>
+                                <li>Non-IC,</li>
+                                <li>Chicago Plenum</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                <li>Phase/Triac,</li>
+                                <li>0-10V,</li>
+                                <li>DALI</li>
+                            </ul>
+                        </div>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                <li>T24,</li>
+                                <li>Wet,</li>
+                                <li>Sauna/Steam,</li>
+                                <li>IC Spray Foam</li>
+                            </ul>
+                        </div>
+                        <div class="product-attribute-head">Products</div>
+                        <div class="tech-attributes">
+                            <ul class="product-attribute-list">
+                                <li><a href="javascript:void(0);">Adjustable Downlight</a></li>
+                                <li><a href="javascript:void(0);">Dual Adjustable Downlight</a></li>
+                                <li><a href="javascript:void(0);">Fixed Downlight</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>';*/
+?>

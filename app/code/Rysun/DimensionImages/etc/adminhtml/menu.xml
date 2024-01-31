@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Rysun_DimensionImages::rysun_dimensionimages_dimensionimages" title="DimensionImages" module="Rysun_DimensionImages" sortOrder="9999" resource="Magento_Backend::content" parent="Rysun::top_level" action="rysun_dimensionimages/dimensionimages/index"/>
+	</menu>
+</config>

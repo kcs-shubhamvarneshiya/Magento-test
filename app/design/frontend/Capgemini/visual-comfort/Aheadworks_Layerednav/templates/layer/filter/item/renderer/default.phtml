@@ -1,0 +1,21 @@
+<?php
+/** @var $block \Aheadworks\Layerednav\Block\Filter\Item\Renderer */
+/** @var $filterItem \Aheadworks\Layerednav\Model\Layer\Filter\ItemInterface */
+/** @var \Aheadworks\Layerednav\ViewModel\SelectedFilters\FilterItemRenderer\DefaultRenderer $viewModel */
+$viewModel = $block->getViewModel();
+// @codingStandardsIgnoreFile
+?>
+<li class="selected-item"
+    data-role="selected-item"
+    data-item-id="<?= $block->escapeHtml($viewModel->getItemHtmlId($filterItem)) ?>"
+>
+    <button class="action-close"
+            href="#"
+            data-item-id="<?= $block->escapeHtml($viewModel->getItemHtmlId($filterItem)) ?>"
+            data-role="remove-button">
+        <span></span>
+    </button>
+    <span class="filter_name"><?= $filterItem->getFilter()->getTitle()?>:</span>
+
+    <span><?= /* @noEscape */ $viewModel->getLabel($filterItem) ?></span>
+</li>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_CustomerLinks
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="customer_type_links" translate="label" type="text" sortOrder="1000" showInDefault="1">
+            <label>Customer Type Account Links</label>
+            <tab>lyonscg</tab>
+            <resource>Capgemini_CustomerLinks::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1">
+                <field id="exclude_links_retail" translate="label" type="textarea" sortOrder="10" showInDefault="1">
+                    <label>Retail Exclude Links</label>
+                    <comment>My Account links (label) to exclude, comma separated.</comment>
+                </field>
+                <field id="exclude_links_trade" translate="label" type="textarea" sortOrder="10" showInDefault="1">
+                    <label>Trade Exclude Links</label>
+                    <comment>My Account links (label) to exclude, comma separated.</comment>
+                </field>
+                <field id="exclude_links_wholesale" translate="label" type="textarea" sortOrder="10" showInDefault="1">
+                    <label>Wholesale Exclude Links</label>
+                    <comment>My Account links (label) to exclude, comma separated.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

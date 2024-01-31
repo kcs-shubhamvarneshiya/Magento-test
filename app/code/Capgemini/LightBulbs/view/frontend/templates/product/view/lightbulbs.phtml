@@ -1,0 +1,62 @@
+<?php
+/** @var $block \Capgemini\LightBulbs\Block\Upsell\Pdp */
+$idx = 0;
+$products = $block->getProducts();
+?>
+<?php if (!empty($products)): ?>
+    <style>
+        #lightbulbs-list {
+            margin: 0;
+        }
+        #lightbulbs-list .options-list.nested {
+            overflow: hidden;
+        }
+    </style>
+    <?php $cheapestSimpleId = $block->getCheapestBulbSimpleId()?>
+    <div
+        class="fieldset"
+        id="lightbulbs-list"
+        data-mage-init='{
+            "Capgemini_LightBulbs/js/view/pull-lightbulbs-data": {
+                "bulbsData": <?= $block->getPreparedBulbsData() ?>,
+                "idx": <?= $idx ?>
+            }
+        }'
+    >
+        <?php foreach ($products[$cheapestSimpleId] as $product): ?>
+            <div class="field">
+                <div class="control">
+                    <div class="options-list nested">
+                        <div class="field choice admin__field admin__field-option">
+                            <?php $qty = $block->getProductQty($product); ?>
+                            <?php $name = "lightbulb[$idx][id]"; ?>
+                            <input type="hidden"
+                                   class="checkbox admin__control-checkbox product-custom-option"
+                                   name="lightbulb[<?= $idx ?>][qty]"
+                                   value="<?= $qty ?>">
+                            <input type="hidden"
+                                   class="checkbox admin__control-checkbox product-custom-option"
+                                   name="lightbulb[<?= $idx ?>][sku]"
+                                   value="<?= $product->getSku() ?>">
+                            <input type="checkbox"
+                                   checked
+                                   class="checkbox admin__control-checkbox product-custom-option"
+                                   name="lightbulb[<?= $idx ?>][id]"
+                                   id="lightbulb-<?= $product->getId() ?>"
+                                   value="<?= $product->getId(); ?>"
+                                   data-lightbulb-event="<?= $block->escapeHtmlAttr($block->getDataLayerJson()) ?>">
+                            <label class="label admin__field-label label-lightbulb" for="lightbulb-<?= $product->getId() ?>">
+                                <span class="name"><?= __('Add LED bulb(s)') ?></span>
+                                <span class="qty"><?= __('Qty: %1', $qty) ?></span>
+                                <span class="price">+
+                            <?= $block->getProductPriceMultipleTo($product) ?>
+                        </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php $idx++; ?>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>

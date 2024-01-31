@@ -1,0 +1,344 @@
+//
+//  Colors
+//  _____________________________________________
+
+// Generic Colors (NOTE: Only assign these to semantic color variables - Do NOT use these directly in selectors)
+@color-corn-silk: #fcf8e3;
+@color-soft-peach: #f2dede;
+@color-tan: #d5d1c4;
+@color-gold: #b89e49;
+@color-lightning-yellow: #FBC02D;
+@color-chelsea-gem: #A06C00;
+
+@color-hint-of-green: #dff0d8;
+@color-salem: #088545;
+@color-pinegreen: #00796B;
+
+@color-blue-gray: #2a3344;
+@color-blue-dark: #002b5c;
+@color-blue-very-dark: #001641;
+@color-blue-light: #2b4e76;
+@color-patten-blue: #d9edf7;
+@color-blue-lagoon: #008091;
+@color-cerulean: #00A0D7;
+
+@color-torch-red: #EA0033;
+@color-cardinal: #D62338;
+
+// Opacity
+@color-transparent: transparent;
+
+// Grays
+@color-gray-900: #333333;
+@color-gray-800: #454545;
+@color-gray-800-2: #4d4d4d;
+@color-gray-700: #717171;
+@color-gray-middle5: @color-gray-700;
+@color-light-middle5: #7d7d7d;
+@color-gray-600: #8f8f8f;
+@color-gray-500: #cccccc;
+@color-gray-400: #e3e3e3;
+@color-gray-300: #f8f8f8;
+@color-light-gray-300: #f0f0f0;
+@color-black: #000;
+@color-white: #fff;
+@color-grey-1: #d8d8d8;
+@color-light-gray: #ddd;
+@color-light-gray-2: #d1d1d1;
+
+@primary__color: @color-gray-800;
+
+// Brand Colors
+@color-blue: #2b388c;
+@color-orange: #ff6c2f;
+@color-red: #cb3232;
+
+// Accent Colors - OBSOLETE
+@brand-accent-1: @color-blue;
+@brand-accent-2: @color-orange;
+
+// UI Colors
+@color-ui-success: @color-gray-900;
+@color-ui-warning: @color-gray-900;
+@color-ui-info: @color-gray-900;
+@color-ui-danger: @color-red;
+
+// UI Background Colors
+@ui-accent-success: @color-ui-success;
+@ui-accent-error: @color-ui-danger;
+@ui-accent-info: @color-ui-info;
+@ui-accent-warning: @color-ui-warning;
+
+// Lists are used to generate style guide palette css
+// (passed to .generate-palettes() mixin - only meant for style guide usage)
+// See components/_colors.less for .generate-palettes() mixin
+// See components/_layout.less for .generate-palettes() mixin usage
+//@brand-colors: @brand-color-main, @brand-color-second, @brand-color-third;
+@accent-colors: @ui-accent-success, @ui-accent-error, @ui-accent-warning, @ui-accent-info;
+@ui-colors: @color-ui-success, @color-ui-warning, @color-ui-info, @color-ui-danger;
+@gray-colors: @color-black, @color-gray-900, @color-gray-800, @color-gray-700, @color-gray-600, @color-gray-500, @color-gray-400, @color-gray-300, @color-white;
+
+// Default Body Text Colors
+@color-text-primary: @color-gray-800;
+@color-text-primary-inverted: @color-white;
+@color-text-secondary: @color-gray-800;
+@color-page-bg: @color-white;
+
+// Border Colors
+@color-border-content-1: @color-gray-400;
+@color-border-content-2: @color-gray-900;
+@color-border-content-3: @color-gray-900;
+
+@color-border-form-default: @color-gray-600;
+@color-border-form-disabled: @color-gray-400;
+@color-border-form-focus: @color-blue;
+
+@color-border-error: @color-red;
+@color-border-success: @color-gray-900;
+@color-border-warning: @color-gray-900;
+@color-border-info: @color-gray-900;
+
+@color-border-header-search: @color-black;
+@color-border-nav-col: @color-gray-400;
+
+// Image background color
+@color-image-background: @color-gray-300;
+
+// Button Colors
+@color-btn-default-text: @color-white;
+@color-btn-default-background: @color-gray-800;
+
+@color-btn-primary-background: @color-gray-800;
+@color-btn-primary-background-hover: @color-gray-700;
+@color-btn-primary-border: @color-gray-800;
+@color-btn-primary-border-hover: @color-gray-700;
+@color-btn-primary-background-disabled: @color-gray-400;
+@color-btn-primary-text: @color-white;
+@color-btn-primary-text-hover: @color-white;
+@color-btn-primary-text-disabled: @color-gray-700;
+
+//
+// Not used for Circa
+//
+@color-btn-secondary-background: @color-white;
+@color-btn-secondary-background-hover: @color-gray-300;
+@color-btn-secondary-border: @color-gray-800;
+@color-btn-secondary-border-hover: @color-gray-800;
+@color-btn-secondary-text: @color-gray-800;
+@color-btn-secondary-text-hover: @color-gray-800;
+
+//
+// Not used for Circa
+//
+@color-btn-arrow-background: @color-black;
+@color-btn-arrow-background-hover: @color-white;
+@color-btn-arrow-border: @color-black;
+@color-btn-arrow-border-hover: @color-black;
+@color-btn-arrow-text: @color-white;
+@color-btn-arrow-text-hover: @color-black;
+
+@color-btn-outline-background: @color-white;
+@color-btn-outline-background-hover: @color-gray-300;
+@color-btn-outline-border: false;
+@color-btn-outline-border-hover: @color-gray-800;
+@color-btn-outline-text: @color-gray-800;
+@color-btn-outline-text-hover: @color-gray-800;
+
+@color-btn-text: @color-gray-800;
+@color-btn-text-hover: @color-white;
+
+@color-btn-trans-background: @color-transparent;
+@color-btn-trans-background-hover: @color-white;
+@color-btn-trans-border: @color-white;
+@color-btn-trans-text: @color-white;
+@color-btn-trans-text-hover: @color-gray-800;
+
+@color-btn-alt-trans-border: @color-gray-800;
+@color-btn-alt-trans-text: @color-gray-800;
+@color-btn-alt-trans-text-hover: @color-gray-800;
+
+// Link Colors
+@link-type-default-inverted-color: @color-white;
+@link-type-default-inverted-color-hover: @color-white;
+@link-type-default-color: @color-gray-800;
+@link-type-default-color-hover: @color-gray-800;
+@link-type-1-color: @color-gray-900;
+@link-type-1-color-hover: @color-gray-900;
+@link-type-2-color: @color-gray-800;
+@link-type-2-color-hover: @color-gray-800;
+@link-type-3-color: @color-gray-800;
+@link-type-3-color-hover: @color-gray-800;
+@link-type-main-nav-color: @color-gray-800;
+@link-type-main-nav-color-hover: @color-gray-900;
+@link-type-label-color: @color-gray-800;
+@link-type-label-color-hover: @color-gray-800;
+@link-type-secondary-color: @color-black;
+@link-type-secondary-color-hover: @color-black;
+@link-type-fave-color: @color-gray-800;
+@link-type-fave-color-hover: @color-gray-800;
+@link-type-fave-icon-color: @color-blue;
+@link-type-quote-color: @color-gray-800;
+@link-type-quote-color-hover: @color-gray-800;
+@link-type-quote-icon-color: @color-blue;
+
+// Icon Colors
+@icon-fill-color: @color-black;
+@icon-fill-invert-color: @color-white;
+@icon-fill-color-hover: @color-blue;
+@icon-fill-color-light: @color-gray-800;
+@icon-fill-color-blue: @color-blue;
+
+// Messages
+@color-message-success: rgba(5, 104, 8, 0.1);
+@color-message-success-dark: #056808;
+@color-message-info: @color-gray-300;
+@color-message-info-dark: @primary__color;
+@color-message-error: rgba(203, 50, 50, 0.1);
+@color-message-error-dark: #cb3232;
+@color-message-warning: rgba(255, 187, 0, 0.1);
+@color-message-warning-dark: #ffbb00;
+
+// Form Colors
+@form-color-text: @color-gray-800;
+@form-color-placeholder-text: @color-gray-700;
+@form-color-input-border: @color-gray-600;
+@form-color-input-diasbled-background: @color-gray-300;
+@form-color-input-disabled-border: @color-gray-400;
+
+// Breadcrumbs
+@color-breadcrumbs-text: @color-gray-800;
+@color-breadcrumbs-text-dark: @color-black;
+
+// Tooltips
+@color-tooltip-bg: @color-white;
+@color-tooltip-point-border-before: @color-gray-500;
+@color-tooltip-point-border-after: @color-white;
+
+// Back to top
+@color-btt-bg: @color-white;
+@color-btt-bg-hover: @color-gray-700;
+@color-btt-icon: @color-gray-800;
+
+// Headers
+@color-page-title: @color-gray-800;
+@color-page-subheader: @color-gray-800;
+
+// Footer
+@copyright__background-color: @color-white;
+@copyright-background-color: @color-white;
+@color-copyright-text: @color-gray-800;
+@color-footer-bg: @color-white;
+@color-footer-links-bg-m: @color-gray-300;
+
+// Site Header
+@color-header-bg: @color-white;
+@color-top-links: @color-gray-800;
+@color-header-my-account: @color-black;
+@color-header-search-text: @color-gray-800;
+@color-header-search-bg: @color-white;
+@color-header-nav-level2-m: @color-gray-800;
+@color-header-nav-level3: @color-gray-800;
+@color-header-nav-level3-active-m: @color-black;
+@color-header-nav-hamburger: @color-black;
+@color-header-nav-tab-bg: @color-gray-300;
+@color-header-nav-tab-active-bg: @color-white;
+
+@color-nav-active-border: @color-blue;
+@color-megamenu-link: @color-gray-800;
+@color-search-suggestion-category: @color-gray-800;
+@color-search-input-background: @color-white;
+
+// Homepage
+@color-block-1-bg: @color-gray-300;
+@color-block-2-bg: @color-blue;
+@color-block-mobile-bg: @color-white;
+@color-block-text-mobile-light: @color-white;
+@color-block-text-mobile-dark: @color-gray-800;
+@color-block-text-desktop-light: @color-white;
+@color-block-text-desktop-dark: @color-gray-800;
+@color-homepage-slider-text: @color-gray-800;
+
+// CBP
+@color-product-list-price: @color-gray-800;
+@color-sort-value-title: @color-gray-800;
+@color-sort-icon-close: @color-gray-800;
+@color-sort-icon-close-hover: @color-gray-700;
+@color-swatch-viewmore: @color-gray-800;
+@color-product-list-bg: @color-white;
+@color-filter-title: @color-gray-800;
+@color-filter-bg: @color-white;
+@color-filter-top-border: @color-border-content-1;
+@color-filter-item: @color-gray-700;
+@color-filter-clear-text: @color-black;
+@color-applied-filter-bg: @color-gray-500;
+@color-view-active: @color-black;
+@color-view-inactive: @color-white;
+
+@color-wishlist-icon: @color-gray-600;
+@color-wishlist-list-add-bg: @color-blue;
+@color-wishlist-li-border: @color-gray-400;
+
+// CBP Landing
+@color-cat-landing-sub-header: @color-blue;
+@color-cat-listing-bg: @color-gray-300;
+
+// PDP
+@color-swatch-example-border: @color-gray-800;
+@color-swatch-active-border: @color-gray-800;
+@color-pdp-grouped-bg: @color-gray-300;
+@color-pdp-tertiary-title: @color-blue;
+@color-pdp-light-text: @color-gray-700;
+@color-pdp-sku-text: @color-gray-800;
+@color-pdp-p-text: @color-gray-700;
+@color-pdp-download: @color-gray-800;
+
+// Minicart
+@color-minicart-bg: @color-red;
+@color-minicart-count: @color-black;
+
+// Flags
+@color-flag-new-color: @color-blue;
+@color-flag-new-background: @color-gray-500;
+
+// Cms
+@color-cms-filters-bg: @color-gray-300;
+@color-lightbox-close-bg: @color-black;
+@color-lightbox-action-border: @color-gray-600;
+@color-lightbox-credit-text: @color-white;
+
+// Content Blocks
+@color-content-block-bg: @color-white;
+@color-content-block-inverted-bg-m: @color-black;
+@color-1-col-text-p: @color-gray-800;
+@color-3-col-bg: @color-white;
+@color-sub-header: @color-blue;
+
+@color-content-card-bg: @color-white;
+@color-content-card-text-p: @color-gray-800;
+@color-content-card-link: @color-white;
+
+// Forms
+@color-form-bg: @color-gray-300;
+@color-form-step: @color-white;
+@color-form-area-title: @color-gray-800;
+
+// My Account
+@color-left-col-bg: @color-gray-300;
+@color-left-col-item-active-bg: @color-white;
+@color-wishlist-border: @color-blue;
+
+// Space Planner
+@color-table-border: @color-border-content-1;
+@color-table-cell-text: @color-gray-800;
+@color-table-tr-border: @color-gray-400;
+
+// Owl Carousel
+@color-dot: @color-blue;
+@color-dot-active: @color-black;
+@color-dot-invert-active: @color-white;
+
+// Style Guide Specific Colors
+@color-code-example: @color-ui-info;
+@color-usage-text: @color-blue;
+@color-gray-bg: @color-gray-400;
+@color-section-title-bg: @color-gray-400;

@@ -1,0 +1,57 @@
+<?php
+/**
+ * Lyonscg_ConfigurableSimple
+ *
+ * @category  Lyons
+ * @package   Lyonscg_ConfigurableSimple
+ * @author    Oleksii Kononenko<oleksii.kononenko@capgemini.com>
+ * @author    Tanya Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var  \Lyonscg\ConfigurableSimple\Block\Specifications $block */
+
+$_photographyImages = str_replace(
+    ' ',
+    '',
+    $block->getProductCustomAttributeValue('photography_images', true)
+);
+$_photographyArray = empty($_photographyImages) ? [] : explode(',', $_photographyImages);
+?>
+
+<?php if (!empty($_photographyArray)): ?>
+    <div id="additional-photography" class="additional_block additional-photography" data-additional-content="additional-photography">
+        <div class="additional_block_inner">
+            <div class="block-title title">
+                <strong><?= __('Photography'); ?></strong>
+            </div>
+                <div class="block">
+                    <div class="photography-slider owl-carousel">
+                        <?php foreach ($_photographyArray as $imageUrl) : ?>
+                             <?php if (!empty($imageUrl)) : ?>
+                                <div class="slide">
+                                    <img src="<?= $block->getMediaUrl() . 'wysiwyg/photography/' .$imageUrl ?>" alt="additional photography"/>
+                                </div>
+                             <?php endif; ?>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+<script>
+    require([
+        'jquery',
+        'owlcarousel'
+    ],function($) {
+        $(document).ready(function(){
+            $('.photography-slider').owlCarousel({
+                nav : true,
+                autoPlay: false,
+                margin: 20,
+                items : 2
+            });
+        });
+    })
+</script>
+<?php endif; ?>

@@ -1,0 +1,139 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var  $block \Capgemini\OrderView\Block\Order\item\Renderer\DefaultRenderer */
+/** @var \Magento\Sales\Model\Order\Item $_item */
+$_item = $block->getItem();
+$order = $_item->getOrder();
+/** @var \Magento\Catalog\Model\Product $product */
+$product = $_item->getProduct();
+
+$finish = $product->getAttributeText('finishdescription');
+if ($product->getShadeFilter()) {
+    $shade = $product->getShadeDescription();
+} else {
+    $shade = '';
+}
+
+$sidemark = '';
+$comments = '';
+$extensionAttrs = $_item->getExtensionAttributes();
+if ($extensionAttrs) {
+    $sidemark = $extensionAttrs->getSidemark();
+    $comments = $extensionAttrs->getCommentsLineItem();
+} else {
+    $sidemark = $_item->getSidemark();
+    $comments = $_item->getCommentsLineItem();
+}
+$salespadData = $_item->getSalespadData() ?? [];
+
+$_helper = $this->helper('Capgemini\OrderView\Helper\Data');
+$customerType = $_helper->getCustomerType();
+?>
+
+
+<tr id="order-item-row-<?= (int) $_item->getId() ?>">
+    <td class="col name" data-th="<?= $block->escapeHtmlAttr(__('Product')) ?>">
+        <div class="item-data">
+            <div class="item-data-left">
+                <?= $block->getProductImage() ?>
+            </div>
+            <div class="item-data-right">
+                <strong class="product name product-item-name"><?= $block->escapeHtml($_item->getName()) ?></strong>
+                <dl class="item-options">
+                    <div>
+                        <dt><?= $block->escapeHtml(__('Item #')) ?></dt>
+                        <dd><?= /* @noEscape */ $block->prepareSku($block->getSku()) ?></dd>
+                    </div>
+                    <?php if ($finish): ?>
+                        <div>
+                            <dt><?= $block->escapeHtml(__('Finish')) ?></dt>
+                            <dd><?= $block->escapeHtml($finish) ?></dd>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($shade): ?>
+                        <div>
+                            <dt><?= $block->escapeHtml(__('Shade')) ?></dt>
+                            <dd><?= $block->escapeHtml($shade) ?></dd>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($sidemark): ?>
+                        <div>
+                            <dt><?= $block->escapeHtml(__('Sidemark')) ?></dt>
+                            <dd><?= $block->escapeHtml($sidemark) ?></dd>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($comments): ?>
+                        <div>
+                            <dt><?= $block->escapeHtml(__('Comments')) ?></dt>
+                            <dd><?= $block->escapeHtml($comments) ?></dd>
+                        </div>
+                    <?php endif; ?>
+                </dl>
+            </div>
+        </div>
+    </td>
+    <td class="col ordered" data-th="<?= $block->escapeHtmlAttr(__('Qty Ordered')) ?>">
+        <ul class="items-qty">
+            <?php if ($block->getItem()->getQtyOrdered() > 0) : ?>
+                <li class="item">
+                    <span class="content"><?= (float) $block->getItem()->getQtyOrdered() ?></span>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </td>
+    <td class="col shipped" data-th="<?= $block->escapeHtmlAttr(__('Qty Shipped')) ?>">
+        <ul class="items-qty">
+                <li class="item">
+                    <span class="content"><?= (float) $block->getItem()->getQtyShipped() ?></span>
+                </li>
+        </ul>
+    </td>
+    <td class="col status" data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>">
+        <?php
+        if($customerType == \Capgemini\CompanyType\Model\Config::WHOLESALE) :
+             echo $_item->getData('status');
+        else :
+            echo $_item->getData('status');
+            if ($_item->getData('status') === 'Partial Ship') {
+                echo '<br/>';
+            }
+            if (!$_item->getData('status') || $_item->getData('status') === 'Partial Ship') {
+                if (!empty($_item->getData('estimated_shipping'))) {
+                    echo 'Est. Ship: ' . $_item->getData('estimated_shipping');
+                } else {
+                    echo 'Contact for Estimated Ship Date';
+                }
+            }
+        endif; ?>
+    </td>
+    <?php if($customerType == \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?>
+    <td class="col carrier" data-th="<?= $block->escapeHtmlAttr(__('Carrier')) ?>">
+        <?php  if (!empty($_item->getData('carrier_name'))) :
+                echo  $_item->getData('carrier_name');
+            endif;
+            ?>
+    </td>
+   <?php endif; ?>
+    <td class="col tracking" data-th="<?= $block->escapeHtmlAttr(__('Tracking')) ?>">
+        <?php
+        if($customerType == \Capgemini\CompanyType\Model\Config::WHOLESALE) :
+            if (!empty($_item->getData('tracking_url'))) :
+                echo '<a href="'.$_item->getData('tracking_url').'" target="_blank">'. $_item->getTracking().'</a>';
+            else :
+                echo $_item->getTracking();
+            endif;
+        else :
+            echo $_item->getTracking();
+        endif; ?>
+    </td>
+    <td class="col price" data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>">
+        <?= $block->getItemPriceHtml() ?>
+    </td>
+    <td class="col subtotal" data-th="<?= $block->escapeHtmlAttr(__('Subtotal')) ?>">
+        <?= $block->getItemRowTotalHtml() ?>
+    </td>
+</tr>

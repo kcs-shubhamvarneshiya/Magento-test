@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Capgemini\ProductPdf\Block\Product
+ */
+?>
+<link rel="stylesheet" type="text/css" href="<?= $block->getViewFileUrl('Capgemini_ProductPdf/css/product-pdf.css')?>">
+
+<!-- Image gallery -->
+<div class="gallery">
+    <?php $count = 0; ?>
+    <?php foreach ($block->getProductImages() as $image) : ?>
+        <?php $count++; ?>
+        <?php if ($count % 6 == 1): ?>
+            <p class="page-logo">
+                <?= __('Visual Comfort & Co.'); ?>
+            </p>
+        <?php endif; ?>
+        <?php $class = ($count % 2 == 1) ? 'odd' : 'even'?>
+        <img class="gallery-image <?= $class ?>" src="<?= $image['url'] ?>" alt=""/>
+    <?php endforeach; ?>
+</div>

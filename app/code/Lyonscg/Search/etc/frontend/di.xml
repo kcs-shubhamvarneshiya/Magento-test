@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_Search
+ *
+ * @category  Lyons
+ * @package   Lyonscg_Search
+ * @author    Tetiana Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Search\Model\AutocompleteInterface">
+        <plugin name="lyonscg_search_search_recommendations_count_results_enabled"
+                type="Lyonscg\Search\Plugin\AutocompletePlugin" sortOrder="10"/>
+    </type>
+</config>

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="google">
+            <group id="analytics">
+                <field id="gtm_server" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="120" type="text">
+                    <label>GTM Server</label>
+                    <depends>
+                        <field id="type">tag_manager</field>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                    <validate>validate-url</validate>
+                    <backend_model>\Capgemini\GoogleTagManager\Model\Config\Backend\Url</backend_model>
+                    <comment>The value must end with "/"</comment>
+                </field>
+                <field id="gtm_script" translate="label" showInDefault="1" showInWebsite="1" showInStore="1" sortOrder="121" type="text">
+                    <label>GTM Script</label>
+                    <depends>
+                        <field id="type">tag_manager</field>
+                        <field id="*/*/active">1</field>
+                    </depends>
+                    <comment>Enter alternative for gtm.js?id=GTM=1234. Container ID in this script is optional if adding it via Server Side Google Tag Manager.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

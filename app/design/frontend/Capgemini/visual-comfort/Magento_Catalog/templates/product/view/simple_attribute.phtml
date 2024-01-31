@@ -1,0 +1,63 @@
+<?php
+/**
+ * Lyonscg_Catalog
+ *
+ * @category  Lyons
+ * @package   Magento_Catalog
+ * @author    Tanya Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Description
+ */
+?>
+<?php
+/** @var \Magento\Catalog\Helper\Output $_helper */
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+$_product = $block->getProduct();
+/** @var \Lyonscg\Catalog\Helper\Data $catalogHelper */
+$catalogHelper = $this->helper(\Lyonscg\Catalog\Helper\Data::class);
+$simpleProduct = $catalogHelper->getChildProduct($_product);
+
+if (!$simpleProduct instanceof \Magento\Catalog\Model\Product) {
+    return;
+}
+
+$_call = $block->getAtCall();
+$_code = $block->getAtCode();
+$_className = $block->getCssClass();
+$_attributeLabel = $block->getAtLabel();
+$_attributeType = $block->getAtType();
+$_attributeAddAttribute = $block->getAddAttribute();
+
+$renderLabel = true;
+// if defined as 'none' in layout, do not render
+if ($_attributeLabel == 'none') {
+    $renderLabel = false;
+}
+
+if ($_attributeLabel && $_attributeLabel == 'default') {
+    $_attributeLabel = $simpleProduct->getResource()->getAttribute($_code)->getStoreLabel();
+}
+if ($_attributeType && $_attributeType == 'text') {
+    $_attributeValue = ($_helper->productAttribute($simpleProduct, $simpleProduct->$_call(), $_code))
+        ? $simpleProduct->getAttributeText($_code)
+        : '';
+} else {
+    $_attributeValue = $_helper->productAttribute($simpleProduct, $simpleProduct->$_call(), $_code);
+}
+?>
+
+<?php if ($_attributeValue) :?>
+<div class="product attribute <?= $block->escapeHtmlAttr($_className) ?>">
+    <?php if ($renderLabel) :?>
+        <strong class="type"><?= $block->escapeHtml($_attributeLabel) ?></strong>
+    <?php endif; ?>
+    <div class="value" <?= /* @noEscape */ $_attributeAddAttribute ?>><?= /* @noEscape */ $_attributeValue ?></div>
+</div>
+<?php endif; ?>

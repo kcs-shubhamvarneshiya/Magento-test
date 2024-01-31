@@ -1,0 +1,1186 @@
+{
+  "Products": [
+    {
+      "Product": {
+        "Name": "3\" LED Adjustable Downlight Housing",
+        "Footnotes": [
+          {
+            "Footnote": {
+              "Number": 0,
+              "Text": "Trims are required and must be ordered separately.\nFor dimming details, refer to Dimmer Compatibility Chart."
+            }
+          },
+          {
+            "Footnote": {
+              "Number": 1,
+              "Text": "WC - Wood Ceiling option accommodates Flangeless trims only."
+            }
+          },
+          {
+            "Footnote": {
+              "Number": 2,
+              "Text": "LH - High Output available for Wet applications. Not rated for Sauna/Steam-room."
+            }
+          },
+          {
+            "Footnote": {
+              "Number": 3,
+              "Text": "LO - Sauna/Steam-room use available only with combination of H Shower trim, LO Low Output housing, and I IC housing rating."
+            }
+          },
+          {
+            "Footnote": {
+              "Number": 4,
+              "Text": "TW52/TW41/ELT0/ELTD - Tunable White only available in High Output, only available with ELT0 (0-10V, linear), or ELTD (Dali). For 0-10V logarithmic dimming consult Quotes Department."
+            }
+          },
+          {
+            "Footnote": {
+              "Number": 5,
+              "Text": "0 - 10° optic has a unique LED module not available with Warm Dim or Tunable White. Changing optics to 18°, 25°, 40° or 60°, will require a new LED module."
+            }
+          },
+          {
+            "Footnote": {
+              "Number": 6,
+              "Text": "Universal dimming is reverse-phase, forward-phase, and TRIAC."
+            }
+          },
+          {
+            "Footnote": {
+              "Number": 7,
+              "Text": "Lutron Hi-lume and eldoLED drivers not compatible with Round Flangeless (E3RLF) or Round Wood Ceiling (E3RWC) housings."
+            }
+          },
+          {
+            "Footnote": {
+              "Number": 8,
+              "Text": "HLECO - Lutron has put their entire 0.1% ECO drivers on indefinite hold which impacts all -HLECO item numbers. Please consult factory for alternatives. This does not impact -HL2W."
+            }
+          }
+        ],
+        "SkuParts": [
+          {
+            "SkuPart": {
+              "Name": "Prefix",
+              "Order": 1,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": "1",
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "E3R",
+                    "AttributeDesc": "Round",
+                    "Footnotes": "1,2"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "E3S",
+                    "AttributeDesc": "Square",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "Ceiling Appearance",
+              "Order": 2,
+              "Optional": false,
+              "HelpText": "What kind of flange for ceiling",
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "LF",
+                    "AttributeDesc": "Flangeless",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "FF",
+                    "AttributeDesc": "Flanged",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "WC",
+                    "AttributeDesc": "Wood Ceiling",
+                    "Footnotes": "1"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "Output",
+              "Order": 3,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "-LH",
+                    "AttributeDesc": "HIGH OUTPUT, 17W",
+                    "Footnotes": "2"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-LO",
+                    "AttributeDesc": "LOW OUTPUT, 12W",
+                    "Footnotes": "3"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "CRI/CCT",
+              "Order": 4,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "827",
+                    "AttributeDesc": "80 CRI, 2700K, 1-STEP",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "830",
+                    "AttributeDesc": "80 CRI, 3000K, 1-STEP",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "835",
+                    "AttributeDesc": "80 CRI, 3500K, 1-STEP",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "927",
+                    "AttributeDesc": "90 CRI, 2700K, 1-STEP",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "930",
+                    "AttributeDesc": "90 CRI, 3000K, 1-STEP",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "935",
+                    "AttributeDesc": "90 CRI, 3500K, 1-STEP",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "WD",
+                    "AttributeDesc": "90 CRI, 3000-1800K, WARM DIM, 2-STEP",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "TW52",
+                    "AttributeDesc": "90 CRI, 5000K-2700K, TUNABLE WHITE, 2-STEP",
+                    "Footnotes": "4"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "TW41",
+                    "AttributeDesc": "90 CRI, 4000K-1800K, TUNABLE WHITE, 2-STEP",
+                    "Footnotes": "4"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "Beam Spread",
+              "Order": 5,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "0",
+                    "AttributeDesc": "10°",
+                    "Footnotes": "5"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "1",
+                    "AttributeDesc": "18°",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "2",
+                    "AttributeDesc": "25°",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "4",
+                    "AttributeDesc": "40°",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "6",
+                    "AttributeDesc": "60°",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "Function",
+              "Order": 6,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "A",
+                    "AttributeDesc": "ADJUSTABLE",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "Housing Rating",
+              "Order": 7,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "I",
+                    "AttributeDesc": "IC AIRTIGHT",
+                    "Footnotes": "5"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "N",
+                    "AttributeDesc": "NON-IC AIRTIGHT",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "C",
+                    "AttributeDesc": "CHICAGO PLENUM",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "E",
+                    "AttributeDesc": "EMERGENCY BATTERY (NON-IC / CHICAGO PLENUM)",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "Driver",
+              "Order": 8,
+              "Optional": true,
+              "HelpText": null,
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": null,
+                    "AttributeDesc": "UNIVERSAL PHASE/0-10V 1% (LEAVE BLANK)",
+                    "Footnotes": "6"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-ELD0",
+                    "AttributeDesc": "ELDOLED 0.1% 0-10V LINEAR",
+                    "Footnotes": "7"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-ELD0A",
+                    "AttributeDesc": "ELDOLED 0.1% 0-10V LOGARITHMIC",
+                    "Footnotes": "7"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-ELDD",
+                    "AttributeDesc": "ELDOLED 0.1% DALI",
+                    "Footnotes": "7"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-ELT0",
+                    "AttributeDesc": "ELDOLED TUNABLE WHITE 0.1% 0-10V LINEAR",
+                    "Footnotes": "4,7"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-ELTD",
+                    "AttributeDesc": "ELDOLED TUNABLE WHITE 0.1% DALI",
+                    "Footnotes": "4,7"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-HLECO",
+                    "AttributeDesc": "LUTRON HI-LUME 0.1% ECOSYSTEM",
+                    "Footnotes": "8"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-HL2W",
+                    "AttributeDesc": "LUTRON HI-LUME 1% 2-WIRE",
+                    "Footnotes": "7"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "Exceptions": [
+          {
+            "Exception": [
+              {
+                "SkuPart": "Prefix",
+                "AttributeChar": "E3R"
+              },
+              {
+                "SkuPart": "Ceiling Appearance",
+                "AttributeChar": "LF"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELD0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "Prefix",
+                "AttributeChar": "E3R"
+              },
+              {
+                "SkuPart": "Ceiling Appearance",
+                "AttributeChar": "LF"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELD0A"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "Prefix",
+                "AttributeChar": "E3R"
+              },
+              {
+                "SkuPart": "Ceiling Appearance",
+                "AttributeChar": "LF"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELDD"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "Prefix",
+                "AttributeChar": "E3R"
+              },
+              {
+                "SkuPart": "Ceiling Appearance",
+                "AttributeChar": "LF"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELT0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "Prefix",
+                "AttributeChar": "E3R"
+              },
+              {
+                "SkuPart": "Ceiling Appearance",
+                "AttributeChar": "LF"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELTD"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "Prefix",
+                "AttributeChar": "E3R"
+              },
+              {
+                "SkuPart": "Ceiling Appearance",
+                "AttributeChar": "LF"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-HL2W"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "Output",
+                "AttributeChar": "-LO"
+              },
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW52"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "Output",
+                "AttributeChar": "-LO"
+              },
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW41"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "WD"
+              },
+              {
+                "SkuPart": "Beam Spread",
+                "AttributeChar": "0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW52"
+              },
+              {
+                "SkuPart": "Beam Spread",
+                "AttributeChar": "0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW41"
+              },
+              {
+                "SkuPart": "Beam Spread",
+                "AttributeChar": "0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW52"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": null
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW52"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELD0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW52"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELD0A"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW52"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELDD"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW52"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-HLECO"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW52"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-HL2W"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW41"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": null
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW41"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELD0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW41"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELD0A"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW41"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELDD"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW41"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-HLECO"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "TW41"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-HL2W"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "827"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELT0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "830"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELT0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "835"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELT0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "927"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELT0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "930"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELT0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "935"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELT0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "WD"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELT0"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "827"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELTD"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "830"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELTD"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "835"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELTD"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "927"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELTD"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "930"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELTD"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "935"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELTD"
+              }
+            ]
+          },
+          {
+            "Exception": [
+              {
+                "SkuPart": "CRI/CCT",
+                "AttributeChar": "WD"
+              },
+              {
+                "SkuPart": "Driver",
+                "AttributeChar": "-ELTD"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "Product": {
+        "Name": "3\" Adjustable & Downlight Round Trim",
+        "Footnotes": [
+          {
+            "Footnote": {
+              "Number": 0,
+              "Text": "Wood Ceiling option accommodates Flangeless trims only."
+            }
+          },
+          {
+            "Footnote": {
+              "Number": 1,
+              "Text": "H - Sauna/Steam-room use available only with combination of H Shower trim, LO Output housing, and I IC housing rating."
+            }
+          }
+        ],
+        "SkuParts": [
+          {
+            "SkuPart": {
+              "Name": "Prefix",
+              "Order": 1,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": "1",
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "E3R",
+                    "AttributeDesc": "Round",
+                    "Footnotes": "1,2"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "E3S",
+                    "AttributeDesc": "Square",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "Ceiling Appearance",
+              "Order": 2,
+              "Optional": false,
+              "HelpText": "What kind of flange for ceiling",
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "L",
+                    "AttributeDesc": "FLANGELESS",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "F",
+                    "AttributeDesc": "FLANGED UP TO 1\" CEILING THICKNESS",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "F15",
+                    "AttributeDesc": "FLANGED 1.1\"-1.5\" CEILING THICKNESS",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "F20",
+                    "AttributeDesc": "FLANGED 1.6\"-2.0\" CEILING THICKNESS",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "F25",
+                    "AttributeDesc": "FLANGED 2.1\"-2.5\" CEILING THICKNESS",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "STYLE",
+              "Order": 3,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "B",
+                    "AttributeDesc": "BEVEL",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "F",
+                    "AttributeDesc": "FLAT",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "APERTURE",
+              "Order": 4,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "-O",
+                    "AttributeDesc": "NO LENS",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-H",
+                    "AttributeDesc": "SHOWER",
+                    "Footnotes": "1"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-L",
+                    "AttributeDesc": "LENSED",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "FINISH",
+              "Order": 5,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "Z",
+                    "AttributeDesc": "ANTIQUE BRONZE",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "B",
+                    "AttributeDesc": "BLACK",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "S",
+                    "AttributeDesc": "SATIN NICKEL",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "W",
+                    "AttributeDesc": "WHITE",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "Exceptions": [
+
+        ]
+      }
+    },
+    {
+      "Product": {
+        "Name": "3\" Wall Wash LED Round Trim",
+        "Footnotes": [
+          {
+            "Footnote": {
+              "Number": 0,
+              "Text": "Wall Wash Trims may be used to convert the ELEMENT Adjustable Housing to a Wall Wash. For dedicated Wall Wash Housings, refer to the ELEMENT 3\" Wall Wash Specification Sheet."
+            }
+          }
+        ],
+        "SkuParts": [
+          {
+            "SkuPart": {
+              "Name": "Prefix",
+              "Order": 1,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": "1",
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "E3R",
+                    "AttributeDesc": "Round",
+                    "Footnotes": "1,2"
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "E3S",
+                    "AttributeDesc": "Square",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "Ceiling Appearance",
+              "Order": 2,
+              "Optional": false,
+              "HelpText": "What kind of flange for ceiling",
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "L",
+                    "AttributeDesc": "Flangeless",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "F",
+                    "AttributeDesc": "Flanged",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "WC",
+                    "AttributeDesc": "Wood Ceiling",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "STYLE",
+              "Order": 3,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "W",
+                    "AttributeDesc": "WALL WASH",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "SkuPart": {
+              "Name": "FINISH",
+              "Order": 4,
+              "Optional": false,
+              "HelpText": null,
+              "Footnotes": null,
+              "Options": [
+                {
+                  "Option": {
+                    "AttributeChar": "-Z-LED",
+                    "AttributeDesc": "ANTIQUE BRONZE-LED",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-B-LED",
+                    "AttributeDesc": "BLACK-LED",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-S-LED",
+                    "AttributeDesc": "SATIN NICKEL-LED",
+                    "Footnotes": null
+                  }
+                },
+                {
+                  "Option": {
+                    "AttributeChar": "-W-LED",
+                    "AttributeDesc": "WHITE-LED",
+                    "Footnotes": null
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "Exceptions": [
+
+        ]
+      }
+    }
+  ]
+}

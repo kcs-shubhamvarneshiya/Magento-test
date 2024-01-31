@@ -1,0 +1,311 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .account {
+        &.customer-account-edit {
+            .page-main {
+                fieldset.fieldset {
+                    &>.legend {
+                        width: 100%;
+                        padding-bottom: 15px;
+                        span {
+                            font-family: @font-goudy-old-style;
+                            font-size: 26px;
+                            font-weight: normal;
+
+                            font-style: normal;
+                            line-height: 1.23;
+                            letter-spacing: normal;
+                            color: @color-gray-800;
+                        }
+                    }
+                }
+
+                .fieldset__wrapper {
+
+                    .fieldset {
+
+                        >.field {
+                            >.label {
+                                text-transform: capitalize;
+                                font-size: 14px;
+                                font-weight: 600;
+
+                                font-style: normal;
+                                line-height: 0.93;
+                                letter-spacing: normal;
+                                color: @color-gray-800;
+                            }
+                        }
+                        >.fields {
+                            >.field {
+                                >.label {
+                                    text-transform: capitalize;
+                                    font-size: 14px;
+                                    font-weight: 600;
+
+                                    font-style: normal;
+                                    line-height: 0.93;
+                                    letter-spacing: normal;
+                                    color: @color-gray-800;
+                                }
+                            }
+                        }
+                    }
+
+                    .fieldset {
+                        &.password {
+                            margin-bottom: 0;
+                        }
+                        &.info {
+                            .field.choice {
+                                display: flex;
+                                flex-direction: column;
+                            }
+                            .fieldset.info.company {
+                                margin-top: 26px;
+                                margin-bottom: 26px;
+                                .field {
+                                    label {
+                                        font-size: 12px;
+                                        font-weight: 600;
+
+                                        font-style: normal;
+                                        line-height: 1.33;
+                                        letter-spacing: 0.25px;
+                                        color: @color-gray-800;
+                                        text-transform: uppercase;
+                                    }
+                                    div.control {
+                                        font-size: 14px;
+                                        font-weight: normal;
+
+                                        font-style: normal;
+                                        line-height: 1.71;
+                                        letter-spacing: 0.25px;
+                                        color: @color-gray-800;
+                                        text-transform: capitalize;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .mp-gdpr-pro-download-personal-data,
+                .mp-gdpr-delete-customer-account {
+                    fieldset.fieldset {
+                        &>.legend {
+                            width: 100%;
+                        }
+                        .actions-toolbar,
+                        .mp-gdpr-pro-file-type,
+                        .gdpr-download-message,
+                        fieldset#file_type,
+                        .gdpr-delete-message {
+                            padding: 0;
+                        }
+                    }
+                }
+                .mp-gdpr-pro-download-personal-data {
+                    fieldset {
+                        display: flex;
+                        flex-direction: column;
+                        border: none;
+                    }
+                    .mp-gdpr-pro-file-type {
+                        margin-top: 10px;
+                    }
+                }
+            }
+            .form-edit-account .fieldset.info {
+                margin-right: 20px;
+                margin-bottom: 0;
+
+                .field.choice {
+                    label {
+                        margin-right: 5px;
+                        padding-bottom: 10px;
+                    }
+
+                    .field-tooltip.toggle {
+                        top: 23px;
+
+                        .field-tooltip-action.action-help {
+                            &:before {
+                                content: '\e91b';
+                                font-size: 18px;
+                                width: 25px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .form-edit-account {
+        .fieldset.password {
+            display: none;
+        }
+        fieldset {
+            &.additional_info {
+                clear: both;
+            }
+        }
+
+        .actions-toolbar {
+            padding-top: 30px;
+        }
+    }
+
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .account {
+        &.customer-account-edit {
+            .form-edit-account {
+                .fieldset.job_title, .fieldset.company {
+                    float: none !important;
+                }
+
+                .fieldset.info {
+                    margin-right: 0;
+                }
+            }
+            .fieldset__wrapper {
+                .fieldset.password {
+                    margin-top: 26px;
+                }
+            }
+            .page-wrapper {
+                .page-title-wrapper {
+                    padding-top: 0;
+                    
+                    h1.page-title {
+                        margin: 0 0 16px;
+                        span.base {
+                            font-size: 26px;
+                        }
+                    }
+                }
+            }
+            .mp-gdpr-delete-customer-account,
+            .mp-gdpr-pro-download-personal-data {
+                .fieldset {
+                    &>.legend {
+                        border-bottom: 1px solid @color-gray-400;
+                    }
+                }
+            }
+            .mp-gdpr-delete-customer-account {
+                margin-top: 45px;
+                padding: 0;
+                fieldset {
+                    margin-top: 0;
+                }
+            }
+            .mp-gdpr-pro-download-personal-data {
+                margin-top: 15px;
+                padding: 0;
+                
+                .actions-toolbar {
+                    padding-top: 20px !important;
+                }
+            }
+
+            fieldset.fieldset {
+                & > .legend {
+                    padding-bottom: 0 !important;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+    }
+}
+
+
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+
+    .form-edit-account {
+        .fieldset {
+            &:extend(.abs-blocks-2columns all);
+
+            .fieldset {
+                margin-bottom: @indent__base;
+                width: 100%;
+            }
+        }
+    }
+
+    .account {
+        &.customer-account-edit {
+            .page-main {
+
+                .fieldset__wrapper {
+                    display: flex;
+                    justify-content: space-between;
+                    .fieldset.info {
+                        margin: 0;
+                        padding: 0;
+                    }
+                    
+                    .fieldset.password {
+                        margin: 0;
+                        padding: 0;
+                    }
+                }
+                
+                .actions-toolbar {
+                    .primary {
+                        button.action.save.primary {
+                            width: 260px;
+                        }
+                    }
+                }
+                .mp-gdpr-delete-customer-account {
+                    fieldset {
+                        margin-top: 57px;
+                    }
+                }
+                .mp-gdpr-pro-download-personal-data {
+                    margin-top: 15px;
+                }
+                .mp-gdpr-delete-customer-account,
+                .mp-gdpr-pro-download-personal-data {
+                    width: 48%;
+                    padding: 0;
+                    clear: left;
+                    fieldset {
+                        &>.legend {
+                            margin-bottom: 13px;
+                        }
+                    }
+                    .actions-toolbar {
+                        .primary {
+                            button {
+                                width: 280px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

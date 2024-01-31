@@ -1,0 +1,89 @@
+<?php
+
+/**
+ * At the time of copying this file fron vendor to addp/design, the only change I made was to
+ * add hover values to the data-mage-init.
+ *
+ * @author Tyler Hebel (tyler.hebel@capgemini.com)
+ * @reference https://magento.stackexchange.com/questions/150159/magento-2-change-on-hover-instead-of-click-for-mini-cart
+ */
+
+/** @var $block \Magento\Checkout\Block\Cart\Sidebar */
+?>
+<div data-block="minicart" class="minicart-wrapper">
+    <a class="action showcart" href="<?= $block->escapeUrl($block->getShoppingCartUrl()) ?>"
+       data-bind="scope: 'minicart_content'">
+        <span class="text"><?= $block->escapeHtml(__('My Cart')) ?></span>
+        <span class="counter qty empty"
+              data-bind="css: { empty: !!getCartParam('summary_count') == false && !isLoading() }, blockLoader: isLoading">
+            <!-- ko if: getCartParam('summary_count') -->
+                <span class="counter-number"><!-- ko text: getCartParam('summary_count') --><!-- /ko --></span>
+            <!-- /ko -->
+            <!-- ko ifnot: getCartParam('summary_count') -->
+                <span class="counter-number">0</span>
+            <!-- /ko -->
+            <span class="counter-label">
+            <!-- ko if: getCartParam('summary_count') -->
+                <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+                <!-- ko i18n: 'items' --><!-- /ko -->
+                <!-- /ko -->
+            </span>
+        </span>
+    </a>
+    <?php if ($block->getIsNeedToDisplaySideBar()) :?>
+        <div class="block block-minicart"
+             data-role="dropdownDialog"
+             data-mage-init='{"dropdownDialog":{
+                "appendTo":"[data-block=minicart]",
+                "timeout": "100",
+                "closeOnMouseLeave": false,
+                "closeOnEscape": true,
+                "triggerClass":"active",
+                "parentClass":"active",
+                "buttons":[]}}'>
+            <div id="minicart-content-wrapper" data-bind="scope: 'minicart_content'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <?= $block->getChildHtml('minicart.addons') ?>
+        </div>
+    <?php else :?>
+        <script>
+            require(['jquery'], function ($) {
+                $('a.action.showcart').click(function() {
+                    $(document.body).trigger('processStart');
+                });
+            });
+        </script>
+    <?php endif ?>
+    <script>
+        window.checkout = <?= /* @noEscape */ $block->getSerializedConfig() ?>;
+    </script>
+    <script type="text/x-magento-init">
+    {
+        "[data-block='minicart']": {
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+        },
+        "*": {
+            "Magento_Ui/js/block-loader": "<?= $block->escapeJs(
+            $block->escapeUrl($block->getViewFileUrl('images/loader-1.gif'))
+        ) ?>"
+        }
+    }
+    </script>
+</div>
+
+<script type="text/javascript">
+    require([
+        "jquery",
+        "mage/mage"
+    ], function ($) {
+        $(document).ready(function () {
+            $('.minicart-wrapper').hover(function () {
+                $(".block-minicart").dropdownDialog("open");;
+            }, function () {
+                $(".block-minicart").dropdownDialog("close");
+                $(window).scrollTop(0);
+            });
+        });
+    });
+</script>

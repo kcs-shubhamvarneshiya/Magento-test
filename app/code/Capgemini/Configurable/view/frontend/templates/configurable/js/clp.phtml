@@ -1,0 +1,196 @@
+<script type="text/javascript">
+    require([
+        'jquery',
+        'apiPrice'
+    ], function ($, apiPrice) {
+
+        function findContainer($t) {
+            while (!$t.hasClass('product-item-info')) {
+                // sanity check
+                if ($t[0].tagName === 'BODY') {
+                    return false;
+                }
+                $t = $t.parent();
+            }
+            return $t;
+        }
+
+        function mouseEnterBadgeUpdate(elm) {
+            var $t = $(elm),
+                badgeLabel = $t.data('clp-badge-label'),
+                badgeClass = $t.data('clp-badge-class'),
+                $container = findContainer($t),
+                $badgeLabel = $container.find('.clp-badge-label span'),
+                $badgeClass = $container.find('.clp-badge-label');
+
+            if (badgeLabel !== "") {
+                $badgeLabel.data('old-badge-label', $badgeLabel.text());
+                $badgeLabel.text(badgeLabel);
+                $badgeClass.data('old-badge-class', badgeClass);
+                $badgeClass.addClass(badgeClass);
+                $badgeClass.show();
+            } else {
+                $badgeClass.hide();
+            }
+        }
+
+        function mouseLeaveBadgeUpdate(elm) {
+            var $t = $(elm),
+                $container = findContainer($t),
+                $badgeLabel = $container.find('.clp-badge-label span'),
+                $badgeClass = $container.find('.clp-badge-label');
+
+            let firstLabel = $container.find('.variation-item a').first().data('clp-badge-label');
+            if (firstLabel !== "") {
+                $badgeLabel.text(firstLabel)
+                $badgeLabel.removeData('old-badge-label');
+                $badgeClass.removeClass($badgeClass.data('old-badge-class'));
+                $badgeClass.removeData('old-badge-class');
+            } else {
+                $badgeClass.hide();
+            }
+        }
+
+        $('body').on('mouseenter', 'li .product-item-variation-carousel-wrapper', function () {
+            var $t = $(this),
+                $apiDiv = $t.parent().find('.api-price');
+            if ($apiDiv.length !== 0) {
+                if ($apiDiv.hasClass('variant-prices-updated')) {
+                    return;
+                }
+                var $variationLinks = $t.find('.variation-item a'),
+                    variationIds = [],
+                    variationIdsToLinks = {};
+                $variationLinks.each((index, link) => {
+                    let $link = $(link),
+                        id = $link.data('product-id');
+                    $link.data('clp-price', "$\u25FD\u25FD\u25FD");
+                    variationIds.push(id)
+                    variationIdsToLinks[id] = $link;
+                });
+                if (variationIds.length < 0) {
+                    return;
+                }
+                apiPrice.fetchProductsPriceHtml(variationIds, false).then(result => {
+                    for (const variationId in variationIdsToLinks) {
+                        if (!variationIdsToLinks.hasOwnProperty(variationId)) {
+                            continue;
+                        }
+                        let html = result[variationId];
+                        if (!html) {
+                            continue;
+                        }
+                        let matches = html.match(/<span class="price">(\D*\d+\.*\d+)<\/span>/),
+                            price = matches[1];
+                        if (price) {
+                            variationIdsToLinks[variationId].data('clp-price', price);
+                        }
+                    }
+                })
+            }
+            $apiDiv.addClass('variant-prices-updated');
+        });
+
+        $('body').on('mouseenter', '.product-item .product-item-info', function () {
+            var $t = $(this),
+                item = $t.find('.isActive');
+            $(item).addClass('active');
+        });
+
+        $('body').on('mouseenter', '.variation-item a', function () {
+            try {
+                var $t = $(this),
+                    finish = $t.data('clp-finish'),
+                    basecode = $t.data('clp-basecode'),
+                    price = $t.data('clp-price'),
+                    tradePrice = $t.data('clp-trade-price'),
+                    sku = $t.data('clp-sku'),
+                    image = $t.data('clp-image'),
+                    alt = $t.data('clp-image-alt'),
+                    $container = findContainer($t),
+                    $image = $container.find('.product-image-photo'),
+                    $price = $container.find('.price-container .price'),
+                    $oldPrice = $container.find('.old-price .price-container .price'),
+                    $tradePrice = $container.find('.special-price .price-container .price'),
+                    $finish = $container.find('a.view-more'),
+                    $basecode = $container.find('.basecode'),
+                    $sku = $container.find('.product-sku'),
+                    $parentItem = $t.parents('.variation-item');
+
+                $finish.data('old-finish', $finish.text());
+                $finish.text(finish);
+                $basecode.text(basecode);
+                $image.data('old-src', $image.attr('src'));
+                $sku.text(sku);
+                $image.data('old-alt', $image.attr('alt'));
+                $image.attr('src', image);
+                $image.attr('alt', alt);
+
+                if ($('.variation-item.active').length) {
+                    $('.variation-item').removeClass('active');
+                }
+                $parentItem.addClass('active');
+
+                if ($oldPrice.length && $tradePrice.length) {
+                    $oldPrice.data('old-price', $oldPrice.text());
+                    $oldPrice.text(price);
+                    $tradePrice.data('old-price', $tradePrice.text());
+                    $tradePrice.text(tradePrice);
+                    // trade prices
+                } else if (tradePrice !== undefined) {
+                    // wholesale case
+                    $price.data('old-price', $price.text());
+                    $price.text(tradePrice)
+                } else {
+                    // no trade price
+                    $price.data('old-price', $price.text());
+                    $price.text(price);
+                }
+
+                mouseEnterBadgeUpdate($(this));
+
+            } catch (e) {
+                return false;
+            }
+        });
+
+        
+
+        // select first badge (if exists) on page load
+        $(document).on('contentUpdated', '#amasty-shopby-product-list, .search.results', function () {
+            // This is for configurables that have more than one variant
+            $('.product-item-variation-carousel-wrapper').each(function (index, wrapperElm) {
+                let firstElm = $(wrapperElm).find('.variation-item a').first();
+                mouseEnterBadgeUpdate($(firstElm));
+            });
+
+            // This is for configurables that have only ONE variant
+            $('.product-item-single-variant-wrapper').each(function (index, wrapperElm) {
+                let singleElm = $(wrapperElm).find('.single-variation-item');
+                mouseEnterBadgeUpdate(singleElm);
+            });
+        });
+        $(document).ready(function () {
+            // This is for configurables that have more than one variant
+            $('.product-item-variation-carousel-wrapper').each(function (index, wrapperElm) {
+                let firstElm = $(wrapperElm).find('.variation-item a').first();
+                mouseEnterBadgeUpdate($(firstElm));
+            });
+
+            // This is for configurables that have only ONE variant
+            $('.product-item-single-variant-wrapper').each(function (index, wrapperElm) {
+                let singleElm = $(wrapperElm).find('.single-variation-item');
+                mouseEnterBadgeUpdate(singleElm);
+            });
+        });
+
+        // This is for configurables that have only ONE variant AND "Load More Products" button is clicked
+        $(document).bind('amScroll:updateProductList', function() {
+            debugger;
+            $('.product-item-single-variant-wrapper').each(function (index, wrapperElm) {
+                let singleElm = $(wrapperElm).find('.single-variation-item');
+                mouseEnterBadgeUpdate(singleElm);
+            });
+        });
+    });
+</script>

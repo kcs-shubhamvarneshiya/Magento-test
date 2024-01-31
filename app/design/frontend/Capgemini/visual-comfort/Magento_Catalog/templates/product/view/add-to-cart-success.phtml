@@ -1,0 +1,14 @@
+<?php
+/** @var $block \Magento\Catalog\Block\Product\View */
+$product = $block->getProduct();
+?>
+
+<div id="add-to-cart-success-message">Added <?= $block->escapeHtml($product->getName()) ?> to your <a href="<?= $block->getUrl('checkout/cart/index') ?>">shopping cart</a></div>
+
+<script type="text/x-magento-init">
+    {
+        "#add-to-cart-success-message": {
+            "Magento_Catalog/js/add-to-cart-success-message": {}
+        }
+    }
+</script>

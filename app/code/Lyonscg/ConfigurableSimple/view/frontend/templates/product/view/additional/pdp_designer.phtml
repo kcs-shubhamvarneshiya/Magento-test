@@ -1,0 +1,81 @@
+<?php
+/**
+ * Lyonscg_ConfigurableSimple
+ *
+ * @category  Lyons
+ * @package   Lyonscg_ConfigurableSimple
+ * @author    Oleksii Kononenko<oleksii.kononenko@capgemini.com>
+ * @author    Tanya Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var  \Lyonscg\ConfigurableSimple\Block\Specifications $block */
+
+$baseChildProduct = $block->getBaseChildProduct();
+$_designer = $block->getProductCustomAttributeValue('designer', true);
+$_designer = (!empty($_designer)) ? $baseChildProduct->getAttributeText('designer') : '';
+// strip out all whitespace
+$designer_clean = preg_replace('/\s+/', '_', $_designer);
+// convert the string to all lowercase
+$designer_block_id = (!empty($designer_clean)) ? 'pdp_designer_' . strtolower($designer_clean) : ''; /*TODO: need to check if this works for all cases as I assume there might be additional syblols as & or '*/
+$pdp_block_designer = (!empty($designer_block_id)) ?
+    $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId($designer_block_id)->toHtml() : '';
+
+/*Before and after blocks*/
+
+$pdp_block_before_designer = $block->getCmsBlockHtmlByAttributeValue('pdp_block_before_designer');
+$pdp_block_after_designer = $block->getCmsBlockHtmlByAttributeValue('pdp_block_after_designer');
+?>
+
+<?php if (!empty($pdp_block_designer)): ?>
+    <div id="additional-designer" class="additional_block additional-designer" data-additional-content="additional-designer">
+        <div class="additional_block_inner">
+            <?php if ($pdp_block_before_designer != ''): ?>
+                <div class="pdp_block_before_designer">
+                    <?php echo $pdp_block_before_designer; ?>
+                </div>
+            <?php endif; ?>
+
+            <div class="pdp-designer-collapse">
+                <h3 class="pdp-designer-info-heading" data-role="title">
+                    <?= __('Designer Info') ?>
+                </h3>
+
+                <div data-role="content">
+                    <?php echo $pdp_block_designer; ?>
+
+                    <?php if ($pdp_block_after_designer != ''): ?>
+                        <div class="pdp_block_after_designer">
+                            <?php echo $pdp_block_after_designer; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        require([
+            "jquery",
+            "mage/mage",
+            "mage/collapsible"
+        ], function ($) {
+            $(document).ready(function () {
+
+                $('.pdp_block_before_designer').collapsible({
+                    'active': true,
+                    'openedState': 'active',
+                    "icons": {"header": "plus", "activeHeader": "minus"}
+                })
+                    .collapsible("option","header",".pdp-designer-before-heading")
+                    .collapsible("option","content",".pdp-designer-before-content");
+
+                $('.pdp-designer-collapse').collapsible({
+                    'active': true,
+                    'openedState': 'active',
+                    'icons': {'header': 'plus', 'activeHeader': 'minus'}
+                });
+            });
+        });
+    </script>
+<?php endif; ?>

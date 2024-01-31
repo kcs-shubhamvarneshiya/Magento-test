@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <container name="listing_top">
+        <paging name="listing_paging" component="uiB2bPaging">
+            <settings>
+                <options>
+                    <option name="10" xsi:type="array">
+                        <item name="value" xsi:type="number">10</item>
+                        <item name="label" xsi:type="string">10</item>
+                    </option>
+                    <option name="15" xsi:type="array">
+                        <item name="value" xsi:type="number">15</item>
+                        <item name="label" xsi:type="string">15</item>
+                    </option>
+                    <option name="20" xsi:type="array">
+                        <item name="value" xsi:type="number">20</item>
+                        <item name="label" xsi:type="string">20</item>
+                    </option>
+                </options>
+                <pageSize>10</pageSize>
+            </settings>
+        </paging>
+    </container>
+</listing>

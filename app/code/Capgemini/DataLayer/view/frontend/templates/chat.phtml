@@ -1,0 +1,30 @@
+<?php
+/**
+ * @category    Capgemini
+ * @package     Capgemini_DataLayer
+ */
+?>
+<?php
+/** @var \Capgemini\DataLayer\Block\DataLayer $block */
+?>
+
+<script type='text/javascript'>
+    window._gtmPageType = '<?= $block->escapeJs($block->getPageType()); ?>';
+    <?php $data= $block->getPageType();?>
+    var pageType = '<?= $data ?>';
+    require([
+        'jquery'
+    ], function ($) {
+        window.dataLayer = window.dataLayer || [];
+        $( document ).ready(function() {
+            $('#launcher').on("load", function(){
+                $(this).contents().find("body").on('click', function(event) {
+                    dataLayer.push({
+                        'event': 'chatClick',
+                        'pageType':pageType
+                    });
+                });
+            });
+        });
+    });
+</script>

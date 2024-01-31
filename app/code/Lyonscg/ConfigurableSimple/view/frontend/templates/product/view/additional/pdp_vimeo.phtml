@@ -1,0 +1,35 @@
+<?php
+
+$_product = $this->getProduct();
+
+$_attValue = $_product->getResource()->getAttribute('pdp_video_id')->getFrontend()->getValue($_product);
+?>
+<?php if (!empty($_attValue)): ?>
+    <div
+        id="additional-video"
+        class="additional_block additional-video"
+        data-additional-content="additional-video"
+        data-bind='mageInit: {
+            "collapsible": {
+                "collapsible": true,
+                "openedState": "active",
+                "active": "true",
+                "icons": {"header": "plus", "activeHeader": "minus"}
+         }}'>
+        <div class="additional_block_inner">
+            <div class="block-title title" data-role="title">
+                <strong><?= __('Video'); ?></strong>
+            </div>
+            <div class="block" data-role="content">
+                <div class="product-video">
+                    <div class="embed-container">
+                        <p style="text-align: center;">
+                            <iframe src="//player.vimeo.com/video/<?php echo $_attValue ?>" webkitallowfullscreen
+                                    mozallowfullscreen allowfullscreen></iframe>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

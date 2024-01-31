@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="catalogsearch_result_index"/>
+    <head>
+        <css src="Bloomreach_Connector::css/search.css" />
+    </head>
+    <body>
+        <attribute name="class" value="catalogsearch-result-index"/>
+        <referenceBlock name="search_result_list" class="Capgemini\BloomreachThematic\Block\Product\ListProduct"/>
+        <referenceContainer name="page.messages">
+            <block class="Capgemini\BloomreachSearchProxy\Block\SearchMessage" template="Capgemini_BloomreachSearchProxy::search_message.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

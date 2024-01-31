@@ -1,0 +1,32 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+
+<form class="form create account form-create-account"
+      action="<?= $block->escapeUrl($block->getPostActionUrl()) ?>"
+      method="post" id="form-validate"
+      enctype="multipart/form-data"
+      autocomplete="off">
+    <div id="trade-documents-container">
+        <div class="container-area">
+        <fieldset class="fieldset info">
+            <legend class="legend"><span><?= $block->escapeHtml(__('Proof of Trade Documents')) ?></span></legend><br>
+            <span class="trade-copy">
+                <p><strong>Required for All Trade Accounts</strong></p>
+                <p>One of the following can be used as proof of trade</p>
+                <ul>
+                    <li>Current Business License</li>
+                    <li>Resale or Sales Tax Certificate</li>
+                    <li>W9, Federal ID Form or EIN Form <a href="<?= $block->escapeUrl($block->getViewFileUrl('Capgemini_Company::pdf/W9_Blank_Form.pdf')); ?>" download="W9_Blank_Form.pdf"><?= $block->escapeHtml(__('Download Blank W9'))?></a></li>
+                </ul>
+            </span>
+            <?= $block->getChildHtml('document.list.proof'); ?>
+        </fieldset>
+        </div>
+    </div>
+</form>
+<script type="text/javascript">
+    window.onDocumentUpload = function(e, data) {
+        alert(JSON.stringify(data));
+    };
+</script>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_CompanyType
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_model_service_quote_submit_before">
+        <observer name="company_type"
+                  instance="Capgemini\CompanyType\Observer\QuoteSubmitBefore" />
+    </event>
+    <event name="layout_render_before_checkout_cart_index">
+        <observer name="validate_items_purchase" instance="Capgemini\CompanyType\Observer\ValidateItems"/>
+    </event>
+    <event name="controller_action_predispatch_checkout_index_index">
+        <observer name="validate_items_purchase" instance="Capgemini\CompanyType\Observer\ValidateItems"/>
+    </event>
+
+</config>

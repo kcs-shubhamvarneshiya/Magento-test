@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--
+/**
+ * Capgemini_CmsBlockRandom
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Capgemini\CmsBlockRandom\Block\Widget\CmsBlockRandom" id="cms_block_random">
+        <label>CMS Block - Random</label>
+        <description>Display random CMS block from the list.</description>
+        <parameters>
+            <parameter name="identity_ids" required="1" visible="true" xsi:type="text">
+                <label>CMS blok's identifiers</label>
+                <description>Comma separated.</description>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

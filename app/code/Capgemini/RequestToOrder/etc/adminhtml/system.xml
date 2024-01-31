@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="rto" translate="label" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Request to Order</label>
+            <tab>customer</tab>
+            <resource>Capgemini_RequestToOrder::rto</resource>
+            <group id="general" translate="label" type="text" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Request to Order</label>
+                <field id="active" translate="Enabled" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="send_from_email" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Send From Email</label>
+                    <comment>What email address is the request to order email is coming from</comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="representative_email" type="text" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Send To Email(s)</label>
+                    <comment>Comma separated list of emails to receive customer requests to order</comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="email_customer_copy" translate="Send Customer Copy" type="select" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Send Customer Copy</label>
+                    <comment>Send customer copy of request to order email</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="pdp_modal_copy" translate="PDP Modal Text" type="text" sortOrder="40"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>PDP Modal Text</label>
+                    <comment>Text to be displayed on the request to order PDP model</comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="contact_information_copy" translate="PDP Modal Text" type="text" sortOrder="50"
+                       showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Contact Information Copy</label>
+                    <comment>Text to be displayed on the request to order page</comment>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

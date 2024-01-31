@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.main.title">
+            <block class="Magento\Framework\View\Element\Template" name="company-users-description" after="-"
+                   template="Magento_Customer::account/description.phtml">
+                <arguments>
+                    <argument name="description" xsi:type="string">Add users to account.</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="company.management.dialog.customer.add"
+            template="Capgemini_Company::company/management/dialog/customer/add.phtml"/>
+    </body>
+</page>

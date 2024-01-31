@@ -1,0 +1,66 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ *  General template for displaying group of blocks divided into sections
+ */
+
+$group = $block->getGroupName();
+$groupCss = $block->getGroupCss();
+?>
+<?php if ($detailedInfoGroup = $block->getGroupChildNames($group)):?>
+    <div class="sections <?= $block->escapeHtmlAttr($groupCss) ?>">
+        <div class="mobile-section-header">
+            <img src="<?= $block->getLayout()->getBlock('logo')->getLogoSrc(); ?>"
+                 class="mobile-logo"
+                 aria-label="store logo"
+                 alt="<?= $block->getLayout()->getBlock('logo')->getLogoAlt(); ?>" />
+            <button type="button" id="btn-mobile-menu-close" class="action close" title="Close">
+                <span data-bind="i18n: 'Close'">Close</span>
+            </button>
+        </div>
+        <?php $layout = $block->getLayout(); ?>
+        <div class="section-items <?= $block->escapeHtmlAttr($groupCss) ?>-items"
+             data-mage-init='{"tabs":{"openedState":"active"}}'>
+            <?php foreach ($detailedInfoGroup as $name):?>
+                <?php
+                    $html = $layout->renderElement($name);
+                if (!trim($html) && ($block->getUseForce() != true)) {
+                    continue;
+                }
+                    $alias = $layout->getElementAlias($name);
+                    $label = $block->getChildData($alias, 'title');
+                ?>
+                <div class="section-item-title <?= $block->escapeHtmlAttr($groupCss) ?>-item-title"
+                     data-role="collapsible">
+                    <a class="<?= $block->escapeHtmlAttr($groupCss) ?>-item-switch"
+                       data-toggle="switch" href="#<?= $block->escapeHtmlAttr($alias) ?>">
+                        <?= /* @noEscape */ $label ?>
+                    </a>
+                </div>
+                <div class="section-item-content <?= $block->escapeHtmlAttr($groupCss) ?>-item-content"
+                     id="<?= $block->escapeHtmlAttr($alias) ?>"
+                     data-role="content">
+                    <?= /* @noEscape */ $html ?>
+                </div>
+            <?php endforeach;?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<script>
+    require([
+        'jquery'
+    ], function($){
+        $("#btn-mobile-menu-close").click(function() {
+            if (jQuery("html").hasClass("nav-open")) {
+                jQuery("html").removeClass('nav-before-open nav-open');
+            } else {
+                jQuery("html").addClass('nav-before-open nav-open');
+            }
+        });
+    });
+</script>

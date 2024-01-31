@@ -1,0 +1,14 @@
+<div data-bind="css: { hidden: getRegion('order-attributes-fields')().filter(function (elem) { return elem._elems.length > 0 }).length <= 0 }">
+    <form id="pd-order-attributes" class="form form-cart" data-bind="attr: {'data-hasrequired': $t('* Required Fields')}">
+        <fieldset class="fieldset">
+            <legend data-bind="i18n: 'Project Details'"></legend>
+            <span class="hr-spacer"></span>
+            <!-- ko foreach: getRegion('order-attributes-fields') -->
+            <!-- ko template: getTemplate()--><!-- /ko -->
+            <!--/ko-->
+        </fieldset>
+        <button type="button" data-bind="click: onSubmit" class="action">
+            <span data-bind="i18n: 'Save'"></span>
+        </button>
+    </form>
+</div>

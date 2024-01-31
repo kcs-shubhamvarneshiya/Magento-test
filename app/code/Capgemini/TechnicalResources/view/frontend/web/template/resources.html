@@ -1,0 +1,23 @@
+<div class="tech-resources-content additional_block_inner" data-bind="visible: canShow()">
+    <div class="block-title title">
+        <!-- ko i18n: 'Technical Resources' --><!-- /ko -->
+    </div>
+    <div class="block files-grid">
+        <!-- ko foreach: getResources() -->
+        <div class="tech-resource-item">
+            <a data-bind="attr: {href:url}" target="_blank">
+                <div class="document-icon" aria-hidden="true"></div>
+                <!-- ko text: label --><!-- /ko -->
+            </a>
+        </div>
+        <!--/ko-->
+        <!-- ko if:showDownloadAll() -->
+        <div class="tech-resource-item download-all">
+            <a data-bind="attr: {href:getDownloadAllUrl()}">
+                <div class="document-icon" aria-hidden="true"></div>
+                <!-- ko i18n: 'All' --><!-- /ko -->
+            </a>
+        </div>
+        <!--/ko-->
+    </div>
+</div>

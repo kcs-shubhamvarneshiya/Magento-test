@@ -1,0 +1,37 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+
+<div class="field-control field-uploader" css="'_with-tooltip': $data.tooltip">
+    <div class="field-note sub-note" if="$data.notice" attr="id: noticeId">
+        <span html="notice"/>
+    </div>
+    <div class="field-uploader__wrap">
+        <label class="label heading">Upload Proof of Trade Document</label>
+        <div class="copy ">
+            Acceptable formats png, pdf, jpeg.
+        </div>
+        <div class="file-uploader" data-role="drop-zone" css="_loading: isLoading">
+            <div class="file-uploader-area">
+                <input type="file" afterRender="onElementRender" attr="id: uid, name: inputName, multiple: isMultipleFiles, 'required-company-document':required"
+                       disable="disabled" />
+                <label class="file-uploader-button action-default" attr="for: uid" translate="'Choose File'"></label>
+                <span if="value" attr="'data-documents-count':value.slice().length"></span>
+                <span class="file-uploader-spinner"></span>
+                <render args="fallbackResetTpl" if="$data.showFallbackReset && $data.isDifferedFromDefault"/>
+            </div>
+
+            <render args="tooltipTpl" if="$data.tooltip"></render>
+
+            <div class="documents-count">
+                <span text="$t('Documents added (%1)').replace('%1', value.slice().length)"></span>
+            </div>
+
+            <each args="data: value, as: '$file'" render="$parent.getPreviewTmpl($file)"/>
+        </div>
+        <render args="$data.service.template" if="$data.hasService()"/>
+    </div>
+</div>

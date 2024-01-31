@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Fedex\Model\Carrier" type="Capgemini\FedEx\Model\Carrier"/>
+    <preference for="Magento\Shipping\Model\Shipping" type="Capgemini\FedEx\Model\Shipping"/>
+    <preference for="Magento\Quote\Model\Quote\Address\RateCollectorInterface" type="Capgemini\FedEx\Model\Shipping"/>
+    <type name="Magento\Quote\Model\Quote\Address\Rate">
+        <plugin name="capgemini_fedex_rate_plugin" type="Capgemini\FedEx\Plugin\RatePlugin"/>
+    </type>
+    <type name="Magento\Quote\Api\ShippingMethodManagementInterface">
+        <plugin name="capgemini_fedex_shipping_method_management_plugin"
+                type="Capgemini\FedEx\Plugin\ShippingMethodManagementPlugin"/>
+    </type>
+    <type name="Magento\Quote\Api\ShipmentEstimationInterface">
+        <plugin name="capgemini_fedex_shipment_estimation_plugin"
+            type="Capgemini\FedEx\Plugin\ShippingMethodManagementPlugin"/>
+    </type>
+</config>

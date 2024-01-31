@@ -1,0 +1,193 @@
+{
+    "sales_order": {
+        "column": {
+            "salespad_sales_doc_num": true,
+            "sales_pad_customer_num": true,
+            "salespad_quote_num": true,
+            "pay_fabric_api_status": true,
+            "pay_fabric_api_request": true
+        }
+    },
+    "sales_order_grid": {
+        "column": {
+            "salespad_sales_doc_num": true
+        },
+        "index": {
+            "SALES_ORDER_GRID_SALESPAD_SALES_DOC_NUM": true
+        }
+    },
+    "salespad_customer_link": {
+        "column": {
+            "link_id": true,
+            "customer_id": true,
+            "customer_email": true,
+            "website_id": true,
+            "sales_pad_customer_num": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SALESPAD_CUSTOMER_LINK_CUSTOMER_EMAIL": false,
+            "SALESPAD_CUSTOMER_LINK_CUSTOMER_ID": true,
+            "SALESPAD_CUSTOMER_LINK_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true,
+            "SALESPAD_CUSTOMER_LINK_WEBSITE_ID_STORE_WEBSITE_WEBSITE_ID": true
+        }
+    },
+    "quote": {
+        "column": {
+            "salespad_quote_num": true
+        }
+    },
+    "sales_order_item": {
+        "column": {
+            "salespad_sales_doc_num": true,
+            "salespad_line_num": true
+        }
+    },
+    "sales_order_address": {
+        "column": {
+            "salespad_address_code": true
+        }
+    },
+    "salespad_order_sync": {
+        "column": {
+            "sync_id": true,
+            "order_id": true,
+            "created_at": true,
+            "sync_attempts": true,
+            "last_sync_attempt_at": true,
+            "failures": true,
+            "store_id": true,
+            "status": true
+        },
+        "index": {
+            "SALESPAD_ORDER_SYNC_ORDER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "salespad_customer_sync": {
+        "column": {
+            "sync_id": true,
+            "customer_id": true,
+            "created_at": true,
+            "sync_attempts": true,
+            "last_sync_attempt_at": true,
+            "failures": true,
+            "store_id": true,
+            "status": true
+        },
+        "index": {
+            "SALESPAD_CUSTOMER_SYNC_CUSTOMER_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "SALESPAD_CUSTOMER_SYNC_CUSTOMER_ID_CUSTOMER_ENTITY_ENTITY_ID": true
+        }
+    },
+    "requisition_list": {
+        "column": {
+            "salespad_sales_doc_num": true,
+            "sales_pad_customer_num": true,
+            "salespad_billing_address_code": true,
+            "salespad_shipping_address_code": true,
+            "store_id": true
+        }
+    },
+    "requisition_list_item": {
+        "column": {
+            "salespad_sales_doc_num": true,
+            "salespad_line_num": true,
+            "salespad_component_seq_num": true
+        }
+    },
+    "salespad_quote_sync": {
+        "column": {
+            "sync_id": true,
+            "quote_id": true,
+            "customer_id": true,
+            "salespad_sales_doc_num": true,
+            "created_at": true,
+            "sync_attempts": true,
+            "last_sync_attempt_at": true,
+            "sync_action": true,
+            "failures": true,
+            "store_id": true,
+            "status": true
+        },
+        "index": {
+            "SALESPAD_QUOTE_SYNC_QUOTE_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "deleted_quotes": {
+        "column": {
+            "deleted_id": true,
+            "salespad_sales_doc_num": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "salespad_quote_item_sync": {
+        "column": {
+            "sync_id": true,
+            "quote_id": true,
+            "item_id": true,
+            "salespad_sales_doc_num": true,
+            "salespad_line_num": true,
+            "salespad_component_seq_num": true,
+            "created_at": true,
+            "sync_attempts": true,
+            "last_sync_attempt_at": true,
+            "sync_action": true,
+            "failures": true,
+            "status": true
+        },
+        "index": {
+            "SALESPAD_QUOTE_ITEM_SYNC_QUOTE_ID": true,
+            "SALESPAD_QUOTE_ITEM_SYNC_ITEM_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "salespad_session": {
+        "column": {
+            "id": true,
+            "session_id": true,
+            "active": true,
+            "current_users": true,
+            "stamp": true,
+            "api_url": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "salespad_api_errors": {
+        "column": {
+            "log_id": true,
+            "created_at": true,
+            "url": true,
+            "request": true,
+            "response": true,
+            "is_exception": true,
+            "response_code": true,
+            "counter": true,
+            "updated_at": true,
+            "related_entity_type": true,
+            "related_entity_id": true
+        },
+        "index": {
+            "SALESPAD_API_ERRORS_IS_EXCEPTION": true,
+            "SALESPAD_API_ERRORS_RESPONSE_CODE": true,
+            "SALESPAD_API_ERRORS_CREATED_AT": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

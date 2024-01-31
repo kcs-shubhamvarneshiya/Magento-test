@@ -1,0 +1,396 @@
+//
+//  Typography Utility Mixins
+//  _____________________________________________
+
+// Font size mixin (used to reset font size after font family has been set)
+.font-size(@size: 1.4rem, @line-height: @font-default-line-height) {
+    font-size: @size;
+    line-height: @line-height;
+}
+
+.font-proxima-nova-light(@size: @font-default-size, @line-height: @font-default-line-height) {
+    font-family: @font-proxima-nova;
+    font-weight: @font-wt-light;
+    .font-size(@size, @line-height);
+}
+
+.font-proxima-nova(@size: @font-default-size, @line-height: @font-default-line-height) {
+    font-family: @font-proxima-nova;
+    font-weight: @font-wt-regular;
+    .font-size(@size, @line-height);
+}
+
+.font-proxima-nova-medium(@size: @font-default-size, @line-height: @font-default-line-height) {
+    font-family: @font-proxima-nova;
+    font-weight: @font-wt-medium;
+    .font-size(@size, @line-height);
+}
+
+.font-proxima-nova-semibold(@size: @font-default-size, @line-height: @font-default-line-height) {
+    font-family: @font-proxima-nova;
+    font-weight: @font-wt-semibold;
+    .font-size(@size, @line-height);
+}
+
+.font-proxima-nova-bold(@size: @font-default-size, @line-height: @font-default-line-height) {
+    font-family: @font-proxima-nova;
+    font-weight: @font-wt-bold;
+    .font-size(@size, @line-height);
+}
+
+.font-goudy-old-style(@size: @font-default-size, @line-height: @font-default-line-height) {
+    font-family: @font-goudy-old-style;
+    font-weight: @font-wt-regular;
+    .font-size(@size, @line-height);
+}
+
+
+//
+//  Style Guide Typography Mixins (For use in the style guide itself)
+//  _____________________________________________
+.type-usage-title () {
+    color: @color-usage-text;
+    .font-proxima-nova();
+}
+
+.type-usage-text () {
+    .font-proxima-nova();
+}
+
+.type-h1 {
+    .font-goudy-old-style(3.6rem, 3.8rem);
+    letter-spacing: 0;
+    color: @color-gray-800;
+}
+
+.type-h1-mobile {
+    .font-goudy-old-style(3.0rem, 3.4rem);
+    letter-spacing: 0;
+    color: @color-gray-800;
+}
+
+.type-h2 {
+    .font-goudy-old-style(2.6rem, 3.2rem);
+    letter-spacing: 0;
+    color: @color-gray-800;
+}
+
+.type-h2-mobile {
+    .font-goudy-old-style(2.4rem, 3.0rem);
+    letter-spacing: 0;
+    color: @color-gray-800;
+}
+
+.type-h3 {
+    .font-proxima-nova-semibold(1.8rem, 2rem);
+    letter-spacing: 0.25px;
+    color: @color-gray-800;
+}
+
+.type-h3-mobile {
+    .font-proxima-nova-semibold(1.8rem, 2rem);
+    letter-spacing: 0.25px;
+    color: @color-gray-800;
+}
+
+.type-h4 {
+    .font-proxima-nova-semibold(1.6rem, 1.8rem);
+    letter-spacing: 0.25px;
+    color: @color-gray-800;
+}
+
+.type-h4-mobile {
+    .font-proxima-nova-semibold(1.6rem, 1.8rem);
+    letter-spacing: 0.25px;
+    color: @color-gray-800;
+}
+
+.type-h5 {
+    .font-proxima-nova-semibold(1.4rem, 1.6rem);
+    letter-spacing: 0.25px;
+    color: @color-gray-800;
+}
+
+.type-h5-mobile {
+    .font-proxima-nova-semibold(1.4rem, 1.6rem);
+    letter-spacing: 0.25px;
+    color: @color-gray-800;
+}
+
+.type-h6 {
+    .font-proxima-nova-semibold(1.2rem, 1.4rem);
+    letter-spacing: 0.25px;
+    color: @color-gray-800;
+    text-transform: uppercase;
+}
+
+.type-h6-mobile {
+    .font-proxima-nova-semibold(1.2rem, 1.4rem);
+    letter-spacing: 0.25px;
+    color: @color-gray-800;
+    text-transform: uppercase;
+}
+
+//Labels
+.type-typeface-1 () {
+    .font-proxima-nova(1.4rem, 1.6rem);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.type-typeface-1-m () {
+    .font-proxima-nova(1.2rem, 1.4rem);
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+}
+
+.type-typeface-2 () {
+    .font-proxima-nova-medium(1.4rem, 1.6rem);
+    letter-spacing: 0.6px;
+}
+
+.type-typeface-2-m () {
+    .type-typeface-2();
+}
+
+.type-typeface-3 () {
+    .font-proxima-nova-medium(1.4rem, 1.4rem);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.type-typeface-3-m () {
+    .type-typeface-3();
+}
+
+.type-typeface-4 () {
+    .font-proxima-nova-medium(1.2rem, 1.4rem);
+    letter-spacing: 0.8px;
+}
+
+.type-typeface-4-m () {
+    .type-typeface-4();
+}
+
+.type-typeface-5 () {
+    .font-proxima-nova(1.2rem, 1.4rem);
+    letter-spacing: 0.5px;
+}
+
+.type-typeface-5-m () {
+    .type-typeface-5();
+}
+
+.type-typeface-6 () {
+    .font-proxima-nova(1.5rem, 1.4rem);
+    letter-spacing: 0.6px;
+}
+
+.type-typeface-6-m () {
+    .type-typeface-6();
+}
+
+.type-typeface-7 () {
+    .font-proxima-nova(1.1rem, 2rem);
+    letter-spacing: 0.5px;
+}
+
+.type-typeface-7-m () {
+    .type-typeface-7();
+}
+
+// Displays
+.type-display-1() {
+    .font-goudy-old-style(7rem, 7.7rem);
+    letter-spacing: 0.25px;
+}
+
+.type-display-1-m() {
+    .font-goudy-old-style(3.4rem, 3.6rem);
+    letter-spacing: 0;
+}
+
+.type-display-2() {
+    .font-goudy-old-style(4.6rem, 4.8rem);
+    letter-spacing: 0.25px;
+}
+
+.type-display-2-m() {
+    .font-goudy-old-style(3.4rem, 3.6rem);
+    letter-spacing: 0;
+}
+
+.type-display-3() {
+    .font-goudy-old-style(3rem, 3.4rem);
+    letter-spacing: 0;
+}
+
+.type-display-3-m() {
+    .font-goudy-old-style(3rem, 3.4rem);
+    letter-spacing: 0;
+}
+
+// Pricing Typography
+
+// Links
+.type-link-1 () {
+    .font-proxima-nova-medium(1.4rem, 1.6rem);
+    letter-spacing: 0.6px;
+    color: @link-type-1-color;
+    text-decoration: underline;
+    &:hover {
+        color: @link-type-1-color-hover;
+        text-decoration: none;
+    }
+}
+
+.type-link-2 () {
+    .font-proxima-nova-medium(1.2rem, 2.2rem);
+    letter-spacing: 0.5px;
+    color: @link-type-2-color;
+    text-decoration: underline;
+    &:hover {
+        color: @link-type-2-color-hover;
+        text-decoration: none;
+    }
+}
+
+.type-link-main-nav () {
+    .font-proxima-nova(1.4rem, 1.6rem);
+    letter-spacing: 2px;
+    color: @link-type-main-nav-color;
+    text-decoration: none;
+    &:hover {
+        color: @link-type-main-nav-color-hover;
+        border-bottom: @border-main-nav;
+        text-decoration: underline;
+    }
+}
+
+.type-link-label () {
+    .font-proxima-nova-medium(1.4rem, 1.2rem);
+    letter-spacing: 0.5px;
+    color: @link-type-label-color;
+    text-decoration: none;
+    &:hover {
+        color: @link-type-label-color-hover;
+        text-decoration: none;
+    }
+}
+
+//
+//  Common
+//  _____________________________________________
+
+// Font classes
+.font-proxima-nova {
+    .font-proxima-nova();
+}
+
+.font-proxima-nova-medium {
+    .font-proxima-nova-medium();
+}
+
+.font-proxima-nova-semibold {
+    .font-proxima-nova-semibold();
+}
+
+.font-goudy-old-style {
+    .font-goudy-old-style();
+}
+
+// Header Classes
+.type-heading-1 {
+    .type-h1();
+}
+
+.type-heading-2 {
+    .type-h2();
+}
+
+.type-heading-3 {
+    .type-h3();
+}
+
+.type-heading-4 {
+    .type-h4();
+}
+
+.type-heading-5 {
+    .type-h5();
+}
+
+.type-heading-6 {
+    .type-h6();
+}
+
+// Displays
+.display-1 {
+    .type-display-1();
+}
+
+.display-2 {
+    .type-display-2();
+}
+
+.display-3 {
+    .type-display-3();
+}
+
+.display-1-m {
+    .type-display-1-m();
+}
+
+.display-2-m {
+    .type-display-2-m();
+}
+
+.display-3-m {
+    .type-display-3-m();
+}
+
+// Pricing
+
+// Labels
+.typeface-1 {
+    .type-typeface-1();
+}
+
+.typeface-2 {
+    .type-typeface-2();
+}
+
+.typeface-3 {
+    .type-typeface-3();
+}
+
+.typeface-4 {
+    .type-typeface-4();
+}
+
+.typeface-5 {
+    .type-typeface-5();
+}
+
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    // Labels
+    .typeface-0 {
+        //.type-typeface-0-m();
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    // Labels
+    .typeface-0 {
+        //.type-typeface-0();
+    }
+}

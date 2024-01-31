@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_CompanyType
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order">
+        <column xsi:type="varchar" name="company_type" nullable="true" length="16" comment="Company Type"/>
+    </table>
+</schema>

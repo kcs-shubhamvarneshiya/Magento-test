@@ -1,0 +1,803 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Email extend styles
+//  _____________________________________________
+
+//  This file should be used for theme-specific styles for emails that extend or modify the styles in _email.less
+//  This will allow you to edit email styles without copying and editing the _email.less file
+
+//  Importing fonts from an external CSS file, rather than embedding @font-face declarations inside the <style> tag,
+//  as the latter will cause font rendering issues if the web fonts are inaccessible.
+
+//
+//  Variables
+//  _____________________________________________
+@color-black: #000000;
+@color-white: #ffffff;
+@color-blue: #0000ff;
+@color-grey-1: #d8d8d8;
+@color-grey-2: #c3ced4;
+@color-grey-3: #f1f1f1;
+@color-grey-4: #666666;
+@color-grey-5: #454545;
+@color-grey-6: #717171;
+@color-grey-7: #333333;
+@color-grey-8: #f8f8f8;
+
+@color-body-border: @color-grey-1;
+@color-box-border: @color-grey-2;
+@color-box-background: @color-grey-3;
+@color-button-background: @color-grey-7;
+@color-button-hover-background: @color-grey-5;
+
+@font-family-arial: 'Arial';
+@font-proxima-nova: 'proxima-nova', sans-serif;
+
+body {
+    font-family: @font-family-arial;
+
+    a,
+    p,
+    span {
+        font-family: @font-family-arial;
+        color: @color-grey-6;
+    }
+
+    a,
+    p {
+        font-family: @font-family-arial;
+        font-size: 13px;
+        font-weight: normal;
+
+        font-style: normal;
+        line-height: 1.69;
+        letter-spacing: 0.2px;
+        margin: 0;
+    }
+
+    a {
+        color: @color-grey-6;
+        text-decoration: underline;
+
+        &:visited {
+            color: @color-grey-6;
+        }
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    /*Main table*/
+
+    table.main {
+        width: 700px;
+    }
+}
+
+table {
+    .col.product {
+        span {
+            display: block;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+
+/*Header*/
+.header {
+    background: @color-white;
+    padding: 20px;
+    text-align: center;
+}
+
+/*Footer*/
+.footer {
+    background: @color-white;
+    padding: 20px;
+    text-align: center;
+
+    ul {
+        margin-bottom: 25px;
+        list-style-type: none;
+
+        li {
+            margin: 0;
+        }
+    }
+
+    .social-links {
+        li {
+            display: inline-block;
+            margin: 0 10px;
+
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .footer-links {
+        margin-bottom: 20px;
+
+        .copy {
+            color: @color-grey-6;
+            font-family: @font-family-arial;
+            font-size: 12px;
+            font-weight: normal;
+
+            font-style: normal;
+            line-height: 1.5;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            margin-right: 25px;
+        }
+
+        .copy,
+        .links {
+            display: inline-block;
+        }
+
+        ul {
+            margin-bottom: 0;
+
+            li {
+                display: inline-block;
+                margin: 0;
+
+                a {
+                    color: @color-grey-6;
+                    font-family: @font-family-arial;
+                    font-size: 12px;
+                    font-weight: normal;
+
+                    font-style: normal;
+                    line-height: 1.5;
+                    letter-spacing: 0.5px;
+                    text-decoration: none;
+                }
+            }
+        }
+
+        .seperator {
+            color: @color-body-border !important;
+            margin: 0 10px;
+        }
+    }
+}
+
+/*Main content*/
+.main-content {
+    padding: 0 20px;
+
+    .email-body {
+        border-top: 1px solid @color-body-border;
+        border-bottom: 1px solid @color-body-border;
+        min-height: 490px;
+        padding: 20px 0 60px;
+
+        .greeting {
+            color: @color-grey-5;
+            font-family: @font-family-arial;
+            font-size: 13px;
+            font-weight: bold;
+
+            font-style: normal;
+            line-height: 1.85;
+            letter-spacing: 0.2px;
+            margin: 0 0 15px;
+        }
+
+        .greeting-text {
+            margin-bottom: 20px;
+        }
+
+        .label {
+            color: @color-grey-5;
+            font-family: @font-family-arial;
+            font-size: 13px;
+            font-weight: bold;
+
+            font-style: normal;
+            line-height: 1.85;
+            letter-spacing: 0.2px;
+        }
+
+        ul {
+            color: @color-grey-6;
+            margin: 15px 0 20px;
+            padding-left: 15px;
+
+            li {
+                color: @color-grey-6;
+                margin: 0;
+            }
+        }
+
+        table.button {
+            margin: 0 0 20px;
+
+            td {
+                padding: 0;
+            }
+
+            .inner-wrapper {
+                max-width: 310px;
+                width: 100%;
+
+                td,
+                a {
+                    border-radius: 0;
+                }
+
+                td {
+                    background-color: @color-button-background;
+
+                    &:hover {
+                        background-color: @color-button-hover-background !important;
+                    }
+                }
+
+                a {
+                    border: none;
+                    box-sizing: border-box;
+                    color: @color-white;
+                    font-size: 12px;
+                    font-weight: normal;
+
+                    font-style: normal;
+                    line-height: 1.17;
+                    letter-spacing: 1.2px;
+                    padding: 17px 30px;
+                    text-align: center;
+                    text-transform: uppercase;
+                    width: 100%;
+                }
+            }
+        }
+
+        .email-order-details {
+            margin-bottom: 30px;
+
+            .order-details {
+                display: flex;
+                margin: 20px 0 30px;
+
+                .column {
+                    border: 1px solid @color-body-border;
+                    flex: 1;
+                    padding: 20px;
+                    width: 32%;
+
+                    &.address-details {
+                        margin-right: 2%;
+                    }
+
+                    .method-info {
+                        margin-bottom: 15px;
+
+                        dl,
+                        dt,
+                        dd {
+                            font-family: @font-family-arial;
+                            font-size: 13px;
+                            font-weight: normal;
+
+                            font-style: normal;
+                            line-height: 1.54;
+                            letter-spacing: 0.2px;
+                            color: @color-grey-6;
+                        }
+                    }
+                }
+
+                h3 {
+                    color: @color-grey-5;
+                    font-size: 13px;
+                    font-weight: bold;
+
+                    font-style: normal;
+                    line-height: 1.54;
+                    letter-spacing: 0.2px;
+                    margin: 0;
+                    text-transform: none;
+
+                    .Shipping-Method-Grou .text-style-1 {
+
+
+                    }
+                }
+            }
+        }
+
+        .email-summary {
+            td {
+                padding-bottom: 20px;
+            }
+        }
+
+        .order-info {
+            td {
+                padding-bottom: 30px;
+            }
+        }
+
+        .email-intro {
+            td {
+                padding: 0;
+            }
+
+            strong {
+                color: @color-grey-5;
+            }
+        }
+
+        .email-information {
+            padding: 0 15px;
+        }
+
+        .email-information {
+            .email-items {
+                border: 1px solid @color-body-border;
+
+                thead {
+                    th {
+                        color: @color-grey-5;
+                        font-family: @font-family-arial;
+                        font-size: 12px;
+                        font-weight: bold;
+
+                        font-style: normal;
+                        line-height: 1.83;
+                        letter-spacing: 0.2px;
+                        padding: 10px;
+                        text-transform: uppercase;
+                    }
+                }
+
+                tbody {
+                    tr {
+                        td {
+                            font-family: @font-family-arial;
+                            padding: 30px 10px;
+                        }
+                    }
+
+                    .product-name {
+                        color: @color-grey-5;
+                        font-family: @font-family-arial;
+                        font-size: 15px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.54;
+                        letter-spacing: 0.23px;
+                        margin: 0 0 20px;
+                    }
+
+                    .item-options {
+                        list-style-type: none;
+                        padding: 0;
+                    }
+
+                    .item-image img {
+                        max-width: 110px;
+                    }
+                }
+
+                tfoot {
+                    border-top: 1px solid @color-body-border;
+
+                    tr {
+                        th, td {
+                            background-color: @color-grey-8;
+                            color: @color-grey-6;
+                            font-family: @font-family-arial;
+                            font-size: 13px;
+                            font-weight: normal;
+
+                            font-style: normal;
+                            line-height: 1.85;
+                            letter-spacing: 0.16px;
+
+                            span {
+                                color: @color-grey-6;
+                                margin: 0;
+                            }
+
+                            strong,
+                            strong span {
+                                color: @color-grey-5;
+                                display: block;
+                                font-size: 15px;
+                                font-weight: bold;
+                                letter-spacing: 0.19px;
+                                margin-bottom: 20px;
+                            }
+                        }
+
+                        td {
+                            text-align: right;
+
+                            &.hidden {
+                                display: table-cell;
+                                visibility: visible;
+                            }
+                        }
+                    }
+
+                    tr.first-row {
+                        th, td {
+                            padding-top: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+/*Order Request*/
+#email-wrapper {
+    .mobile-ore-viewport {
+        display: none;
+    }
+
+    .order-comments {
+        margin-top: 15px;
+
+        .bolder {
+            font-size: 14px;
+            font-weight: 600;
+
+            font-style: normal;
+            line-height: 1.71;
+            letter-spacing: 0.25px;
+            color: @color-grey-5;
+        }
+
+        .comment {
+            font-family: @font-proxima-nova;
+            font-size: 14px;
+            font-weight: normal;
+
+            font-style: normal;
+            line-height: 1.71;
+            letter-spacing: 0.25px;
+            color: @color-grey-5;
+        }
+    }
+
+    .ore-leng-top {
+        padding-bottom: 40px;
+
+        .request-legend {
+            &.items {
+                width: 100%;
+
+                .legend-item-info {
+                    font-size: 14px;
+
+                    td {
+                        &.header {
+                            width: 33%;
+                            padding: 3px 0;
+                            font-family: @font-proxima-nova;
+                            font-size: 14px;
+                            font-weight: 600;
+
+                            font-style: normal;
+                            line-height: 1.71;
+                            letter-spacing: 0.25px;
+                            color: @color-grey-5;
+                            text-align: left;
+
+                            span {
+                                font-family: @font-proxima-nova;
+                                font-size: 14px;
+                                font-weight: 600;
+
+                                font-style: normal;
+                                line-height: 1.71;
+                                letter-spacing: 0.25px;
+                                color: @color-grey-5;
+                                text-align: left;
+                            }
+                        }
+
+                        &.col {
+                            padding: 3px 0;
+                            font-family: @font-proxima-nova;
+                            font-size: 14px;
+                            font-weight: normal;
+
+                            font-style: normal;
+                            line-height: 1.71;
+                            letter-spacing: 0.25px;
+                            color: @color-grey-5;
+
+                            span {
+                                font-family: @font-proxima-nova;
+                                font-size: 14px;
+                                font-weight: normal;
+
+                                font-style: normal;
+                                line-height: 1.71;
+                                letter-spacing: 0.25px;
+                                color: @color-grey-5;
+                            }
+
+                            &.email {
+                                a {
+                                    font-family: @font-proxima-nova;
+                                    font-size: 14px;
+                                    font-weight: normal;
+
+                                    font-style: normal;
+                                    line-height: 1.71;
+                                    letter-spacing: 0.25px;
+                                    color: @color-grey-5;
+                                    text-decoration: none;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .legend {
+                    &.item {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .request-legend {
+        .legend {
+            border-bottom: none;
+        }
+
+        &.items {
+            width: 100%;
+            border: none;
+            margin-bottom: 20px;
+
+            .legend-item-info {
+                td {
+                    border-top: none;
+                    padding: 1px 4px;
+
+                    &.header {
+                        font-family: @font-proxima-nova;
+                        font-size: 14px;
+                        font-weight: bolder;
+                        color: #333333;
+                        width: 30%;
+                    }
+                }
+            }
+        }
+    }
+
+    .request-to-order {
+        &.items {
+            min-width: 100%;
+            width: auto;
+            margin: 0;
+            padding: 0;
+            list-style: none none;
+
+            thead {
+                tr {
+                    border: 1px solid #d1d1d1;
+                    th {
+                        &.col {
+                            background-color: @color-grey-8;
+                            padding: 13px 21px;
+                            font-family: @font-proxima-nova;
+                            font-weight: bolder;
+                        }
+                    }
+                }
+
+                th {
+                    &.col {
+                        text-transform: uppercase;
+
+                        &.subtotal {
+                            text-align: right;
+                        }
+
+                        &.qty {
+                            text-align: center;
+                        }
+
+                        &.product,
+                        &.price,
+                        &.qty,
+                        &.subtotal {
+                            font-family: @font-proxima-nova;
+                            font-size: 12px;
+                            font-weight: 600;
+
+                            font-style: normal;
+                            line-height: 1.17;
+                            letter-spacing: 0.25px;
+                            color: @color-grey-5;
+                        }
+                    }
+                }
+            }
+
+            td {
+                &.col {
+                    padding: 21px;
+
+                    &.qty {
+                        text-align: center;
+                        font-family: @font-proxima-nova;
+                        font-size: 14px;
+                        font-weight: 500;
+
+                        font-style: normal;
+                        line-height: 1.57;
+                        letter-spacing: 0.25px;
+                        color: @color-grey-5;
+                    }
+
+                    &.subtotal {
+                        font-family: @font-proxima-nova;
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.71;
+                        letter-spacing: 0.25px;
+                        text-align: right;
+                        color: @color-grey-5;
+
+                        span {
+                            font-family: @font-proxima-nova;
+                            font-size: 14px;
+                            font-weight: normal;
+
+                            font-style: normal;
+                            line-height: 1.71;
+                            letter-spacing: 0.25px;
+                            text-align: right;
+                            color: @color-grey-5;
+                        }
+                    }
+
+                    &.price {
+                        font-family: @font-proxima-nova;
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.71;
+                        letter-spacing: 0.25px;
+                        color: @color-grey-5;
+                    }
+
+                    &.product {
+                        .product-image {
+                            padding: 20px 5px;
+                            box-sizing: border-box;
+                            background: @color-grey-8;
+                            margin: 21px;
+                        }
+                    }
+                }
+
+                a {
+                    &.item-remove {
+                        text-decoration: underline;
+                        font-weight: bold;
+                    }
+                }
+
+                .mob-prod-name {
+                    text-transform: uppercase;
+                    font-family: @font-proxima-nova;
+                    font-size: 12px;
+                    font-weight: 600;
+
+                    font-style: normal;
+                    line-height: 1.17;
+                    letter-spacing: 0.25px;
+                    color: @color-grey-5;
+                }
+
+                .input-text {
+                    &.qty {
+                        text-align: center;
+                        width: 54px;
+                    }
+                }
+
+                input[type="number"] {
+                    border: 1px solid @color-grey-5;
+                }
+
+                p {
+                    font-size: 12px;
+
+                    &.ore-item-number {
+                        font-family: @font-proxima-nova;
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.71;
+                        letter-spacing: 0.25px;
+                        color: @color-grey-5;
+                        margin-top: 22px;
+                        margin-bottom: 0;
+
+                        .item-num-label {
+                            font-family: @font-proxima-nova;
+                            font-size: 14px;
+                            font-weight: 600;
+
+                            font-style: normal;
+                            line-height: 1.71;
+                            letter-spacing: 0.25px;
+                            color: @color-grey-5;
+                        }
+                    }
+
+                    &.mob-p-available {
+                        font-family: @font-proxima-nova;
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.71;
+                        letter-spacing: 0.25px;
+                        color: @color-grey-5;
+                        margin-top: 0;
+
+                        .availability-label {
+                            font-family: @font-proxima-nova;
+                            font-size: 14px;
+                            font-weight: 600;
+
+                            font-style: normal;
+                            line-height: 1.71;
+                            letter-spacing: 0.25px;
+                            color: @color-grey-5;
+                        }
+                    }
+
+                    &.mob {
+                        font-size: 10px;
+                        text-transform: uppercase;
+                        color: #717171;
+                    }
+                }
+            }
+
+            .request {
+                >.item {
+                    border: 1px solid #d1d1d1;
+                    position: relative;
+                }
+            }
+
+            .item-info {
+                border: 1px solid #d1d1d1;
+            }
+        }
+    }
+}
+
+/*End of Order Request*/

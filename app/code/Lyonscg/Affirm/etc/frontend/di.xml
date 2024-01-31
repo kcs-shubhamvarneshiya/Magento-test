@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Astound\Affirm\Model\Checkout" type="Lyonscg\Affirm\Model\Checkout"/>
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="lyonscg_affirm_gateway_config_provider" xsi:type="object">Lyonscg\Affirm\Model\Ui\ConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

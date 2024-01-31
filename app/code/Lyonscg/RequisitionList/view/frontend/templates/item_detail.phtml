@@ -1,0 +1,56 @@
+<?php
+/**
+ * PDF Requisition List Template
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Mark Hodge <mark.hodge@capgemini.com>
+ * @copyright Copyright (c) 2019 Lyons Consulting Group (www.lyonscg.com)
+ */
+/** @var \Lyonscg\RequisitionList\Block\Requisition\Pdf\Item $block */
+
+$params = $this->getRequest()->getParams();
+$pdf_pricing = (!empty($params['pdf_pricing'])) ? $params['pdf_pricing'] : '';
+$item = $block->getItem();
+$sku = $block->getChildBlock('requisition.list.item.view.sku')->setItem($item)->toHtml();
+?>
+
+<table class="quote-table detailed-view">
+    <tr>
+        <td width="40%">
+            <div class="font20"><?= $block->escapeHtml($block->getRequisitionListProduct()->getName()) ?></div>
+            <div class="font-bold font-uppercase font14">Designer: <?= $block->getRequisitionListProduct()->getAttributeText('designer') ?></div>
+            <br/>
+            <?php if ($pdf_pricing != 'none') : ?>
+                <div class="quote-price">
+                    <?php if ($pdf_pricing == 'retail' || $pdf_pricing == 'both') : ?>
+                        <div class="retail-price">
+                            <div class="font14 font-bold">Retail</div>
+                            <div class="font20"><?= $block->formatProductPrice($block->getRequisitionListProduct()->getPrice()) ?></div>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($pdf_pricing == 'trade' || $pdf_pricing == 'both') : ?>
+                        <div  class="trade-price">
+                            <div class="font14 font-bold">Trade</div>
+                            <div class="font20"><?= $block->getFormattedPrice() ?></div>
+                        </div>
+                    <?php endif; ?>
+                    <br/>
+                </div>
+            <?php endif; ?>
+
+            <div class="sku font16">Item: <?= $block->escapeHtmlAttr($sku) ?></div>
+            <div class="item-options">
+                <?php $block->getChildBlock('requisition.list.item.options')->setItem($item)->setTemplate('Lyonscg_RequisitionList::pdf/options_list_detail_view.phtml'); ?>
+                <?= $block->getChildHtml('requisition.list.item.options', false) ?>
+            </div>
+            <br/>
+
+            <div class="font14"><span class="font-bold font-uppercase">Quantity:</span> <?= (float)($item->getQty() * 1) ?></div>
+            <div class="font14"><span class="font-bold font-uppercase">Sidemark:</span> <?= $block->escapeHtml($item->getExtensionAttributes()->getSidemark()) ?></div>
+            <div class="font14"><span class="font-bold font-uppercase">Comments:</span> <?= $block->escapeHtml($item->getExtensionAttributes()->getCommentsLineItem()) ?></div>
+        </td>
+
+        <td class="pdf-item-image" rowspan="2" width="60%" valign="top"><img src="<?= $block->escapeUrl($block->getImageUrl('product_page_main_image')) ?>"></td>
+    </tr>
+</table>

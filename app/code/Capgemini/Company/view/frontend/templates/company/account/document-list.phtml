@@ -1,0 +1,39 @@
+<?php
+/** @var $block \Capgemini\Company\Block\Company\Account\DocumentList */
+$documentsData = $block->getDocumentsData();
+?>
+<div class="documents-wrapper">
+    <div id="upload-<?= $block->escapeHtmlAttr($block->getDocumentType()) ?>" class="admin__field"
+         data-bind="scope:'<?= $block->escapeHtmlAttr($block->getDataScope()) ?>'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+<?php /*
+    <?php if (!empty($documentsData)): ?>
+</div>
+<div class="document-attach">
+    <div class="documents-count">
+        <span><?= __('Documents added (%1)', count($documentsData)) ?></span>
+    </div>
+    <?php if (!empty($documentsData)): ?>
+        <ul class="documents-list" id="company-documents-<?= $block->escapeHtmlAttr($block->getDocumentType()) ?>">
+            <?php foreach ($documentsData as $documentData): ?>
+                <li class="company-document">
+                    <a class="item-link" href="<?= $documentData['link'] ?>" title="<?= $block->escapeHtmlAttr($documentData['name']) ?>">
+                        <span><?= $block->escapeHtml($documentData['name']) ?></span>
+                    </a>
+                    <a class="remove-link" href="<?= $documentData['remove_link'] ?>" title="<?= $block->escapeHtmlAttr(__('Remove %1', $documentData['name'])) ?>">
+                        <span><?= __('Remove') ?></span>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+ */ ?>
+</div>
+<script type="text/x-magento-init">
+{
+    "#upload-<?= $block->escapeHtmlAttr($block->getDocumentType()) ?>": {
+        "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+    }
+}
+</script>

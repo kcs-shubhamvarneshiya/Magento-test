@@ -1,0 +1,17 @@
+<table class="options">
+    <!-- ko if: (hasSpecifications)-->
+    <thead>
+    <tr>
+        <th data-bind="i18n: 'Placeholder Heading'"></th>
+    </tr>
+    </thead>
+    <tbody data-bind="foreach: {data: getSpecifications(), as: 'specs'}">
+    <tr>
+        <td class="label"><span data-bind="i18n: specs.label"></span></td>
+        <td class="label"><span data-bind="text: specs.value"></span></td>
+    </tr>
+    </tbody>
+    <!-- /ko -->
+    <!-- ko ifnot: (hasSpecifications) -->
+    <!-- /ko -->
+</table>

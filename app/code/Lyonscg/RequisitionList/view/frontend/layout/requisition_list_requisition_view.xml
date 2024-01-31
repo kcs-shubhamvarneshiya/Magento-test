@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_RequisitionList
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Tetiana Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="requisition.list.title" template="Magento_RequisitionList::requisition/view/items/details.phtml">
+            <arguments>
+                <argument name="viewExtraDataModel" xsi:type="object">Lyonscg\RequisitionList\ViewModel\ExtraData</argument>
+            </arguments>
+            <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.list.edit"
+                   template="Magento_RequisitionList::requisition/view/items/edit.phtml" cacheable="false">
+                <arguments>
+                    <argument name="viewExtraDataModel" xsi:type="object">Lyonscg\RequisitionList\ViewModel\ExtraData</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.list.pdf" after="requisition.items.buttons"
+                   template="Magento_RequisitionList::requisition/view/items/to_pdf.phtml" cacheable="false">
+                <arguments>
+                    <argument name="viewRequisitionTotalModel" xsi:type="object">Lyonscg\RequisitionList\ViewModel\RequisitionListTotal</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="requisition.list.item.view">
+            <block class="Lyonscg\RequisitionList\Block\Requisition\Item\Sku" name="requisition.list.item.view.sku"/>
+        </referenceBlock>
+    </body>
+</page>

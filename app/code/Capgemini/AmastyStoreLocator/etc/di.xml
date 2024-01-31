@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Amasty\Storelocator\Model\ResourceModel\Location\Collection">
+        <plugin name="location_type_filter"
+                type="Capgemini\AmastyStoreLocator\Plugin\LocationCollectionPlugin"/>
+    </type>
+</config>

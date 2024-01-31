@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <company>
+            <brand_mapping_purchase_limit>
+                <restricted_product_cart_message>Please remove restricted products from your cart.</restricted_product_cart_message>
+            </brand_mapping_purchase_limit>
+        </company>
+    </default>
+</config>

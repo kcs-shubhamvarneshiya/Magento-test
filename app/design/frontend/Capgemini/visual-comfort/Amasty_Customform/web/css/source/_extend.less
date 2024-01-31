@@ -1,0 +1,167 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Variables
+//  _____________________________________________
+
+@amcform__color__primary: @color-gray-800;
+@amcform__focus__color__primary: @color-gray-800;
+
+@amcform-button__background: @amcform__color__primary;
+@amcform-button__hover__background: @color-gray-700;
+@amcform-button__pressed__background: @color-gray-700;
+@amcform-button__disable__background: @color-gray-400;
+
+
+//
+//  Common
+//  _____________________________________________
+
+
+& when (@media-common = true) {
+    .amform-parent,
+    .amform-form {
+        .action.primary,
+        .amshopby-button,
+        .am-filter-go {
+            padding: 0;
+        }
+    }
+
+    .form-group {
+        .description {
+            font-size: 1.6rem;
+            margin-bottom: 25px;
+        }
+    }
+
+    .fb-select select {
+        background: @form-select-bg-image;
+        border: @form-input-border;
+        border-radius: 0;
+        overflow: hidden;
+        width: @form-input-max-width;
+        box-shadow: none;
+        color: @form-color-text;
+        height: @form-input-height;
+        padding: 5px 15px 1px;
+        -webkit-appearance: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .default.amform-form .fields {
+        .amform-layout-two,
+        .amform-layout-one {
+            &.field {
+                margin-right: inherit;
+            }
+        }
+    }
+
+    .contact-index-index {
+        .breadcrumbs {
+            display: none;
+        }
+
+        .page-title-wrapper {
+            padding-top: 30px;
+            text-align: left;
+
+            .page-title {
+                text-align: left;
+                margin-bottom: 1rem;
+            }
+        }
+
+        .mobile-image {
+            img {
+                display: flex;
+                width: 100%;
+            }
+        }
+
+        .amform-form,
+        .amform-parent {
+            .fields {
+                .field {
+                    label {
+                        font-family: @font-proxima-nova;
+                        font-size: 1.4rem;
+                        line-height: 1.4rem;
+                        text-transform: capitalize;
+                        color: @color-gray-800;
+                    }
+                }
+            }
+
+            .amform-form-fieldset {
+                .insert-container {
+                    .amcform-multi-page {
+                        .amcform-page-wrap {
+                            .field-firstname {
+                                margin-right: 23px;
+                            }
+
+                            .amcform-toolbar {
+                                text-align: left;
+
+                                .action.primary {
+                                    padding: @button-primary__padding;
+                                    width: 260px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+@media screen and (max-width: @screen__m) {
+    .form-group {
+        .description {
+            font-size:1.4rem;
+            margin-bottom:25px;
+        }
+    }
+
+    .contact-index-index {
+        .amform-form {
+            .amcform-multi-page {
+                .amcform-page-wrap {
+                    .amform-layout-two {
+                        max-width: 100% !important;
+                        margin-right: 0;
+                    }
+
+                    .amcform-toolbar {
+                        .action.primary {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+@media screen and (min-width: @screen__l) {
+    .contact-index-index {
+        .mobile-image {
+            display: none !important;
+        }
+    }
+}

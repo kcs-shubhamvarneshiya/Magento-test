@@ -1,0 +1,119 @@
+<script>
+    require([
+        'jquery',
+        'underscore',
+        'domReady!',
+        'owlcarousel'
+    ], function ($, _) {
+        'use strict';
+
+        const productName = $('.page-title-wrapper.product'),
+            designerName = $('.product.attribute.designer'),
+            afterTitleBlock = $('.product-after-title'),
+            priceAndSku = $('.product-info-price'),
+            priceAndSkuClone = priceAndSku.clone(),
+            shortDescription = $('.product.attribute.short-description'),
+            desktopContainer = $('.product-info-main'),
+            mobileContainer = $('.column.main');
+
+        //Move product name and designer on top of gallery
+        function moveElements()
+        {
+            const domWidth = $(window).width();
+
+            if (domWidth < 768) {
+                priceAndSku.prependTo(mobileContainer);
+                afterTitleBlock.prependTo(mobileContainer);
+                productName.prependTo(mobileContainer);
+                designerName.prependTo(mobileContainer);
+            } else {
+                shortDescription.prependTo(desktopContainer);
+                priceAndSku.prependTo(desktopContainer);
+                afterTitleBlock.prependTo(desktopContainer);
+                productName.prependTo(desktopContainer);
+                designerName.prependTo(desktopContainer);
+            }
+
+            if ($('.product-add-form .product-options-bottom .product-info-price').length < 1) {
+                priceAndSkuClone.insertBefore($('.product-add-form .product-options-bottom .box-tocart'));
+            }
+        }
+
+        if ($('.catalog-product-view').length) {
+            moveElements();
+
+            //Emulate olapic slider navigation buttons click
+            if ($('.media .olapic-wrapper').length) {
+                var olapicWrapperSelector = $('.media .olapic-wrapper');
+
+                olapicWrapperSelector.on('click', '.olapic-btn-next', function () {
+                    var btn = $(this).closest('.olapic-wrapper').find('.olapic-nav-next');
+                    btn[0].click();
+                });
+
+                olapicWrapperSelector.on('click', '.olapic-btn-prev', function () {
+                    var btn = $(this).closest('.olapic-wrapper').find('.olapic-nav-prev');
+                    btn[0].click();
+                });
+            }
+        }
+
+        $(window).on('resize', _.debounce(function(e) {
+            if ($('.catalog-product-view').length) {
+                moveElements();
+            }
+        }, 100));
+
+        $('.stock.available').on('change', function() {
+            $(this).html()
+        });
+
+        /**
+         * Init variations carousel on PDP
+         */
+        if ($('.catalog-product-view').length && $('.product-info-main .variation-carousel').length) {
+            var carouselContainer = $('.product-info-main .variation-carousel'),
+                itemsToDisplayDesktop = 4,
+                itemsToDisplayMobile = 3;
+
+            carouselContainer.owlCarousel({
+                nav: true,
+                autoPlay: false,
+                mouseDrag: false,
+                dots: false,
+                onInitialized: pdpCarouselInitialized,
+                onResized: pdpCarouselInitialized,
+                responsive: {
+                    // breakpoint from 0 up
+                    0: {
+                        items: itemsToDisplayMobile,
+                        margin: 6
+                    },
+                    // breakpoint from 768 up
+                    768: {
+                        items: itemsToDisplayDesktop,
+                        margin: 10
+                    }
+                }
+            });
+        }
+
+        /**
+         * Actions on initialized pdp carousel
+         */
+        function pdpCarouselInitialized(event)
+        {
+            var items = event.item.count;
+            var size = event.page.size;
+
+            /*Add class on parent cintainer if has navigation rendered*/
+            if (items > size) {
+                $('.product-info-main .product-item-variation-carousel-wrapper').addClass('hasNav');
+            } else {
+                $('.product-info-main .product-item-variation-carousel-wrapper').removeClass('hasNav');
+            }
+
+            window.dispatchEvent(new Event('resize'));
+        }
+    });
+</script>

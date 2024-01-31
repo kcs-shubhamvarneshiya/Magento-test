@@ -1,0 +1,243 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+//use Capgemini\BloomreachThematic\Model\TechnicalProduct;
+//use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+
+<?php
+    $_productCollection = $block->getLoadedProductCollection();
+    //echo count($_productCollection);
+    //exit('hello');
+?>
+
+<?php
+//category list - platform code ends here
+    $current_category = $this->frameworkRegistry->registry('current_category');    
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+?>
+<div class="products-grid custom-products">
+    <div class="products-sep"></div>
+    <div class="products list items product-items">
+        <div class="item product product-item product-promotion">
+            <div class="promotion-content">
+                <a href="javascript:void(0);" class="product photo product-item-photo">
+                    <img src="<?= $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" width="381" height="511" />
+                </a>
+            </div>
+        </div>
+        <?php 
+            foreach ($_productCollection as $item) {
+        ?>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="<?= $item->getProductUrl(); ?>" class="product photo product-item-photo">
+                    <?php 
+                   // $_imgUrl = ($item->getThumbnailImage()) ?  $item->getThumbnailImage() : $image;
+                    ?>
+                        <img src="<?=  $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') ?>" width="240" height="300" />
+                    </a>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="<?= $item->getProductUrl(); ?>">                                
+                                <?= $item->getName(); ?>
+                            </a>
+                        </div>
+
+
+                        <div class="product-attribute-head">Specifications</div>
+
+                        <?php 
+                                $deliveredLumens = [];
+                                if(is_array($item->getAttributeText('maximum_delivered_lumens_arch_filter'))){
+                                    $values = $item->getAttributeText('maximum_delivered_lumens_arch_filter');
+                                    foreach($values  as $value){
+                                        $deliveredLumens[] = $value;
+                                    }
+                                  
+                                } else {
+                                    if(!empty($item->getAttributeText('maximum_delivered_lumens_arch_filter'))){
+                                    $deliveredLumens[] = $item->getAttributeText('maximum_delivered_lumens_arch_filter');
+                                    }
+                                }
+                                $deliveredString  = implode(", ", $deliveredLumens); 
+                                if(!empty($deliveredString)){
+                                ?>
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Delivered Lumens:</span>
+                                
+                                <li><?php echo $deliveredString;?></li>
+                            </ul>
+                        </div>
+                        <?php } ?>
+
+
+                                <?php 
+                                $bining = [];
+                                if(is_array($item->getAttributeText('color_consistency_sdcm_binning_arch_filter'))){
+                                    $values = $item->getAttributeText('color_consistency_sdcm_binning_arch_filter');
+                                    foreach($values  as $value){
+                                        if(!empty($value)){
+                                            $bining[] = $value;
+                                        }
+                                       
+                                    }
+                                  
+                                } else {
+                                    if(!empty($item->getAttributeText('color_consistency_sdcm_binning_arch_filter'))){
+                                        $bining[] = $item->getAttributeText('color_consistency_sdcm_binning_arch_filter');
+                                    }
+                                    
+                                }
+                                $biningStrng  = implode(", ", $bining);  
+                                if(!empty($biningStrng)){
+                                ?>
+
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Binning:</span>
+                                
+                                <li><?php echo $biningStrng; ?></li>
+                            </ul>
+                        </div>
+                        <?php } ?>
+
+                        <?php  
+                                $beamSpread = [];
+                                if(is_array($item->getAttributeText('beam_spread_arch_option'))){
+                                    $values = $item->getAttributeText('beam_spread_arch_option');
+                                    foreach($values  as $value){
+                                        if(!empty($value)){
+                                        $beamSpread[] = $value;
+                                        }
+                                    }
+                                  
+                                } else {
+                                    if(!empty($item->getAttributeText('beam_spread_arch_option'))){
+                                        $beamSpread[] = $item->getAttributeText('beam_spread_arch_option');
+                                    }
+                                }
+                                $beamString  = implode(", ", $beamSpread); 
+                                if(!empty($beamString)){
+                                ?>
+
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Beam Spread:</span>
+                                
+                                <li><?php echo $beamString; ?></li>
+                            </ul>
+                        </div>
+                        <?php } ?>
+
+                            <?php 
+                                 $housing = [];
+                                if(is_array($item->getAttributeText('housing_type_arch_filter'))){
+                                    $values = $item->getAttributeText('housing_type_arch_filter');
+                                    foreach($values  as $value){
+                                        if(!empty($value)){
+                                        $housing[] = $value;
+                                        }
+                                    }
+                                  
+                                } else {
+                                    if(!empty($item->getAttributeText('housing_type_arch_filter'))){
+                                        $housing[] = $item->getAttributeText('housing_type_arch_filter');
+                                    }
+                                }
+                                $housingString  = implode(", ", $housing); 
+                                if(!empty($housingString)){
+                                ?>
+
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Housings:</span>
+                                
+
+                                <li><?php echo $housingString; ?></li>
+                            </ul>
+                        </div>
+                        <?php } ?>
+
+                                <?php 
+                                $dimming = [];
+                                if(is_array($item->getAttributeText('dimming_type_arch_filter'))){
+                                    $values = $item->getAttributeText('dimming_type_arch_filter');
+                                    foreach($values  as $value){
+                                        if(!empty($value)){
+                                        $dimming[] = $value;
+                                        }
+                                    }
+                                  
+                                } else {
+                                    if(!empty($item->getAttributeText('dimming_type_arch_filter'))){
+                                     $dimming[] = $item->getAttributeText('dimming_type_arch_filter');
+                                    }
+                                }
+                                $dimmingString  = implode(", ", $dimming); 
+                                if(!empty($dimmingString)){
+                                ?>
+
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Dimming:</span>
+                                
+
+                                <li><?php echo $dimmingString; ?></li>
+                            </ul>
+                        </div>
+                        <?php } ?>
+
+
+                        <?php 
+                                $ratingCertification = [];
+                                if(is_array($item->getAttributeText('rating_certification_arch_filter'))){
+                                    $values = $item->getAttributeText('rating_certification_arch_filter');
+                                    foreach($values  as $value){
+                                        if(!empty($value)){
+                                        $ratingCertification[] = $value;
+                                        }
+                                    }
+                                  
+                                } else {
+                                    if(!empty($item->getAttributeText('rating_certification_arch_filter'))){
+                                    $ratingCertification[] = $item->getAttributeText('rating_certification_arch_filter');
+                                    }
+                                }
+                                $ratingString  = implode(", ", $ratingCertification); 
+                                if(!empty($ratingString)){
+                                ?>
+
+                        <div class="spec-inline">
+                            <ul class="product-attribute-list">
+                                <span>Ratings/Certification:</span>
+                                
+                                <li><?php echo $ratingString; ?></li>
+                            </ul>
+                        </div>
+                        <?php } ?>
+
+                    </div>
+                </div>
+            </div>
+        <?php 
+            }
+        ?>
+    </div>
+</div>

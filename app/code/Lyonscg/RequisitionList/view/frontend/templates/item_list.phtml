@@ -1,0 +1,117 @@
+<?php
+/**
+ * PDF Requisition List Template
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Mark Hodge <mark.hodge@capgemini.com>
+ * @copyright Copyright (c) 2019 Lyons Consulting Group (www.lyonscg.com)
+ */
+/** @var \Lyonscg\RequisitionList\Block\Requisition\Pdf\Item $block */
+
+$params = $this->getRequest()->getParams();
+$pdf_pricing = (!empty($params['pdf_pricing'])) ? $params['pdf_pricing'] : '';
+$item = $block->getItem();
+$sku = $block->getChildBlock('requisition.list.item.view.sku')->setItem($item)->toHtml();
+?>
+
+<td class="item-data itemnum">
+    <div class="pdf-data">
+        <?= $block->escapeHtmlAttr($sku) ?>
+    </div>
+
+    <img class="item-image" src="<?= $block->escapeUrl($block->getImageUrl()) ?>">
+</td>
+
+<td class="item-data">
+    <?php if ($block->getRequisitionListProduct()) : ?>
+        <div class="product-info">
+            <span class="product-name pdf-data">
+                <?= $block->escapeHtml($block->getRequisitionListProduct()->getName()) ?>
+            </span>
+            <span class="pdf-data">
+                <?php $block->getChildBlock('requisition.list.item.options')->setItem($item); ?>
+            </span>
+            <span class="pdf-data">
+                <?= $block->getChildHtml('requisition.list.item.options', false) ?>
+            </span>
+        </div>
+        <div class="comments">
+            <div class="sidemark pdf-data"><span class="bold-content">Sidemark:</span> <?= $block->escapeHtml($item->getExtensionAttributes()->getSidemark()) ?></div>
+            <div class="comment pdf-data"><span class="bold-content">Comments:</span> <?= $block->escapeHtml($item->getExtensionAttributes()->getCommentsLineItem()) ?></div>
+        </div>
+    <?php endif; ?>
+</td>
+
+<?php if ($pdf_pricing != 'none') : ?>
+    <td class="item-data">
+        <?php if ($pdf_pricing == 'retail' || $pdf_pricing == 'both') : ?>
+            <div class="retail-price pdf-data <?php echo($pdf_pricing == 'both') ? 'data-fade' : ''?>">
+                <span class="price-label">Retail:</span>
+                <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+                    <?= /* @noEscape */
+                    $block->formatProductPrice($block->getRequisitionListProduct()->getPrice()) ?>
+                <?php endif ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($pdf_pricing == 'trade' || $pdf_pricing == 'both') : ?>
+            <div class="trade-price pdf-data">
+                <span class="price-label">Trade:</span>
+                <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+                    <?= /* @noEscape */
+                    $block->getFormattedPrice() ?>
+                    <?php if ($block->displayBothPrices()) : ?>
+                        <span class="price-excluding-tax"
+                              data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                                            <?= /* @noEscape */
+                                            $block->getFormattedPriceExcludingTax() ?>
+                                        </span>
+                    <?php endif; ?>
+                <?php endif ?>
+            </div>
+        <?php endif; ?>
+    </td>
+<?php endif; ?>
+
+<td class="item-data qty">
+    <span class="pdf-data"><?= (float)($item->getQty() * 1) ?></span>
+</td>
+
+<?php if ($pdf_pricing != 'none') : ?>
+    <td class="item-data">
+        <?php if ($pdf_pricing == 'retail' || $pdf_pricing == 'both'): ?>
+            <div class="retail-price pdf-data <?php echo($pdf_pricing == 'both') ? 'data-fade' : ''?>">
+                <span class="price-label">Retail:</span>
+                <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+                    <?= /* @noEscape */
+                    $block->getFormattedRetailSubtotal() ?>
+                    <?php if ($block->displayBothPrices()) : ?>
+                        <span class="price-excluding-tax"
+                              data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                                    <?= /* @noEscape */
+                                    $block->getFormattedRetailSubtotalExcludingTax() ?>
+                                </span>
+                    <?php endif; ?>
+                <?php endif ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($pdf_pricing == 'trade' || $pdf_pricing == 'both') : ?>
+            <div class="trade-price pdf-data">
+                <span class="price-label">Trade:</span>
+                <?php if (!$block->isOptionsUpdated() && $block->getRequisitionListProduct()) : ?>
+                    <?= /* @noEscape */
+                    $block->getFormattedSubtotal() ?>
+                    <?php if ($block->displayBothPrices()) : ?>
+                        <span class="price-excluding-tax"
+                              data-label="<?= $block->escapeHtmlAttr(__('Excl. Tax')) ?>">
+                                    <?= /* @noEscape */
+                                    $block->getFormattedSubtotalExcludingTax() ?>
+                                </span>
+                    <?php endif; ?>
+                <?php endif ?>
+            </div>
+        <?php endif; ?>
+    </td>
+<?php endif; ?>

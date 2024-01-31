@@ -1,0 +1,10 @@
+<?php
+/* @var $block \Magento\Catalog\Block\Product\View\Description */
+$product = $block->getProduct();
+$relatives = $product->getData('relatives');
+?>
+<?php if($relatives && $block->getRelativeCount()>0): ?>
+<div class="collection-link" data-label-id="additional-collection">
+    <a href="#tab-content"><?= "View the $relatives series" ?></a>
+</div>
+<?php endif; ?>

@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_ShipWhenReady
+ *
+ * @category  Capgemini
+ * @author    Oleksander Tolkach <oleksander.tolkach@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <ship_when_ready>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Capgemini\ShipWhenReady\Model\Carrier</model>
+                <name>Fixed</name>
+                <price>5.00</price>
+                <title>Ship When Ready</title>
+                <type>I</type>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.
+                </specificerrmsg>
+                <handling_type>F</handling_type>
+            </ship_when_ready>
+        </carriers>
+    </default>
+</config>

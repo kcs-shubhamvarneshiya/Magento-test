@@ -1,0 +1,69 @@
+//  Theme file should contain declarations (overrides) ONLY OF EXISTING variables
+//  Otherwise this theme won't be available for parent nesting
+//  All new variables should be placed in local theme lib or local theme files
+
+//@media-common: true; // Sets whether to output common styles (true|false)
+
+@import 'styleguide/variables/_colors';
+@import 'styleguide/variables/_typography';
+@import 'styleguide/variables/_buttons';
+@import 'styleguide/variables/_forms';
+@import 'styleguide/variables/_borders';
+@import 'styleguide/variables/_icons';
+@import 'styleguide/variables/_zindex';
+
+//
+// Styleguide imports
+//
+@import 'styleguide/components/_colors';
+@import 'styleguide/components/_typography';
+@import 'styleguide/components/_base_elements';
+@import 'styleguide/components/_buttons';
+@import 'styleguide/components/_forms';
+@import 'styleguide/components/_secondary_elements';
+@import 'styleguide/components/_icons';
+@import 'styleguide/components/_layout';
+@import 'styleguide/components/_modal';
+@import 'styleguide/components/_messages';
+
+// Moved from theme.less
+@import '_misc';
+
+//
+//  Setting variables
+//  ---------------------------------------------
+@import 'variables/_buttons_extend';
+@import 'variables/_forms_extend';
+@import 'variables/_breadcrumbs_extend';
+@import 'variables/_messages_extend';
+
+//
+//  Component styles
+//  ---------------------------------------------
+@import 'components/_breadcrumbs';
+@import 'components/_carousels';
+
+//
+// Components
+//
+@import 'components/_header';
+@import 'components/_footer';
+
+//
+//  Common page styles
+//  ---------------------------------------------
+@import 'pages/_pages';
+@import 'pages/_sliders';
+
+//
+//  Page specific styles
+//  ---------------------------------------------
+@import 'pages/_homepage';
+@import 'pages/_checkout';
+@import 'pages/_orderview';
+@import 'pages/_tech-lighting';
+
+//
+// Child themes styles
+//  ---------------------------------------------
+@import '_extend-child';

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\ImportExport\Model\Export\Adapter\Csv" type="Capgemini\ImportExport\Model\Export\Adapter\Csv"/>
+
+    <virtualType name="ImportExportLoggerHandler" type="Magento\Framework\Logger\Handler\Base">
+        <arguments>
+            <argument name="fileName" xsi:type="string">var/log/lyonscg/import.log</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ImportExportLogger" type="Magento\Framework\Logger\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">ImportExportLoggerHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\CatalogImportExport\Model\Import\Product">
+        <plugin name="product_import_parse_multiselect_option_plugin"
+                type="Capgemini\ImportExport\Plugin\ParseMultiselectOptionsPlugin" sortOrder="10"/>
+    </type>
+    <preference for="Magento\CatalogImportExport\Model\Import\Product" type="Capgemini\ImportExport\Model\Import\Product"/>
+    <preference for="Dotdigitalgroup\Email\Model\Product\Bunch" type="Capgemini\ImportExport\Model\Product\Bunch"/>
+    <type name="Magento\CatalogImportExport\Model\Import\Product\Type\AbstractType">
+        <plugin name="product_abstract_type_plugin"
+                type="Capgemini\ImportExport\Plugin\AbstractTypePlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\ImportExport\Model\ResourceModel\Import\Data">
+        <plugin name="product_import_bunch_plugin"
+                type="Capgemini\ImportExport\Plugin\ImportBunchPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\CatalogImportExport\Model\Import\Product\Validator">
+        <plugin name="product_validator_plugin"
+                type="Capgemini\ImportExport\Plugin\ValidatorPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\ImportExport\Model\Import">
+        <plugin name="import_model_plugin"
+                type="Capgemini\ImportExport\Plugin\ImportModelPlugin" sortOrder="10"/>
+    </type>
+    <preference for="Magento\CatalogImportExport\Model\Import\Uploader" type="Capgemini\ImportExport\Model\Import\Uploader"/>
+
+    <type name="Capgemini\ImportExport\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Magento\CatalogUrlRewrite\Observer\ProductProcessUrlRewriteSavingObserver">
+        <plugin name="capgemini_importexport_url_rewrites_check_regenerate" type="Capgemini\ImportExport\Plugin\UrlRewrite"/>
+    </type>
+
+    <type name="Capgemini\ImportExport\Model\Import\Product">
+        <arguments>
+            <argument name="logger" xsi:type="object">ImportExportLogger</argument>
+        </arguments>
+    </type>
+    <type name="Capgemini\ImportExport\Model\Import\Uploader\Product">
+        <arguments>
+            <argument name="logger" xsi:type="object">ImportExportLogger</argument>
+        </arguments>
+    </type>
+    <type name="Capgemini\ImportExport\Plugin\ProductRepositorySave">
+        <arguments>
+            <argument name="logger" xsi:type="object">ImportExportLogger</argument>
+        </arguments>
+    </type>
+</config>

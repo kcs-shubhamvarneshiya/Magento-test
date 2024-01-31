@@ -1,0 +1,97 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Variables
+//  _____________________________________________
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    #add-to-cart-success-message {
+        display: none;
+        margin: -20px 0 25px 0;
+
+        a {
+            text-decoration: underline;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .catalog-product-view {
+        .page-wrapper {
+            .page-main {
+                .product-info-main {
+                    .product-add-form {
+                        #add-to-cart-success-message {
+                            margin-top: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+// more from the series section 
+
+@color_1: #333333;
+@font_family_1: 'visual-comfort-icons';
+
+.title.active {
+	.related-products-title {
+		&:after {
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			font-size: 15px;
+			line-height: 30px;
+			color: @color_1;
+			content: "\e95d";
+			font-family: @font_family_1;
+			vertical-align: middle;
+			display: inline-block;
+			font-weight: normal;
+			overflow: hidden;
+			speak: none;
+			text-align: center;
+		}
+	}
+}
+.additional_block.additional-collection {
+	.block-title {
+		flex-direction: unset;
+		align-items: center;
+	}
+}
+.related-products-title {
+	width: 100%;
+}
+.title {
+	.related-products-title {
+		&:after {
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+			font-size: 15px;
+			line-height: 30px;
+			color: @color_1;
+			content: "\e95e";
+			font-family: @font_family_1;
+			vertical-align: middle;
+			display: inline-block;
+			font-weight: normal;
+			overflow: hidden;
+			speak: none;
+			text-align: center;
+			float: right;
+		}
+	}
+}
+.additional_block.related-products{
+	padding: 0;
+}

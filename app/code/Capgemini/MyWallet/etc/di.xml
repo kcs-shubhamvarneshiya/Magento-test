@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Capgemini\MyWallet\Api\Data\WalletInterface" type="Capgemini\MyWallet\Model\Wallet" />
+    <preference for="Capgemini\MyWallet\Api\Data\WalletSearchResultsInterface" type="Magento\Framework\Api\SearchResults" />
+    <preference for="Capgemini\MyWallet\Api\WalletRepositoryInterface" type="Capgemini\MyWallet\Model\WalletRepository" />
+
+    <type name="Capgemini\MyWallet\Model\Wallet">
+        <arguments>
+            <argument name="resource" xsi:type="object">\Capgemini\MyWallet\Model\ResourceModel\Wallet</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Model\CompositeConfigProvider">
+        <arguments>
+            <argument name="configProviders" xsi:type="array">
+                <item name="checkout_config_credit_cards" xsi:type="object">Capgemini\MyWallet\Model\CreditCardsConfigProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

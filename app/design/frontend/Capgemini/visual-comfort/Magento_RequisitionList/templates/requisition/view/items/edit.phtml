@@ -1,0 +1,27 @@
+<?php
+/**
+ * Lyonscg_RequisitionList
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Tetiana Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var \Magento\RequisitionList\Api\Data\RequisitionListInterface $requisitionList */
+$requisitionList = $block->getRequisitionList();
+?>
+<div data-bind="scope: 'requisition.action.edit.rename'">
+    <button type="button"
+            title="<?= $block->escapeHtmlAttr(__('Rename')) ?>"
+            class="action edit"
+            data-bind='click: edit.bind($data, {
+                id: "<?= (int) $requisitionList->getId() ?>",
+                name: "<?= $block->escapeJs($requisitionList->getName()) ?>",
+                description: "<?= $block->escapeJs($requisitionList->getDescription()) ?>",
+                po_number: "<?= $block->escapeJs($requisitionList->getExtensionAttributes()->getPoNumber()) ?>"
+            })'
+        >
+        <span><?= $block->getLabel() ?></span>
+    </button>
+</div>

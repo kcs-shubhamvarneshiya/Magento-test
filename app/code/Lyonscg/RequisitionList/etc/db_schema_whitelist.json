@@ -1,0 +1,7 @@
+{
+    "requisition_list": {
+        "column": {
+            "po_number": true
+        }
+    }
+}

@@ -1,0 +1,447 @@
+//
+//  Modal
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .modal-custom .action-close:hover:before,
+    .modal-popup .action-close:hover:before,
+    .modal-slide .action-close:hover:before,
+    .modal-custom .action-close:focus:before,
+    .modal-popup .action-close:focus:before,
+    .modal-slide .action-close:focus:before {
+        color: @color-gray-900;
+    }
+    .modals-wrapper {
+        .modal-popup {
+            z-index: 1111;
+            .modal-header {
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+
+            .modal-content {
+                padding: 0 3rem 0;
+            }
+        }
+    }
+
+    .modal-popup.to-pdf-popup {
+        pointer-events: auto !important;
+    }
+
+    .modals-wrapper {
+        .modal-popup {
+            #lightbulb-upsell-modal {
+                .lightbulb-header {
+                    &:before {
+                        content: '' !important;
+                    }
+                }
+            }
+
+            .modal-title {
+                display: block;
+                font-family: @font-proxima-nova;
+            }
+        }
+    }
+
+    // Global modal styles
+    div.modals-wrapper {
+        .modal-slide,
+        .modal-popup,
+        .modal-custom {
+            .modal-inner-wrap {
+                // Header
+                .modal-header {
+                    margin: 0 0 20px;
+                    padding: 20px 30px 0;
+                    position: relative;
+
+                    .modal-title {
+                        border-bottom: 1px solid @color-gray-400;
+                        color: @color-gray-800;
+                        display: block;
+                        letter-spacing: 0;
+                        padding: 0 25px 20px 0;
+                    }
+
+                    .action-close,
+                    .action.close {
+                        box-sizing: content-box;
+                        height: 14px;
+                        margin: 0;
+                        padding: 0 10px;
+                        position: absolute;
+                        right: 20px;
+                        top: 20px;
+                        width: 14px;
+
+                        &:before {
+                            color: @color-gray-800;
+                            content: "\e901";
+                            font-family: @font-vc-icons;
+                            font-size: 1.4rem !important; //overriding !important
+                            font-weight: @font-wt-bold;
+                            line-height: 1.4rem;
+                        }
+                    }
+                }
+
+                // Content
+                .modal-content {
+                    padding: 0 30px;
+                }
+
+                // Footer
+                .modal-footer {
+                    border: none;
+                    margin: 0;
+                    padding: 30px 30px 35px;
+
+                    .action {
+                        min-width: 125px;
+
+                        &.link {
+                            .font-size(1.4rem, 2.2rem);
+                            background: transparent;
+                            border: @border-trans;
+                            color: @color-gray-800;
+                            font-weight: @btn-text-font-weight;
+                            text-decoration: underline;
+                            text-transform: none;
+
+                            span {
+                                color: @color-gray-800;
+                            }
+
+                            &:hover {
+                                background: transparent;
+                                border: @border-trans;
+                                text-decoration: none;
+                            }
+
+                            &:disabled,
+                            &[disabled] {
+                                background-color: transparent;
+                                border: @border-trans;
+                                color: @color-btn-primary-text-disabled;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+//  Mobile-Tablet (768-9999)
+//  _____________________________________________
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    // Global modal styles
+    div.modals-wrapper {
+        .modal-slide,
+        .modal-popup,
+        .modal-custom {
+            .modal-inner-wrap {
+                // Header
+                .modal-header {
+                    .modal-title {
+                        .font-goudy-old-style(2.6rem, 3.2rem);
+                    }
+                }
+
+                // Content
+                .modal-content {
+
+                }
+
+                // Footer
+                .modal-footer {
+                    .action {
+                        float: left;
+                        width: auto;
+
+                        &:not(:last-child) {
+                            margin: 0 20px 0 0;
+                        }
+                    }
+                }
+            }
+        }
+        .validationModal {
+            .modal-inner-wrap {
+                .modal-footer {
+                    display: flex;
+                    align-items: center;
+                    .action-primary {
+                        .lib-button-primary();
+                        order: 0;
+                        &:focus {
+                            background: @color-gray-800 !important;
+                        }
+                    }
+                    .action-secondary {
+                        .lib-button();
+                        order: 1;
+                        margin-left: 20px;
+                        max-width: 125px;
+                        white-space: nowrap;
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+    #html-body {
+        .delete__address {
+            .modal-inner-wrap {
+                width: 400px !important;
+            }
+            footer.modal-footer {
+                display: flex;
+                align-items: center;
+                .action-primary {
+                    order: 0;
+                    .lib-button-primary();
+                    max-width: 125px;
+                }
+                .action-secondary {
+                    order: 1;
+                    .lib-button();
+                    max-width: 125px;
+                    margin-left: 20px;
+                }
+            }
+        }
+        .authentication-dropdown {
+            .modal-inner-wrap {
+                .lib-css(padding, 20px 30px 35px);
+            }
+        }
+    }
+
+    #html-body.requisition_list-requisition-view {
+        .requisition-popup {
+            .modal-inner-wrap {
+                max-width: 400px;
+                width: 100%;
+                .modal-footer {
+                    display: flex;
+                    flex-wrap: wrap;
+                    button.action {
+                        .btn-dimensions();
+                        .lib-css(width, 125px);
+                        white-space: nowrap;
+                        &.secondary {
+                            .lib-button();
+                            .lib-css(width, 125px);
+                            &:hover {
+                                text-decoration: none;
+                            }
+                        }
+                        &.replace {
+                            order: 2;
+                            margin-top: 20px;
+                            .lib-button-primary();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #html-body {
+        .cart-not-empty {
+            .modal-footer {
+                display: flex;
+                justify-content: space-between;
+                button {
+                    .btn-dimensions();
+                    .lib-button-primary();
+                    .lib-css(width, 48%);
+                }
+            }
+        }
+    }
+}
+
+//
+//  Mobile-Tablet (0-768)
+//  _____________________________________________
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    #html-body {
+        .requisition-popup {
+            .modal-inner-wrap {
+                .modal-footer {
+                    button.action {
+                        &.replace {
+                            .lib-button-primary();
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #html-body {
+        .modal-popup._show:not(.modal-slide):not(.requisition-popup),
+        .modal-popup._show:not(.requisition-popup) {
+            .modal-inner-wrap {
+                width: 85%;
+
+                .modal-header {
+                    .modal-title {
+                        text-transform: capitalize;
+                    }
+                }
+
+                .modal-content {
+                    padding: 1rem 2rem 0;
+                }
+
+                .modal-footer {
+                    display: flex;
+                    flex-direction: row;
+                    padding: 2rem;;
+
+                    & > button {
+                        padding: 0 5px;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+    }
+    #html-body {
+        .authentication-dropdown {
+            .modal-inner-wrap {
+                .lib-css(padding, 22px 30px 29px);
+            }
+        }
+    }
+    #html-body {
+        .delete__address {
+            .modal-inner-wrap {
+                width: 290px !important;
+                .modal-header {
+                    margin-bottom: 0;
+                    padding-bottom: 20px !important;
+                    > span.modal-title {
+                        padding-top: 15px;
+                    }
+                }
+            }
+            footer.modal-footer {
+                display: flex;
+                flex-direction: column !important;
+                padding: 20px 20px 35px !important;
+                margin-top: 0 !important;
+                .action-primary {
+                    order: 0;
+                    .lib-button-primary();
+                    margin-bottom: 20px;
+
+                }
+                .action-secondary {
+                    order: 1;
+                    .lib-button();
+                }
+            }
+        }
+    }
+    #html-body {
+        div.modals-wrapper {
+            .validationModal {
+                .modal-inner-wrap {
+                    .modal-footer {
+                        display: flex;
+                        flex-direction: column;
+                        .action-primary {
+                            .lib-button-primary();
+                            order: 0;
+                            margin-bottom: 20px;
+                        }
+                        .action-secondary {
+                            .lib-button();
+                            order: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #html-body.checkout-index-index {
+        .modal-popup {
+            &.modal-slide {
+                .modal-inner-wrap {
+                    .modal-footer {
+                        .action {
+                            &.secondary.action-hide-popup {
+                                .lib-button();
+                                .lib-css(margin-top, 13px);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    // Global modal styles
+    div.modals-wrapper {
+        .modal-slide {
+            left: 20px;
+        }
+        .modal-slide,
+        .modal-popup,
+        .modal-custom {
+            .modal-inner-wrap {
+                background-color: @color-white !important;
+
+                // Header
+                .modal-header {
+                    .modal-title {
+                        .font-goudy-old-style(2.4rem, 3rem);
+                    }
+                }
+
+                // Content
+                .modal-content {
+
+                }
+
+                // Footer
+                .modal-footer {
+                    .action {
+                        width: 100%;
+
+                        &-dismiss {
+                            margin: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #html-body {
+        .cart-not-empty,
+        .requisition-popup {
+            .lib-css(left, 0);
+            .modal-inner-wrap {
+                max-width: 290px;
+                width: 100%;
+                margin: 0 auto;
+                height: auto;
+            }
+        }
+        .cart-not-empty {
+            .merge-cart, .replace-cart {
+                .lib-button-primary();
+            }
+            .merge-cart {
+                margin-bottom: 20px;
+            }
+        }
+    }
+}

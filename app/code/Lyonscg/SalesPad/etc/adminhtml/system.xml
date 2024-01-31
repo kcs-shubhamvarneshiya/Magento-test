@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="lyonscg" translate="label" sortOrder="150">
+            <label>Lyonscg</label>
+        </tab>
+        <section id="lyonscg_salespad" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1">
+            <label>SalesPad Api</label>
+            <tab>lyonscg</tab>
+            <resource>Lyonscg_SalesPad::settings</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1">
+                <label>General Settings</label>
+                <field id="staging_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Staging Mode Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="stage_api_url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Stage Api Url</label>
+                    <depends>
+                        <field id="staging_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="stage_api_username" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <label>Stage Api Username</label>
+                    <depends>
+                        <field id="staging_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="stage_api_password" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1">
+                    <label>Stage Api Password</label>
+                    <depends>
+                        <field id="staging_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="prod_api_url" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1">
+                    <label>Production Api Url</label>
+                    <depends>
+                        <field id="staging_enabled">0</field>
+                    </depends>
+                </field>
+                <field id="prod_api_username" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1">
+                    <label>Production Api Username</label>
+                    <depends>
+                        <field id="staging_enabled">0</field>
+                    </depends>
+                </field>
+                <field id="prod_api_password" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1">
+                    <label>Production Api Password</label>
+                    <depends>
+                        <field id="staging_enabled">0</field>
+                    </depends>
+                </field>
+                <field id="sales_person_id" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1">
+                    <label>Sales Person Id</label>
+                </field>
+                <field id="warehouse_code" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1">
+                    <label>Warehouse code</label>
+                </field>
+                <field id="currency_id" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1">
+                    <label>Currency Id</label>
+                </field>
+                <field id="currency_dec" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1">
+                    <label>Currency Dec</label>
+                </field>
+                <field id="active_user_limit" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1">
+                    <label>Active User Limit</label>
+                </field>
+                <field id="logging_enabled" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1">
+                    <label>Logging Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>To have this enabled make sure Logging Config -> General Settings -> Debug Log Enabled is also set to Yes</comment>
+                </field>
+                <field id="use_entity_id_in_aggregation" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1">
+                    <label>Use Entity ID in Logs Aggregation Where Possible</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Normally logs are aggregated by only Url and Request.
+                        If the option is Set to Yes Entity ID will additionally be used instead of Request where possible.</comment>
+                    <depends>
+                        <field id="logging_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="errorlog_lifetime" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1">
+                    <label>Error Log Lifetime (days)</label>
+                    <validate>validate-number validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="logging_enabled">1</field>
+                    </depends>
+                    <backend_model>Lyonscg\SalesPad\Model\Config\Backend\ApiErrorLogLifetime</backend_model>
+                    <comment>Empty Value is Treated as Infinity (Logs will not be cleaned up)</comment>
+                </field>
+            </group>
+            <group id="sync" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1">
+                <label>Sync Settings</label>
+                <field id="customer_sync_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Customer Sync Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <!--field id="customer_sync_update_enabled" translate="label" type="select" sortOrder="13" showInDefault="1" showInWebsite="1">
+                    <label>Enable Salespad Customer Update Sync</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field-->
+                <field id="customer_sync_name_class" translate="label" type="select" sortOrder="15" showInDefault="1">
+                    <label>Allow Updates To Customer Name / Class</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="customer_sync_limit" translate="label" type="text" sortOrder="20" showInDefault="1">
+                    <label>Customer Sync Limit</label>
+                    <comment>Maximum number of customers to sync in one operation.</comment>
+                    <depends>
+                        <field id="customer_sync_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="customer_sync_schedule" translate="label" type="text" sortOrder="30" showInDefault="1">
+                    <label>Customer Sync Cron Schedule</label>
+                    <depends>
+                        <field id="customer_sync_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="order_sync_enabled" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1">
+                    <label>Order Sync Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="order_sync_error_email" translate="label" type="text" sortOrder="45" showInDefault="1" showInWebsite="1">
+                    <label>Order Sync Error Emails - To Address</label>
+                    <comment>Email addresses to send sync error alerts to.  Comma separated, no spaces between.</comment>
+                    <depends>
+                        <field id="order_sync_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="order_sync_error_email_from" translate="label" type="text" sortOrder="46" showInDefault="1" showInWebsite="1">
+                    <label>Order Sync Error Emails - From Address</label>
+                    <comment>Email addresses to send sync error alerts from.</comment>
+                    <depends>
+                        <field id="order_sync_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="order_sync_limit" translate="label" type="text" sortOrder="50" showInDefault="1">
+                    <label>Order Sync Limit</label>
+                    <comment>Maximum number of orders to sync in one operation.</comment>
+                    <depends>
+                        <field id="order_sync_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="order_sync_schedule" translate="label" type="text" sortOrder="60" showInDefault="1">
+                    <label>Order Sync Cron Schedule</label>
+                    <depends>
+                        <field id="order_sync_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="quote_sync_enabled" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1">
+                    <label>Quote Sync Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="quote_sync_limit" translate="label" type="text" sortOrder="80" showInDefault="1">
+                    <label>Quote Sync Limit</label>
+                    <comment>Maximum number of quotes to sync in one operation.</comment>
+                    <depends>
+                        <field id="quote_sync_enabled">1</field>
+                    </depends>
+                </field>
+                <field id="quote_sync_schedule" translate="label" type="text" sortOrder="90" showInDefault="1">
+                    <label>Quote Sync Cron Schedule</label>
+                    <depends>
+                        <field id="quote_sync_enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="map" translate="label" type="text" sortOrder="30" showInDefault="1"  showInWebsite="1">
+                <label>Shipping Methods Mapping</label>
+                <field id="shipping_method" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Shipping Methods Codes</label>
+                    <frontend_model>Lyonscg\SalesPad\Block\Adminhtml\System\Config\Form\Field\ShippingMethodMap</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+            <group id="tracking" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1">
+                <label>Carriers Tracking URL</label>
+                <field id="carrier_tracking_url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Carriers Tracking URL</label>
+                    <comment>Exapmpe of propper Tracking Url: https://www.fedex.com/fedextrack/?tracknumbers=[TRACKING_NUMBER]</comment>
+                    <frontend_model>Lyonscg\SalesPad\Block\Adminhtml\System\Config\Form\Field\CarrierTrackingUrl</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

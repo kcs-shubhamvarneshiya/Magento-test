@@ -1,0 +1,33 @@
+<?php
+$_item = $block->getItem();
+$sidemarkText = $block->escapeHtml($_item->getExtensionAttributes()->getSidemark());
+$commentText = $block->escapeHtml($_item->getExtensionAttributes()->getCommentsLineItem());
+$helper = $this->helper(\Capgemini\LightBulbs\Helper\Data::class);
+?>
+<?php if (!$helper->getNoSidemarkByItem($_item)): ?>
+<div class="cart-comments" data-mage-init='{"accordion":{"openedState": "active", "collapsible": true, "active": false, "multipleCollapsible": false}}'>
+    <div data-role="collapsible">
+        <div data-role="trigger">
+            <?= $block->escapeHtml(__('Add Sidemark / Comment')) ?>
+        </div>
+    </div>
+
+    <div class="content" data-role="content">
+        <fieldset class="fieldset">
+            <div class="field sidemark">
+                <div class="control sidemark">
+                    <label class="label"><span>Sidemark <span>Appears on Order and Box Label</span></span></label>
+                    <textarea placeholder="<?= $block->escapeHtml(__('Enter room name or install location...')) ?>" class="input-text" name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][sidemark]"><?= $sidemarkText; ?></textarea>
+                </div>
+            </div>
+            <div class="field comment">
+                <div class="control comment">
+                    <label class="label"><span>Comment <span>Appears on Order</span></span></label>
+                    <textarea placeholder="<?= $block->escapeHtml(__('Enter any additional info...')) ?>" class="input-text"
+                              name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][comments_line_item]"><?= $commentText; ?></textarea>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<?php endif; ?>

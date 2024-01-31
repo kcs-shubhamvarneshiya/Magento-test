@@ -1,0 +1,70 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var  $block \Capgemini\OrderView\Block\View*/?>
+
+<?= $block->getChildHtml('info') ?>
+
+<div id="order-items-tab-contents" class="order-details-items" style="display: <?= (!$block->hasShipments()) ? 'block' : 'none' ?>">
+    <?php $_order = $block->getOrder() ?>
+
+    <?= $block->getChildHtml('creditmemo_items') ?>
+
+    <?php if ($this->helper(\Magento\GiftMessage\Helper\Message::class)->isMessagesAllowed('order', $_order)
+        && $_order->getGiftMessageId()
+    ) : ?>
+    <div class="block block-order-details-gift-message">
+        <div class="block-title"><strong><?= $block->escapeHtml(__('Gift Message for This Order')) ?></strong></div>
+        <?php
+        $_giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)->getGiftMessageForEntity($_order);
+        ?>
+        <div class="block-content">
+            <dl class="item-options">
+                <dt class="item-sender"><strong class="label"><?= $block->escapeHtml(__('From')) ?></strong><?= $block->escapeHtml($_giftMessage->getSender()) ?></dt>
+                <dt class="item-recipient"><strong class="label"><?= $block->escapeHtml(__('To')) ?></strong><?= $block->escapeHtml($_giftMessage->getRecipient()) ?></dt>
+                <dd class="item-message">
+                    <?= /* @noEscape */
+                    $this->helper(\Magento\GiftMessage\Helper\Message::class)->getEscapedGiftMessage($_order) ?>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <?php endif; ?>
+
+    <div class="actions-toolbar">
+        <div class="secondary">
+            <a class="action back" href="<?= $block->escapeUrl($block->getBackUrl()) ?>">
+                <span><?= $block->escapeHtml($block->getBackTitle()) ?></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script type="application/javascript">
+require([
+    'jquery'
+], function ($) {
+    $('.order-links .nav.item').click(function() {
+        var el = $(this);
+        if (el.hasClass('current')) {
+            $('#' + this.id + '-contents').show();
+            return;
+        }
+        $('.order-links .nav.item').removeClass('current');
+        $('.order-details-items').hide();
+        el.addClass('current');
+        $('#' + this.id + '-contents').show();
+    });
+    $('#order-section-dropdown').change(function() {
+        var which = $(this).val();
+        var id = '#order-' + which + '-tab-contents';
+        var el = $(id);
+        if (!el.length) {
+            return;
+        }
+        $('.order-links .nav.item').removeClass('current');
+        $('.order-details-items').hide();
+        el.addClass('current').show();
+    })
+});
+</script>

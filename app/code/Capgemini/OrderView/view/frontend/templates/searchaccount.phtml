@@ -1,0 +1,278 @@
+<?php
+
+$page = $block->getRequest()->getParam('p') ?? 1;
+
+if ($block->getCustomerType() == \Capgemini\CompanyType\Model\Config::WHOLESALE) {
+    $customerNumber = $this->getRequest()->getParam('account_id') ?? $block->getCustomerVcNumber();
+} else {
+    $customerNumber = $block->getCustomerNumber();
+}
+
+$filters = $block->getFilter();
+$searchbal = '';
+if($this->getRequest()->getParam('search'))
+{
+    $searchbal = $this->getRequest()->getParam('search');
+}
+$customerVcNumber =  $customerNumber;
+$params = $block->getRequest()->getParams();
+
+$urlaccountId = $this->getRequest()->getParam('account_id');
+
+unset($params['p']);
+unset($params['limit']);
+?>
+<?php if($block->getCustomerType() == \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?>
+<div class="order-control-container">
+   
+    <div class="filter-container">
+    </div>
+<div class="maindatasearch"> 
+    <?php  if(!empty($filters) && (!isset($filters['Errors']))): ?>
+        <div class="account-select" id="account-select">
+            <label class="label"><?= __('Account') ?>:</label>
+            <input placeholder="<?= __('Search Account'); ?>" type="select" name="dropdown_name"  class="form-control " id="searchInput" />
+            <ul id="customerlist">
+                <?php foreach ($filters as $key => $account): if((!isset($filters['Errors']))): $params['account_id'] = $account['account']; $params = $block->removeParam($params,'search') ?>
+                    <li <?= (($customerVcNumber) && $customerVcNumber === $account['account'])? 'selected="selected"':"" ?>data-value="<?php echo $account['account'];?>">
+                        <?php echo (isset($account['name']) && $account['name']!== "")?$account['account'].' - '.$account['name']:$account['account'];?>
+                    </li>
+                <?php endif; endforeach; ?>
+                <span class="datanotfpund">No Result Found</span>
+                
+            </ul>
+            
+        </div>
+      
+    <?php endif;  ?>
+ </div> 
+<?php endif;?>
+
+<input type="hidden" value="<?php echo $customerNumber?>" id="paramsAccountId">
+<?php
+if(($urlaccountId !='')){ ?>
+<input type="hidden" value="<?php echo $urlaccountId?>" id="urlaccountId">
+
+<?php } ?>
+<script type="text/javascript">
+    require(['jquery'], function ($) {
+
+        if($('#search-filter').length>0)
+        {
+            $("#search-filter").submit(function (e) {
+                window.location.href = $(this).attr('data-action')+"search/"+btoa($(this).find("[name=search]").val())+"/";
+                return false;
+            });
+        }
+        var coll = document.getElementsByClassName("filter-label");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+            coll[i].addEventListener("click", function() {
+
+                var g =document.getElementById('account-select');
+            g.style.display = 'block';
+                this.classList.toggle("active");
+                var myElement = document.getElementById('filter-label');
+            if (myElement.classList.contains("active")) {
+                document.getElementById('filter-label').innerHTML = labelName;
+            } else {
+                document.getElementById('filter-label').innerHTML = 'Account';
+            }
+                var content = this.nextElementSibling;
+                if (content.style.display === "block") {
+                content.style.display = "none";
+                } else {
+                content.style.display = "block";
+            
+                }
+            });
+        }
+       
+        $("document").ready(function() {
+            $("uspan.select2-selection.select2-selection--single").ready(function() {
+                $(this).click();
+                    setTimeout(function () {
+                    var dropdownAccount = $(".select2-container--open").innerHtml;
+                }, 1000);
+            });  
+        });
+
+
+        function getEventTarget(e) {
+            e = e || window.event;
+            return e.target || e.srcElement; 
+        }
+
+
+    var ul = document.getElementById('customerlist');
+
+    var initiallySelectedLi = document.querySelector('#customerlist li[selected="selected"]');
+        if (initiallySelectedLi) {
+            initiallySelectedLi.classList.add('bold');
+            var labelName = initiallySelectedLi.textContent;
+            var myElement = document.getElementById('filter-label');
+            if (myElement.classList.contains("active")) {
+                document.getElementById('filter-label').innerHTML = labelName;
+            } else {
+                document.getElementById('filter-label').innerHTML = 'Account';
+            }
+
+            document.getElementById( 'accountlabel' ).style.display = 'block';
+            document.getElementById('accountlabel').innerHTML =  'Account :  '+ labelName;
+        }
+   
+    $('#customerlist li').on('click', function(event){
+
+        var lis = document.querySelectorAll('#customerlist li');
+            lis.forEach(function(li) {
+                li.classList.remove('bold');
+            });
+
+        var target = getEventTarget(event);
+        event.target.classList.add('bold');
+        document.getElementById('filter-label').innerHTML = target.innerHTML;
+        var g =document.getElementById('account-select');
+        var listItemValue = $(this).data('value');
+        var sessionAccountName = target.innerHTML;
+        var sessionlistitem = sessionStorage.setItem('selectedListItem', listItemValue);
+        var localsessionaccount = localStorage.setItem('localsessionaccount', target.innerHTML);
+
+        var sessionAccountName = sessionStorage.setItem('sessionAccountName', sessionAccountName);
+        
+        g.style.display = 'none';
+   
+        })   
+
+        /***Code for keypress */
+        var ul = document.getElementById('customerlist');
+        var liSelected;
+        var index = -1;
+
+document.addEventListener('keydown', function(event) {
+  var len = ul.getElementsByTagName('li').length - 1;
+  if (event.which === 40) {
+    index++;
+    //down 
+    if (liSelected) {
+      removeClass(liSelected, 'selected');
+      next = ul.getElementsByTagName('li')[index];
+      if (typeof next !== undefined && index <= len) {
+
+        liSelected = next;
+      } else {
+        index = 0;
+        liSelected = ul.getElementsByTagName('li')[0];
+      }
+      addClass(liSelected, 'selected');
+    } else {
+      index = 0;
+
+      liSelected = ul.getElementsByTagName('li')[0];
+      addClass(liSelected, 'selected');
+    }
+  } else if (event.which === 38) {
+
+    //up
+        if (liSelected) {
+        removeClass(liSelected, 'selected');
+        index--;
+        next = ul.getElementsByTagName('li')[index];
+        if (typeof next !== undefined && index >= 0) {
+            liSelected = next;
+        } else {
+            index = len;
+            liSelected = ul.getElementsByTagName('li')[len];
+        }
+        addClass(liSelected, 'selected');
+        } else {
+        index = 0;
+        liSelected = ul.getElementsByTagName('li')[len];
+        addClass(liSelected, 'selected');
+        }
+        }else if (event.which === 13) { 
+
+            var lis = document.querySelectorAll('#customerlist li');
+            lis.forEach(function(li) {
+                li.classList.remove('bold');
+            });
+
+            //var target = getEventTarget(e);
+            liSelected.classList.add('bold');
+            document.getElementById('filter-label').innerHTML = liSelected.innerHTML;
+            var g =document.getElementById('account-select');
+            var listItemValue = liSelected.dataset.value;
+            var sessionAccountName = liSelected.innerHTML;
+            var sessionlistitem = sessionStorage.setItem('selectedListItem', listItemValue);
+            var localsessionaccount = localStorage.setItem('localsessionaccount',  liSelected.innerHTML);
+            var sessionAccountName = sessionStorage.setItem('sessionAccountName', sessionAccountName);
+            $("#applyfilter").click();
+
+        }
+
+
+        }, false);
+
+            function removeClass(el, className) {
+            if (el.classList) {
+                el.classList.remove(className);
+            } else {
+                el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            }
+            };
+
+            function addClass(el, className) {
+            if (el.classList) {
+                el.classList.add(className);
+            } else {
+                el.className += ' ' + className;
+            }
+            };
+
+
+    })
+</script>
+
+        <script>
+        const searchInput = document.getElementById('searchInput');
+        const itemList = document.getElementById('customerlist');
+        const items = Array.from(itemList.getElementsByTagName('li'));
+
+        var datanotfpund =  document.querySelector('.datanotfpund');
+
+        searchInput.addEventListener('keyup', function() {
+        const searchText = searchInput.value.toLowerCase();
+
+        items.forEach(function(item) {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(searchText)) {
+                item.style.display = 'block';
+                
+            } else {
+                item.style.display = 'none';
+                
+            }
+           
+            
+        });
+        /** Results not found message */
+        var count = 1;
+        var lis = document.querySelectorAll('#customerlist li');
+        for(var j = 0; j<lis.length; j++)
+        {
+            var li = lis[j];
+            if(li.style.display=="block")
+            {
+                count++;
+            }
+        }
+        if(count<=1){
+            datanotfpund.style.display = 'block';
+        }else{
+            datanotfpund.style.display = 'none';
+        }
+        
+        });
+        </script>
+
+</div>

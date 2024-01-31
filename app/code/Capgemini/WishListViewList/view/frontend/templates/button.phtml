@@ -1,0 +1,28 @@
+<?php
+/* @var $block Management */
+
+/* @var $escaper Escaper */
+
+use Magento\MultipleWishlist\Block\Customer\Wishlist\Management;
+use Magento\Framework\Escaper;
+
+?>
+<div class="wishlist-header-button">
+    <div class="action-select-wrap">
+        <?php if ($block->canCreateWishlists($block->getWishlists())) : ?>
+            <a href="#"
+               id="wishlist-create-button"
+               data-action-keypress="true"
+               data-wishlist-create='{
+                        "url":"<?= $escaper->escapeUrl($block->getCreateUrl()) ?>",
+                        "title":"<?= $escaper->escapeHtmlAttr(__('Create Project')) ?>",
+                        "formKey": "<?= $escaper->escapeHtmlAttr($block->getFormkey()) ?>"
+                        }'
+               title="<?= $escaper->escapeHtmlAttr(__('Create New Project')) ?>"
+               class="action add wishlist-new btn btn-secondary">
+                <span><?= $escaper->escapeHtml(__('Create New Project')) ?></span>
+            </a>
+        <?php endif; ?>
+    </div>
+</div>
+

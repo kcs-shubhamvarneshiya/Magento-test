@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="CyberSource\SecureAcceptance\Gateway\Request\Sop\PaymentDataBuilder">
+        <plugin name="zero_auth_payment_data_builder"
+                type="Capgemini\CybersourceZeroAuth\Plugin\Gateway\Request\Sop\PaymentDataBuilderPlugin"/>
+    </type>
+    <type name="CyberSource\SecureAcceptance\Gateway\Request\Soap\PaymentDataBuilder">
+        <plugin name="zero_amount_auth"
+                type="Capgemini\CybersourceZeroAuth\Plugin\Gateway\Request\Soap\PaymentDataBuilderPlugin"/>
+    </type>
+</config>

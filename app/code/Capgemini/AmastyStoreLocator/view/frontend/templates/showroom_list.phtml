@@ -1,0 +1,56 @@
+<?php
+/**
+ * Capgemini_AmastyStoreLocator
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+
+/* @var \Capgemini\AmastyStoreLocator\Block\ShowroomList $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+/* @var \Capgemini\AmastyStoreLocator\ViewModel\LocationUtils $locationUtils */
+$locationUtils = $block->getLocationUtils();
+?>
+<?php if(!empty($block->getShowrooms())) :?>
+<?php $count = 1; ?>
+<div class="showroom__wrapper">
+    <h1><?= __('Visual Comfort & Co. Stores') ?></h1>
+    <div class="showroom__wrapper-holder">
+        <?php foreach ($block->getShowrooms() as $showroom): ?>
+
+        <?php if ($count % 4 == 1 || $count == 1) {
+                echo '<div class="row">';
+            } ?>
+
+            <div class="showroom">
+                <h3 class="title"><?= $escaper->escapeHtml($showroom->getStateCode()) ?> - <?= $escaper->escapeHtml($showroom->getCity()) ?></h3>
+                <p class="address">
+                    <?= $escaper->escapeHtml($showroom->getAddress()) ?><br/>
+                    <?= $escaper->escapeHtml($showroom->getCity()) ?>, <?= $escaper->escapeHtml($showroom->getStateCode()) ?> <?= $escaper->escapeHtml($showroom->getZip()) ?>
+                </p>
+                <?php if ($showroom->getPhone()): ?>
+                    <p class="phone">Phone <?= $escaper->escapeHtml($showroom->getPhone()) ?></p>
+                <?php endif; ?>
+                <?php if ($locationUtils->getStoreHours($showroom)): ?>
+                    <p class="store_hours"><?= $locationUtils->getStoreHours($showroom) ?></p>
+                <?php endif; ?>
+                <?php if ($block->getLocationUrl($showroom)): ?>
+                    <p class="location-link">
+                        <a href="<?= $escaper->escapeUrl($block->getLocationUrl($showroom)) ?>"><?= __('More Information') ?></a>
+                    </p>
+                <?php endif; ?>
+                <?php if ($locationUtils->getAppointmentUrl($showroom)): ?>
+                    <p class="appointment-link">
+                        <a href="<?= $locationUtils->getAppointmentUrl($showroom) ?>" target="_blank"><?= __('Schedule Appointment') ?></a>
+                    </p>
+                <?php endif; ?>
+            </div>
+        <?php if ($count % 4 == 0 || $count == count($block->getShowrooms())) {
+            echo '</div><!-- .row -->';
+        }
+        $count++;
+        endforeach; ?>
+    </div>
+</div>
+<?php endif;?>

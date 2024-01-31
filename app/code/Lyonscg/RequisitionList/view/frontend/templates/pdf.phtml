@@ -1,0 +1,552 @@
+<?php
+/**
+ * PDF Requisition List Template
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Mark Hodge <mark.hodge@capgemini.com>
+ * @copyright Copyright (c) 2019 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var \Lyonscg\RequisitionList\Block\Quote $block */
+
+/** @var \Lyonscg\RequisitionList\Block\Index\Customer $customerBlock */
+$customerBlock = $block->getChildBlock('customer.info');
+
+$createdBy = $customerBlock->getCustomerFirstName() . ' ' .
+    $customerBlock->getCustomerLastName();
+
+$requisitionList = $block->getRequisitionList();
+
+/** @var  \Magento\RequisitionList\Api\Data\RequisitionListItemInterface $requisitionListItems */
+$requisitionListItems = $block->getRequisitionListItems();
+
+/** @var \Lyonscg\RequisitionList\ViewModel\RequisitionListTotal $requisitionTotalViewModel */
+$requisitionTotalViewModel = $block->getData('viewRequisitionTotalModel');
+$requisitionTotalViewModel
+    ->setRequisitionList($requisitionList)
+    ->setTaxRate(0);
+
+//Get Quote Created Date
+$unformattedDate = $block->formatDate($requisitionList->getUpdatedAt());
+$createdDate = date('F j, Y', strtotime($unformattedDate));
+
+$logo = $block->getViewFileUrl('Lyonscg_RequisitionList::images/pdf_logo.png');
+
+$params = $this->getRequest()->getParams();
+$pdf_pricing = (!empty($params['pdf_pricing'])) ? $params['pdf_pricing'] : '';
+$pdf_type = (!empty($params['pdf_type'])) ? $params['pdf_type'] : '';
+?>
+
+<html>
+<style>
+    @font-face {
+        font-family: 'HelveticaNeueLTPro-Roman';
+        src: url('<?= $block->getViewFileUrl('Lyonscg_RequisitionList::fonts/webFonts/HelveticaNeueLTPro-Roman/font.ttf') ?>') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    @font-face {
+        font-family: 'HelveticaNeueLTPro-Md';
+        src: url('<?= $block->getViewFileUrl('Lyonscg_RequisitionList::fonts/webFonts/HelveticaNeueLTPro-Md/font.ttf') ?>') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    body {
+        font-family: 'HelveticaNeueLTPro-Roman';
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        letter-spacing: normal;
+    }
+
+    b,
+    strong {
+        font-family: 'HelveticaNeueLTPro-Md';
+        font-weight: normal;
+    }
+
+    .image-box {
+        width: 100%;
+        text-align: left;
+    }
+
+    .image-box img {
+        height: 50px;
+    }
+
+    .address {
+        font-size: 14px;
+        line-height: 20px;
+        color: #454545;
+        padding-bottom: 30px;
+    }
+
+    .data-table {
+        margin-top: 20px;
+        border: solid 1px #e3e3e3;
+        width: 100%;
+    }
+
+    .data-table th {
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    .data-table tr {
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    .table-header {
+        height: 40px;
+        background-color: #f8f8f8;
+    }
+
+    .col {
+        font-family: 'HelveticaNeueLTPro-Md';
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 14px;
+        color: #333333;
+        text-transform: uppercase;
+    }
+
+    .itemnum {
+        width: 20%;
+        text-align: left;
+    }
+
+    .itemnum .item-image {
+        max-width: 100px !important;
+    }
+
+    .product {
+        width: 31%;
+        text-align: left
+    }
+
+    .product2 {
+        width: 10%;
+    }
+
+    .price {
+        width: 13%;
+        text-align: left;
+    }
+
+    .subtotal {
+        width: 13%;
+        text-align: left;
+    }
+    .qty {
+        width: 13%;
+        text-align: center;
+    }
+    .pdf-data {
+        text-align: center;
+    }
+    .item-data.qty {
+        text-align: center;
+    }
+
+    .qty {
+        width: 8%;
+    }
+
+    .subtotal {
+        width: 18%;
+    }
+
+    .product-name {
+        font-size: 18px;
+        line-height: 25px;
+        color: #717171;
+    }
+
+    .account-name, .quote-name {
+        font-size: 18px;
+        line-height: 22px;
+        color: #454545;
+    }
+
+    .sku {
+        font-family: 'HelveticaNeueLTPro-Md';
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 14px;
+        color: #333333;
+    }
+
+    .view-link {
+        font-size: 16px;
+        line-height: 20px;
+        color: #333333;
+    }
+
+    .pdf-bold,
+    .bold-content {
+        font-family: 'HelveticaNeueLTPro-Md';
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 16px;
+        color: #454545;
+    }
+
+    .pdf-data {
+        font-size: 14px;
+        line-height: 22px;
+        color: #717171;
+    }
+
+    .quote-table {
+        width: 98%;
+        border: none;
+        margin-top: 15px;
+        table-layout: fixed;
+    }
+
+    .pdf-item-image img {
+        max-width: none;
+        width: 100%;
+    }
+
+    .content {
+        font-size: 12px;
+        line-height: 22px;
+        color: #717171;
+    }
+
+    .bold-content {
+        color: #454545;
+    }
+
+    .footer-data {
+        font-size: 14px;
+        line-height: 30px;
+        color: #717171;
+    }
+
+    .footer-data-bold {
+        font-family: 'HelveticaNeueLTPro-Md';
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 30px;
+        color: #454545;
+    }
+
+    .footer-divider {
+        height: 1px;
+        background-color: #e3e3e3;
+        width: 100%;
+    }
+
+    .info {
+        width: 170px;
+        font-size: 15px;
+    }
+
+    .headings span {
+        font-weight: 200;
+    }
+
+    .font14,
+    .font14 * {
+        font-size: 14px;
+    }
+
+    .font16,
+    .font16 * {
+        font-size: 16px;
+    }
+
+    .font18,
+    .font18 * {
+        font-size: 18px;
+    }
+
+    .font20,
+    .font20 * {
+        font-size: 20px;
+    }
+
+    .font-uppercase {
+        text-transform: uppercase;
+    }
+
+    .font-bold {
+        font-family: 'HelveticaNeueLTPro-Md';
+    }
+
+    .padding5 {
+        padding: 5px;
+    }
+
+    .footer {
+        width: 100%;
+        height: auto;
+        background-color: transparent;
+        margin-top: 20px;
+    }
+
+    .footer-copy {
+        font-family: 'HelveticaNeueLTPro-Roman';
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 20px;
+        text-align: left;
+        text-transform: uppercase;
+        color: #717171;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    td.item-data {
+        vertical-align: top;
+    }
+
+    .pdf-logo {
+        padding-bottom: 20px;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    th {
+        background: none;
+        background-color: transparent;
+        line-height: 40px;
+        vertical-align: middle;
+    }
+
+    th,
+    td {
+        text-align: left;
+        padding: 5px;
+    }
+
+    .pdf-data,
+    .pdf-data * {
+        color: #454545;
+        font-size: 14px;
+        line-height: 16px;
+        text-align: left;
+    }
+
+    .data-fade {
+        color: #717171 !important;
+    }
+
+    .product-info * {
+        font-family: 'HelveticaNeueLTPro-Roman' !important;
+    }
+
+    .comments {
+        padding: 20px 0 10px;
+    }
+
+    .sidemark .bold-content,
+    .comment .bold-content {
+        font-size: 14px;
+        text-transform: uppercase;
+    }
+
+    .price-label {
+        display: block;
+    }
+
+    .table-footer * {
+        font-family: 'HelveticaNeueLTPro-Roman';
+        text-transform: none;
+        vertical-align: top;
+    }
+
+    .list-view tbody td {
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    .list-view .col {
+        width: 40%;
+    }
+
+    .list-view .col.product {
+        width: 99%;
+    }
+
+    .list-view .col.price {
+        width: 15%;
+    }
+
+    .list-view .col.qty {
+        width: 15%;
+    }
+
+    .list-view .col.subtotal {
+        width: 15%;
+    }
+
+
+    /*Detailed view styles*/
+    .detailed-view th,
+    .detailed-view td,
+    .detailed-view td * {
+        margin: 0;
+        padding: 0;
+        height: auto;
+        line-height: normal;
+    }
+
+    .devider {
+        border-top: 1px solid #e3e3e3;
+        height: 1px;
+        margin: 10px 0 0;
+        padding: 20px 0 0;
+        width: 100%;
+    }
+
+    .detailed-view * {
+        color: #454545;
+    }
+
+    .detailed-view {
+        border-collapse: collapse;
+        border-spacing: 0;
+        font-family: 'HelveticaNeueLTPro-Roman';
+    }
+
+    .detailed-view .info {
+        width: auto;
+    }
+
+    .detailed-view .retail-price,
+    .detailed-view .trade-price {
+        display: inline-block;
+        margin-right: 20px;
+        width: auto;
+    }
+
+    .detailed-view .sku {
+        font-family: 'HelveticaNeueLTPro-Roman';
+    }
+</style>
+
+<?php if (!empty($requisitionListItems)) : ?>
+    <?php if ($pdf_type === 'list') : ?>
+        <div class="image-box pdf-logo">
+            <img src="<?= $logo ?>">
+        </div>
+
+        <div class="pdf-info pdf-data">
+            <div>Company Name: <?= $createdBy ?></div>
+            <div>Quote Name: <?= $requisitionList->getName(); ?></div>
+            <div>PO Number: <?= $requisitionList->getPoNumber(); ?></div>
+        </div>
+
+        <table class="data-table table list-view">
+            <thead>
+                <tr class="table-header">
+                    <th class="col">
+                        <span><?= $block->escapeHtml(__('Item')) ?></span>
+                    </th>
+                    <th class="col product">
+                        <span>
+                            <?= $block->escapeHtml(__('Description')) ?>
+                        </span>
+                    </th>
+                    <?php if ($pdf_pricing != 'none') : ?>
+                        <th class="col price">
+                            <span><?= $block->escapeHtml(__('Price')) ?></span>
+                        </th>
+                    <?php endif; ?>
+                    <th class="col qty">
+                        <span><?= $block->escapeHtml(__('Qty')) ?></span>
+                    </th>
+                    <?php if ($pdf_pricing != 'none') : ?>
+                        <th class="col subtotal">
+                            <span><?= $block->escapeHtml(__('Subtotal')) ?></span>
+                        </th>
+                    <?php endif; ?>
+                </tr>
+            </thead>
+            <tbody>
+            <?php $i = 0 ?>
+            <?php foreach ($block->getRequisitionListItems() as $item) : $i++ ?>
+                <tr class="_<?= ($i % 2) ? 'even' : 'odd' ?> item"
+                    data-product-id="<?= (int)$item->getId() ?>">
+                    <?php
+                    $block->getChildBlock('requisition.list.item.view')
+                        ->setTemplate('Lyonscg_RequisitionList::item_list.phtml')
+                        ->setItem($item);
+                    ?>
+                    <?= $block->getChildHtml('requisition.list.item.view', false) ?>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+                <?php $colspan = ($pdf_pricing != 'none') ? 4 : 3 ?>
+                <tr class="table-footer">
+                    <td class="col quote-notes pdf-data" colspan="<?= $colspan ?>">
+                        <span>Quote Notes:</span> <span><?= $block->escapeHtml($block->getRequisitionList()->getDescription()) ?></span>
+                    </td>
+
+                    <?php if ($pdf_pricing != 'none') : ?>
+                        <td class="col grand-total pdf-data">
+                            <?php if ($pdf_pricing == 'retail' || $pdf_pricing == 'both'): ?>
+                                <div class="<?php echo($pdf_pricing == 'both') ? 'data-fade' : ''?>">
+                                    <span class="price-label">Retail Total:</span>
+                                    <?= $requisitionTotalViewModel->getRequisitionListRetailSubtotal(true) ?>
+                                </div>
+                            <?php endif; ?>
+                            <?php if ($pdf_pricing == 'trade' || $pdf_pricing == 'both'): ?>
+                                <div>
+                                    <span class="price-label">Trade Total:</span>
+                                    <?= $requisitionTotalViewModel->getRequisitionListSubtotal(true) ?>
+                                </div>
+                            <?php endif; ?>
+                        </td>
+                    <?php endif; ?>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="footer" style="page-break-inside: avoid;">
+            <div class="footer-copy">Quote pricing valid for 30 days.</div>
+        </div>
+
+    <?php elseif ($pdf_type === 'detail') : ?>
+        <?php $itemsLeft = count($block->getRequisitionListItems()); ?>
+        <?php foreach ($block->getRequisitionListItems() as $item) : ?>
+            <?php $itemsLeft--; ?>
+            <div class="image-box pdf-logo">
+                <img src="<?= $logo ?>">
+            </div>
+
+            <div class="pdf-info pdf-data">
+                <div>Company Name: <?= $createdBy ?></div>
+                <div>Quote Name: <?= $requisitionList->getName(); ?></div>
+                <div>PO Number: <?= $requisitionList->getPoNumber(); ?></div>
+            </div>
+
+            <div class="devider"></div>
+
+            <?php
+            $block->getChildBlock('requisition.list.item.view')
+                ->setTemplate('Lyonscg_RequisitionList::item_detail.phtml')
+                ->setItem($item);
+            ?>
+            <?= $block->getChildHtml('requisition.list.item.view', false) ?>
+            <div class="quote-notes pdf-data">
+                <span>Quote Notes:</span> <span><?= $block->escapeHtml($block->getRequisitionList()->getDescription()) ?></span>
+            </div>
+            <div class="footer" style="page-break-inside: avoid;">
+                <div class="footer-copy">Quote pricing valid for 30 days.</div>
+            </div>
+            <?php if ($itemsLeft > 0): ?>
+                <div style="page-break-after: always;"></div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
+</html>

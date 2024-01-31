@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+	<menu>
+		<add id="Rysun_SpecificationAttribute::rysun_specificationattribute_specificationattribute" title="SpecificationAttribute" module="Rysun_SpecificationAttribute" sortOrder="9999" resource="Magento_Backend::content" parent="Rysun::top_level" action="rysun_specificationattribute/specificationattribute/index"/>
+	</menu>
+</config>

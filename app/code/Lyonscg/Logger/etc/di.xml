@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category    Lyonscg
+ * @package     Lyonscg_Logger
+ * @copyright   Copyright (c) 2021 Lyons Consulting Group (www.lyonscg.com)
+ * @author      Tanya Mamchik <tanya.mamchik@capgemini.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Framework\Logger\Monolog" type="Lyonscg\Logger\Logger\Framework\Monolog"/>
+    <virtualType name="Magento\Shipping\Model\Method\VirtualLogger" type="Lyonscg\Logger\Logger\Framework\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="debug" xsi:type="object">Magento\Shipping\Model\Carrier\VirtualDebug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Magento\Cron\Model\VirtualLogger" type="Lyonscg\Logger\Logger\Framework\Monolog">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="system" xsi:type="object">Magento\Cron\Model\VirtualLoggerHandler</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Lyonscg\SalesPad\Model\Config">
+        <plugin name="lyonscg_logger_salespad_plugin" type="Lyonscg\Logger\Plugin\SalesPadModelConfigPlugin"/>
+    </type>
+</config>
+

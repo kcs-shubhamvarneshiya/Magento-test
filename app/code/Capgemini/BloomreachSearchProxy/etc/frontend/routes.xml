@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="standard">
+        <route id="catalogsearch" frontName="catalogsearch">
+            <module name="Capgemini_BloomreachSearchProxy" before="Magento_CatalogSearch"/>
+        </route>
+        <route id="capgemini_bloomreach_search_proxy" frontName="capgemini_bloomreach_saarch_proxy">
+            <module name="Capgemini_BloomreachSearchProxy"/>
+        </route>
+    </router>
+</config>

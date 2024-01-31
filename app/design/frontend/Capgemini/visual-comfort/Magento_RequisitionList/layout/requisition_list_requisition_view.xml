@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Quotes</title>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Quotes</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+
+            <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="pdf.popup"
+                   template="Lyonscg_RequisitionList::popup-pdf.phtml" before="requisition_list_listing">
+                <arguments>
+                    <argument name="viewExtraDataModel" xsi:type="object">Lyonscg\RequisitionList\ViewModel\ExtraData</argument>
+                </arguments>
+            </block>
+
+            <referenceBlock name="requisition.management">
+                <block class="Magento\Framework\View\Element\Template"
+                       name="requisition.list.view.back_to_list"
+                       template="Magento_RequisitionList::requisition/view/items/back_to_list.phtml" />
+            </referenceBlock>
+
+            <referenceBlock name="requisition.list.toolbar">
+                <block name="requisition.list.toolbar.select_all" template="Magento_RequisitionList::requisition/view/items/toolbar/select_all.phtml" />
+            </referenceBlock>
+
+            <referenceBlock name="requisition.items.buttons">
+                <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.items.buttons.add_to_cart" template="Magento_RequisitionList::requisition/view/items/buttons/add_to_cart.phtml" />
+                <block name="requisition.items.buttons.update_list" template="Magento_RequisitionList::requisition/view/items/buttons/update_list.phtml" />
+                <block class="Magento\RequisitionList\Block\Requisition\View\Details" name="requisition.items.buttons.delete_list" template="Magento_RequisitionList::requisition/view/items/buttons/delete_list.phtml" />
+            </referenceBlock>
+
+        </referenceContainer>
+
+        <referenceBlock name="requisition.list.item.view">
+            <block class="Magento\Framework\View\Element\Template" name="requisition.item.sidemark"
+                   template="Magento_RequisitionList::requisition/view/items/sidemark.phtml"/>
+        </referenceBlock>
+
+        <referenceBlock name="requisition.list.toolbar">
+            <arguments>
+                <argument name="view_model" xsi:type="object" shared="false">Lyonscg\RequisitionList\ViewModel\RequisitionListTotal</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="page.main.title" remove="false"/>
+        <move element="requisition.list.view.back_to_list" destination="requisition.list.title" after="-"/>
+
+    </body>
+</page>

@@ -1,0 +1,65 @@
+<?php
+/**
+ * @author Amasty Team
+ * @copyright Copyright (c) 2022 Amasty (https://www.amasty.com)
+ * @package Store Locator for Magento 2
+ */
+?>
+<?php
+/**
+ * @var \Amasty\Storelocator\Block\Location $block
+ * @var \Amasty\Storelocator\Model\Location $location
+ */
+$locations = $block->getLocationCollection();
+/* @var \Capgemini\AmastyStoreLocator\ViewModel\LocationUtils $locationUtils */
+$locationUtils = $block->getLocationUtils();
+?>
+<div class="amlocator-wrapper">
+    <div class="amlocator-stores-wrapper">
+        <?php foreach ($locations as $location):
+            ?>
+            <div class="amlocator-store-desc" name="leftLocation"
+                 data-mapid="<?= $block->escapeHtml($block->getMapId()); ?>"
+                 data-amid="<?= (int)$location['id']; ?>">
+                <div class="amlocator-block">
+                    <?php if ($baseImage = $block->getLocationImage($location)):?>
+                        <div class="amlocator-image"
+                             style="background-image:
+                                 url('<?= $block->escapeUrl($baseImage) ?>')">
+                        </div>
+                    <?php endif;?>
+                    <?php
+                    $isShowroom = $location->getAttributes()
+                        && isset ($location->getAttributes()['location_type']['option_title'][0])
+                        && $location->getAttributes()['location_type']['option_title'][0] == $locationUtils->getShowroomTypeValue();
+                    $storeListHtml = $location->getStoreListHtml();
+                    if (!$isShowroom) {
+                        //Remove the link for non showroom location
+                        $storeListHtml = preg_replace('/<a class="amlocator-link" [^>]*>([^<]*)<\\/a>/', '<span>${1}</span>', $storeListHtml);
+                    }
+                    ?>
+                    <div class="amlocator-store-information"><?= $storeListHtml ?>
+                        <?php if ($isShowroom) : ?>
+                            <?php $url = $block->getUrl($block->configProvider->getUrl() . '/' . $location->getUrlKey()) ?>
+                            <a href="<?= $url ?>" class="showroom-details"><?= __('Showroom Details') ?></a>
+                        <?php endif; ?>
+                        <div style="display: none;" class="amasty_distance"
+                             id="amasty_distance_<?= (int)$location['id'] ?>">
+                            <span class="amasty_distance_number"></span>
+                        </div>
+                    </div>
+                </div>
+                <?=
+                $block->getLayout()
+                    ->createBlock(\Amasty\Storelocator\Block\View\Schedule::class)
+                    ->setData('location', $location)
+                    ->toHtml();
+                ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+    <?php if ($pager = $block->getPagerHtml()): ?>
+        <div class="amlocator-pager-container"><?= /** @escapeNotVerified */ $pager; ?></div>
+    <?php endif; ?>
+</div>

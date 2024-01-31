@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="PurgeListReader" type="Magento\Framework\Config\Reader\Filesystem">
+        <arguments>
+            <argument name="converter" xsi:type="object">Capgemini\CustomerDataPurger\Model\Config\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">Capgemini\CustomerDataPurger\Model\Config\SchemaLocator</argument>
+            <argument name="fileName" xsi:type="string">purge_instructions.xml</argument>
+        </arguments>
+    </virtualType>
+    <type name="Capgemini\CustomerDataPurger\Model\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">PurgeListReader</argument>
+            <argument name="cacheId" xsi:type="string">capgemini_customer_data_purger_list_cache</argument>
+        </arguments>
+    </type>
+    <type name="Capgemini\CustomerDataPurger\Observer\FinalPurge">
+        <arguments>
+            <argument name="purgingHandlersPool" xsi:type="array">
+                <item name="deleteRecord" xsi:type="object">Capgemini\CustomerDataPurger\Model\Purgers\DelRecord</item>
+                <item name="turnToDefault" xsi:type="object">Capgemini\CustomerDataPurger\Model\Purgers\ToDefault</item>
+                <item name="replaceWithPlaceholder" xsi:type="object">Capgemini\CustomerDataPurger\Model\Purgers\ToPlaceholder</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Capgemini\CustomerDataPurger\Model\Oauth\Token" type="Magento\Integration\Model\Oauth\Token">
+        <arguments>
+            <argument name="issuer" xsi:type="object">Magento\Integration\Model\OpaqueToken\Issuer</argument>
+        </arguments>
+    </virtualType>
+    <type name="\Magento\Integration\Model\Oauth\TokenFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Capgemini\CustomerDataPurger\Model\Oauth\Token</argument>
+        </arguments>
+    </type>
+</config>

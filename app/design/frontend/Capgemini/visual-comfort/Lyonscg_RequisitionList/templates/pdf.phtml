@@ -1,0 +1,523 @@
+<?php
+/**
+ * PDF Requisition List Template
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2023 Capgemini, Inc (www.capgemini.com)
+ */
+
+/** @var \Lyonscg\RequisitionList\Block\Quote $block */
+/** @var \Magento\Framework\Escaper $escaper */
+
+/** @var \Lyonscg\RequisitionList\Block\Index\Customer $customerBlock */
+$customerBlock = $block->getChildBlock('customer.info');
+
+$requisitionList = $block->getRequisitionList();
+
+/** @var  \Magento\RequisitionList\Api\Data\RequisitionListItemInterface $requisitionListItems */
+$requisitionListItems = $block->getRequisitionListItems();
+/** @var \Lyonscg\RequisitionList\ViewModel\RequisitionListTotal $requisitionTotalViewModel */
+$requisitionTotalViewModel = $block->getData('viewRequisitionTotalModel');
+
+//Get Quote Created Date
+$unformattedDate = $requisitionList->getUpdatedAt();
+if(empty($unformattedDate)){
+    $unformattedDate = $requisitionTotalViewModel->getCurrentDate();
+}
+$createdDateArray = explode('-', $unformattedDate);
+$dateObj   = DateTime::createFromFormat('!m', $createdDateArray[1]);
+$monthName = $dateObj->format('F');
+$createdDate = $monthName.' '.$createdDateArray[2].', '.$createdDateArray[0];
+$createdBy = $customerBlock->getCustomerFirstName() . ' ' .
+    $customerBlock->getCustomerLastName();
+
+$requisitionTotalViewModel
+    ->setRequisitionList($requisitionList)
+    ->setTaxRate(0);
+
+$createdDate = date('F j, Y', strtotime($unformattedDate));
+
+$logo = $block->getViewFileUrl('Lyonscg_RequisitionList::images/pdf_logo.png');
+
+$params = $this->getRequest()->getParams();
+$pdf_pricing = (!empty($params['pdf_pricing'])) ? $params['pdf_pricing'] : '';
+$pdf_type = (!empty($params['pdf_type'])) ? $params['pdf_type'] : '';
+?>
+
+<html>
+<style>
+    body {
+        font-family: "proxima-nova", sans-serif;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        letter-spacing: normal;
+        color: #454545;
+    }
+
+    b,
+    strong {
+        font-family: "proxima-nova", sans-serif;
+        font-weight: bold;
+    }
+
+    hr {
+        height: 1px;
+        color: #e3e3e3;
+        background-color: #e3e3e3;
+        border: none;
+    }
+
+    .image-box {
+        width: 100%;
+        text-align: left;
+    }
+
+    .image-box img {
+        height: 50px;
+    }
+
+    .data-table {
+        margin-top: 20px;
+        border: solid 1px #e3e3e3;
+        width: 100%;
+    }
+
+    .data-table th {
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    .data-table tr {
+        border-bottom: 1px solid #e3e3e3;
+    }
+
+    .table-header {
+        border: 1px solid #d1d1d1;
+        width: 100%;
+    }
+
+    .table-header th.col {
+        background-color: #f8f8f8;
+        padding: 15px 15px;
+        font-family: "proxima-nova", sans-serif;
+        font-size: 7px;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1;
+        letter-spacing: 0.25px;
+        color: #454545;
+        text-transform: uppercase;
+        text-align: left;
+    }
+
+    .table-header th.col.qty {
+        text-align: center;
+    }
+
+    .item-data {
+        padding: 15px;
+    }
+
+    .item-data.image {
+        width: auto;
+    }
+
+    .item-data.image .item-image {
+        max-width: 100px !important;
+    }
+
+    .item-data.product-info {
+        padding: 15px 0 0 0;
+        margin: 0;
+        width: 100%;
+    }
+
+    .item-data.product-info .collection {
+        font-size: 6px;
+        letter-spacing: 0.75px;
+        color: #717171;
+        text-transform: uppercase;
+        padding: 3px 0 0 0;
+        margin: 0;
+    }
+
+    .item-data.product-info .sku {
+        font-size: 9px;
+        margin-top: 10px;
+        margin-bottom: 0;
+    }
+
+    .item-data.product-info .options {
+        margin-top: 10px;
+    }
+
+    .item-data.product-info .content {
+        font-size: 8px;
+        line-height: 1.5;
+    }
+
+    .item-data.product-info .bold-content {
+        font-weight: bold;
+    }
+
+    .item-data.product-info .sku .label{
+        font-weight: bold;
+    }
+
+    .item-data.product-info .product-stock {
+        font-size: 9px;
+        line-height: 1.5;
+    }
+
+    .item-data.product-info .product-stock .label {
+        font-weight: bold;
+    }
+
+    .item-data.price, .item-data.subtotal {
+        font-size: 9px;
+        padding-top: 15px;
+        width: 10%;
+        line-height: 1.5;
+    }
+
+    .item-data.price .price-label, .item-data.subtotal .price-label {
+        font-size: 8px;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .item-data.price .retail-price, .item-data.subtotal .retail-price {
+        margin-bottom: 5px;
+    }
+
+    .item-data.subtotal {
+        width: 15%;
+    }
+
+    .item-data.qty {
+        font-size: 9px;
+        width: 10%;
+        text-align: center;
+    }
+
+    .product-name {
+        font-size: 8px;
+        text-transform: uppercase;
+        font-weight: bold;
+        line-height: 1.25;
+        vertical-align: top
+        margin-bottom: 0;
+    }
+
+    .quote-name {
+        font-family: 'goudy-old-style', serif;
+        font-size: 18px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.25;
+        letter-spacing: normal;
+        color: #454545;
+        padding: 5px 0 10px;
+        text-align: left;
+    }
+
+    .headings span {
+        font-weight: 200;
+    }
+
+    .footer {
+        width: 100%;
+        height: auto;
+        background-color: transparent;
+        margin-top: 10px;
+    }
+
+    .footer-copy {
+        font-family: "proxima-nova", sans-serif;
+        font-size: 8px;
+        font-weight: bold;
+        line-height: 1.5;
+        text-align: left;
+        text-transform: uppercase;
+        color: #454545;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    td.item-data {
+        vertical-align: top;
+    }
+
+    .pdf-logo {
+        text-align: center;
+        padding: 0;
+        margin-bottom: 25px;
+    }
+
+    .pdf-logo img {
+        width: auto;
+        height: 20px;
+        object-fit: contain;
+    }
+
+    table {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .pdf-info .label, .pdf-info .value {
+        font-size: 10px;
+        line-height: 1.25;
+    }
+
+    .pdf-info .label {
+        font-weight: bold;
+    }
+
+    .pdf-info .value {
+        padding-left: 45px;
+    }
+
+    .data-fade {
+        color: #717171 !important;
+    }
+
+    .price-label {
+        display: block;
+    }
+
+    .table-footer * {
+        font-family: "proxima-nova", sans-serif;
+        text-transform: none;
+        vertical-align: top;
+    }
+
+    .list-view tbody td {
+        border-bottom: 1px solid #d1d1d1;
+    }
+
+
+    /*Detailed view styles*/
+    .detailed-view th,
+    .detailed-view td,
+    .detailed-view td * {
+        margin: 0;
+        padding: 0;
+        height: auto;
+        line-height: normal;
+    }
+
+    .detailed-view * {
+        color: #454545;
+    }
+
+    .quote-table {
+        width: 98%;
+        border: none;
+        margin-top: 15px;
+        table-layout: fixed;
+    }
+
+    .detailed-view td.pdf-item-image {
+        width: 50%;
+    }
+
+    .detailed-view td.pdf-item-image img {
+        max-width: none;
+        width: 100%;
+    }
+
+    .detailed-view td.pdf-item-info {
+        width: 50%;
+        padding-left: 20px;
+    }
+
+    .detailed-view {
+        border-collapse: collapse;
+        border-spacing: 0;
+        font-family: "proxima-nova", sans-serif;
+    }
+
+    .detailed-view .designer, .detailed-view .collection {
+        font-size: 6px;
+        letter-spacing: 0.75px;
+        color: #717171;
+        text-transform: uppercase;
+        padding: 0;
+        margin: 0;
+    }
+
+    .detailed-view .product-name{
+        font-family: 'goudy-old-style', serif;
+        font-size: 20px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.25;
+        letter-spacing: normal;
+        text-transform: none;
+        color: #454545;
+        padding: 5px 0 5px;
+    }
+
+    .detailed-view .quote-price {
+        margin-top: 20px;
+        vertical-align: top;
+    }
+
+    .detailed-view .price-label {
+        font-size: 8px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+
+    .detailed-view .price-value {
+        font-family: 'goudy-old-style', serif;
+        font-size: 20px;
+        font-weight: normal;
+    }
+
+    .detailed-view .retail-price,
+    .detailed-view .trade-price {
+        display: inline-block;
+        margin-right: 20px;
+        width: auto;
+    }
+
+    .detailed-view .sku {
+        margin-top: 15px;
+        font-size: 9px;
+        line-height: 1.5;
+    }
+
+    .detailed-view .sku .label{
+        font-weight: bold;
+    }
+
+    .detailed-view .item-option {
+        font-size: 9px;
+        line-height: 1.5;
+    }
+
+    .detailed-view .item-option span {
+        font-weight: bold;
+    }
+
+    .qty {
+        font-size: 9px;
+        line-height: 1.5;
+        margin-top: 5px;
+        padding: 0;
+    }
+
+    .qty .label {
+        font-weight: bold;
+    }
+
+    .sidemark .label,
+     .comments .label,
+    .quote-notes .label {
+        font-size: 9px;
+        font-weight: bold;
+        line-height: 1.5;
+        margin-top: 10px;
+    }
+
+    .sidemark .value,
+     .comments .value,
+     .quote-notes .value {
+        font-size: 9px;
+        line-height: 1.5;
+    }
+
+    .detailed-view .footer {
+        font-size: 8px;
+        font-weight: bold;
+        line-height: 1.5;
+        text-transform: uppercase;
+        margin-top: 10px;
+    }
+
+</style>
+
+<?php if (!empty($requisitionListItems)) : ?>
+    <?php if ($pdf_type === 'list') : ?>
+        <div class="image-box pdf-logo">
+            <img src="<?= $block->getLayout()->getBlock('logo')->getLogoSrc() ?>" alt="logo"/>
+        </div>
+        <hr>
+        <div class="quote-name"><?= $requisitionList->getName(); ?></div>
+        <table class="pdf-info pdf-data">
+            <tr><td class="label">Created</td><td class="value"><?= $createdDate; ?> by <?= $createdBy ?></td></tr>
+            <tr><td class="label">P.O. #</td><td class="value"><?= $requisitionList->getPoNumber(); ?></td></tr>
+        </table>
+
+        <table class="data-table table list-view">
+            <thead>
+                <tr class="table-header">
+                    <th class="col product" colspan="2">
+                        <span><?= $escaper->escapeHtml(__('Product')) ?></span>
+                    </th>
+                    <?php if ($pdf_pricing != 'none') : ?>
+                        <th class="col price">
+                            <span><?= $escaper->escapeHtml(__('Price')) ?></span>
+                        </th>
+                    <?php endif; ?>
+                    <th class="col qty">
+                        <span><?= $escaper->escapeHtml(__('Qty')) ?></span>
+                    </th>
+                    <?php if ($pdf_pricing != 'none') : ?>
+                        <th class="col subtotal">
+                            <span><?= $escaper->escapeHtml(__('Subtotal')) ?></span>
+                        </th>
+                    <?php endif; ?>
+                </tr>
+            </thead>
+            <tbody>
+            <?php $i = 0 ?>
+            <?php foreach ($block->getRequisitionListItems() as $item) : $i++ ?>
+                <tr class="_<?= ($i % 2) ? 'even' : 'odd' ?> item"
+                    data-product-id="<?= (int)$item->getId() ?>">
+                    <?php
+                    $block->getChildBlock('requisition.list.item.view')
+                        ->setTemplate('Lyonscg_RequisitionList::item_list.phtml')
+                        ->setItem($item);
+                    ?>
+                    <?= $block->getChildHtml('requisition.list.item.view', false) ?>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+
+        <div class="footer" style="page-break-inside: avoid;">
+            <div class="footer-copy">Quote pricing valid for 30 days.</div>
+        </div>
+
+    <?php elseif ($pdf_type === 'detail') : ?>
+        <?php $itemsLeft = count($block->getRequisitionListItems()); ?>
+        <?php foreach ($block->getRequisitionListItems() as $item) : ?>
+            <?php $itemsLeft--; ?>
+            <div class="image-box pdf-logo">
+                <img src="<?= $block->getLayout()->getBlock('logo')->getLogoSrc() ?>" alt="logo"/>
+            </div>
+            <hr>
+            <div class="quote-name"><?= $requisitionList->getName(); ?></div>
+            <table class="pdf-info pdf-data">
+                <tr><td class="label">Created</td><td class="value"><?= $createdDate; ?> by <?= $createdBy ?></td></tr>
+                <tr><td class="label">P.O. #</td><td class="value"><?= $requisitionList->getPoNumber(); ?></td></tr>
+            </table>
+
+            <?php
+            $block->getChildBlock('requisition.list.item.view')
+                ->setTemplate('Lyonscg_RequisitionList::item_detail.phtml')
+                ->setItem($item);
+            ?>
+            <?= $block->getChildHtml('requisition.list.item.view', false) ?>
+            <?php if ($itemsLeft > 0): ?>
+                <div style="page-break-after: always;"></div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
+<?php endif; ?>
+</html>

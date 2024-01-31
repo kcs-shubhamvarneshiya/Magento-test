@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Customer\Model\Customer\DataProviderWithDefaultAddresses">
+        <plugin name="lyonscg_salespad_customer_data_provider_plugin"
+                type="Lyonscg\SalesPad\Plugin\DataProviderWithDefaultAddressesPlugin" disabled="false"/>
+    </type>
+</config>

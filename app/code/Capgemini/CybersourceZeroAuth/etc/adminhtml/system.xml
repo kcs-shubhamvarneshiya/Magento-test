@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="cybersource_section">
+                <group id="cybersource_secure_acceptance">
+                    <group id="secure_acceptance_settings">
+                        <field id="zero_amount_authorization" translate="label" type="select" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Zero Amount Authorization</label>
+                            <options>
+                                <option label="Disabled">0</option>
+                                <option label="Enabled">1</option>
+                            </options>
+                            <config_path>payment/chcybersource/zero_amount_authorization</config_path>
+                            <depends><field id="payment_action">authorize</field></depends>
+                        </field>
+                        <field id="zero_amount_customer_groups" translate="label" type="multiselect" sortOrder="12" showInDefault="1" showInWebsite="1" showInStore="0">
+                            <label>Zero Amount Customer Groups</label>
+                            <source_model>Magento\Customer\Model\Customer\Source\Group</source_model>
+                            <config_path>payment/chcybersource/zero_amount_customer_groups</config_path>
+                            <depends>
+                                <field id="payment_action">authorize</field>
+                                <field id="zero_amount_authorization">1</field>
+                            </depends>
+                        </field>
+                    </group>
+                </group>
+            </group>
+        </section>
+    </system>
+</config>

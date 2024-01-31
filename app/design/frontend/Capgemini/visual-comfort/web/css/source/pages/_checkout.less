@@ -1,0 +1,1564 @@
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .checkout-index-index {
+        .edit-cart {
+            margin-top: 20px;
+
+            .action {
+                text-decoration: underline;
+            }
+        }
+
+        .opc-progress-bar {
+            li {
+                white-space: nowrap;
+            }
+        }
+
+        .col-radio {
+            padding-top: 10px !important;
+        }
+
+        .payment-icon-paypal {
+            background: url('@{baseDir}/images/pp-logo.png') no-repeat 50% 50%;
+            width: 100px;
+            height: 25px;
+            display: inline-block;
+        }
+
+        .order-attributes {
+            div[name="amastyShippingMethodAttributes.project_name"],
+            div[name="amastyShippingMethodAttributes.comments"],
+            div[name="amastyShippingMethodAttributes.po_number"] {
+                .label {
+                    span {
+                        &:after {
+                            content: '(Optional)';
+                            font-family: @font-proxima-nova;
+                            font-size: 12px;
+                            font-weight: normal;
+
+                            font-style: normal;
+                            line-height: 1.5;
+                            letter-spacing: 0.5px;
+                            color: @color-gray-700;
+                            text-transform: capitalize;
+                            margin-left: 5px;
+                        }
+                    }
+                }
+            }
+        }
+
+        //payment methods
+        #stored_credit_cards {
+            .card__wrapper {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            .cc__wrapper:last-child {
+                margin-right: 0 !important;
+            }
+
+            .cvv__btn-add {
+                margin-top: 20px;
+                margin-bottom: 30px;
+
+                .action.add {
+                    max-width: 250px;
+                    width: 100%;
+                    height: 45px;
+                    border: solid 1px @color-gray-900;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-family: @font-proxima-nova;
+                    font-size: 12px;
+                    font-weight: normal;
+
+                    font-style: normal;
+                    line-height: 1.17;
+                    letter-spacing: 1.2px;
+                    text-align: center;
+                    color: @color-gray-800;
+                    text-transform: uppercase;
+
+                    &:hover {
+                        background: @color-gray-light;
+                    }
+                }
+            }
+
+            .cc__wrapper {
+                width: 31%;
+                border: solid 1px @color-gray-400;
+                margin-bottom: 20px;
+                margin-right: 20px;
+                padding: 20px;
+                display: flex;
+                flex-wrap: wrap;
+
+                box-sizing: border-box;
+
+                .cc__data-wrap {
+                    display: flex;
+                    flex-direction: column;
+                    margin-left: 5%;
+
+                    > span {
+                        margin-bottom: 4px;
+                    }
+
+                    .cc__wrapper-ending {
+                        margin-bottom: 6px;
+                    }
+                }
+
+                .method-card-img {
+                    height: 30px;
+                    width: 47px;
+
+                    &.Visa {
+                        background: url('@{baseDir}/images/cc-types.png') repeat-x 0 0;
+                    }
+
+                    &.MasterCard {
+                        background: url('@{baseDir}/images/cc-types.png') repeat-x 100% 0;
+                    }
+
+                    &.Discover {
+                        background: url('@{baseDir}/images/cc-types.png') repeat-x 94px 0;
+                    }
+
+                    &.AmericanExpress {
+                        background: url('@{baseDir}/images/cc-types.png') repeat-x 141px 0;
+                    }
+                }
+
+                .cc__wrapper-nickname {
+                    font-family: @font-proxima-nova;
+                    font-size: 14px;
+                    font-weight: normal;
+
+                    font-style: normal;
+                    line-height: 1.14;
+                    letter-spacing: 0.6px;
+                    color: @color-gray-900;
+                    margin-bottom: 10px;
+                }
+
+                > span {
+                    font-family: @font-proxima-nova;
+                    font-size: 14px;
+                    font-weight: normal;
+
+                    font-style: normal;
+                    line-height: 1.57;
+                    letter-spacing: 0.6px;
+                    color: @color-gray-700;
+                }
+
+                .cvv__field {
+                    position: relative;
+                    max-width: 150px;
+                    margin-left: 20%;
+
+                    label {
+                        font-family: @font-proxima-nova;
+                        font-size: 12px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.17;
+                        letter-spacing: 1.2px;
+                        color: @color-gray-900;
+                    }
+
+                    .field-tooltip {
+                        top: 50%;
+                        right: 10px;
+
+                        .action-cvv {
+                            &:before {
+                                font-size: 1.6rem;
+                            }
+                        }
+                    }
+                }
+
+                .cvv__btn-wrap {
+                    margin-top: 25px;
+                    flex-basis: 100%;
+
+                    .action.add {
+                        max-width: 210px;
+                        width: 100%;
+                        height: 50px;
+                        border: solid 1px @color-gray-900;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        font-family: @font-proxima-nova;
+                        font-size: 12px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.17;
+                        letter-spacing: 1.2px;
+                        text-align: center;
+                        color: @color-gray-800;
+                        text-transform: uppercase;
+
+                        &:hover {
+                            background: @color-gray-light;
+                        }
+                    }
+                }
+
+                &.highlight {
+                    background: @color-gray-light url('@{baseDir}/images/checkmark-solid.png') no-repeat 95% 15px;
+                    border: solid 1px @color-gray-800;
+                }
+            }
+        }
+
+        div[name="shippingAddress.company"] {
+            .label {
+                span {
+                    &:after {
+                        content: '(Optional)';
+                        font-family: @font-proxima-nova;
+                        font-size: 12px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.5;
+                        letter-spacing: 0.5px;
+                        color: @color-gray-700;
+                        margin-left: 5px;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+        }
+
+        div[name="shippingAddress.street.1"] {
+            .label {
+                span {
+                    &:after {
+                        content: '(Optional)';
+                        text-transform: capitalize;
+                        font-family: @font-proxima-nova;
+                        font-size: 12px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.5;
+                        letter-spacing: 0.5px;
+                        color: @color-gray-700;
+                        margin-left: 5px;
+                    }
+                }
+            }
+        }
+
+        .payment-method-billing-address {
+            div[name="billingAddresscheckmo.telephone"],
+            div[name="billingAddresspayfabric.telephone"] {
+                input {
+                    width: 100% !important;
+                }
+
+                .validator.validator-phone {
+                    width: 100% !important;
+
+                    input {
+                        width: 100% !important;
+                    }
+                }
+
+                .field-tooltip {
+                    cursor: pointer;
+                    display: none;
+                    position: absolute;
+                    right: 16px;
+                    top: 50%;
+                    transform: translateY(-50%);
+
+                    #tooltip {
+                        &:before {
+                            font-size: 1.6rem;
+                            color: @color-gray-800;
+                        }
+                    }
+                }
+            }
+        }
+
+        #shipping-new-address-form {
+            .validator.validator-phone {
+                width: 100% !important;
+
+                input {
+                    width: 100% !important;
+                }
+            }
+
+            .field-tooltip {
+                cursor: pointer;
+                position: absolute;
+                right: 16px;
+                top: 50%;
+                transform: translateY(-50%);
+
+                #tooltip {
+                    &:before {
+                        font-size: 1.6rem;
+                        color: @color-gray-800;
+                    }
+                }
+            }
+        }
+
+        #customer-email-fieldset {
+            .validator.validator-email {
+                height: auto !important;
+                width: 100% !important;
+
+                input {
+                    width: 100% !important;
+                }
+            }
+
+            .field-tooltip {
+                cursor: pointer;
+                position: absolute;
+                right: 16px;
+                top: 13px;
+                //top: 50%;
+                //transform: translateY(-50%);
+                #tooltip {
+                    &:before {
+                        font-size: 1.6rem;
+                        color: @color-gray-800;
+                    }
+                }
+            }
+
+            .action.remind {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .checkout-index-index {
+
+        .page-main {
+            //payment form customization
+            .payment-method-billing-address {
+                .field.street {
+                    legend {
+                        display: none;
+                    }
+                }
+            }
+
+            .authentication-wrapper {
+                position: absolute;
+                margin: 0;
+
+                .action-auth-toggle {
+                    background: url('@{baseDir}/images/lock.png') no-repeat 0 50%;
+                    width: 100px;
+                    border: none;
+
+                    span {
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.57;
+                        letter-spacing: 0.6px;
+                        color: @color-gray-800;
+                        text-transform: capitalize;
+                    }
+                }
+
+                .block-title {
+                    border-bottom: 1px solid @color-gray-400;
+                    margin-bottom: 20px;
+                    padding-bottom: 20px;
+
+                    strong {
+                        .font-goudy-old-style(2.6rem, 3.2rem);
+                        color: @color-gray-800;
+                    }
+                }
+
+                .block-content {
+                    .label {
+                        .font-proxima-nova-semibold(1.4rem, 1.4rem);
+                        color: @color-gray-800;
+                        letter-spacing: @letter-spacing__s;
+                        text-transform: none;
+                    }
+
+                    .fieldset {
+                        margin-bottom: 20px;
+                    }
+                }
+
+                .action-close {
+                    box-sizing: content-box;
+                    height: 14px;
+                    margin: 0;
+                    padding: 10px;
+                    position: absolute;
+                    right: 20px;
+                    top: 20px;
+                    width: 14px;
+
+                    &:before {
+                        color: @color-gray-800;
+                        content: "\e901";
+                        font-family: @font-vc-icons;
+                        font-size: 1.4rem !important; //overriding !important
+                        font-weight: @font-wt-bold;
+                        line-height: 1.4rem;
+                    }
+
+                    #block-customer-login-heading {
+                        font-size: 20px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.25;
+                        letter-spacing: 0.7px;
+                        color: @color-gray-800;
+                    }
+                }
+
+                .actions-toolbar {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .primary,
+                    .secondary {
+                        max-width: 290px;
+                        width: 100%;
+                        text-align: center;
+                    }
+
+                    .primary {
+                        button {
+                            background: @color-gray-900;
+
+                            span {
+                                font-size: 12px;
+                                font-weight: normal;
+
+                                font-style: normal;
+                                line-height: 1.17;
+                                letter-spacing: 1.2px;
+                                text-align: center;
+                                color: @color-white;
+                            }
+
+                            &:hover {
+                                background: @color-gray-700;
+                            }
+                        }
+                    }
+
+                    .secondary {
+                        margin: 0;
+
+                        a {
+                            font-size: 12px;
+                            font-weight: normal;
+
+                            font-style: normal;
+                            line-height: 1.83;
+                            letter-spacing: 0.8px;
+                            color: @color-gray-900;
+                            text-decoration: underline;
+                        }
+                    }
+                }
+            }
+
+            #customer-email-fieldset {
+                .note {
+                    a {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .checkout-container {
+                .opc-wrapper {
+                    .opc {
+                        .checkout-shipping-address {
+                            .field.addresses {
+                                .shipping-address-item {
+                                    &:before {
+                                        display: none;
+                                    }
+
+                                    &.not-selected-item {
+                                        border: solid 1px @color-gray-400;
+                                    }
+
+                                    &.selected-item {
+                                        &:after {
+                                            display: none;
+                                        }
+                                    }
+
+                                    .address__name {
+                                        font-size: 14px;
+                                        font-weight: 600;
+
+                                        font-style: normal;
+                                        line-height: 1.14;
+                                        letter-spacing: 0.6px;
+                                        color: @color-gray-900;
+                                        margin-bottom: 10px;
+                                    }
+
+                                    button {
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+                                        background: transparent;
+                                        border: solid 1px @color-gray-900;
+                                        height: 50px;
+                                        max-width: 210px;
+                                        width: 100%;
+
+                                        &:hover {
+                                            background: @color-gray-light;
+                                        }
+                                    }
+                                }
+
+                                .shipping-address-item:nth-child(3n) {
+                                    margin-right: 0 !important;
+                                }
+                            }
+
+                            .action.action-show-popup {
+                                span {
+                                    &:before {
+                                        display: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Radio
+            input[type=radio] + label {
+                .type-typeface-2();
+                color: @color-gray-900;
+                padding-left: 26px;
+                position: relative;
+                text-transform: capitalize;
+                top: 4px;
+
+                &::before {
+                    background: url('@{baseDir}/images/radio-unselected-checkout.png') no-repeat 0 50%;
+                    height: 16px;
+                    margin-top: -2px;
+                    width: 16px;
+                }
+            }
+
+            input[type=radio]:checked + label:before {
+                background: url('@{baseDir}/images/radio-selected-checkout.png') no-repeat 0 50%;
+                height: 16px;
+                width: 16px;
+            }
+
+            //Radio Base Clear
+            input[type=radio] {
+                display: none !important;
+            }
+
+            //highlight selected method
+            .highlight {
+                border: solid 1px @color-gray-800 !important;
+                background-color: @color-gray-light;
+            }
+
+            .step-content {
+                margin-top: 30px;
+                margin-bottom: 0;
+            }
+
+            .actions-toolbar-label {
+                .primary .checkout-next-btn-label {
+                    &:extend(button all);
+                    .lib-button-primary();
+                }
+            }
+
+            //shipping form customization
+            .table-checkout-shipping-method {
+                min-width: unset;
+                width: 100%;
+
+                tr.row.selected-method {
+                    border: solid 1px @color-gray-400;
+                    cursor: pointer;
+                }
+
+                tr.row:not(.selected-method) {
+                    td {
+                        padding: 0;
+                    }
+                }
+
+                td {
+                    border: none;
+                    padding-left: 20px;
+                }
+
+                .spacer {
+                    td {
+                        padding: 10px 0;
+                    }
+                }
+
+                .col-method-title {
+                    font-family: @font-proxima-nova;
+                }
+
+                .col-carrier-title {
+                    font-family: @font-proxima-nova;
+                }
+
+                .col-method-title,
+                .col-price .price span {
+                    font-size: 14px;
+                    font-weight: 600;
+
+                    font-style: normal;
+                    line-height: 1.14;
+                    letter-spacing: 0.6px;
+                    color: @color-gray-900;
+                }
+            }
+
+            .checkout-validate-address {
+                .form.validate {
+                    font-weight: 400;
+
+                    .addressOption {
+                        &.selected {
+                            background: unset;
+                        }
+
+                        .addressLabel {
+                            text-transform: capitalize;
+
+                            .validAddressText {
+                                .address-field-changed {
+                                    text-transform: capitalize;
+                                    background-color: @color-gray-light-medium;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .authentication-wrapper {
+            z-index: 890;
+        }
+    }
+}
+
+//checkout form
+@media screen and (min-width: 980px) {
+    .checkout-index-index {
+        .page-main {
+            .order-attributes-form {
+                //max-width: 740px;
+                //width: 100%;
+                input, textarea {
+                    width: 98%;
+                }
+            }
+
+            //checkout form
+            .form.form-login {
+                max-width: 100%;
+                width: 100%;
+                border-bottom: 0;
+            }
+
+            .payment-method-billing-address .fieldset {
+                width: 100%;
+            }
+
+            .billing-address-form .fieldset.address,
+            .form.form-shipping-address {
+                max-width: 740px;
+                width: 100%;
+
+                div[name="shippingAddress.firstname"],
+                div[name="billingAddresspayfabric.firstname"],
+                div[name="billingAddresscheckmo.firstname"],
+                div[name="shippingAddress.lastname"],
+                div[name="billingAddresspayfabric.lastname"],
+                div[name="billingAddresscheckmo.lastname"],
+                div[name="shippingAddress.city"],
+                div[name="shippingAddress.region_id"],
+                div[name="billingAddresspayfabric.region_id"],
+                div[name="billingAddresscheckmo.region_id"],
+                div[name="shippingAddress.postcode"],
+                div[name="billingAddresspayfabric.postcode"],
+                div[name="billingAddresscheckmo.postcode"],
+                div[name="shippingAddress.country_id"],
+                div[name="billingAddresspayfabric.country_id"],
+                div[name="billingAddresscheckmo.country_id"],
+                div[name="billingAddresspayfabric.telephone"],
+                div[name="billingAddresscheckmo.telephone"],
+                div[name="shippingAddress.telephone"] {
+                    max-width: none;
+                    display: inline-block;
+                    vertical-align: top;
+                    width: ~"calc(50% - 15px)";
+                }
+
+                div[name="shippingAddress.firstname"],
+                div[name="billingAddresspayfabric.firstname"],
+                div[name="billingAddresscheckmo.firstname"],
+                div[name="billingAddresspayfabric.region_id"],
+                div[name="shippingAddress.region_id"],
+                div[name="billingAddresscheckmo.region_id"],
+                div[name="billingAddresspayfabric.country_id"],
+                div[name="billingAddresscheckmo.country_id"],
+                div[name="shippingAddress.country_id"] {
+                    margin-right: 30px;
+                }
+
+                .field {
+                    input {
+                        max-width: 100%;
+                    }
+                }
+
+                div[name="shippingAddress.region_id"],
+                div[name="billingAddresspayfabric.region_id"],
+                div[name="billingAddresscheckmo.region_id"],
+                div[name="billingAddresspayfabric.country_id"],
+                div[name="billingAddresscheckmo.country_id"],
+                div[name="shippingAddress.country_id"] {
+                    select {
+                        max-width: 100%;
+                    }
+                }
+            }
+
+            //payment form customization
+            .payment-method-billing-address {
+                .control {
+                    max-width: none !important;
+                }
+            }
+        }
+    }
+}
+
+//
+@media screen and (max-width: 979px) and (min-width: @screen__m) {
+
+    .checkout-index-index {
+        .opc-wrapper {
+            .payment-method {
+                .payment-method-content {
+                    form {
+                        .field.type {
+                            float: none;
+                            clear: both;
+                            width: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .checkout-index-index {
+        .page-main {
+            //checkout form
+            .form.form-login {
+                max-width: 362px;
+                width: 100%;
+                border-bottom: 0;
+
+                .field {
+                    .control {
+                        input {
+                            width: 100%;
+                        }
+                    }
+
+                    .field-tooltip {
+                        right: 30px;
+                        top: 15px;
+                    }
+                }
+            }
+
+            .payment-method-billing-address .fieldset {
+                width: 100%;
+            }
+
+            .billing-address-form .fieldset.address,
+            .form.form-shipping-address {
+                max-width: 740px;
+                width: 100%;
+
+                div[name="shippingAddress.firstname"],
+                div[name="billingAddresspayfabric.firstname"],
+                div[name="billingAddresscheckmo.firstname"],
+                div[name="shippingAddress.lastname"],
+                div[name="billingAddresspayfabric.lastname"],
+                div[name="billingAddresscheckmo.lastname"],
+                div[name="shippingAddress.region_id"],
+                div[name="billingAddresspayfabric.region_id"],
+                div[name="billingAddresscheckmo.region_id"],
+                div[name="shippingAddress.postcode"],
+                div[name="billingAddresspayfabric.postcode"],
+                div[name="billingAddresscheckmo.postcode"],
+                div[name="shippingAddress.country_id"],
+                div[name="billingAddresspayfabric.country_id"],
+                div[name="billingAddresscheckmo.country_id"],
+                div[name="billingAddresspayfabric.telephone"],
+                div[name="billingAddresscheckmo.telephone"],
+                div[name="shippingAddress.telephone"] {
+                    max-width: none;
+                    display: inline-block;
+                    width: 48%;
+                }
+
+                div[name="shippingAddress.firstname"],
+                div[name="billingAddresspayfabric.firstname"],
+                div[name="billingAddresscheckmo.firstname"],
+                div[name="billingAddresspayfabric.region_id"],
+                div[name="shippingAddress.region_id"],
+                div[name="billingAddresscheckmo.region_id"],
+                div[name="billingAddresspayfabric.country_id"],
+                div[name="billingAddresscheckmo.country_id"],
+                div[name="shippingAddress.country_id"] {
+                    margin-right: 14px;
+                }
+
+                div[name="shippingAddress.region_id"],
+                div[name="billingAddresspayfabric.region_id"],
+                div[name="billingAddresscheckmo.region_id"],
+                div[name="billingAddresspayfabric.country_id"],
+                div[name="billingAddresscheckmo.country_id"],
+                div[name="shippingAddress.country_id"] {
+                    select {
+                        max-width: 98%;
+                    }
+                }
+
+                .field {
+                    input {
+                        max-width: 98%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+//custom viewports
+@media screen and (max-width: 1080px) {
+    .checkout-index-index {
+        .opc-wrapper {
+            .payment-method {
+                .payment-method-content {
+                    form {
+                        .field.type {
+                            float: none !important;
+                            clear: both;
+                            max-width: none !important;
+                            width: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//authentication-wrapper alignment
+@media screen and (max-width: 959px) and (min-width: @screen__m) {
+    .checkout-index-index {
+        .page-main {
+            .authentication-wrapper {
+                right: 60px;
+                top: 10px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 960px) {
+    .checkout-index-index {
+        .header.content {
+            padding-left: 75px;
+            padding-right: 75px;
+        }
+
+        .messages {
+            float: left;
+            clear: both;
+            width: ~'calc(74% - 30px)';
+
+            .message {
+                margin: 0;
+            }
+        }
+
+        .page-main {
+            .checkout-container {
+                position: relative;
+
+                .authentication-wrapper {
+                    right: 0;
+                    top: -60px;
+                }
+            }
+        }
+    }
+}
+
+
+//destkop (768+)
+@media screen and (min-width: @screen__m) {
+    .checkout-index-index {
+        .page-main {
+            .authentication-wrapper {
+                max-width: 330px;
+                width: 100%;
+
+                aside {
+                    border: 0;
+                }
+
+                .modal-inner-wrap {
+                    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.18);
+                    border: solid 1px @color-gray-400;
+                    background-color: @color-white;
+                }
+
+                .action.action-auth-toggle {
+                    width: auto;
+                    padding-left: 20px;
+                }
+            }
+
+            .checkout-project-details {
+                .order-attributes {
+                    .order-attributes-form.fieldset.address {
+                        max-width: 362px;
+                        width: 100%;
+                    }
+                }
+            }
+
+            //shipping form customization
+            .table-checkout-shipping-method {
+                max-width: 100%;
+                width: 100%;
+            }
+
+            .actions-toolbar-label {
+                .primary {
+                    float: none;
+
+                    .checkout-next-btn-label {
+                        max-width: 320px;
+                        width: 100%;
+                        margin-top: 50px;
+                    }
+                }
+            }
+
+            .checkout-container {
+                .opc-wrapper {
+                    .opc {
+                        .checkout-shipping-address {
+                            .field.addresses {
+                                .shipping-address-items {
+                                    display: grid;
+                                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                                    gap: 20px;
+                                }
+
+                                .shipping-address-item {
+                                    width: 100%;
+                                    margin-right: 0;
+                                }
+                            }
+                        }
+
+                        .checkout-payment-method {
+                            #stored_credit_cards {
+                                .card__wrapper {
+                                    display: grid;
+                                    grid-template-columns: auto auto auto;
+                                    gap: 20px;
+                                }
+
+                                .cc__wrapper {
+                                    width: 100%;
+                                    margin: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //confirmation page
+    .checkout-onepage-success {
+        .page-wrapper {
+            .page-main {
+                &#maincontent {
+                    padding: 0 30px;
+                }
+
+                .order-info__header {
+                    .csp-page-title {
+                        .csp-h1 {
+                            font-size: 3.6rem;
+                            line-height: 3.8rem;
+                        }
+                    }
+
+                    .order-info__header-container {
+                        .column-holder {
+                            .left {
+                                .order-info__header-container--text {
+                                    line-height: 2.0rem;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .order-info__main-container {
+                    .csp-right-col {
+                        .totals {
+                            h2 {
+                                font-size: 2.6rem;
+                                line-height: 3.2rem;
+                            }
+                        }
+                    }
+                }
+
+                .page-title-wrapper {
+                    text-align: left;
+                }
+
+                .checkout-success {
+                    > p {
+                        font-family: @font-proxima-nova;
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.57;
+                        letter-spacing: 0.6px;
+                        color: @color-gray-700;
+                        margin-bottom: 20px;
+                    }
+
+                    .actions-toolbar {
+                        .primary {
+                            max-width: 280px;
+                            width: 100%;
+
+                            .action.primary.continue {
+                                width: 100%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: @color-white;
+                                font-family: @font-proxima-nova;
+                                font-size: 12px;
+                                font-weight: normal;
+
+                                font-style: normal;
+                                line-height: 1.17;
+                                letter-spacing: 1.2px;
+                                text-align: center;
+                                height: 50px;
+                                background-color: @color-gray-900;
+                                text-transform: uppercase;
+
+                                &:hover {
+                                    background-color: @color-gray-700;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .registration__block {
+                    .create-acc__title {
+                        margin-top: 40px;
+                        margin-bottom: 11px;
+                        font-family: @font-proxima-nova;
+                        font-size: 20px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.1;
+                        letter-spacing: 0.7px;
+                        text-align: left;
+                        text-transform: capitalize;
+                        color: @color-gray-800;
+                    }
+
+                    > p {
+                        max-width: 630px;
+                        width: 100%;
+                        font-family: @font-proxima-nova;
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.57;
+                        letter-spacing: 0.6px;
+                        color: @color-gray-700;
+                    }
+
+                    .email__note {
+                        margin: 20px 0 30px;
+
+                        > span {
+                            font-family: @font-proxima-nova;
+                            font-size: 14px;
+                            font-weight: 600;
+
+                            font-style: normal;
+                            line-height: 1.57;
+                            letter-spacing: 0.6px;
+                            color: @color-gray-800;
+                        }
+                    }
+
+                    .action.primary {
+                        max-width: 280px;
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: @color-white;
+                        font-family: @font-proxima-nova;
+                        font-size: 12px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.17;
+                        letter-spacing: 1.2px;
+                        text-align: center;
+                        height: 50px;
+                        background-color: @color-gray-900;
+                        text-transform: uppercase;
+
+                        &:hover {
+                            background-color: @color-gray-700;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+//mobile (767)
+@media screen and (max-width: @screen__m) {
+    //confirmation page
+    .checkout-onepage-success {
+        .page-wrapper {
+            .page-main {
+                .page-title-wrapper {
+                    text-align: center;
+
+                    .page-title {
+                        .base {
+                            font-family: @font-proxima-nova;
+                            font-size: 40px;
+                            font-weight: normal;
+
+                            font-style: normal;
+                            line-height: 1.2;
+                            letter-spacing: 1.3px;
+                            color: @color-gray-800;
+                        }
+                    }
+                }
+
+                .order-info__header {
+                    .csp-page-title {
+                        .csp-h1 {
+                            font-size: 2.6rem;
+                            line-height: 3.2rem;
+                        }
+                    }
+                }
+
+                .checkout-success {
+                    > p {
+                        font-family: @font-proxima-nova;
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.57;
+                        letter-spacing: 0.6px;
+                        color: @color-gray-700;
+                        margin-bottom: 20px;
+                        text-align: center;
+                    }
+
+                    .actions-toolbar {
+                        .primary {
+                            max-width: none;
+                            width: 100%;
+
+                            .action.primary.continue {
+                                width: 100%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: @color-white;
+                                font-family: @font-proxima-nova;
+                                font-size: 12px;
+                                font-weight: normal;
+
+                                font-style: normal;
+                                line-height: 1.17;
+                                letter-spacing: 1.2px;
+                                text-align: center;
+                                height: 50px;
+                                background-color: @color-gray-900;
+                                text-transform: uppercase;
+
+                                &:hover {
+                                    background-color: @color-gray-700;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .registration__block {
+                    text-align: center;
+
+                    .create-acc__title {
+                        margin-top: 40px;
+                        margin-bottom: 11px;
+                        font-family: @font-proxima-nova;
+                        font-size: 20px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.1;
+                        letter-spacing: 0.7px;
+                        text-align: center;
+                        text-transform: capitalize;
+                        color: @color-gray-800;
+                    }
+
+                    > p {
+                        width: 100%;
+                        font-family: @font-proxima-nova;
+                        font-size: 14px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.57;
+                        letter-spacing: 0.6px;
+                        color: @color-gray-700;
+                        text-align: center;
+                    }
+
+                    .email__note {
+                        margin: 20px 0 30px;
+                        text-align: center;
+
+                        > span {
+                            font-family: @font-proxima-nova;
+                            font-size: 14px;
+                            font-weight: 600;
+
+                            font-style: normal;
+                            line-height: 1.57;
+                            letter-spacing: 0.6px;
+                            color: @color-gray-800;
+                        }
+                    }
+
+                    .action.primary {
+                        max-width: none;
+                        width: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: @color-white;
+                        font-family: @font-proxima-nova;
+                        font-size: 12px;
+                        font-weight: normal;
+
+                        font-style: normal;
+                        line-height: 1.17;
+                        letter-spacing: 1.2px;
+                        text-align: center;
+                        height: 50px;
+                        background-color: @color-gray-900;
+                        text-transform: uppercase;
+
+                        &:hover {
+                            background-color: @color-gray-700;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .checkout-index-index {
+        .page-main {
+            .checkout-container {
+                padding-bottom: 40px;
+
+                .checkout-shipping-method {
+                    margin-top: 40px;
+                }
+            }
+
+            .actions-toolbar-label {
+                .primary {
+                    float: none;
+
+                    .checkout-next-btn-label {
+                        margin-top: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    .checkout-index-index {
+        .page-header {
+            .header.content {
+                padding-top: 0;
+                height: 51px;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .checkout-container {
+            .opc-estimated-wrapper {
+                padding: 20px 15px;
+            }
+        }
+
+        .checkout-shipping-address {
+            .step-content {
+                .field.addresses {
+                    margin-top: 30px;
+                }
+            }
+        }
+
+        .opc-wrapper {
+            .payment-method {
+                .payment-method-content {
+                    .payment-method-billing-address {
+                        .fieldset {
+                            max-width: none !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        .custom-slide {
+            .modal-inner-wrap {
+                background: @color-white;
+            }
+        }
+    }
+
+    .checkout-index-index {
+        .page-main {
+            .table-checkout-shipping-method {
+                .radio-btn {
+                    padding-top: 10px !important;
+                }
+
+                .col-method-title {
+                    margin-bottom: 10px;
+                }
+
+                .col-carrier-title {
+
+                }
+            }
+        }
+    }
+
+    .checkout-index-index {
+        div.page-wrapper {
+            .opc-wrapper {
+                .payment-method {
+                    .payment-method-content {
+                        form {
+                            .field {
+                                .control {
+                                    max-width: none !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .checkout-index-index {
+        .page-main {
+            .authentication-wrapper {
+                right: 0;
+                top: 5px;
+            }
+
+            .form.form-login,
+            .form.methods-shipping,
+            .form.form-shipping-address {
+                background: @color-white !important;
+                margin-bottom: 0;
+                padding-bottom: 0;
+                margin-top: 0;
+            }
+        }
+
+        #shipping-method-buttons-container {
+            float: none;
+        }
+    }
+
+    .checkout-index-index {
+        .page-main {
+            .checkout-container {
+                .opc-wrapper {
+                    .opc {
+                        .checkout-shipping-address {
+                            .field.addresses {
+                                .shipping-address-item {
+                                    width: 100%;
+                                    margin: 0 0 20px;
+
+                                    &:last-child {
+                                        margin: 0;
+                                    }
+
+                                    button {
+                                        float: none;
+                                    }
+                                }
+                            }
+
+                            .action.action-show-popup {
+                                width: 100%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: @screen__l) {
+    .checkout-index-index {
+        #stored_credit_cards {
+            .card__wrapper {
+                flex-direction: column;
+            }
+        }
+    }
+
+    .checkout-index-index {
+        #stored_credit_cards {
+            .cc__wrapper {
+                width: 100% !important;
+                margin-bottom: 15px !important;
+
+                .cc__data-wrap {
+                    margin-left: 10%;
+                }
+
+                .cvv__field {
+                    margin-left: 20%;
+                }
+            }
+        }
+    }
+
+    .checkout-index-index {
+        #stored_credit_cards {
+            .cvv__btn-wrap {
+                .action.add {
+                    max-width: none !important;
+                }
+            }
+
+            .cvv__btn-add {
+                .action.add {
+                    margin: 0 auto;
+                }
+            }
+        }
+    }
+}
+
+/*** iPhone and iOS Form Input Zoom Fixes ***/
+@media screen and (max-width: 475px) {
+    .checkout-index-index {
+        body,
+        select, textarea, input[type="text"], input[type="password"],
+        input[type="datetime"], input[type="datetime-local"],
+        input[type="date"], input[type="month"], input[type="time"],
+        input[type="week"], input[type="number"], input[type="email"],
+        input[type="tel"], input[type="url"] {
+            font-size: 16px !important;
+        }
+    }
+}

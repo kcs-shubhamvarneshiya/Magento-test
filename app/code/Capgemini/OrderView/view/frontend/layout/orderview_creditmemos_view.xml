@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<page layout="2columns-left" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <update handle="capgemini_creditmemoview_item_renderers"/>
+    <update handle="sales_order_item_price"/>
+    <body>
+        <referenceContainer name="page.main.title">
+            <container name="order.actions.container" htmlTag="div" htmlClass="actions-toolbar order-actions-toolbar">
+            </container>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <block class="Capgemini\OrderView\Block\Creditmemo\View" name="creditmemo.date" template="Capgemini_OrderView::creditmemo/creditmemo_date.phtml" />
+            <block class="Capgemini\OrderView\Block\Creditmemo\View" name="creditmemo.print" template="Capgemini_OrderView::creditmemo/print.phtml" after="creditmemo.date" />
+            <block class="Capgemini\OrderView\Block\Creditmemo\View" name="sales.order.view" cacheable="false" after="creditmemo.print">
+                <block class="Magento\Sales\Block\Order\Info" as="info" name="sales.order.info"
+                       template="Capgemini_OrderView::creditmemo/info.phtml">
+                </block>
+                <block class="Capgemini\OrderView\Block\Creditmemo\View" name="order.status.block" template="Capgemini_OrderView::creditmemo/status.phtml"/>
+                <block class="Magento\Sales\Block\Order\Items" name="creditmemo_items" template="Capgemini_OrderView::creditmemo/items.phtml">
+                    <block class="Magento\Framework\View\Element\RendererList" name="sales.order.items.renderers" as="renderer.list" />
+                    <block class="Magento\Theme\Block\Html\Pager" name="sales_order_item_pager"/>
+                    <block class="Magento\Sales\Block\Order\Totals" name="order_totals" template="Capgemini_OrderView::creditmemo/totals.phtml">
+                        <arguments>
+                            <argument name="label_properties" xsi:type="string">colspan="4" class="mark"</argument>
+                            <argument name="value_properties" xsi:type="string">class="amount"</argument>
+                        </arguments>
+                        <block class="Capgemini\OrderView\Block\Creditmemo\Tax" name="tax" template="Magento_Tax::order/tax.phtml"/>
+                    </block>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

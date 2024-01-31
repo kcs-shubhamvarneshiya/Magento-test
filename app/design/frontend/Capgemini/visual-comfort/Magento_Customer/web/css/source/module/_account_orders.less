@@ -1,0 +1,221 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. 2022 All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .orderview-payments-history,
+    .orderview-creditmemos-history,
+    .orderview-invoices-history,
+    .orderview-orders-history {
+
+        .title-actions-links {
+            margin-top: 0;
+
+            .action.add {
+                .lib-button();
+            }
+        }
+
+        .data-grid .action-menu {
+            .lib-list-reset-styles();
+        }
+
+        .data-grid-wrap {
+            .data-grid {
+                border: 1px solid @color-gray-400;
+
+                th {
+                    padding: 8px 22px;
+                }
+
+                td {
+                    padding: 15px 22px;
+                    border-bottom: 1px solid @color-gray-400;
+                    border-top-color: @color-gray-400;
+                }
+
+                thead {
+                    height: 60px;
+                    background-color: @color-gray-300;
+                    text-transform: uppercase;
+
+                    .data-grid-th {
+                        vertical-align: middle;
+                        border-bottom: 0;
+
+                        &.data-grid-actions-cell {
+                            .data-grid-cell-content {
+                                font-size: 0;
+                            }
+                        }
+
+                        .data-grid-cell-content {
+                            .font-proxima-nova(1.2rem, 1.4rem);
+                            font-weight: 600;
+                            letter-spacing: .25px;
+                            color: @color-gray-800;
+                        }
+                    }
+
+                    .number-field {
+                        text-align: left !important;
+                    }
+                }
+
+                .data-row {
+                    .list-name-field {
+                        .data-grid-cell-content {
+                            .cell-label-line-name {
+                                font-size: 14px;
+                            }
+                        }
+                    }
+
+                    .number-field {
+                        text-align: left !important;
+                    }
+
+                    .data-grid-actions-cell {
+                        .action-select-wrap {
+                            .action-select {
+                                display: none;
+                            }
+
+                            .action-menu {
+                                list-style-type: none;
+                                font-family: @font-proxima-nova;
+                                font-size: 12px;
+                                font-weight: normal;
+
+                                font-style: normal;
+                                line-height: 14px;
+                                letter-spacing: 0.5px;
+                                color: @color-gray-800;
+                                padding: 0;
+
+                                li:nth-child(2) {
+                                    display: none;
+                                }
+
+                                a {
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                    }
+
+                    .data-grid-cell-content {
+                        color: @color-gray-800;
+                    }
+                }
+            }
+        }
+
+        .quotes-grid-toolbar {
+            .pager {
+                .toolbar-amount {
+                    .toolbar-number {
+                        height: 14px;
+                        font-size: 14px;
+                        line-height: 14px;
+                        letter-spacing: 0.5px;
+                        color: @color-gray-800;
+                        display: inline-block;
+                    }
+                }
+            }
+
+            .limiter {
+                .label {
+                    font: 14px/1.71 @font-proxima-nova;
+                    font-weight: normal;
+                    letter-spacing: 0.25px;
+                    color: @color-gray-900;
+                    display: inline-block;
+                }
+
+                .limiter-text {
+                    font: 14px/14px @font-proxima-nova;
+                    font-weight: normal;
+                    letter-spacing: 0.25px;
+                    color: @color-gray-900;
+                    display: inline-block;
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .orderview-payments-history,
+    .orderview-creditmemos-history,
+    .orderview-invoices-history,
+    .orderview-orders-history {
+        .page-wrapper {
+            .orders-history {
+                .table-order-items {
+                    tbody {
+                        border: 1px solid #e3e3e3;
+
+                        tr.order-row {
+                            border-bottom: 1px solid #e3e3e3;
+
+                            &:last-child {
+                                border-bottom: none !important;
+                            }
+
+                            td {
+                                padding: 3px 0 !important;
+                                border-top: none;
+                                border-bottom: none;
+
+                                &:first-child {
+                                    padding-top: 0 !important;
+                                }
+
+                                &:last-child {
+                                    border-bottom: none !important;
+                                    padding-bottom: 0 !important;
+                                }
+
+                                .action-select-wrap {
+                                    margin-left: 20px;
+                                    margin-top: 5px;
+                                }
+                            }
+
+                            td[data-th] {
+                                &:before {
+                                    width: 40%;
+                                    margin-left: 20px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+
+}

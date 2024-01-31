@@ -1,0 +1,16 @@
+<?php
+/** @var \Lyonscg\CircaLighting\Block\OrderAttributes $block */
+?>
+<div id="order-attributes" data-bind="scope:'orderAttributes'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#order-attributes": {
+                "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        window.orderAttributesData = <?= /* @noEscape */ $block->getOrderAttributeData() ?>;
+    </script>
+</div>

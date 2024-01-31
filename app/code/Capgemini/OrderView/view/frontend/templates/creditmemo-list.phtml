@@ -1,0 +1,125 @@
+<?php
+/** @var $block \Capgemini\OrderView\Block\Creditmemos */
+$limit = $block->getRequest()->getParam('limit') ?? $block::INITIAL_LIMIT;
+$page = $block->getRequest()->getParam('p') ?? 1;
+$creditmemos = $block->getCreditmemos($page, $limit);
+?>
+<div class="order-control-container">
+    <div class="filter-container top-filter-container">
+        <?= $block->getBlockHtml('capgemini.filter.dropdown'); ?>
+        <?= $block->getBlockHtml('capgemini.filter.modal'); ?> 
+    </div>
+</div>
+<?php
+$customerId = $block->getCustomerId();
+ ?>
+<?php if ($creditmemos && count($creditmemos)):
+      
+    ?>
+    <div class="table-wrapper orders-history data-grid-wrap orderspages">
+        <table class="data-grid table table-order-items history" id="order-list">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Orders')) ?></caption>
+            <thead>
+            <th scope="col" class="data-grid-th col id" data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".creditmemoidupsort","upsorturl":"<?= $block->getUrl('orderview/creditmemos/history',['sort_by'=>'CreditMemoId_asc','account_id'=>$customerId])?>"},{"classname":".creditmemoiddescort","upsorturl":"<?= $block->getUrl('orderview/creditmemos/history',['sort_by'=>'CreditMemoId_desc','account_id'=>$customerId])?>"}]}}'>
+                <span class="th-wrap"> 
+                        <span class="th-label"> <?= $block->escapeHtml(__('Credit Memo')) ?></span>
+                <span class="sort-wrap">
+                <span data-sort="asc" class="creditmemoidupsort ascsort CreditMemoId_desc "></span>
+                    <span data-sort="desc" class="creditmemoiddescort descsort CreditMemoId_asc active"></span>
+                    </span>
+                    </span>
+            </th>
+                <th scope="col" class="data-grid-th col purchase"><?= $block->escapeHtml(__('Purchase Order')) ?></th>
+                <th scope="col" class="data-grid-th col date" data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".creditmemodateupsort","upsorturl":"<?= $block->getUrl('orderview/creditmemos/history',['sort_by'=>'CreditMemoDate_asc','account_id'=>$customerId])?>"},{"classname":".creditmemodatedescort","upsorturl":"<?= $block->getUrl('orderview/creditmemos/history',['sort_by'=>'CreditMemoDate_desc','account_id'=>$customerId])?>"}]}}'>
+                     <span class="th-wrap"> 
+                        <span class="th-label"><?= $block->escapeHtml(__('Credit Memo Date')) ?></span>
+                <span class="sort-wrap">
+                <span data-sort="asc" class="creditmemodateupsort ascsort CreditMemoDate_desc "></span>
+                    <span data-sort="desc" class="creditmemodatedescort descsort CreditMemoDate_asc active"></span>
+                    </span>
+                    </span></th>
+                    <th scope="col" class="data-grid-th col total" data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".creditmemoamountupsort","upsorturl":"<?= $block->getUrl('orderview/creditmemos/history',['sort_by'=>'Amount_asc','account_id'=>$customerId])?>"},{"classname":".creditmemoamountdescort","upsorturl":"<?= $block->getUrl('orderview/creditmemos/history',['sort_by'=>'Amount_desc','account_id'=>$customerId])?>"}]}}'>  
+                    <span class="th-wrap"> 
+                        <span class="th-label"> <?= $block->escapeHtml(__('Amount')) ?></span>
+                <span class="sort-wrap">
+                <span data-sort="asc" class="creditmemoamountupsort ascsort Amount_desc "></span>
+                    <span data-sort="desc" class="creditmemoamountdescort descsort Amount_asc active"></span>
+                    </span>
+                    </span></th>
+                    <th scope="col" class="data-grid-th col total">
+                <?= $block->escapeHtml(__('Division')) ?></th>
+                    <th scope="col" class="data-grid-th col status">
+                 <?= $block->escapeHtml(__('Status')) ?></th>
+                <th scope="col" class="data-grid-th col actions"><?= $block->escapeHtml(__('Action')) ?></th>
+            </thead>
+            <tbody>
+            <?php foreach ($creditmemos as $creditmemo): 
+             
+                ?>
+                <tr class="order-row data-row">
+                    <td nowrap data-th="<?= $block->escapeHtmlAttr(__('Credit Memo')) ?>" class="col id"><?= $creditmemo['id'] ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Purchase Order')) ?>" class="col id"><?= $creditmemo['purchase_order'] ?></td>
+                    <td nowrap data-th="<?= $block->escapeHtmlAttr(__('Credit Memo Date')) ?>" class="col date"><?= $creditmemo['created_at'] ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Amount')) ?>" class="col total"><?= $creditmemo['amount']; ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Division')) ?>" class="col status"><?= $creditmemo['division'] ?></td>
+                    <td data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>" class="col status"><?= $creditmemo['status'] ?></td>
+                    <td nowrap data-th="<?= $block->escapeHtmlAttr(__('Action')) ?>" class="col actions data-grid-actions-cell">
+                        <div class="action-select-wrap">
+                            <ul class="action-menu">
+                                <li>
+                                    <a href="<?= $creditmemo['view_link'] ?>" class="action view action-menu-item" title="<?= __('View Credit Memo') ?>">
+                                        <span><?= $block->escapeHtml(__('View Credit Memo')) ?></span></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if (count($creditmemos)): ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getChildBlock('salespad_credit_memo_list_pager')->setLimit($limit)->setCollection($creditmemos)->toHtml() ?></div>
+    <?php endif; ?>
+<?php else: ?>
+    <?php if ($this->getRequest()->getParam('search')) : ?>
+        <div class="message info empty"><span><?= $block->escapeHtml(__('No Credit Memos found for this search.  Please try again.')) ?></span></div>
+    <?php else : ?>
+        <div class="message info empty"><span><?= $block->escapeHtml(__('You have no Credit Memos.')) ?></span></div>
+    <?php endif; ?>
+<?php endif; ?>
+
+<script>
+    require(['jquery'], function ($) {
+        //simulate close btn
+        if ($('.message.info.empty').length) {
+            $('.action.close').click(function () {
+                $('.message.info.empty').hide();
+            })
+        }
+    })
+</script>
+<script>
+require(['jquery', 'Capgemini_OrderView/js/widget/sortable-table'], function($) {
+
+$('.sortable-table').sortableTable();
+
+$(document).ready(function(){
+
+var url = window.location.href;
+var sortType = "";
+
+var match = url.match(/\/sort_by\/([^\/]+)/);
+if (match && match[1]) {
+sortType = match[1];
+}
+
+const element = document.querySelector("." + sortType);
+    if(sortType){
+        element.classList.add("active");
+        element.nextSibling.nextElementSibling.classList.remove("active");
+    }
+});
+
+});
+</script>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <payment>
+            <affirm_gateway>
+                <delayed_shipping_message><![CDATA[
+                If you finance with Affirm and if one or more items in your order has an extended ship date,
+                your loan payment(s), including interest, may be due before the merchant ships all of the items.
+                Please note that you may not receive a rebate of any interest
+                that may have already accrued on an amount that later gets refunded.
+                ]]></delayed_shipping_message>
+                <trade_customers>
+                    <hide_on_prod>0</hide_on_prod>
+                    <hide_on_cart>0</hide_on_cart>
+                    <hide_on_checkout>0</hide_on_checkout>
+                </trade_customers>
+            </affirm_gateway>
+        </payment>
+    </default>
+</config>

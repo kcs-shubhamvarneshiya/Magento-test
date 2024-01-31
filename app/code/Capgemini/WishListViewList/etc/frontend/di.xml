@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="wishlist_list" xsi:type="array">
+                    <item name="class" xsi:type="string">Capgemini\WishListViewList\Controller\ListRouter</item>
+                    <item name="disable" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="string">40</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Url\SecurityInfo">
+        <arguments>
+            <argument name="secureUrlList" xsi:type="array">
+                <item name="wishlist_list_alias" xsi:type="string">/wishlist/index/list/</item>
+                <item name="wishlist_list" xsi:type="string">/cpwishlist/index/listview/</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Magento\MultipleWishlist\Block\Customer\Sidebar"
+                type="Capgemini\WishListViewList\Block\Customer\ListSidebar"/>
+    <preference for="Magento\MultipleWishlist\Block\Link"
+                type="Capgemini\WishListViewList\Block\ListLink"/>
+    
+    <preference for="Magento\MultipleWishlist\Controller\Index\Editwishlist"
+                type="Capgemini\WishListViewList\Controller\Index\Editwishlist"/>
+
+    <preference for="Magento\MultipleWishlist\Model\WishlistEditor"
+                type="Capgemini\WishListViewList\Model\WishlistEditor"/>
+
+    <type name="Magento\Framework\View\Element\Html\Link\Current">
+        <plugin name="check_current_account_my_project_page"
+                type="Capgemini\WishListViewList\Plugin\View\Element\Html\Link\CurrentPlugin"/>
+    </type>
+</config>

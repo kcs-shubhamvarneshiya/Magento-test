@@ -1,0 +1,25 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/* @var $block \Magento\RequisitionList\Block\Requisition\Item\Options */
+?>
+<?php $options = $block->getOptionList(); ?>
+<?php if ($options) : ?>
+    <?php foreach ($options as $option) : ?>
+        <div class="content">
+            <span class="bold-content"><?= $block->escapeHtml($option['label']) ?>:</span>
+            <?php if (is_array($option['value'])) : ?>
+                <?= /* @noEscape */ nl2br($block->escapeHtml(implode("\n", $option['value']))) ?>
+            <?php elseif (isset($option['option_type']) && $option['option_type'] == 'file') : ?>
+                <?php $viewModel = $block->getData('downloadableViewModel'); ?>
+                <?php $viewModel->setItem($block->getItem()) ?>
+                <?= /* @noEscape */ $viewModel->getOptionValueForFile($option) ?>
+            <?php else : ?>
+                <?= $block->escapeHtml($option['value']) ?>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+<?php endif ?>

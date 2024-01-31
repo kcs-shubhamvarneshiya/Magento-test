@@ -1,0 +1,20 @@
+<?php
+/**
+ * Capgemini_CmsBlockRandom
+ *
+ * @author    Eugene Nazarov <eugene.nazarov@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+
+/** @var $block \Capgemini\CmsBlockRandom\Block\Widget\CmsBlockRandom */
+$id = $block -> generateId();
+?>
+
+<div id="<?= $id ?>" class="cms-block-random"></div>
+<script type="text/x-magento-init">
+    {
+        "#<?= $id ?>": {
+            "Capgemini_CmsBlockRandom/js/cms-block-random": <?= $block->getConfigJson() ?>
+        }
+    }
+</script>

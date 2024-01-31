@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+     <head>
+        <css src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" src_type="url" rel="stylesheet"/>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Capgemini\OrderView\Block\Inventory" name="capgemini.orderview.inventory" template="Capgemini_OrderView::inventory.phtml" cacheable="false"/>
+            <block class="Magento\Customer\Block\Account\Dashboard" name="customer.account.link.back" template="Magento_Customer::account/link/back.phtml" cacheable="false"/>
+        </referenceContainer>
+        <move element="div.sidebar.main" destination="columns" before="-" />
+    </body>
+</page>

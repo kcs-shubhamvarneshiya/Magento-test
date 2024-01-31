@@ -1,0 +1,102 @@
+<?php
+/**
+ * Lyonscg_RequisitionList
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Tetiana Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var \Magento\RequisitionList\Api\Data\RequisitionListInterface $requisitionList */
+$requisitionList = $block->getRequisitionList();
+
+/** @var \Lyonscg\RequisitionList\ViewModel\ExtraData $viewExtraDataModel */
+$viewExtraDataModel = $block->getData('viewExtraDataModel');
+$unformattedDate = $viewExtraDataModel->formatDate($requisitionList->getUpdatedAt());
+
+$createdDateArray = explode('-', $unformattedDate);
+
+$dateObj   = DateTime::createFromFormat('!m', $createdDateArray[1]);
+$monthName = $dateObj->format('F');
+$createdDate = $monthName.' '.$createdDateArray[2].', '.$createdDateArray[0];
+
+/** @var \Magento\Customer\Api\Data\CustomerInterface $requisitionListCustomer */
+$requisitionListCustomer = $viewExtraDataModel->getCustomer()->getById($requisitionList->getCustomerId());
+
+$template = 'Magento_RequisitionList/requisition-list/form';
+?>
+<div class="requisition-list-title">
+    <div class="block-title"><?= $block->escapeHtml($block->getRequisitionList()->getName()) ?></div>
+    <ul class="requisition-list">
+        <li><span><?= $block->escapeHtml(__('Created'))  ?></span>
+            <?= $createdDate; ?> by <?= $requisitionListCustomer->getFirstname() ?> <?= $requisitionListCustomer->getLastname() ?>
+        </li>
+        <li>
+            <span><?= $block->escapeHtml(__('PO #'))  ?></span>
+            <?= $block->escapeHtml($block->getRequisitionList()->getPoNumber()) ?>
+        </li>
+        <li>
+            <span><?= $block->escapeHtml(__('Quote Notes'))  ?></span>
+            <?= $block->escapeHtml($block->getRequisitionList()->getDescription()) ?>
+        </li>
+    </ul>
+</div>
+
+<div class="quote__activity-btns">
+    <?= $block->getChildBlock('requisition.list.edit')->setLabel(__('Edit Quote Details'))->toHtml() ?>
+    <button type="button"
+            title="<?= $block->escapeHtmlAttr(__('Delete Requisition List')) ?>"
+            class="action delete"
+            data-action="remove-list"
+            data-mobile-label="<?= $block->escapeHtmlAttr(__('Delete Requisition List')) ?>"
+            data-delete-list='{
+            "deleteUrl":"<?= $block->escapeUrl($block->getUrl('*/requisition/delete', [
+                'requisition_id' => (int)$block->getRequest()->getParam('requisition_id')
+            ])) ?>",
+            "listName": "<?= $block->escapeHtml($block->getRequisitionList()->getName()) ?>"
+            }'>
+        <span><?= $block->escapeHtml(__('Delete Quote')) ?></span>
+    </button>
+
+    <div class="back__to-list">
+        <?= $block->getChildBlock('requisition.list.view.back_to_list')->toHtml() ?>
+    </div>
+</div>
+
+<div data-bind="scope: 'rename_requisition_list_popup'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "requisition.action.edit.rename": {
+                        "component": "Magento_RequisitionList/js/requisition/action/edit",
+                        "editModuleName": "requisition_rename.edit"
+                    },
+                    "rename_requisition_list_popup": {
+                        "component": "Magento_RequisitionList/js/requisition/list/edit/modal",
+                        "options": {
+                            "title": "<?= $block->escapeHtml(__('Rename Requisition List')) ?>"
+                        },
+                        "children": {
+                            "form": {
+                                "component": "Magento_RequisitionList/js/requisition/list/edit/form",
+                                "template": "<?= $template ?>"
+                            }
+                        }
+                    },
+                    "requisition_rename.edit": {
+                        "component": "Magento_RequisitionList/js/requisition/list/edit",
+                        "modal": "rename_requisition_list_popup",
+                        "saveUrl": "<?= $block->escapeUrl($block->getUrl('rest/V1/requisition_lists')) ?>"
+                    }
+                }
+            }
+        }
+    }
+
+</script>

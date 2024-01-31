@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="additional.product.info">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Checkout::cart/additional/sidemark.phtml</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="checkout.cart.summary.title">
+            <arguments>
+                <argument translate="true" name="text" xsi:type="string">Order Summary</argument>
+                <argument name="tag" xsi:type="string">strong</argument>
+                <argument name="css_class" xsi:type="string">summary title</argument>
+            </arguments>
+        </referenceBlock>
+
+        <move element="checkout.cart.items.add.to.requisition.desktop" destination="cart.summary"/>
+    </body>
+</page>

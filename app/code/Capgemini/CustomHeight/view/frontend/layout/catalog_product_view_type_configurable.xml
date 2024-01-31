@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.options.wrapper.bottom">
+            <block class="Capgemini\CustomHeight\Block\Configurable\CustomHeight" name="configurable.custom.height"
+                   template="Capgemini_CustomHeight::configurable/custom_height.phtml" before="product.info.addtocart.additional"
+                   ifconfig="custom_height/general/enabled">
+                <block class="Capgemini\CustomHeight\Block\Configurable\CustomHeightCalculator" name="custom.height.calculator"
+                       template="Capgemini_CustomHeight::configurable/custom_height_calculator.phtml">
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

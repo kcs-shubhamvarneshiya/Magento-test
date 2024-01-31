@@ -1,0 +1,126 @@
+<?php
+//$_helper = $block->helper('Magento\Catalog\Helper\Output');
+$_product = $this->getCurrentProduct();
+//echo $_product->getId();
+//exit;
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $this->getCurrentProduct();
+
+
+//echo $this->getGroupCollection();exit;
+
+$groupid=$block->getAttributeGroupId($_product->getAttributeSetId());
+$attributesgroups=$block->getAttributeGroups($_product->getAttributeSetId());
+
+$productAttributes=$_product->getAttributes();
+
+
+
+
+
+foreach ($attributesgroups as $attributesgroup):
+
+
+ $attributes=$block->getGroupAttributes($product, $this->getGroupCollection(), $productAttributes);
+ 
+
+ 
+ 
+ if($attributes) { ?>
+
+ 
+
+   
+            <h3 class="col label" scope="row"><?php echo $attributesgroup->getAttributeGroupName() ?></h3>
+           
+           
+            <div class="additional-attributes-wrapper table-wrapper block">
+        <table class="data table additional-attributes" id="product-attribute-specs-table">
+            <tbody>
+           
+    <?php
+    foreach ($attributes as $attribute): ?>
+       
+       
+       
+             <tr>
+                    <td class="col label" scope="row"><?php echo $attribute->getFrontendLabel() ?></td>
+                    <td class="col data feature" data-th="<?php echo $attribute->getFrontendLabel() ?>"><?php /* @escapeNotVerified */ echo $attribute->getFrontend()->getValue($product) ?></td>
+                </tr>
+           
+           
+       
+        <?php    
+    endforeach; ?>
+           </tbody>
+        </table>
+        </div>
+ <?php }
+endforeach;
+
+?>
+<?php
+/*
+$groupAttributesCollection = $this->collectionFactory->create()
+->setAttributeGroupFilter($this->getGroupCollection())
+->addVisibleFilter()
+->load(); // product attribute collection
+foreach ($groupAttributesCollection->getItems() as $attribute) {
+array_push($attributeids, $attribute->getAttributeId());
+}
+print_r($attributeids);
+exit;
+$attribute = $objectManager->create('\Magento\Catalog\Model\ResourceModel\Eav\Attribute');
+
+$attributerepository = $objectManager->create('\Magento\Catalog\Model\Product\Attribute\Repository');
+
+
+//$attribute_id = '1';     // add Product Attribute Id here 
+
+//$attribute_model = $attribute->load($attribute_id);
+
+//$attribute_code = $attribute_model->getAttributeCode();
+
+$options = $attributerepository->get('shape')->getOptions();
+
+foreach($options as $options_value){
+
+    echo "<pre>";
+
+        print_r($options_value->getData());
+
+    echo "</pre>";
+
+}
+/*
+$myAttr = $_product->getResource()->getAttribute('shape');
+
+if ($myAttr) {
+
+    // Get Value
+    $attrValue = $myAttr->getFrontend()->getValue($_product);
+
+    // Get Label
+    $attrLabel = $myAttr->getStoreLabel();
+}
+
+$productTypeInstance = $product->getTypeInstance();
+$_product->getData('shape');
+//echo $product->getTypeId();exit;
+//if ($product->getTypeId() == \Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE) {
+    //$usedProducts = $productTypeInstance->getUsedProducts($product);
+
+    $data = explode(',', $_product->getData('shape'));
+    if(count($data) > 1)
+    {
+        foreach($data as $key => $value):
+            $attr = $_product->getResource()->getAttribute('shape');
+            if ($attr->usesSource()): 
+                $option_value = $attr->getSource()->getOptionText($value);
+                echo $option_value;
+            endif;
+        endforeach;
+    }
+//}
+*/
+?>

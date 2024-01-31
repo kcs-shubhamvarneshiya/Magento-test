@@ -1,0 +1,12 @@
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate
+?>
+<?php /** @var  $block \Capgemini\OrderView\Block\View*/?>
+
+<!-- reorder print -->
+
+<div class="print-reorder">
+    <a class="print-order-link" href="#"
+       onclick="window.print(); return false;"
+       title="<?= $block->escapeHtmlAttr(__('Print')) ?>"><?= $block->escapeHtml(__('Print')) ?></a>
+</div>

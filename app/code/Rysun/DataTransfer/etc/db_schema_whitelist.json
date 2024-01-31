@@ -1,0 +1,16 @@
+{
+    "product_trim": {
+        "column": {
+            "product_trim_id": true,
+            "product_id": true,
+            "trim_product_id": true,
+            "product_type": true,
+            "is_active": true,
+            "date_created": true,
+            "date_last_updated": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

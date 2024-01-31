@@ -1,0 +1,57 @@
+<?php
+/**
+ * Lyonscg_Easyzoom
+ *
+ * @category  Lyons
+ * @package   Lyonscg_Easyzoom
+ * @author    Tanya Mamchik <tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2021 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/**
+ * Product media data template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Gallery
+ */
+?>
+
+<?php
+$images = $block->getGalleryImages()->getItems();
+$mainImage = current(array_filter($images, function ($img) use ($block) {
+    return $block->isMainImage($img);
+}));
+
+if (!empty($images) && empty($mainImage)) {
+    $mainImage = $block->getGalleryImages()->getFirstItem();
+}
+
+$helper = $block->getData('imageHelper');
+$mainImageData = $mainImage ?
+    $mainImage->getData('medium_image_url') :
+    $helper->getDefaultPlaceholderUrl('image');
+
+$zoomMainImageData = $mainImage ?
+    $mainImage->getData('large_image_url') :
+    $helper->getDefaultPlaceholderUrl('image');
+
+?>
+<div class="gallery-placeholder zoom_disabled" data-gallery-role="gallery-placeholder">
+    <div class="eazyzoom_disable">
+        <div id="new_gallery_product_labels"></div>
+        <span class="eazyzoom_mag"></span>
+        <span></span>
+    </div>
+    <div id="new_gallery" class="easyzoom is-ready">
+        <a href="<?= /* @noEscape */ $zoomMainImageData ?>">
+            <img src="<?= /* @noEscape */ $mainImageData ?>" alt="" />
+        </a>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+  {
+     "*": {
+         "Lyonscg_Easyzoom/js/zoom": {}
+     }
+  }
+  </script>

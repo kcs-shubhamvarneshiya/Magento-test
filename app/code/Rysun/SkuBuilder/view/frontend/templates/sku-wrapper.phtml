@@ -1,0 +1,1061 @@
+<?php
+
+//$mainProductId = $block->getCurrentProductId();
+$mainProduct = $block->getCurrentProduct();
+
+if($mainProduct->getIsArchitechData()):
+
+$mainProductId = $mainProduct->getId();
+$exceptionRuleList = $block->getExceptionRules();
+
+
+$minValue = 1000;
+$maxValue = 0;
+foreach($exceptionRuleList as $listItem){
+        foreach($listItem as $itemData){
+
+            $split = explode("-", $itemData);
+
+            if($split[0] == 0){
+                $minValue = ($minValue > $split[1]) ? $split[1] : $minValue;
+                $maxValue = ($maxValue < $split[1]) ? $split[1] : $maxValue;;
+            }
+
+
+            
+        }
+}
+
+?>
+<style>
+
+.optionDisableClick { pointer-events: none; }
+.sku_input.invalid {border-color:red;color:red;max-width:160px}
+.validationRuleClass{color:red;display:block;max-width:160px}
+.sku_input.readOnlyInput { pointer-events: none; }
+
+</style>
+
+<div class="sku_list_wrapper">
+    <?php 
+        // Get Main Product SKU Builder
+        $results = $block->getProductAttributeList();
+
+        ?>
+        <div class="sku_builder_container">
+            <div class="sku_list_wrapper_title">
+                1. Select Housing <span>(required)</span>
+            </div>
+
+
+            <?php //echo $mainProduct->getSqlServId();?>
+            <div class="display_sku">
+                <?php foreach ($results as $keyIndex => $item): 
+                    if($keyIndex == 0){
+                        continue;
+                    }
+                    ?>
+                    <div class="skuCode" id="display_<?php echo "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>"></div>
+                <?php endforeach; ?>
+        
+            </div>
+
+        <?php $skuBuilderClass =  'skuBuilder'.$mainProductId; ?>
+        <div class="btn-clear">
+           <!-- <span onclick="clearData(this)">Clear/Reset data</span>-->
+        </div>
+        
+        <div class='d-flex align-items-start justify-content-center w-100 sku_list_attributes <?= $skuBuilderClass ?>' data-element-builder="<?php echo $skuBuilderClass; ?>">
+        <?php
+        // Render SKU Options with text input
+
+            foreach($results as $key => $item){
+                if($key == 0){
+                    continue;
+                }
+        ?>
+            <div class="sku_list" >
+                <div class="sku_list_fields">
+                    <label><?php echo $item['label'] ?></label>
+
+                    <?php 
+                        if($item['type'] == "text"){
+                    ?>
+                        <input type="number" placeholder="Enter length" data-element-row="<?php echo $key; ?>" class="sku_input sku_input_number readOnlyInput <?php echo  ($item['type'] == 'text') ? 'textInput' : '' ?> " id="sku_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" name="array[]" value="" <?php echo  ($item['type'] != 'text') ? 'readonly' : '' ?> onchange="myFunction(this)" data-element-row="<?php echo $key; ?>"/>
+
+                    <?php 
+                        } else {
+                    ?>
+                        <input type="text" data-element-row="<?php echo $key; ?>" class="sku_input <?php echo  ($item['type'] == 'text') ? 'textInput' : '' ?> " id="sku_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" name="array[]" value="" <?php echo  ($item['type'] != 'text') ? 'readonly' : '' ?> onchange="myFunction(this)" data-element-row="<?php echo $key; ?>"/>
+                    <?php
+                        }
+                    ?>
+
+                <!-- <input type="text" data-element-row="<?php //echo $key; ?>" class="sku_input <?php //echo  ($item['type'] == 'text') ? 'textInput' : '' ?> " id="sku_<?php //echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" name="array[]" value="" <?php //echo  ($item['type'] != 'text') ? 'readonly' : '' ?> onchange="myFunction(this)" data-element-row="<?php //echo $key; ?>"/> -->
+                    <?php  if($item['type'] == 'text'){
+
+
+                    } 
+                    
+                    ?>
+                </div>
+                <table class="sku_list_box">
+                    <tbody>                        
+                        <?php 
+
+                            if(!($item['options'])){
+
+                                ?>
+                            <tr class="sku_list_identity <?php echo ($key != 1) ? "optionDisableClick": '' ?>" data-element-row="<?php echo $key; ?>" data-targetinput="sku_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" data-targetdisplay="display_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>">
+                                <td class="sku_list_code" style="display:none;" >
+                                    <?php //echo 'Note:'; ?>
+                                </td>
+                                <td class="sku_list_label"  style="display:none;">
+                                    <?php //echo 'Min:- '.($minValue + 1)." <br> Max:- ".($maxValue-1);?>
+                                </td>
+                               
+                            </tr>
+                            <?php 
+                            $str = $item['label'];
+                            $last_word_start = strrpos ( $str , " ") + 1;
+                            $last_word_end = strlen($str) - 1;
+                            $last_word = substr($str, $last_word_start, $last_word_end);
+                            ?>
+                            <span class="unitOfMeasure" style="display:none;"><?php echo strtolower($last_word); ?></span>
+                            <span class="minMeasure" style="display:none;"><?php echo ($minValue + 1); ?></span>
+                            <span class="maxMeasure" style="display:none;"><?php echo ($maxValue - 1); ?></span>
+                            <span><?php //echo 'Min: '.($minValue + 1)." <br> Max: ".($maxValue-1);?></span>
+
+                            <?php 
+                            }
+
+                            foreach($item['options'] as $label ){
+                                $option_arr = explode(":", $label);
+                        ?>
+                        <tr class="sku_list_identity <?php echo ($key != 1) ? "optionDisableClick": '' ?>" data-element-row="<?php echo $key; ?>" data-targetinput="sku_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" data-targetdisplay="display_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>">
+                            <?php $optionKey = (empty($option_arr[0]) && $option_arr[0] != 0 ) ? ' ' : $option_arr[0]; ?>
+                            <td class="sku_list_code" data-element="<?php echo $key ."-".$optionKey;  ?>">
+                                <?php echo $option_arr[0]; ?>
+                            </td>
+                            <td class="sku_list_label">
+                                <?php echo $option_arr[1]?>
+                            </td>
+                        </tr>
+                        <?php
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php
+        } 
+        ?>
+        </div>
+
+        <div>
+        <?php 
+            if(!empty($mainProduct->getFootNotes())){
+                $format = explode('<br>',$mainProduct->getFootNotes()); 
+            ?>
+            <ul class="custom-list-inline">
+                <h5>Footnotes:</h5>
+                <?php 
+                    foreach($format as $list){
+                        if(!empty($list)){
+                        ?>
+                            <li><?php echo $list; ?></li>
+                    <?php
+                        }
+                    }
+                ?>
+            </ul>
+            <?php
+            }
+            ?>
+        </div>
+        </div>
+
+        <?php
+
+        $trimProducts = $block->getTrimProducts();
+
+        if(count($trimProducts) > 0 ){
+            ?>
+            <div class="sku_list_wrapper_title sku_builder_split_title">
+                2. Trim <span>(required)</span>
+            </div>
+        <?php    
+        } ?>
+        <!-- Custom div --->
+        <div class="sku_builder_split">
+        <!------>
+        <?php
+        foreach($trimProducts as $trim){
+
+            $results = $block->getProductAttributeList($trim);
+
+            //$trimProductId = $block->getCurrentProductId($trim);
+            $trimProduct = $block->loadProductData($trim);
+            $trimProductId = $trimProduct->getId();
+            $trimSqlServId = $trimProduct->getSqlServId();
+            $exceptionRuleTrim = $block->getExceptionRules($trimProductId);
+
+            $trimMinValue = 1000;
+            $trimMaxValue = 0;
+            foreach($exceptionRuleTrim as $listItem){
+                    foreach($listItem as $itemData){
+
+                        $split = explode("-", $itemData);
+
+                        if($split[0] == 0){
+                            $trimMinValue = ($trimMinValue > $split[1]) ? $split[1] : $trimMinValue;
+                            $trimMaxValue = ($trimMaxValue < $split[1]) ? $split[1] : $trimMaxValue;;
+                        }
+
+
+                        
+                    }
+            }
+            ?>
+
+            <script>
+                
+                 window['skuBuilder' + <?php echo $trimProductId?>] = <?php echo json_encode($exceptionRuleTrim); ?>
+            </script>
+            <div class="sku_builder_container">
+
+            <div class="display_sku">
+
+
+            <?php foreach ($results as $item):
+                 if($key == 0){
+                    continue;
+                }
+                 ?>
+                <div class="skuCode" id="display_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>"></div>
+            <?php endforeach; ?>
+    
+             </div>
+             <?php $skuBuilderClass =  'skuBuilder'.$trimProductId ?>
+            <div class="btn-clear">
+              <!--  <span onclick="clearData(this)">Clear/Reset data</span> -->
+            </div>
+
+             
+            
+             <div class='d-flex align-items-start justify-content-center w-100 sku_list_attributes <?= $skuBuilderClass ?>' data-element-builder="<?= $skuBuilderClass ?>">
+             <?php
+
+            foreach($results as $key => $item){
+
+                if($key == 0){
+                    continue;
+                }
+                ?>
+                    <div class="sku_list" >
+                        <div class="sku_list_fields">
+                            <label><?php echo $item['label'] ?></label>
+                        <!--<input type="text" class="sku_input" id="sku_<?php // echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" name="array[]" value="" readonly/> -->
+                        <input type="text" data-element-row="<?php echo $key; ?>" class="sku_input <?php echo  ($item['type'] == 'text') ? 'textInput' : '' ?> " id="sku_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" name="array[]" value="" <?php echo  ($item['type'] != 'text') ? 'readonly' : '' ?> onchange="myFunction(this)" data-element-row="<?php echo $key; ?>"/>  
+                        </div>
+                        <table class="sku_list_box">
+                            <tbody>
+                                <?php 
+                                if(!($item['options'])){
+
+                                    ?>
+                                <tr class="sku_list_identity <?php echo ($key != 1) ? "optionDisableClick": '' ?>" data-element-row="<?php echo $key; ?>" data-targetinput="sku_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" data-targetdisplay="display_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>">
+                                    <td class="sku_list_code" style="display:none;" >
+                                        <?php //echo 'Note:'; ?>
+                                    </td>
+                                    <td class="sku_list_label">
+                                        <?php //echo 'Min:- '.($minValue + 1)." <br> Max:- ".($maxValue-1);?>
+                                    </td>
+                                   
+                                </tr>
+                                <span><?php echo 'Min: '.($trimMinValue + 1)." <br> Max: ".($trimMaxValue-1);?></span>
+    
+                                <?php 
+                                }
+
+                                    foreach($item['options'] as $label ){
+                                        $option_arr = explode(":", $label);
+                                ?>
+                                 <tr class="sku_list_identity <?php echo ($key != 1) ? "optionDisableClick": '' ?>" data-element-row="<?php echo $key; ?>"  data-targetinput="sku_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>" data-targetdisplay="display_<?php echo  "_".$item['sku']."_".$block->escapeHtml(__($item['label'])) ?>">
+                                 <?php $optionKey = (!empty($option_arr[0])) ? $option_arr[0] : ' ' ; ?>   
+                                 <td class="sku_list_code" data-element="<?php echo $key ."-".$optionKey;  ?>">
+                                        <?php echo $option_arr[0] ?>
+                                    </td>
+                                    <td class="sku_list_label">
+                                        <?php echo $option_arr[1]?>
+                                    </td>
+                                </tr>
+                                <?php
+                                    }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>            
+                <?php
+            }
+            ?>
+            </div>
+            </div>
+            <?php   
+        }
+        ?>
+    <!--- Custom div End -->
+        </div>
+    <!---->
+</div>
+
+
+<script>
+
+    function myFunction(cell){
+        //alert('change event call');
+        //alert(cell.value);
+        let inputValue = cell.value;
+        let skuWrapperElement = cell.closest('div.sku_list_attributes');
+        let skuBuilderId = skuWrapperElement.getAttribute("data-element-builder");
+        let parentDiv =  cell.closest('div.sku_list_fields');
+       
+
+                    let inputParent = cell.closest('div.sku_list');
+                    let inputTr = inputParent.querySelector('.sku_list_identity');
+                    let targetinput = inputTr.getAttribute('data-targetinput');
+                    let targetdisplay = inputTr.getAttribute('data-targetdisplay');
+
+                    disableRestcolumn(inputTr,skuBuilderId); 
+
+
+                    //document.getElementById(targetinput).value = "";
+                    //document.getElementById(targetinput).value = "";
+                    document.getElementById(targetdisplay).innerHTML = "";
+                    document.getElementById(targetdisplay).innerHTML = cell.value;
+
+        let spanChild = parentDiv.querySelector('.validationRuleClass');
+
+        cell.classList.remove('invalid');
+
+        if(spanChild){
+            spanChild.remove();
+        }
+       
+        const optionsSelected = skuWrapperElement.querySelectorAll('.sku_list .sku_list_box .sku_list_identity .sku_list_code.selected');
+        
+
+        let selectedCount = [];
+       // alert(option.getAttribute("data-element"));
+        // Disable all cells except the clicked one
+        optionsSelected.forEach(otherCell => {
+           
+            selectedCount.push(otherCell.getAttribute("data-element"));
+        });
+
+        let rowCount = cell.getAttribute('data-element-row');
+        let valueCombine = rowCount + '-' + cell.value;
+
+        selectedCount.push(valueCombine);
+
+        let remainCell = selectedCount;
+
+        //console.log(remainCell);
+
+
+        let flag = true;
+        //console.log(window[skuBuilderId]);
+
+        let maxValueCommon = 0;
+        let minValueCommon = 9999;
+         window[skuBuilderId].forEach(ruleList => {
+
+           //console.log('Rule Data:- ');
+            //console.log(ruleList);
+           
+
+            let tempArray = [];
+            let lengthElements = [];
+            ruleList.forEach(ruleItem => {
+                //console.log('current exception rule');
+                //console.log(ruleItem);
+                //console.log('fiished');
+                let digitMinMax = ruleItem.split('-');
+                if(digitMinMax[0] ==  0){
+                    tempArray.push(digitMinMax[1]);
+                    //lengthElements.push(ruleItem);
+                }
+           
+            });
+
+            if(tempArray.length){
+                
+                //console.log(tempArray);
+            let minValue = Math.min(...tempArray);
+            let maxValue = Math.max(...tempArray);
+
+            if(maxValue > maxValueCommon){
+                maxValueCommon =  maxValue;
+            }
+            if(minValue < minValueCommon){
+                minValueCommon =  minValue;
+            }
+
+            if(parseInt(inputValue) < minValue || parseInt(inputValue) > maxValue ){
+
+                remainCell.push('0-'+minValue);
+                remainCell.push('0-'+maxValue);
+
+            }
+
+            }
+            
+           
+         let intersection = ruleList.filter(x => !remainCell.includes(x));
+
+        
+         if(intersection.length == 0 ){
+            
+            
+
+            /* temp disable
+            let validationEle1 = parentDiv.querySelector('validationRuleClass');
+
+            if(!validationEle1){
+                var x = document.createElement("SPAN");
+                x.innerText = 'Entered value is not compatible with the previous selected options. original 1';
+                x.classList.add('validationRuleClass');
+                parentDiv.appendChild(x);
+            } else {
+                validationEle1.innerText =  'Entered value is not compatible with the previous selected options. original 1';
+            }
+            */
+            
+            
+        
+           
+            cell.classList.add('invalid');
+            document.getElementById(targetdisplay).innerHTML = "";
+            document.getElementById(targetdisplay).innerHTML = "";
+            
+            flag = false;
+
+         }
+
+        
+       
+       
+
+         });
+
+         /*
+         if( parseInt(inputValue)  >= parseInt(maxValueCommon) ){
+            var x = document.createElement("SPAN");
+            x.innerText = 'not allowed';
+            x.classList.add('validationRuleClass');
+
+            
+            
+        
+            parentDiv.appendChild(x);
+            cell.classList.add('invalid');
+            document.getElementById(targetdisplay).innerHTML = "";
+            document.getElementById(targetdisplay).innerHTML = "";
+            
+            flag = false;
+         }
+         */
+
+        
+        if( parseInt(inputValue)  >= parseInt(maxValueCommon) || parseInt(inputValue)  <= parseInt(minValueCommon)  ){
+            //var x = document.createElement("SPAN");
+            //x.innerText = 'Please enter length between range defined!';
+            //x.classList.add('validationRuleClass');
+
+            //parentDiv.appendChild(x);
+            //cell.classList.add('invalid');
+            //document.getElementById(targetdisplay).innerHTML = "";
+            document.getElementById(targetdisplay).innerHTML = "";
+
+            flag = false;
+            console.log('Length error');
+            console.log(inputValue);
+            console.log(maxValueCommon);
+            console.log(minValueCommon);
+
+            //New added start
+            let previousTrRowId = parseInt(rowCount) - 1;
+            //let previousTr = skuWrapperElement.querySelector('.sku_list_identity.selected[data-element-row="'+previousTrRowId+'"]');
+              let previousTr = skuWrapperElement.querySelector('.sku_list_identity.selected[data-element-row="'+previousTrRowId+'"]');
+            //console.log(previousTr);
+            disableRestcolumn(previousTr,skuBuilderId);
+
+            let unitOfMeasure = inputParent.querySelector('.unitOfMeasure');
+           
+            let minLengthEle = inputParent.querySelector('.minMeasure');
+            let maxLengthEle = inputParent.querySelector('.maxMeasure');
+            let valueOfUM = unitOfMeasure.innerText;
+            let minLengthMsg = minLengthEle.innerText;
+            let maxLengthMsg = maxLengthEle.innerText;
+
+            console.log(unitOfMeasure.innerText);
+
+            let validationEle3 = parentDiv.querySelector('validationRuleClass');
+
+            if(!validationEle3){
+            var x = document.createElement("SPAN");
+            x.innerText = "Available in lengths from " + minLengthMsg +"-"+maxLengthMsg + " " + valueOfUM + ".";
+            x.classList.add('validationRuleClass');
+            parentDiv.appendChild(x);
+            } else {
+                validationEle3.innerText = 'Please enter between range defined!'+ valueOfUM;
+            }
+
+            
+            
+        
+           
+            cell.classList.add('invalid');
+
+            runExceptionRule(previousTr,skuBuilderId);
+            document.getElementById(targetinput).value = inputValue;
+            return true;
+            //New added End
+
+        }
+
+        //new flag logic
+        if(!flag){
+
+        //New added start
+        let previousTrRowId = parseInt(rowCount) - 1;
+        //let previousTr = skuWrapperElement.querySelector('.sku_list_identity.selected[data-element-row="'+previousTrRowId+'"]');
+        let previousTr = skuWrapperElement.querySelector('.sku_list_identity.selected[data-element-row="'+previousTrRowId+'"]');
+        //console.log(previousTr);
+        disableRestcolumn(previousTr,skuBuilderId);
+
+        let validationEle2 = parentDiv.querySelector('validationRuleClass');
+
+        if(!validationEle2){
+            var x = document.createElement("SPAN");
+            x.innerText = "Entered value is not compatible with the previous selected options. orginal";
+            x.classList.add('validationRuleClass');
+            parentDiv.appendChild(x);
+        }else {
+            validationEle2.innerText =  "Entered value is not compatible with the previous selected options. orginal";
+        }
+
+
+
+
+
+        cell.classList.add('invalid');
+
+        runExceptionRule(previousTr,skuBuilderId);
+        document.getElementById(targetinput).value = inputValue;
+        return true;
+        //New added End
+        }
+        /*
+        if(!flag){
+            //console.log('after loop');
+            //console.log(flag);
+
+            let previousTrRowId = parseInt(rowCount) - 1;
+            //let previousTr = skuWrapperElement.querySelector('.sku_list_identity.selected[data-element-row="'+previousTrRowId+'"]');
+              let previousTr = skuWrapperElement.querySelector('.sku_list_identity.selected[data-element-row="'+previousTrRowId+'"]');
+            //console.log(previousTr);
+            disableRestcolumn(previousTr,skuBuilderId);
+
+            var x = document.createElement("SPAN");
+            x.innerText = "Entered value is not compatible with the previous selected options.";
+            x.classList.add('validationRuleClass');
+
+            
+            
+        
+            parentDiv.appendChild(x);
+            cell.classList.add('invalid');
+
+            runExceptionRule(previousTr,skuBuilderId);
+            document.getElementById(targetinput).value = inputValue;
+            return true;
+        } */
+
+        //console.log(flag);
+        //console.log('after validation execute');
+        inputTr.classList.add('selected');
+        
+        let childBlankTd = inputTr.querySelector('.sku_list_code');
+        childBlankTd.classList.add('selected');
+        childBlankTd.dataset.element = valueCombine;
+        childBlankTd.innerHTML = cell.value;
+
+        
+        document.getElementById(targetdisplay).innerHTML = "";
+        document.getElementById(targetdisplay).innerHTML = cell.value;
+
+        disableRestcolumn(inputTr,skuBuilderId);
+        runExceptionRule(inputTr,skuBuilderId);
+
+    }
+
+    function disableRestcolumn(cell,skuBuilderId, parentElementRow = null){
+
+    let parentEle = cell.closest('tr.sku_list_identity'); //.getAttribute('data-element-row');
+    let parentElement = parentElementRow;
+    if (parentElementRow == null){
+        
+         parentElement = parentEle.getAttribute('data-element-row');
+       
+    } else {
+         parentElement = parentElementRow;   
+    }
+    
+    //console.log(parentElement);
+    //console.log('parent element');
+    let skuWrapperElement = cell.closest('div.'+skuBuilderId); 
+    const options = skuWrapperElement.querySelectorAll('.sku_list_attributes .sku_list .sku_list_box .sku_list_identity');
+    options.forEach(option => {
+
+        let mainDivEle = option.closest('div.sku_list');       
+        let inputDivEle = mainDivEle.querySelector('.sku_list_fields .sku_input.textInput');
+        
+        let spanDivEle = mainDivEle.querySelector('.sku_list_fields .validationRuleClass');
+
+        let count = option.getAttribute('data-element-row');
+        //alert(parentElement);
+        //alert(count);
+
+        if((parseInt(parentElement) + 1) > parseInt(count)){
+            //alert(option.getAttribute('data-targetinput'));
+            option.classList.remove('optionDisableClick');
+            //option.classList.add('disabled');
+            //option.classList.add('optionDisableClick');
+            
+            //console.log();
+            //option.classList.remove('option-disable');
+           
+            //let chidElement = option.querySelector('.sku_list_code');
+            //childElement.forEach(childItem => {
+            //    childItem.classList.remove('selected');
+            //});
+            if(inputDivEle){
+                inputDivEle.classList.remove('readOnlyInput');
+                inputDivEle.classList.remove('invalid');
+            }
+        } else if((parseInt(parentElement) + 1) == parseInt(count)) {
+            option.classList.remove('optionDisableClick');
+            let targetinput = option.getAttribute("data-targetinput");
+            let targetdisplay = option.getAttribute("data-targetdisplay");
+            document.getElementById(targetinput).value = "";
+            document.getElementById(targetdisplay).innerHTML = "";
+            document.getElementById(targetdisplay).textContent = '';
+            option.classList.remove('selected');
+            let childElement = option.querySelector('.sku_list_code');
+            childElement.classList.remove('selected');
+            option.classList.remove('option-disable');
+            if(inputDivEle){
+                inputDivEle.classList.remove('readOnlyInput');
+                inputDivEle.classList.remove('invalid');
+            }
+            if(spanDivEle){
+                console.log(parentElement);
+                console.log(count);
+
+                spanDivEle.remove();
+            }
+        } else {
+            let targetinput = option.getAttribute("data-targetinput");
+            let targetdisplay = option.getAttribute("data-targetdisplay");
+            document.getElementById(targetinput).value = "";
+            document.getElementById(targetdisplay).innerHTML = "";
+            document.getElementById(targetdisplay).textContent = '';
+            option.classList.remove('selected');
+            option.classList.remove('option-disable');
+            option.classList.add('optionDisableClick');
+            let childElement = option.querySelector('.sku_list_code');
+            childElement.classList.remove('selected');
+            //option.classList.remove('optionDisableClick');
+            //option.classList.add('optionDisableClick');
+            if(inputDivEle){
+                inputDivEle.classList.add('readOnlyInput');
+                inputDivEle.classList.remove('invalid');
+            }
+            if(spanDivEle){
+                console.log(parentElement);
+                console.log(count);
+
+                spanDivEle.remove();
+            }
+
+        }
+        
+    });
+
+    //console.log('coming here');
+    }
+
+    function clearData(divClass){
+        //const skuWrapperClass = document.getElementsByClassName('.'+divClass);
+        
+        const skuWrapperClass= divClass.closest('.sku_builder_container');
+        const options = skuWrapperClass.querySelectorAll('.sku_list .sku_list_box .sku_list_identity');
+        options.forEach(cellData => {
+            cellData.classList.remove('option-disable');
+            let childElement = cellData.querySelector('.sku_list_code');
+            childElement.classList.remove('selected');
+            cellData.classList.remove('selected');
+        });
+         
+        //const skuDisplay = divClass.closest('.sku_builder_container');
+        
+        const displayElement = skuWrapperClass.querySelectorAll('.display_sku .skuCode');
+       
+        displayElement.forEach(divElement => {
+            //console.log(divElement);
+            divElement.innerHtml = '';
+            divElement.textContent = '';
+        });
+        const inputBoxes = skuWrapperClass.querySelectorAll('.sku_input');
+        inputBoxes.forEach(textBox => {
+            textBox.value="";
+        });
+        
+    }
+
+    function runExceptionRule(optionTr,skuBuilderId){
+        //console.log('inside function callsed');
+        //console.log(sample);
+        //console.log(second);
+        //console.log(window[skuBuilderId]);
+
+        let parentElementSkuBuilder = optionTr.closest('div.sku_list_attributes');
+
+        ///Code start
+
+        let targetinput = optionTr.getAttribute("data-targetinput");
+                let targetdisplay = optionTr.getAttribute("data-targetdisplay");
+                let val = optionTr.querySelector(".sku_list_code").innerText
+                if(val == '' || val ==  undefined){
+                    val = '&nbsp;';
+                    document.getElementById(targetinput).value = "";
+                    document.getElementById(targetinput).value = "";
+                    document.getElementById(targetdisplay).innerHTML = "";
+                    document.getElementById(targetdisplay).innerHTML = val.trim();
+                } else {
+                    document.getElementById(targetinput).value = "";
+                    document.getElementById(targetinput).value = val.trim();
+                    document.getElementById(targetdisplay).innerHTML = "";
+                    document.getElementById(targetdisplay).innerHTML = val.trim();
+                }
+                
+
+                let option = optionTr.querySelector('.sku_list_code');
+
+                //Get current data-element
+                let currentClickedOption = option.getAttribute("data-element");
+
+
+                //Iterate disabled option and enable it if rule disregard by selecting other option
+                //const optionsDisabled = document.querySelectorAll('.sku_list_attributes .sku_list .sku_list_box .sku_list_identity.disabled');
+                const optionsDisabled = parentElementSkuBuilder.querySelectorAll(' .sku_list_attributes .sku_list .sku_list_box .sku_list_identity.option-disable');
+                
+                
+                
+
+                let columnValues = option.closest('.sku_list_box');
+                let arrayValues = columnValues.querySelectorAll(".sku_list_identity .sku_list_code");
+                arrayValues.forEach(column => {
+                    //console.log(column.getAttribute("data-element"));
+                   
+
+
+                //console.log("check seletected condition");
+                //console.log(column.classList.contains('selected'));
+
+                if(!column.classList.contains('selected')){
+                    return;
+                }
+
+                let currentAndDisableOption = [];
+                currentAndDisableOption.push(column.getAttribute("data-element"));
+
+                //console.log('before');
+                //console.log(currentAndDisableOption);
+                optionsDisabled.forEach(disableItem => {
+
+
+                    //console.log(disableItem.querySelector('.sku_list_code'));
+                    let childDisableOpton = disableItem.querySelector('.sku_list_code');
+                    currentAndDisableOption.push(childDisableOpton.getAttribute("data-element"));
+
+                    //console.log("Updated");
+                    //console.log(currentAndDisableOption);
+                    //check combination for disable and de-selected option in exception rule, remove disable if rule no longer valid
+                    //exceptionRule.forEach(ruleList => {
+                        window[skuBuilderId].forEach(ruleList => {
+                            //console.log('calling inside foreach');
+                        let intersection = ruleList.filter(x => !currentAndDisableOption.includes(x));
+
+                       
+
+                        if(intersection.length <= 1){
+                           // disableItem.classList.remove('disabled');
+                          
+                            let currentRowId = optionTr.getAttribute('data-element-row');
+                            let parentRowId = disableItem.closest('tr.sku_list_identity');
+                            let parentRowElementId = parentRowId.getAttribute('data-element-row');
+                            if(parseInt(parentRowElementId) > parseInt(currentRowId)){
+                                //console.log('triggered here');
+                                disableItem.classList.remove('option-disable');
+                            }
+                        
+                            //disableItem.classList.remove('option-disable');
+                           
+                            
+                        // console.log(intersection);
+                        // let optionDisable = document.querySelectorAll('[data-element="'+intersection+'"]');
+                        // optionDisable.forEach(idCell => {
+                        //     idCell.parentElement.classList.add('disabled');
+                        // });
+                        }
+
+                    });
+                    currentAndDisableOption.pop();
+                    //console.log("removed");
+                    //console.log(currentAndDisableOption);
+                    
+                   //console.log();
+                });
+
+                column.classList.remove('selected');
+                column.parentElement.classList.remove('selected');
+
+
+
+                });
+
+
+                
+                //console.log('completed disabled');
+
+                //Add selected to current clicked option
+                option.classList.add('selected');
+                option.parentElement.classList.add('selected');
+
+                //De-select from the same attribute column if any previous option selected
+
+
+
+                //Find all selected options
+                //let variableNew  = '.' + skuBuilderId;
+                
+                const optionsSelected = parentElementSkuBuilder.querySelectorAll('.sku_list .sku_list_box .sku_list_identity .sku_list_code.selected');
+        
+                //console.log('option selected');
+                //console.log(optionsSelected);
+
+                let selectedCount = [];
+               // alert(option.getAttribute("data-element"));
+                // Disable all cells except the clicked one
+                optionsSelected.forEach(otherCell => {
+                  
+                    
+                    selectedCount.push(otherCell.getAttribute("data-element"));
+                    /*
+                    if (otherCell !== option) {
+                        console.log(option);
+                        otherCell.parentElement.classList.add('disabled');
+                    }*/
+
+                });
+
+                //Found number of existing selected cell along with clicked
+                // selectedCount
+
+
+               // console.log(selectedCount);
+                //console.log(exceptionRule.length);
+                //console.log(selectedCount.length);
+                let remainCell = selectedCount;
+
+                //foreach two dimension array of exception rule
+                //console.log('iterrate exception rule');
+                //console.log(window[skuBuilderId]);
+                window[skuBuilderId].forEach(ruleList => {
+
+
+                    //Essessence special check start
+
+                    
+
+                    const textInputEnabled = parentElementSkuBuilder.querySelectorAll('.sku_input.textInput');
+                    let inputValue;
+                    textInputEnabled.forEach(element => {
+                        inputValue = element.value;
+
+                        let tempArray = [];
+                        let lengthElements = [];
+                        ruleList.forEach(ruleItem => {
+                            //console.log('current exception rule');
+                            //console.log(ruleItem);
+                            //console.log('fiished');
+                            let digitMinMax = ruleItem.split('-');
+                            if(digitMinMax[0] ==  0){
+                                tempArray.push(digitMinMax[1]);
+                                //lengthElements.push(ruleItem);
+                            }
+                    
+                        });
+
+                        if(tempArray.length){
+                            let minValue = Math.min(...tempArray);
+                            let maxValue = Math.max(...tempArray);
+
+                            //console.log(minValue);
+                            //console.log(maxValue);
+                            //console.log(inputValue);
+                            if(parseInt(inputValue) <= parseInt(minValue) || parseInt(inputValue) >= parseInt(maxValue) ){
+
+                                    remainCell.push('0-'+minValue);
+                                    remainCell.push('0-'+maxValue);
+
+                            }
+                        }
+                        //console.log('active cell');
+                        //console.log(remainCell);
+
+
+
+
+                    });
+                
+                   
+
+
+                    //####Essessence special check end
+
+
+                    let intersection = ruleList.filter(x => !remainCell.includes(x));
+
+                    //console.log('intersection');
+                    //console.log(intersection);
+
+                     //check if any text box and if there is text box, work on logic with 0
+
+                    //console.log('intersection log');
+                    //console.log(intersection);
+
+
+                    if(intersection.length == 1){
+
+                    
+                    //let mainDivWrapper = document.querySelectorAll('.' + skuBuilderId );
+                    let optionDisable = parentElementSkuBuilder.querySelectorAll('[data-element="'+intersection+'"]');
+
+                    optionDisable.forEach(idCell => {
+                        //idCell.parentElement.classList.add('disabled');
+                        
+                        let currentRowId = optionTr.getAttribute('data-element-row');
+                        let parentRowId = idCell.closest('tr.sku_list_identity');
+                        let parentRowElementId = parentRowId.getAttribute('data-element-row');
+                        
+                       
+                        if(parseInt(parentRowElementId) > parseInt(currentRowId)){
+                             
+                            idCell.parentElement.classList.add('option-disable');
+                        }
+                       
+                        //idCell.parentElement.classList.add('option-disable');
+                        
+                    });
+
+                    }
+
+                });
+                
+                
+                //let intersection = exceptionRule.filter(x => !remainCell.includes(x));
+                //console.log(intersection.length);
+
+                /* Working code for single array exception rule
+                if(intersection.length == 1){
+
+                    console.log(intersection);
+                    let optionDisable = document.querySelectorAll('[data-element="'+intersection+'"]');
+
+                    optionDisable.forEach(idCell => {
+                        idCell.parentElement.classList.add('disabled');
+                    });
+
+                }
+                */
+
+                /*
+                exceptionRule.forEach(rule => {
+
+                    remainCell.forEach(remainCellId => {
+                        console.log(remainCellId);
+                    });
+                    
+                    //console.log(rule);
+                });
+                */
+        ///Code ends
+        
+
+    }
+
+    
+
+        window['skuBuilder' + <?php echo $mainProductId?>] = <?php echo json_encode($exceptionRuleList); ?>
+            
+        //const exceptionRule = <?php echo json_encode($exceptionRuleList ); ?>
+       
+
+        //console.log('dyanmic variable stuff');
+        //console.log('skuBuilder' + <?php echo $mainProductId?>);
+        //console.log(window['skuBuilder' + <?php echo $mainProductId?>]);
+       
+        /*
+        const exceptionRule =  [
+            ['0-E3R','1-E3S','2-E3P'],
+            ['0-E3RRS','2-E3PAB'],
+            ['2-E3PA','3-E3jB','0-E3RR']
+        ]; */
+        
+        //const options = document.querySelectorAll('.sku_list_attributes .sku_list .sku_list_box .sku_list_identity .sku_list_code');
+        const options = document.querySelectorAll('.sku_list_attributes .sku_list .sku_list_box .sku_list_identity');
+        options.forEach(optionTr => {
+            optionTr.addEventListener('click', () => {
+               // alert('hello');
+               if(optionTr.classList.contains('option-disable')){
+                    return;
+                }
+
+                //console.log('parent finder');
+                let parentElementSkuBuilder = optionTr.closest('div.sku_list_attributes');
+                //console.log(parentElementSkuBuilder);
+                let skuBuilderId = parentElementSkuBuilder.getAttribute("data-element-builder");
+                disableRestcolumn(optionTr,skuBuilderId);
+                runExceptionRule(optionTr,skuBuilderId);
+
+               
+            });
+        });
+   // }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var skuInputs = document.getElementsByClassName('sku_input_number');    
+            for (var i = 0; i < skuInputs.length; i++) {
+                skuInputs[i].addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            }
+    });
+
+    </script>
+
+<?php endif; ?>
+

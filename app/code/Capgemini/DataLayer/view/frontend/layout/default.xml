@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright (c) 2018 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="footer">
+            <block class="Capgemini\DataLayer\Block\DataLayer" name="capgemini_datalayer_allPage" />
+            <block class="Capgemini\DataLayer\Block\Events" name="capgemini_datalayer_search" template="Capgemini_DataLayer::events.phtml"/>
+            <!--<block class="Magento\Framework\View\Element\Template" name="capgemini_datalayer_default" template="Capgemini_DataLayer::default.phtml" after="-"/>-->
+            <block class="Capgemini\DataLayer\Block\DataLayerChat" name="capgemini_datalayer_chat" template="Capgemini_DataLayer::chat.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

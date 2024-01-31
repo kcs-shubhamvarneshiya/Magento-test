@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_Catalog
+ *
+ * @category  Lyons
+ * @package   Lyonscg_Catalog
+ * @author    Tanya Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog">
+            <group id="lyonscg_collection_accessories" translate="label" showInDefault="1" showInWebsite="0" showInStore="0" sortOrder="1000">
+                <label>Collection and Accessories Product Relations</label>
+                <field id="collection_limit" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum Number of Products in Collection Products List</label>
+                    <validate>validate-digits</validate>
+                </field>
+                <field id="accessories_limit" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Maximum Number of Products in Accessories Products List</label>
+                    <validate>validate-digits</validate>
+                </field>
+            </group>
+        </section>
+        <section id="checkout">
+            <group id="cart">
+                <field id="promocode_enabled" translate="label" type="select" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show the Promo Code Field in the Shopping Cart</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

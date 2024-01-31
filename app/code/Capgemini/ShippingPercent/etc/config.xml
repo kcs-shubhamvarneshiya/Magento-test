@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <capgemini_shipping_percent_shipping_method>
+                <active>0</active>
+                <title>Flat Rate Percent</title>
+                <name>Percent</name>
+                <percentage_rate>0</percentage_rate>
+                <sallowspecific>0</sallowspecific>
+                <showmethod>0</showmethod>
+                <sort_order>15</sort_order>
+                <model>Capgemini\ShippingPercent\Model\Carrier\ShippingPercent</model>
+            </capgemini_shipping_percent_shipping_method>
+        </carriers>
+    </default>
+</config>

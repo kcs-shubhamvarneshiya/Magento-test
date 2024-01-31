@@ -1,0 +1,140 @@
+<?php
+/**
+ * Lyonscg_RequisitionList
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Tetiana Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+use Lyonscg\RequisitionList\Api\Data\RequisitionListInterface;
+
+/** @var \Lyonscg\RequisitionList\Block\Details $block */
+
+/** @var \Magento\RequisitionList\Api\Data\RequisitionListInterface $requisitionList */
+$requisitionList = $block->getRequisitionList();
+
+/** @var \Lyonscg\RequisitionList\ViewModel\ExtraData $viewExtraDataModel */
+$viewExtraDataModel = $block->getData('viewExtraDataModel');
+?>
+
+<div id="popup_pdf_wrapper" style="display: none;">
+    <div id="pdf-modal-content" >
+        <div id="select-pdf-popup" >
+            <form id="pdf-content-form" method="post" data-mage-init='{"validation": {}}'
+                  action="<?= $block->getPdfUrl() ?>">
+                <input name="requisition_id" type="hidden" value="<?= $requisitionList->getId() ?>"/>
+                <div class="full">
+                    <div>
+                        <span class="header"><?= $block->escapeHtml(__('Select Quote PDF Format')) ?></span>
+                    </div>
+                    <div class="pdf-type">
+                        <ul>
+                            <li class="selected"><input type="radio" required="true" name="pdf_type" value="list" data-validate="{required:true}" checked="checked">
+                                <div class="li-content">
+                                    <img src="<?= $block->getViewFileUrl('Lyonscg_RequisitionList::images/list-format.png') ?>">
+                                </div>
+                                <div class="li-content-text">
+                                    <div class="boldcopy">List Format(View)</div>
+                                    <div class="copy">Line item list of all products in quote.</div>
+                                </div>
+                            </li>
+                            <li><input type="radio" required="true" name="pdf_type" value="detail" data-validate="{required:true}">
+                                <div class="li-content">
+                                    <img src="<?= $block->getViewFileUrl('Lyonscg_RequisitionList::images/portfolio-format.png') ?>">
+                                </div>
+                                <div class="li-content-text">
+                                    <div class="boldcopy">Portfolio Format(View)</div>
+                                    <div class="copy">One item per page with large image and easy to read product information.</div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="full">
+                    <div class="pdf-column">
+                        <div>
+                            <span class="header"><?= $block->escapeHtml(__('Select pricing to be included')) ?></span>
+                        </div>
+                        <div class="pdf-pricing">
+                            <ul>
+                                <li><input type="radio" required="true" name="pdf_pricing" value="trade" id="trade" data-validate="{required:true}" checked="checked"><label for="trade">Trade Pricing</label></li>
+                                <li><input type="radio" required="true" name="pdf_pricing" value="retail" id="retail" data-validate="{required:true}"><label for="retail">Retail Pricing</label></li>
+                                <li><input type="radio" required="true" name="pdf_pricing" value="both" id="trade_retail" data-validate="{required:true}"><label for="trade_retail">Trade &amp; Retail Pricing</label></li>
+                                <li><input type="radio" required="true" name="pdf_pricing" value="none" id="not_include" data-validate="{required:true}"><label for="not_include">Do Not Include Pricing</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="pdf-column">
+                        <div>
+                            <span class="header"><?= $block->escapeHtml(__('Select specifications')) ?></span>
+                        </div>
+                        <div class="pdf-specifications">
+                            <ul>
+                                <li><input type="radio" required="true" name="include_spec_sheets" value="1" id="include_ss" data-validate="{required:true}" checked="checked"><label for="include_ss">Include Spec Sheets</label></li>
+                                <li><input type="radio" required="true" name="include_spec_sheets" value="0" id="do_not_include_ss" data-validate="{required:true}"><label for="do_not_include_ss">Do Not Include Spec Sheets</label></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="pdf-button__holder">
+                    <div class="pdf-button">
+                        <?php
+                        $pdfUrl = $block->escapeUrl($block->getPdfUrl());
+                        ?>
+                        <button type="submit"
+                                title="<?= $block->escapeHtmlAttr(__('Print PDF')) ?>"
+                                class="action pdf"
+                                id="generate-pdf"
+                                data-mobile-label="<?= $block->escapeHtmlAttr(__('Print PDF')) ?>"
+                                target="_self">
+                            <span><?= $block->escapeHtml(__('Print PDF')) ?></span>
+                        </button>
+                    </div>
+                    <button id="close-pdf"
+                            title="<?= $block->escapeHtmlAttr(__('Cancel')) ?>"
+                            class="btn btn-secondary">
+                        <span><?= $block->escapeHtml(__('Cancel')) ?></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    require(["jquery", "Magento_Ui/js/modal/modal"],function($, modal) {
+        var options = {
+            type: 'popup', // popup or slide
+            responsive: true, // true = on smaller screens the modal slides in from the right
+            title: 'Create Quote PDF',
+            modalClass: 'to-pdf-popup',
+            buttons: [{ // Add array of buttons within the modal if you need.
+                click: function () {
+                    this.closeModal();
+                }
+            }]
+        };
+
+        var popup = modal(options, $('#popup_pdf_wrapper'));
+        $('#pdf-btn').click(function() {
+            $('#popup_pdf_wrapper').modal('openModal');
+        });
+
+        $('#generate-pdf').click(function() {
+            $('#popup_pdf_wrapper').modal('closeModal');
+        });
+
+        $('#close-pdf').click(function(e) {
+            e.preventDefault();
+            $('#popup_pdf_wrapper').modal('closeModal');
+        });
+
+        $('.pdf-type li').on('click', function() {
+            $('.pdf-type li').removeClass('selected');
+            $(this).addClass('selected');
+            $('.pdf-type li input[type=radio]').attr("checked", false);
+            $(this).find('input[type=radio]').attr("checked", true);
+        });
+    });
+</script>

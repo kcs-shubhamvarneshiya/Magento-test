@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="affirm_gateway">
+                <field id="delayed_shipping_message" translate="label" type="textarea" sortOrder="190" showInDefault="1" showInWebsite="1">
+                    <label>Delayed Shipping Notification Message</label>
+                </field>
+                <group id="exclude_conditions_wrapper" translate="label" type="text" showInDefault="1" showInWebsite="1" sortOrder="200">
+                    <label>Disable Affirm on Condition</label>
+                    <field id="exclude_conditions" showInDefault="1" showInWebsite="1" sortOrder="10">
+                        <frontend_model>Lyonscg\Affirm\Block\Adminhtml\System\Config\Form\Field\Conditions</frontend_model>
+                    </field>
+                    <field id="serialized_exclude_conditions" translate="label" type="hidden" sortOrder="20" showInDefault="1" showInWebsite="1">
+                        <backend_model>Lyonscg\Affirm\Model\Config\Backend\ExcludeConditions</backend_model>
+                        <frontend_model>Lyonscg\Affirm\Model\Config\Frontend\DisableCheckbox</frontend_model>
+                    </field>
+                    <!--<field id="matching_product_ids" translate="label" type="text" showInDefault="1" showInWebsite="1" sortOrder="30">
+                        <label>Matching Product IDs</label>
+                        <frontend_model>Lyonscg\Affirm\Model\Config\Frontend\DisableCheckbox</frontend_model>
+                    </field>-->
+                </group>
+                <group id="trade_customers" translate="label" type="text" sortOrder="210" showInDefault="1" showInWebsite="1">
+                    <label>Trade Customer Settings</label>
+                    <field id="hide_on_checkout" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                        <label>Hide Affirm payment method at checkout</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    </field>
+                    <field id="hide_on_prod" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1">
+                        <label>Hide affirm information on Product Page</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="hide_on_checkout">0</field>
+                        </depends>
+                    </field>
+                    <field id="hide_on_cart" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1">
+                        <label>Hide Affirm information on Cart Page</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="hide_on_checkout">0</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="notification" sortOrder="220"/>
+            </group>
+        </section>
+    </system>
+</config>

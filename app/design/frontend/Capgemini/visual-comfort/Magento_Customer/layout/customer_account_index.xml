@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">My Account</argument>
+            </action>
+            <block class="Magento\Theme\Block\Html\Header" name="greeting" as="header" after="-" template="Magento_Theme::account/greeting.phtml">
+                <arguments>
+                    <argument name="show_part" xsi:type="string">greeting</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <container name="account.dashboard.wrapper" htmlTag="div" htmlClass="account-dashboard__wrapper">
+                <block class="Magento\Customer\Block\Account\Dashboard\Info" name="customer_account_dashboard_info" as="info" template="Magento_Customer::account/dashboard/info.phtml" cacheable="false"/>
+                <block class="Magento\Customer\Block\Account\Dashboard\Address" name="customer_account_dashboard_address" as="address" template="Magento_Customer::account/dashboard/address.phtml" cacheable="false"/>
+            </container>
+        </referenceContainer>
+        <move element="page.main.title" destination="columns.top" before="-" />
+        <move element="customer_account_dashboard_partners_insight" destination="account.dashboard.wrapper" />
+    </body>
+</page>

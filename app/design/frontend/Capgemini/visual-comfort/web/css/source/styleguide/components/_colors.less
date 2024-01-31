@@ -1,0 +1,24 @@
+//
+//  Color Mixins
+//  _____________________________________________
+
+// Generates palette css for style guide page html
+// - Should have .{x}-palette > div .color structure
+// - See usage in components/_layout.less where palette selectors live
+.generate-palettes(@list) {
+    .iter(length(@list));
+    .iter(@i) when (@i > 0) {
+        .iter(@i - 1);
+        @color: extract(@list, @i);
+
+        &:nth-child(@{i}) {
+            .color {
+                background-color: @color;
+
+                &::before {
+                    content: "@{color}";
+                }
+            }
+        }
+    }
+}

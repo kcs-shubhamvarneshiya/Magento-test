@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Lyonscg_CatalogEventDisable
+ *
+ * @category  Lyons
+ * @package   Lyonscg_CatalogEventDisable
+ * @author    Tanya Mamchik <tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2021 Lyons Consulting Group (www.lyonscg.com)
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="adminhtml.catalog.event.grid" remove="true"/>
+    </body>
+</page>

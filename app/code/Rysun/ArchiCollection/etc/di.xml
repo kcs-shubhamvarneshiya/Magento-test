@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+	<preference for="Rysun\ArchiCollection\Api\ArchiCollectionRepositoryInterface" type="Rysun\ArchiCollection\Model\ArchiCollectionRepository"/>
+	<preference for="Rysun\ArchiCollection\Api\Data\ArchiCollectionInterface" type="Rysun\ArchiCollection\Model\ArchiCollection"/>
+	<preference for="Rysun\ArchiCollection\Api\Data\ArchiCollectionSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Rysun\ArchiGrid\Collection\Model\ResourceModel\ArchiGrid\Collection\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">rysun_archicollection_archi_collection</argument>
+			<argument name="resourceModel" xsi:type="string">Rysun\ArchiCollection\Model\ResourceModel\ArchiCollection\Collection</argument>
+		</arguments>
+	</virtualType>
+	<type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+		<arguments>
+			<argument name="collections" xsi:type="array">
+				<item name="rysun_archicollection_archi_collection_listing_data_source" xsi:type="string">Rysun\ArchiGrid\Collection\Model\ResourceModel\ArchiGrid\Collection\Grid\Collection</item>
+				<item name="rysun_archicollection_archi_platform_listing_data_source" xsi:type="string">Rysun\ArchiGrid\Collection\Model\ResourceModel\ArchiPlatform\Grid\Collection</item>
+			</argument>
+		</arguments>
+	</type>
+	<preference for="Rysun\ArchiCollection\Api\ArchiPlatformRepositoryInterface" type="Rysun\ArchiCollection\Model\ArchiPlatformRepository"/>
+	<preference for="Rysun\ArchiCollection\Api\Data\ArchiPlatformInterface" type="Rysun\ArchiCollection\Model\ArchiPlatform"/>
+	<preference for="Rysun\ArchiCollection\Api\Data\ArchiPlatformSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+	<virtualType name="Rysun\ArchiGrid\Collection\Model\ResourceModel\ArchiPlatform\Grid\Collection" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+		<arguments>
+			<argument name="mainTable" xsi:type="string">rysun_archicollection_archi_platform</argument>
+			<argument name="resourceModel" xsi:type="string">Rysun\ArchiCollection\Model\ResourceModel\ArchiPlatform\Collection</argument>
+		</arguments>
+	</virtualType>
+</config>

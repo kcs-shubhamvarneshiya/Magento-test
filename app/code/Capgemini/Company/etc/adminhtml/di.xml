@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Company\Model\CompanySuperUserGet">
+        <plugin name="add_address_to_company_admin_from_company"
+                type="Capgemini\Company\Plugin\Customer\AddAddressPlugin"/>
+        <plugin name="capgemini_company_update_sales_pad_nunber_for_company_admin"
+                type="Capgemini\Company\Plugin\Customer\UpdateSalesPadNum"/>
+    </type>
+</config>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Company::index">
+                <resource id="Magento_Company::credit" title="Company Credit" translate="title" sortOrder="500" disabled="true">
+                    <resource id="Magento_Company::credit_history" title="View" translate="title" sortOrder="500" disabled="true" />
+                </resource>
+                <resource id="Magento_Sales::all" title="Sales" translate="title" sortOrder="10">
+                    <resource id="Magento_Sales::place_order" title="Checkout (place order)" translate="title" sortOrder="20">
+                        <resource id="Magento_Sales::payment_account" title="Use Pay On Account method" translate="title" sortOrder="30" disabled="true" />
+                    </resource>
+                    <resource id="Magento_Sales::view_orders" title="View orders" translate="title" sortOrder="40">
+                        <resource id="Magento_Sales::view_orders_sub" title="View orders of subordinate users" translate="title" sortOrder="40" disabled="true" />
+                    </resource>
+                </resource>
+                <resource id="Magento_NegotiableQuote::all" title="Quotes" translate="title" sortOrder="20">
+                    <resource id="Magento_NegotiableQuote::view_quotes" title="View" translate="title" sortOrder="10">
+                        <resource id="Magento_NegotiableQuote::view_quotes_sub" title="View quotes of subordinate users" translate="title" sortOrder="50" disabled="true" />
+                    </resource>
+                </resource>
+                <resource id="Magento_Company::user_management">
+                    <resource id="Magento_Company::roles_view" disabled="true" />
+                    <resource id="Magento_Company::users_view" disabled="true" />
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

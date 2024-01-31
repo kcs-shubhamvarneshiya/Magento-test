@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Capgemini_CompanyType
+ *
+ * @category  Capgemini
+ * @author    Oleksander Tolkach <oleksander.tolkach@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="company" translate="label" type="text" sortOrder="130"
+                 showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="company_types" translate="label" type="select" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Company Types</label>
+                <field id="wholesale_company" translate="label" type="select" sortOrder="10" showInWebsite="1">
+                    <label>Wholesale Company</label>
+                    <source_model>Capgemini\CompanyType\Model\Adminhtml\System\Config\Source\Customer\Segment</source_model>
+                </field>
+                <field id="trade_company" translate="label" type="select" sortOrder="10" showInWebsite="1">
+                    <label>Trade Company</label>
+                    <source_model>Capgemini\CompanyType\Model\Adminhtml\System\Config\Source\Customer\Segment</source_model>
+                </field>
+            </group>
+            <group id="brand_mapping_purchase_limit" translate="label" type="select" sortOrder="10"
+                   showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Brand Mapping</label>
+                <field id="restricted_product_cart_message" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Restricted Product Cart Message</label>
+                </field>
+                <field id="can_purchase_vc_signature" translate="label" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="0" canRestore="1">
+                    <label>can_purchase_vc_signature</label>
+                    <source_model>Capgemini\CompanyType\Model\Adminhtml\System\Config\Source\Customer\CanPurchaseAttributes</source_model>
+                </field>
+                <field id="can_purchase_vc_fan" translate="label" type="select" sortOrder="20"
+                       showInDefault="1" showInWebsite="0" canRestore="1">
+                    <label>can_purchase_vc_fan</label>
+                    <source_model>Capgemini\CompanyType\Model\Adminhtml\System\Config\Source\Customer\CanPurchaseAttributes</source_model>
+                </field>
+                <field id="can_purchase_vc_modern" translate="label" type="select" sortOrder="30"
+                       showInDefault="1" showInWebsite="0" canRestore="1">
+                    <label>can_purchase_vc_modern</label>
+                    <source_model>Capgemini\CompanyType\Model\Adminhtml\System\Config\Source\Customer\CanPurchaseAttributes</source_model>
+                </field>
+                <field id="can_purchase_vc_arch" translate="label" type="select" sortOrder="40"
+                       showInDefault="1" showInWebsite="0" canRestore="1">
+                    <label>can_purchase_vc_arch</label>
+                    <source_model>Capgemini\CompanyType\Model\Adminhtml\System\Config\Source\Customer\CanPurchaseAttributes</source_model>
+                </field>
+                <field id="can_purchase_vc_studio" translate="label" type="select" sortOrder="50"
+                       showInDefault="1" showInWebsite="0" canRestore="1">
+                    <label>can_purchase_vc_studio</label>
+                    <source_model>Capgemini\CompanyType\Model\Adminhtml\System\Config\Source\Customer\CanPurchaseAttributes</source_model>
+                </field>
+                <field id="can_purchase_gl" translate="label" type="select" sortOrder="60"
+                       showInDefault="1" showInWebsite="0" canRestore="1">
+                    <label>can_purchase_gl</label>
+                    <source_model>Capgemini\CompanyType\Model\Adminhtml\System\Config\Source\Customer\CanPurchaseAttributes</source_model>
+                </field>
+                <field id="can_purchase_gl_fan" translate="label" type="select" sortOrder="70"
+                       showInDefault="1" showInWebsite="0" canRestore="1">
+                    <label>can_purchase_gl_fan</label>
+                    <source_model>Capgemini\CompanyType\Model\Adminhtml\System\Config\Source\Customer\CanPurchaseAttributes</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

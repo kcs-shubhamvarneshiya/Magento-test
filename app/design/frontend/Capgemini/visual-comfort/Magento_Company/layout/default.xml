@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="header.links">
+            <block class="Magento\Framework\View\Element\Html\Link"
+                   name="register.link.container"
+                   ifconfig="btob/website_configuration/company_active"
+                   after="-"
+                   template="Magento_Company::customer/register/link/container.phtml">
+                <block class="Magento\Company\Block\Company\Register\Link"
+                       name="register.company.link"
+                       ifconfig="company/general/allow_company_registration">
+                    <arguments>
+                        <argument name="title" xsi:type="string" translate="true">Request an Account</argument>
+                        <argument name="label" xsi:type="string" translate="true">Request an Account</argument>
+                        <argument name="path" xsi:type="string">trade</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

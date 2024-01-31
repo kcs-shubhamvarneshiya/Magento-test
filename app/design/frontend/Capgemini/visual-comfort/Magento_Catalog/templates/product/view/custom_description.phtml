@@ -1,0 +1,119 @@
+<?php 
+    /** @var \Magento\Catalog\Helper\Output $_helper */
+    $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_product = $block->getProduct();
+    if ($_product->getIsArchitechData()) {
+
+?>
+
+<style type="text/css">
+    .architectural-product-view .product-info-price {display:none !important}
+    .catalog-product-view .product-info-main .page-title-wrapper h1 {margin: 0 0 1.4rem}
+    .catalog-product-view .product-info-main .product-info-price {display: none;}
+    .catalog-product-view .product-info-main .product-info-price .product-info-stock-sku {margin: 0 0 2.5rem}
+    .catalog-product-view .product-info-main .product.attribute.sku .value {color: #717171;font-size: 1rem;letter-spacing: .075rem; text-transform: uppercase}
+    .catalog-product-view .product-info-main .product-add-form, .catalog-product-view .product-info-main .product-info-price .price-box, .catalog-product-view .product-info-main .product-social-links {display: none}
+    .catalog-product-view .product-info-main .product-info-price .product-info-stock-sku .product.attribute.sku {display: none;}
+    /*#html-body .product.media .olapic.olapic-container .tag {text-align:left}
+    #html-body .product.media .olapic #olapic-slider-widget .olapic-slider-body .olapic-slider-wrapper{padding: 0 2.5rem;width:100% !important}
+    #html-body .product.media .olapic #olapic-slider-widget .olapic-slider-body .olapic-slider-wrapper .olapic-partial-item {width: 100% !important}*/
+</style>
+<?php
+
+    
+    echo '<div class="block-title title"><strong style="font-size: 1.6rem;line-height: 1.8rem;color: #454545;letter-spacing: .25px;text-transform: capitalize;display:block;margin:0 0 .5rem">Description</strong></div>';
+    echo '<div style="font-size: 1.3rem;line-height: 2rem;letter-spacing: .025rem">' . $_product->getDescription() . '</div>';
+    echo '<!--<div style="list-style: none;font-size: 1.3rem;padding: 0;margin: 2rem 0 2.7rem;">
+            - Housing reduced by 60%<br />
+            - Tool-free aiming/locking: 0-40° tilt, 361° rotation<br />
+            - Patented high/low lamp positioning<br />
+            - 2-step standard<br />
+            - Standard dimming down to 1%<br />
+            - Trims reflector options<br />
+            - Solite Soft Focus lens option<br />
+    </div>-->';
+    $format = [];
+   if(!empty($_product->getProductPoints())){
+    $format = explode('<br>',$_product->getProductPoints()); 
+    echo '<ul class="custom-list-none">';
+    }
+   
+    foreach($format as $list){
+        if(!empty($list)){
+            ?>
+            
+                <li><?php echo $list; ?></li>
+            
+
+        <?php
+            }
+        }
+    ?>
+    </ul>
+    <?php
+
+   // echo '<div style="list-style: none;font-size: 1.3rem;padding: 0;margin: 2rem 0 2.7rem;">'.$_product->getProductPoints().'</div>';
+    echo '
+        <div style="margin: 1.9rem 0">
+            <a class="d-flex align-items-center" href="javascript:void(0);" style="text-decoration: none;">
+                <svg width="15px" height="15px" viewBox="0 0 15 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <title>Group 4</title>
+                    <g id="Architectural-v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Element-3inch-Adjustable-Next-Gen-PDP-without-Pricing" transform="translate(-1000.5, -675)">
+                            <g id="Group" transform="translate(1001, 674)">
+                                <g id="Group-4" transform="translate(0, 1)">
+                                    <path d="M6.5,9.5 L7.5,9.5 L7.5,0.5 L6.5,0.5 L6.5,9.5 Z M7.354,9.854 L12.354,4.854 L11.646,4.146 L6.646,9.146 L7.354,9.854 Z M1.646,4.854 L6.646,9.854 L7.354,9.146 L2.354,4.146 L1.646,4.854 Z M7.5,0.5 C7.5,0.224 7.276,0 7,0 C6.724,0 6.5,0.224 6.5,0.5 L7.5,0.5 Z M7,9.5 L6.646,9.854 L7,10.207 L7.354,9.854 L7,9.5 Z" id="Fill-1" fill="#222222"></path>
+                                    <path d="M0,11.5 L0,12.5 C0,13.605 0.895,14.5 2,14.5 L12,14.5 C13.105,14.5 14,13.605 14,12.5 L14,11.5" id="Stroke-3" stroke="#222222"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>                
+                <span style="padding-left: 1.3rem">Download Spec Sheet</span>
+            </a>
+        </div>
+        <div style="margin: 0 0 1.9rem">
+            <a class="d-flex align-items-center" href="javascript:void(0);" style="text-decoration: none;">
+                <svg width="16.2423672px" height="15px" viewBox="0 0 16.2423672 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <title>Path</title>
+                    <g id="Architectural-v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Element-3inch-Adjustable-Next-Gen-PDP-without-Pricing" transform="translate(-1001, -712)" fill="#FFFFFF" stroke="#454545">
+                            <g id="Group" transform="translate(1001, 674)">
+                                <path d="M8.20673986,38.5020283 C10.3556269,38.5010694 12.2587503,39.1719272 13.6198363,40.304239 C14.9386136,41.4013533 15.7423672,42.9334464 15.7423672,44.6871959 C15.7423672,46.3800259 15.0149584,47.8147609 13.7584772,48.807678 C12.4584054,49.8358806 10.6187617,50.3988924 8.44513073,50.3988924 C7.86731058,50.3988924 7.25521912,50.2973931 6.7017117,50.1972273 C5.39170089,51.2580436 4.46921876,51.8700742 3.89343285,52.2026226 L3.32469721,49.1765838 C2.06449895,48.3008576 0.5,46.8317677 0.5,44.6901537 C0.5,42.9614951 1.3396835,41.4329247 2.69198772,40.3308274 C4.09300853,39.1890272 6.04039442,38.5020284 8.20673986,38.5020283 Z" id="Path"></path>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                <span style="padding-left: 1.3rem">Have a question?</span>
+            </a>
+        </div>
+        <div style="margin: 0 0 1.9rem">
+            <a class="d-flex align-items-center" href="javascript:void(0);" style="text-decoration: none;">
+                <svg width="17px" height="13px" viewBox="0 0 17 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <title>Group 5</title>
+                    <g id="Architectural-v1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Element-3inch-Adjustable-Next-Gen-PDP-without-Pricing" transform="translate(-1000.5, -751.5)" stroke="#222222">
+                            <g id="Group" transform="translate(1001, 674)">
+                                <g id="Group-5" transform="translate(0, 78)">
+                                    <path d="M2,0 L14,0 C15.105,0 16,0.895 16,2 L16,10 C16,11.105 15.105,12 14,12 L2,12 C0.895,12 0,11.105 0,10 L0,2 C0,0.895 0.895,0 2,0 Z" id="Stroke-1"></path>
+                                    <path d="M0,3 L7.106,6.553 C7.669,6.834 8.331,6.834 8.894,6.553 L16,3" id="Stroke-3"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                <span style="padding-left: 1.3rem">Email Product</span>
+            </a>
+        </div>
+    ';
+?>
+
+<script>
+    require([
+        'jquery',
+    ], function ($) {
+        $('body').addClass('architectural-product-view');
+    })
+</script>
+
+<?php } ?>

@@ -1,0 +1,104 @@
+<?php
+/** @var $block \Capgemini\OrderView\Block\InvoiceShipment */
+$customerType = $block->getParentBlock()->getCustomerType();
+if($customerType != \Capgemini\CompanyType\Model\Config::WHOLESALE) :
+?>
+<?php foreach ($block->getShipments() as $shipment): ?>
+    <?php $shipmentNum = str_replace('INV', '', $block->getFieldRaw($shipment, 'Sales_Doc_Num')); ?>
+    <?php $tracks = $block->getShipmentTrackings($shipment) ?>
+<?php /*
+    <div class="order-title">
+        <strong><?= $block->escapeHtml(__('Shipment #%1', $shipmentNum)) ?></strong>
+    </div>
+ */ ?>
+
+    <?php if (!empty($tracks)): ?>
+        <dl id="my-tracking-table<?= $block->getFieldAttr($shipment, 'Sales_Doc_Num') ?>" class="order-tracking">
+            <dt class="tracking-title"><?= $block->escapeHtml(__('Tracking Number(s): ')) ?></dt>
+            <dd class="tracking-content">
+                <?php foreach ($tracks as $track) : ?>
+                    <?php if (!empty($track['url'])) : ?>
+                        <a class="tracking-number" href="<?= $track['url'] ?>"><span><?= $track['code'] ?></span></a>
+                    <?php else : ?>
+                        <span class="tracking-number"><?= $track['code'] ?></span>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </dd>
+        </dl>
+    <?php endif; ?>
+    <div class="table-wrapper order-items-shipment">
+        <table id="my-shipment-table-<?= $block->getFieldAttr($shipment, 'Sales_Doc_Num') ?>"
+               class="data table table-order-items shipment">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Items Shipped')) ?></caption>
+            <thead>
+                <tr>
+                    <th class="col name"><?= $block->escapeHtml(__('Product Name')) ?></th>
+                    <th class="col sku"><?= $block->escapeHtml(__('Item #')) ?></th>
+                    <th class="col qty"><?= $block->escapeHtml(__('Qty Shipped')) ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($shipment['items'] as $item): ?>
+                <?php
+                    $finish = '';
+                    $shade = '';
+                    $product = $block->getProduct($item);
+                    if ($product->getId()) {
+                        $finish = $product->getAttributeText('finishdescription');
+                        if ($product->getShadeFilter()) {
+                            $shade = $product->getShadeDescription();
+                        }
+                    }
+                    $sidemark = $block->getUserField($item, 'xSidemark');
+                    $comments = $block->getField($item, 'Comment');
+                ?>
+                    <tr id="order-items-row-<?= $block->getFieldAttr($item, 'Line_Num') ?>">
+                        <td class="col name" data-th="<?= $block->escapeHtml(__('Product Name')) ?>">
+                            <div class="item-data">
+                                <div class="item-data-left">
+                                    <?= $block->getItemImage($item) ?>
+                                </div>
+                                <div class="item-data-right">
+                                    <strong class="product name product-item-name"><?= $block->getField($item, 'Item_Description')?></strong>
+                                    <dl class="item-options">
+                                        <?php if ($finish): ?>
+                                            <div>
+                                                <dt><?= $block->escapeHtml(__('Finish')) ?></dt>
+                                                <dd><?= $block->escapeHtml($finish) ?></dd>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($shade): ?>
+                                            <div>
+                                                <dt><?= $block->escapeHtml(__('Shade')) ?></dt>
+                                                <dd><?= $block->escapeHtml($shade) ?></dd>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($sidemark): ?>
+                                            <div>
+                                                <dt><?= $block->escapeHtml(__('Sidemark')) ?></dt>
+                                                <dd><?= $block->escapeHtml($sidemark) ?></dd>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($comments): ?>
+                                            <div>
+                                                <dt><?= $block->escapeHtml(__('Comments')) ?></dt>
+                                                <dd><?= $block->escapeHtml($comments) ?></dd>
+                                            </div>
+                                        <?php endif; ?>
+                                    </dl>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col sku" data-th="<?= $block->escapeHtml(__('Item #')) ?>">
+                            <?= $block->getField($item, 'Item_Number') ?>
+                        </td>
+                        <td class="col qty" data-th="<?= $block->escapeHtml(__('Qty Shipped')) ?>">
+                            <span class="qty summary"><?= $block->getField($item, 'Qty_Fulfilled') ?></span>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+<?php endforeach; ?>
+<?php endif; ?>

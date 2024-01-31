@@ -1,0 +1,28 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var \Magento\Vault\Block\Customer\CreditCards $block */
+$tokens = $block->getPaymentTokens();
+?>
+<?php if (count($tokens) !== 0): ?>
+<div class="block-content">
+    <div id="saved-payment-methods">
+        <?php foreach ($tokens as $token): ?>
+            <div class="payment-method-item">
+                <?php echo $block->renderTokenHtml($token); ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<?php elseif (!$block->isExistsCustomerTokens()): ?>
+    <div class="message info empty"><span><?php /* @noEscape */ echo __('You have no stored payment methods.'); ?></span><span class="action close"></span></div>
+<?php endif ?>
+<script type="text/javascript">
+    require(['jquery'], function($) {
+        //simulate close btn
+        if ($('.message.info.empty').length) {
+            $('.action.close').click(function () {
+                $('.message.info.empty').hide();
+            })
+        }
+    });
+</script>

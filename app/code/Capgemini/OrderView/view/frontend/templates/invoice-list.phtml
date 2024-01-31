@@ -1,0 +1,182 @@
+<?php
+/** @var $block \Capgemini\OrderView\Block\Invoices */
+$limit = $block->getRequest()->getParam('limit') ?? $block::INITIAL_LIMIT;
+$page = $this->getRequest()->getParam('p') ?? 1;
+$customerId = $block->getCustomerId();
+$filtersParams = [];
+foreach (['status','division'] as $filtersParam)
+{
+    if($this->getRequest()->getParam($filtersParam))
+    {
+        $filtersParams[$filtersParam] = $this->getRequest()->getParam($filtersParam);
+    }
+}
+
+$invoices = $block->getInvoices($page, $limit,$filtersParams);
+$searchParams = $this->getRequest()->getParams();
+?>
+<?php if($block->getCustomerType() == \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?>
+<div class="order-control-container">
+    <div class="filter-container top-filter-container">
+        <?= $block->getBlockHtml('capgemini.filter.dropdown'); ?>
+        <?= $block->getBlockHtml('capgemini.filter.modal'); ?>
+    </div>
+</div>
+<?php endif;?>
+<?php if ($invoices && count($invoices)): ?>
+    <div class="table-wrapper orders-history data-grid-wrap orderspages">
+        <table class="data-grid table table-order-items history" id="order-list">
+            <caption class="table-caption"><?= $block->escapeHtml(__('Orders')) ?></caption>
+            <thead>
+            <th scope="col" class="data-grid-th col id"  data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".invoiceidupsort","upsorturl":"<?= $block->getUrl('orderview/invoices/history',['sort_by'=>'InvoiceId_asc','account_id'=>$customerId])?>"},{"classname":".invoicedescending","upsorturl":"<?= $block->getUrl('orderview/invoices/history',['sort_by'=>'InvoiceId_desc','account_id'=>$customerId])?>"}]}}'>
+                <span class="th-wrap"> 
+                        <span class="th-label">
+                <?= $block->escapeHtml(__('Invoice')) ?></span>
+                <span class="sort-wrap">
+                    <span data-sort="asc" class="invoiceidupsort ascsort InvoiceId_desc"></span>
+                    <span data-sort="desc" class="invoicedescending descsort InvoiceId_asc active"></span>
+                    </span>
+                    </span>
+            </th>
+                 <th scope="col" class="data-grid-th col purchase"><?= $block->escapeHtml(__('Purchase Order')) ?></th>
+                 <th scope="col"  class="data-grid-th col date" data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".upsort","upsorturl":"<?= $block->getUrl('orderview/invoices/history',['sort_by'=>'invoiceDate_asc','account_id'=>$customerId])?>"},{"classname":".invoicedatedescsort","upsorturl":"<?= $block->getUrl('orderview/invoices/history',['sort_by'=>'invoiceDate_desc','account_id'=>$customerId])?>"}]}}'>
+                <span class="th-wrap"> 
+                    <span class="th-label"> <?= $block->escapeHtml(__('Invoice Date')) ?></span>
+                    <span class="sort-wrap ">
+                        <span data-sort="asc" class="upsort ascsort invoiceDate_desc"></span>
+                        <span data-sort="desc" class="invoicedatedescsort descsort invoiceDate_asc active"></span>
+                    </span>
+                </span>
+            </th>
+            <th scope="col" class="data-grid-th col shipping"  data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".invoiceduedtup","upsorturl":"<?= $block->getUrl('orderview/invoices/history',['sort_by'=>'invoiceDueDate_asc','account_id'=>$customerId])?>"},{"classname":".invoiceduedtdown","upsorturl":"<?= $block->getUrl('orderview/invoices/history',['sort_by'=>'invoiceDueDate_desc','account_id'=>$customerId])?>"}]}}'>
+            <span class="th-wrap"> 
+                    <span class="th-label"><?= $block->escapeHtml(__('Due Date')) ?></span>    
+                    <span class="sort-wrap">
+            <span data-sort="asc" class="invoiceduedtup ascsort invoiceDueDate_desc"></span>
+                <span data-sort="desc" class="invoiceduedtdown descsort invoiceDueDate_asc active"></span>
+                </span>
+                </span>
+            </th>
+            <th scope="col" class="data-grid-th col total" data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".invoiceamtup","upsorturl":"<?= $block->getUrl('orderview/invoices/history',['sort_by'=>'amount_asc','account_id'=>$customerId])?>"},{"classname":".invoiceamtdown","upsorturl":"<?= $block->getUrl('orderview/invoices/history',['sort_by'=>'amount_desc','account_id'=>$customerId])?>"}]}}'>
+            <span class="th-wrap"> 
+                    <span class="th-label"><?= $block->escapeHtml(__('Amount')) ?></span>
+                    <span class="sort-wrap ">
+                <span data-sort="asc" class="invoiceamtup ascsort amount_desc"></span>
+                <span data-sort="desc" class="invoiceamtdown descsort amount_asc active"></span>
+                </span>
+                </span>
+        </th>
+            <th scope="col" class="data-grid-th col total" data-mage-init='{"Capgemini_OrderView/js/widget/sortable-table":{"data":[{"classname":".invoicepddtup","upsorturl":"<?= $block->getUrl('orderview/invoices/history',['sort_by'=>'PaidToDate_asc','account_id'=>$customerId])?>"},{"classname":".invoicepddtdown","upsorturl":"<?= $block->getUrl('orderview/invoices/history',['sort_by'=>'PaidToDate_desc','account_id'=>$customerId])?>"}]}}'>
+            <span class="th-wrap"> 
+                    <span class="th-label">
+            <?= $block->escapeHtml(__('Paid to Date')) ?></span>
+            <span class="sort-wrap">
+                <span data-sort="asc" class="invoicepddtup ascsort PaidToDate_desc"></span>
+                <span data-sort="desc" class="invoicepddtdown descsort PaidToDate_asc active"></span>
+                </span>
+                </span>
+        </th>
+            <th scope="col" class="data-grid-th col total">
+                <?= $block->escapeHtml(__('Division')) ?>
+            </th>
+            <th scope="col" class="data-grid-th col status status-dropdown-widget">
+                    <?php if(!empty($block->getInvoiceFilter('status'))): ?>
+                        <span class="status-label" data-mage-init='{"dropdown":{"triggerEvent" : "hover", "triggerTarget" : ".status-label"}}' data-toggle="dropdown">
+                            <?= $block->escapeHtml(__('Status')) ?>
+                        </span>
+                        <div class="status-dropdown" data-target="dropdown">
+                            <ul class="header links">
+                                <?php foreach ($block->getInvoiceFilter('status') as $status): $searchParams['status'] = $status; if($this->getRequest()->getParam('status') === $status) { unset($searchParams['status']); } ?>
+                                    <li data-action="status-filter">
+                                        <span>
+                                            <input data-href="<?= $block->getUrl('orderview/invoices/history',$searchParams)?>" value="<?= $status ?>" <?= ($this->getRequest()->getParam('status') === $status)? 'checked="checked"':''; ?> type="checkbox"/>
+                                        </span>
+                                        <span><?= $status ?></span>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    <?php else: ?>
+                        <?= $block->escapeHtml(__('Status')) ?>
+                    <?php endif;?>
+                </th>
+                <th scope="col" class="data-grid-th col actions"><?= $block->escapeHtml(__('Action')) ?></th>
+            </thead>
+            <tbody>
+                <?php foreach ($invoices as $invoice): ?>
+                    <tr class="order-row data-row">
+                        <td nowrap data-th="<?= $block->escapeHtmlAttr(__('Invoice')) ?>" class="col id"><?= $invoice['id'] ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Purchase Order')) ?>" class="col id"><?= $invoice['purchase_invoice'] ?></td>
+                        <td nowrap data-th="<?= $block->escapeHtmlAttr(__('Invoice Date')) ?>" class="col date"><?= $invoice['created_at'] ?></td>
+                        <td nowrap data-th="<?= $block->escapeHtmlAttr(__('Due Date')) ?>" class="col shipping"><?= $invoice['due_date'] ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Amount')) ?>" class="col total">$<?= $invoice['amount'] ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Paid to Date')) ?>" class="col total">$<?= $invoice['paid'] ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Division')) ?>" class="col status"><?= $invoice['division'] ?></td>
+                        <td data-th="<?= $block->escapeHtmlAttr(__('Status')) ?>" class="col status"><?= $invoice['status'] ?></td>
+                        <td nowrap data-th="<?= $block->escapeHtmlAttr(__('Action')) ?>" class="col actions data-grid-actions-cell">
+                            <div class="action-select-wrap">
+                                <ul class="action-menu">
+                                    <li>
+                                        <a href="<?= $invoice['view_link'] ?>" class="action view action-menu-item" title="<?= __('View Invoice') ?>">
+                                            <span><?= $block->escapeHtml(__('View Invoice')) ?></span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if (count($invoices)): ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getChildBlock('salespad_invoice_list_pager')->setLimit($limit)->setCollection($invoices)->toHtml() ?></div>
+    <?php endif; ?>
+<?php else: ?>
+    <?php if ($this->getRequest()->getParam('search')) : ?>
+        <div class="message info empty"><span><?= $block->escapeHtml(__('No invoices found for this search.  Please try again.')) ?></span></div>
+    <?php else : ?>
+        <div class="message info empty"><span><?= $block->escapeHtml(__('You have no invoices.')) ?></span></div>
+    <?php endif; ?>
+<?php endif; ?>
+
+<script>
+    require(['jquery'], function ($) {
+        $('[data-action=status-filter]').click(function (){
+
+            window.location.href = $(this).find("input").attr("data-href");
+        });
+        //simulate close btn
+        if ($('.message.info.empty').length) {
+            $('.action.close').click(function () {
+                $('.message.info.empty').hide();
+            })
+        }
+    })
+</script>
+<script>
+require(['jquery', 'Capgemini_OrderView/js/widget/sortable-table'], function($) {
+
+$('.sortable-table').sortableTable();
+
+$(document).ready(function(){
+
+    var url = window.location.href;
+var sortType = "";
+
+var match = url.match(/\/sort_by\/([^\/]+)/);
+if (match && match[1]) {
+sortType = match[1];
+}
+
+console.log(sortType);
+const element = document.querySelector("." + sortType);
+    if(sortType){
+      //  console.log(element);
+        element.classList.add("active");
+        console.log(element.nextSibling.nextElementSibling);
+        element.nextSibling.nextElementSibling.classList.remove("active");
+    }
+});
+
+});
+</script>

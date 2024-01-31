@@ -1,0 +1,42 @@
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+require([
+    'jquery',
+    'mage/smart-keyboard-handler',
+    'mage/mage',
+    'domReady!'
+], function ($, keyboardHandler) {
+    'use strict';
+
+    $('.cart-summary').mage('sticky', {
+        container: '#maincontent'
+    });
+
+    $('.nav-sections-item-title').click(function(){
+        if($(this).attr('aria-controls').length) {
+            var dataAttribute = $(this).attr('aria-controls'),
+                menuItem = 'store.menu',
+                container = $('.nav-right-mobile');
+
+            if(dataAttribute !== menuItem) {
+                container.hide();
+            } else {
+                container.show();
+            }
+        }
+    });
+
+    $('.panel.header .header-panel-right > .header.links').clone().appendTo('#store\\.links');
+    $('#store\\.links li a').each(function () {
+        var id = $(this).attr('id');
+
+        if (id !== undefined) {
+            $(this).attr('id', id + '_mobile');
+        }
+    });
+
+    keyboardHandler.apply();
+});

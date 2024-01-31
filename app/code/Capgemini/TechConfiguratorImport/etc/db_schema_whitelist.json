@@ -1,0 +1,93 @@
+{
+    "vc_configurator_config": {
+        "column": {
+            "entity_id": true,
+            "name": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "VC_CONFIGURATOR_CONFIG_NAME": true
+        }
+    },
+    "vc_configurator_footnotes": {
+        "column": {
+            "entity_id": true,
+            "config_id": true,
+            "number": true,
+            "footnote": true
+        },
+        "index": {
+            "VC_CONFIGURATOR_FOOTNOTES_CONFIG_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_23A3D0837BA0B98CB01598661FD9F490": true
+        }
+    },
+    "vc_configurator_skupart": {
+        "column": {
+            "entity_id": true,
+            "config_id": true,
+            "name": true,
+            "type": true,
+            "sort": true,
+            "optional": true,
+            "help_text": true,
+            "footnotes": true,
+            "validation": true
+        },
+        "index": {
+            "VC_CONFIGURATOR_SKUPART_CONFIG_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "VC_CONFIGURATOR_SKUPART_CONFIG_ID_VC_CONFIGURATOR_CONFIG_ENTT_ID": true
+        }
+    },
+    "vc_configurator_skupart_option": {
+        "column": {
+            "entity_id": true,
+            "skupart_id": true,
+            "character": true,
+            "description": true,
+            "footnotes": true
+        },
+        "index": {
+            "VC_CONFIGURATOR_SKUPART_OPTION_SKUPART_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_A951FD6875DA8F832BACC9172D30EDFF": true
+        }
+    },
+    "vc_configurator_exception": {
+        "column": {
+            "entity_id": true,
+            "config_id": true,
+            "skupart_name": true,
+            "option_character": true
+        },
+        "index": {
+            "VC_CONFIGURATOR_EXCEPTION_CONFIG_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_9FFC80B6D347807C56C8397180681E84": true
+        }
+    },
+    "vc_configurator_exception_condition": {
+        "column": {
+            "entity_id": true,
+            "exception_id": true,
+            "skupart_name": true,
+            "option_character": true
+        },
+        "index": {
+            "VC_CONFIGURATOR_EXCEPTION_CONDITION_EXCEPTION_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "FK_3EEC71E5CA0651BC9B4B93EF8DDDF33E": true
+        }
+    }
+}

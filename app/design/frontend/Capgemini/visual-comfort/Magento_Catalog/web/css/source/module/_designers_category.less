@@ -1,0 +1,216 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. 2022 All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .catalog-category-view.page-layout-1column {
+        &[class*=categorypath-our-designers] {
+            .category-top-info {
+                display: none;
+            }
+        }
+    }
+    #html-body {
+        &[class*='designers'] {
+            .breadcrumbs {
+                .lib-css(display, none);
+            }
+            .random-header {
+                width: 100vw;
+                position: relative;
+                left: 50%;
+                right: 50%;
+                margin-left: -50vw;
+                margin-right: -50vw;
+                max-width: initial;
+            }
+            #maincontent {
+                .category-view {
+                    .category-cms {
+                        .lib-css(display, block);
+                    }
+                }
+            }
+        }
+        &[class^="-our-designers-"],
+        &[class*="-our-designers-"] {
+            #maincontent {
+                .category-view {
+                    .lib-css(background-color, #f8f8f8);
+                    .category-cms {
+                        .lib-css(display, block);
+                        [data-content-type='row'] {
+                            .lib-css(margin-top, 0);
+                            .lib-css(background-color, #f8f8f8);
+                            figure[data-content-type='image'] {
+                                .lib-css(margin, 0);
+                                > img {
+                                    height: 100%;
+                                    width: 100%;
+                                }
+                            }
+                            .pagebuilder-column {
+                                div[data-content-type='text'] {
+                                    .lib-css(margin-left, 0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .catalog-category-view.page-layout-1column {
+        &[class*=categorypath-our-designers] {
+            .page-main {
+                .category-view {
+                    padding: 0;
+                    background: transparent;
+
+                    .category-cms {
+                        margin: 0;
+                        padding-bottom: 40px;
+
+                        h1 {
+                            margin: 10px 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    #html-body {
+        &[class^="-our-designers-"],
+        &[class*="-our-designers-"] {
+            #maincontent {
+                .category-view {
+                    .category-cms {
+                        [data-content-type='row'] {
+                            figure[data-content-type='image'] {
+                                height: 260px;
+                                > img {
+                                    object-fit: contain;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    #html-body {
+        &[class*='designers'] {
+            .random-header {
+                [data-content-type='row'][data-appearance='full-width'] {
+                    .row-full-width-inner {
+                        .lib-css(width, 99%);
+                    }
+                }
+            }
+        }
+    }
+
+    .catalog-category-view.page-layout-1column {
+        &[class*=categorypath-our-designers] {
+            &#html-body:not(.category-showrooms) .category-top__wrapper .breadcrumbs.mobile.desktop {
+                margin-bottom: 26px;
+            }
+
+            .page-main {
+                .category-view {
+                    width: 100vw;
+                    position: relative;
+                    left: 50%;
+                    right: 50%;
+                    margin-left: -50vw;
+                    margin-right: -50vw;
+                    padding-bottom: 30px;
+                    max-width: initial;
+
+                    .category-cms {
+                        max-width: 1290px;
+                        margin: 0 auto;
+                    }
+                }
+            }
+        }
+    }
+
+    #html-body {
+        &[class^="-our-designers-"],
+        &[class*="-our-designers-"] {
+            #maincontent {
+                .category-view {
+
+                    .category-cms {
+                        [data-content-type='row'] {
+                            figure[data-content-type='image'] {
+                                width: 275px;
+                                height: 246px;
+                                padding: 0;
+                                > img {
+                                    object-fit: cover;
+                                }
+                            }
+                            .pagebuilder-column {
+                                div[data-content-type='text'] {
+                                    .lib-css(margin-top, 13px);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+//  Custom 768 - 1150
+//  _____________________________________________
+@media screen and (min-width: 768px) and (max-width: 1150px) {
+    #html-body {
+        &[class^="-our-designers-"],
+        &[class*="-our-designers-"] {
+            #maincontent {
+                .category-view {
+                    .category-cms {
+                        padding: 0 20px;
+                        [data-content-type='row'] {
+                            .pagebuilder-column {
+                                &:first-child {
+                                    flex: 1 1 40%;
+                                }
+                                &:last-child {
+                                    flex: 1 1 58%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

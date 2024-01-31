@@ -1,0 +1,86 @@
+<?php
+/** @var $block \Capgemini\OrderView\Block\DropDownFilter */
+$page = $block->getRequest()->getParam('p') ?? 1;
+
+if ($block->getCustomerType() == \Capgemini\CompanyType\Model\Config::WHOLESALE) {
+    $customerNumber = $this->getRequest()->getParam('account_id') ?? $block->getCustomerVcNumber();
+} else {
+    $customerNumber = $block->getCustomerNumber();
+}
+
+$filters = $block->getFilter();
+$searchbal = '';
+if($this->getRequest()->getParam('search'))
+{
+    $searchbal = $this->getRequest()->getParam('search');
+}
+$customerVcNumber =  $customerNumber;
+$params = $block->getRequest()->getParams();
+unset($params['p']);
+unset($params['limit']);
+
+$currenturl = $block->getCurrentUrl();
+$substringToCheck = '/customer/account/';
+
+?>
+<?php if($block->getCustomerType() == \Capgemini\CompanyType\Model\Config::WHOLESALE) : ?>
+<div class="order-control-container">
+    <?php if($block->getIsSearchAvailable()): ?>
+        <div class="search-container">
+            <form id="search-filter" method="get" data-action="<?= $block->getUrl($block->getFilterUrl(),$block->removeParam($params,'search'));?>">
+                <input name="search" type="search" placeholder="<?= __($block->getPlaceHolder()) ?> " value='<?php echo $block->getDecodeValue($searchbal); ?>'>
+                <?php if ($this->getRequest()->getParam('search')) : ?>
+                    <a class="clearsearch" href="<?= $block->getUrl($block->getFilterUrl(),$block->removeParam($params,'search'));?>" >&nbsp;</a>
+                <?php else : ?>
+                    <button type="submit">Search</button>
+                <?php endif; ?>
+            </form>
+        </div>
+    <?php endif; ?>
+    <div class="filter-container">
+    </div>
+
+<?php 
+    if (strpos($currenturl, $substringToCheck) !== false) {
+?>
+  <div class="maindatasearch">
+    <?php if(!empty($filters) && (!isset($filters['Errors']))): ?>
+        <div class="account-select">
+            <label class="label"><?= __('Account') ?>:</label>
+            <select data-placeholder="<?= __('Search Account'); ?>" type="select" name="dropdown_name" id="accountfilter" class="form-control custom-select">
+                <?php foreach ($filters as $key => $account): if((!isset($filters['Errors']))): $params['account_id'] = $account['account']; $params = $block->removeParam($params,'search') ?>
+                    <option <?= (($customerVcNumber) && $customerVcNumber === $account['account'])? 'selected="selected"':"" ?> value="<?php echo $account['account'];?>" data-href="<?= $block->getUrl($block->getFilterUrl(),($this->getRequest()->getParam('account_id'))?$block->removeParam($params,'account_id', $this->getRequest()->getParam('account_id')):$params)?>">
+                        <?php echo (isset($account['name']) && $account['name']!== "")?$account['account'].' - '.$account['name']:$account['account'];?>
+                    </option>
+                <?php endif; endforeach; ?>
+            </select>
+        </div>
+        <script>
+            require(['jquery','select2'], function ($) {
+                $('#accountfilter').select2({
+                    searchPlaceHolder: '<?= __('Search Account'); ?>'
+                }); 
+            });
+        </script>
+    <?php endif; ?>
+</div> 
+<?php } ?>
+<?php endif;?>
+<script>
+    require(['jquery'], function ($) {
+        //simulate close btn
+        if($('#search-filter').length>0)
+        {
+            $("#search-filter").submit(function (e) {
+                window.location.href = $(this).attr('data-action')+"search/"+btoa($(this).find("[name=search]").val())+"/";
+                return false;
+            });
+
+        }
+
+        $('#accountfilter').change(function(){
+            window.location.href = $(this).find(':selected').attr('data-href');
+        });
+    })
+</script>
+</div>

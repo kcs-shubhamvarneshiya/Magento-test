@@ -1,0 +1,41 @@
+<?php
+/** @var Rysun\ThreeSixtyImage\ViewModel\WebRotatedStandard $viewModel */
+$viewModel = $block->getViewModel();
+$_product = $this->getProduct();
+$_attValue = $_product->getResource()->getAttribute('pdp_360')->getFrontend()->getValue($_product);
+$rootPath = $viewModel->getWebrotateRootUrl();
+$configPath = $viewModel->getWebrotatePath();
+$swatches = $viewModel->getSwatches();
+
+if (empty($configPath)) {
+    $configPath = $viewModel->getMasterConfigUrl();
+    if (!empty($configPath)) {
+        $isMasterMode = true;
+    }
+}
+
+$configBaseUrl = $viewModel->getBaseUrl();
+if ($viewModel->getUseMediaUrlConfig() === true) {
+    $configBaseUrl = $viewModel->getMediaUrl();
+}
+
+$isLoaderOn = (!isset($isMasterMode) && !empty($configPath)) || (isset($isMasterMode) && !empty($rootPath));
+
+?>
+
+<?php if ($isLoaderOn) : ?>
+<?php $configPath = strpos($configPath, 'https://') === 0 ? $configPath : $configBaseUrl . $configPath; ?>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
+<script type="text/javascript">
+var __WR360Config = {
+    thumbPath: "<?= /* @noEscape */ $viewModel->getPopupIconUrl() ?>",
+    graphicsPath: "<?= /* @noEscape */ $viewModel->getGraphicsPathUrl() ?>",
+    endPlacement: <?=/* @noEscape */ $viewModel->isEndPlacement() ? 'true' : 'false' ?>,
+    swatches: <?=/* @noEscape */ $swatches ? $swatches : 'null' ?>,
+    threesixtyvalue: "<?= /* @noEscape */ $_attValue ?>"
+
+
+};
+</script>
+<?php endif ?>

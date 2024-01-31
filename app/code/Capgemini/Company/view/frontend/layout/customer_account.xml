@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation">
+            <referenceBlock name="customer-account-navigation-company-link" remove="true" />
+            <block class="Capgemini\Company\Block\Company\Link\CompanyLink"
+                ifconfig="btob/website_configuration/company_active"
+                name="customer-account-navigation-company-link-cap">
+                <arguments>
+                    <argument name="path" xsi:type="string">company/</argument>
+                    <argument translate="true" name="label" xsi:type="string">Company Structure</argument>
+                    <argument name="resource" xsi:type="string">Magento_Company::users_view</argument>
+                    <argument name="sortOrder" xsi:type="number">102</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Company\Block\Link\Current"
+                ifconfig="btob/website_configuration/company_active"
+                name="customer-account-navigation-company-documents-link">
+                <arguments>
+                    <argument name="path" xsi:type="string">company/account/documents</argument>
+                    <argument translate="true" name="label" xsi:type="string">Trade Documents</argument>
+                    <argument name="resource" xsi:type="string">Magento_Company::view</argument>
+                    <argument name="sortOrder" xsi:type="string">135</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceBlock name="customer-account-navigation-delimiter-container-b2b">
+            <referenceBlock name="customer-account-navigation-delimiter-b2b" remove="true"/>
+            <block class="Capgemini\Company\Block\Company\Link\Delimiter" name="customer-account-navigation-delimiter-b2b-cap" template="Magento_Customer::account/navigation-delimiter.phtml">
+                <arguments>
+                    <argument name="resources" xsi:type="array">
+                        <item name="companyUsers" xsi:type="string">Magento_Company::users_view</item>
+                        <item name="company" xsi:type="string">Magento_Company::view</item>
+                        <item name="companyRoles" xsi:type="string">Magento_Company::roles_view</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

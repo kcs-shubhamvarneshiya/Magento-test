@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <lyonscg_configurablesimple>
+            <general>
+                <specification_attributes>criteria_1,criteria_2,criteria_3,criteria_4,criteria_5,criteria_6,criteria_7,chain_length,shade_details,trademark,note,notes_circa,sku,new_item</specification_attributes>
+            </general>
+        </lyonscg_configurablesimple>
+    </default>
+</config>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="customer.login.container">
+            <block class="Magento\Framework\View\Element\Template"
+                   template="Magento_Theme::template.phtml"
+                   name="company.new.wrapper">
+                <block class="Magento\Cms\Block\Block" name="company.new.customer">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">vc-company_account_cms_block</argument>
+                    </arguments>
+                </block>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="company.new" remove="true" />
+    </body>
+</page>

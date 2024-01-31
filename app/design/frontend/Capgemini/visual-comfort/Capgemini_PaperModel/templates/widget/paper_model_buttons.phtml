@@ -1,0 +1,19 @@
+<?php
+/**@var  \Capgemini\PaperModel\Block\Widget\PaperModelButtons $block */
+?>
+<div class="paper-mode-buttons-wrapper" id="paper-mode-buttons-wrapper">
+    <?php if ($block->isPaperModelSalable()): ?>
+        <div class="paper-model-button add-to-cart">
+            <button type="submit" title="Add paper template to cart" class="action primary tocart btn btn-primary"
+                    id="product-addtocart-button-paper-model">
+                <span><?= __('Add paper template to cart'); ?></span>
+            </button>
+        </div>
+    <?php endif; ?>
+    <div class="paper-model-preview">
+        <button id="paper-model-preview-button" target="_blank" type="button"
+                class="action paper-model-preview-button btn btn-secondary">
+            <?= __('Preview paper template'); ?>
+        </button>
+    </div>
+</div>

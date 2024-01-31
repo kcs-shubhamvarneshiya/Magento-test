@@ -1,0 +1,152 @@
+// /**
+//  * Copyright © Visual Comfort, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .account {
+        .block-collapsible-nav .item.current {
+            a,
+            & > strong {
+                border-color: @color-gray-900;
+                font-family: @font-proxima-nova;
+                font-weight: @font-wt-medium;
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .account {
+        &.page-layout-2columns-left {
+            #maincontent .columns {
+
+                .sidebar-main {
+                    .block.block-collapsible-nav {
+                        position: static;
+                        border: 1px solid @color-gray-400;
+                        background: @color-gray-300;
+                        margin-bottom: 15px;
+                        transform: none;
+
+                        .title.block-collapsible-nav-title {
+                            border-top: 0;
+                            border-bottom: 0;
+                        }
+                    }
+
+                    #block-collapsible-nav {
+                        background: transparent;
+                        border-bottom: 1px solid @color-gray-400;
+                        padding-bottom: 20px;
+                    }
+                }
+            }
+        }
+
+        .page-wrapper .sidebar.sidebar-main .block.block-collapsible-nav .title.block-collapsible-nav-title {
+            display: block;
+            border-top: 0;
+            border-bottom: 0;
+
+            &.active {
+                &:after {
+                    content: '\002D';
+                    line-height: 1;
+                    color: @color-gray-800;
+                }
+            }
+
+            &:after {
+                content: '\002B';
+                line-height: 1;
+                color: @color-gray-800;
+            }
+        }
+    }
+}
+
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .account .sidebar .title.block-collapsible-nav-title {
+        display: none;
+    }
+
+    .account {
+        &.page-layout-2columns-left #maincontent .columns #block-collapsible-nav {
+            background: transparent;
+            border-bottom: 1px solid @color-gray-400;
+            padding-bottom: 20px;
+
+            .nav.items {
+                display: flex;
+                align-items: center;
+
+                .nav.item {
+                    margin: 0;
+
+                    &:first-child {
+                        strong,
+                        a {
+                            margin-left: 0 !important;
+                        }
+                    }
+
+                    &.current {
+                        & > strong {
+                            border-bottom: 2px solid @color-gray-800;
+                            border-left: none;
+                            margin: 0 15px;
+                            padding: 5px 0 1px;
+                            font-family: @font-proxima-nova;
+                            font-size: 12px;
+                            font-weight: 600;
+
+                            font-style: normal;
+                            line-height: 1.33;
+                            letter-spacing: 0.25px;
+                            color: @color-gray-800;
+                            text-transform: uppercase;
+                        }
+                    }
+
+                    & > a {
+                        border-left: none;
+                        padding: 5px 0 1px;
+                        margin: 0 15px;
+                        font-family: @font-proxima-nova;
+                        font-size: 12px;
+                        font-weight: 600;
+
+                        font-style: normal;
+                        line-height: 1.33;
+                        letter-spacing: 0.25px;
+                        color: @color-gray-800;
+                        text-transform: uppercase;
+                        display: block;
+                        border-bottom: 2px solid transparent;
+
+                        &:hover {
+                            background: transparent;
+                            text-decoration: none;
+                            border-bottom-color: @color-gray-800;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

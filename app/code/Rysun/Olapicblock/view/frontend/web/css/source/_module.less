@@ -1,0 +1,164 @@
+.customapi {
+	.tag {
+		margin: 25px 0px 20px;
+		font-family: 'goudy-old-style', serif;
+		font-weight: 400;
+		font-size: 2.6rem;
+		line-height: 3.2rem;
+		letter-spacing: 0;
+		color: #454545;
+
+	}
+
+	.olapic-slider-wrapper {
+		position: relative;
+		display: block;
+		overflow: hidden;
+		width: 1380px;
+		margin: 0 auto;
+	}
+
+	.olapic-carousel {
+		position: relative;
+		padding: 0;
+		margin: 0;
+		list-style: none;
+		display: block;
+		list-style-type: disc;
+		margin-block-start: 1em;
+		margin-block-end: 1em;
+		margin-inline-start: 0px;
+		margin-inline-end: 0px;
+		padding-inline-start: 40px;
+	}
+
+	.olapic-carousel-list-container {
+		left: -220px;
+	}
+
+	.olapic-slider-wrapper {
+		max-width: 1380px;
+		margin: 0 auto;
+		display: block;
+		width: 100%;
+	}
+
+	.olapic {
+		#olapic-slider-widget.olapic-slider-widget {
+			max-width: 1380px;
+			margin-left: 0;
+			margin-right: 0;
+		}
+	}
+
+
+
+	.olapic-slider-body {
+		max-width: 1380px;
+		margin: 0 auto;
+		display: block;
+		width: 100%;
+	}
+
+}
+
+
+body#html-body {
+	.customapi {
+		.olapic {
+			.olapic-carousel {
+				li {
+					width: 210px;
+					height: 210px;
+					margin: 0 5px;
+				}
+			}
+		}
+
+	}
+}
+
+#html-body.page-layout-custom-category {
+	.customapi {
+		.olapic {
+			.olapic-carousel {
+				li {
+					width: 210px;
+					height: 210px;
+					margin: 0 5px;
+				}
+			}
+		}
+	}
+}
+
+body#html-body {
+	.customapi {
+		.olapic {
+			.olapic-slider-wrapper {
+				max-width: 1380px !important;
+			}
+		}
+	}
+}
+.media-width(@extremum, @break) when (@extremum ='max') and (@break = @screen__m) {
+	body#html-body {
+		.customapi {
+			.olapic-slider-wrapper {
+				width: 100%;
+				margin: 0;
+				
+			}
+
+			.olapic-slider-body {
+				width: 100%;
+				margin: 0;
+				
+			}
+
+			.olapic {
+				.olapic-carousel {
+					li {
+						width: 160px !important;
+						height: 160px !important;
+						margin: 0 12px;
+					}
+				}
+			}
+		}
+	}
+
+	#html-body.page-layout-custom-category {
+		.customapi {
+			.olapic {
+				.olapic-carousel {
+					li {
+						width: 160px !important;
+						height: 160px !important;
+						margin: 0 12px;
+					}
+				}
+			}
+		}
+	}
+}
+& when (@media-target = 'mobile'), (@media-target = 'all') {
+    @media only screen and (max-width: 1280px) {
+        body#html-body {
+			.customapi {
+				.olapic-slider-wrapper {
+					width: 100%;
+					margin: 0;
+					
+				}
+	
+				.olapic-slider-body {
+					width: 100%;
+					margin: 0;
+					
+				}
+
+			}
+		}
+    }
+}

@@ -1,0 +1,42 @@
+<?php
+$imageList =  $block->getDimensionImages();
+if(count($imageList) > 0) : 
+?>
+<div class="block-dimension">
+    <div class="block-header">
+        <h5>Dimension</h5>
+    </div>
+    <div class="block-content">
+        <div class="owl-carousel dimension-slider">
+            <?php
+                
+                foreach($imageList  as $image) {
+                    ?>
+                        <div class="item">
+                            <img src="<?php echo $block->getBaseUrl().$image['url']?>" alt="<?php echo $image['alt_tag'];?>" />
+                            <h6><?php echo $image['name']?></h6>
+                        </div>
+                    <?php
+                }
+            ?>
+        </div>
+    </div>
+</div>
+<script>
+    require([
+        'jquery',
+        'owlcarousel'
+    ],function($) {
+        $(document).ready(function(){
+            $('.dimension-slider').owlCarousel({
+                nav : true,
+                dots: false,
+                loop: true,
+                autoPlay: false,
+                items: 1
+            });
+        });
+    })
+</script>
+
+<?php endif; ?>

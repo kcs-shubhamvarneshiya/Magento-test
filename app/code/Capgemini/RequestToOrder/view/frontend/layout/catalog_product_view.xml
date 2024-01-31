@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!--
+ * Capgemini_RequestToOrder
+ *
+ * @category  Capgemini
+ * @author    Oleksander Tolkach <oleksander.tolkach@capgemini.com>
+ * @copyright 2022 Capgemini, Inc (www.capgemini.com)
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.extrahint">
+            <block class="Capgemini\RequestToOrder\Block\Product\View\AddToRequestButton"
+                   name="capgemini.addto.request"
+                   before="product.info.social"
+                   ifconfig="rto/general/active"
+                   template="Capgemini_RequestToOrder::product/view/request/addTo.phtml">
+                <arguments>
+                    <argument name="add_to_request_view_model"
+                              xsi:type="object">Capgemini\RequestToOrder\ViewModel\AddToRequest
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

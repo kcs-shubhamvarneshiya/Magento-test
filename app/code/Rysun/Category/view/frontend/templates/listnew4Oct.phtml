@@ -1,0 +1,148 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+//use Capgemini\BloomreachThematic\Model\TechnicalProduct;
+//use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
+ */
+?>
+
+<?php
+    $_productCollection = $block->getLoadedProductCollection();
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $productUpdatedIDs = implode(',',$_productCollection->getAllIds());
+
+    $productDataCollection = $objectManager->create('Magento\Catalog\Model\ResourceModel\Product\Collection');
+    /** Apply filters here */
+    $prodDatacollection = $productDataCollection->addAttributeToSelect('*')
+    ->addFieldToFilter('entity_id', array('in' => $productUpdatedIDs))
+    ->setOrder('product_sort_order','ASC')
+    ->load();
+
+                
+?>
+
+<?php
+//category list - platform code ends here
+    $current_category = $this->frameworkRegistry->registry('current_category');    
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+?>
+<div class="products-grid custom-products">
+    <div class="products-sep"></div>
+    <div class="products list items product-items">
+        <div class="item product product-item product-promotion">
+            <div class="promotion-content">
+                <a href="javascript:void(0);" class="product photo product-item-photo">
+                    <img src="<?= $this->getViewFileUrl('Magento_Catalog::images/placeholder.png'); ?>" width="381" height="511" />
+                </a>
+            </div>
+        </div>
+        <?php 
+            foreach ($prodDatacollection as $item) {
+        ?>
+            <div class="item product product-item">
+                <div class="product-item-info">
+                    <a href="<?= $item->getProductUrl(); ?>" class="product photo product-item-photo">
+                    <?php 
+                   // $_imgUrl = ($item->getThumbnailImage()) ?  $item->getThumbnailImage() : $image;
+                    ?>
+                        <img src="<?=  $this->getViewFileUrl('Magento_Catalog::images/placeholder.png') ?>" width="240" height="300" />
+                    </a>
+                    <div class="product details product-item-details">
+                        <div class="product name product-item-name">
+                            <a class="product-item-link" href="<?= $item->getProductUrl(); ?>">                                
+                                <?= $item->getName() ?>
+                            </a>
+                        </div>
+
+
+                        
+
+                        <?php 
+
+                             //WORKING CODE START
+                            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                            $specificationCollection = $objectManager->create('Rysun\SpecificationAttribute\Model\SpecificationAttribute');
+                            $specificationCol = $specificationCollection->getCollection();
+                            $specificationCol->addFieldToFilter('category_id',$current_category->getId());
+                            //$specificationCol->addFieldToFilter('collection_id',0);
+                            //$specificationCol->setOrder('sort_order','ASC');
+
+                            //echo count($specificationCol);
+                           
+                            $specificationData = [];
+
+                            foreach($specificationCol as $specificationDetail){
+                                $deliveredLumens = [];
+                                $subData = [];
+                                //echo '<pre>';
+                                //print_r($specificationDetail->getData('attribute_code'));
+                                //echo '</pre>';
+                                $attributeCode = $specificationDetail->getData('attribute_code');
+                                $productValue = $item->getAttributeText($attributeCode);
+                                //$productAttrLabel = $item->getAttribute($attributeCode);
+
+                                if(is_array($productValue)){
+                                    foreach($productValue  as $value){
+                                        $deliveredLumens[] = $value;
+                                    }
+                                } else {
+                                    $deliveredLumens[] = $productValue ;
+                                }
+                                $deliveredString  = implode(", ", $deliveredLumens); 
+
+                                if(empty($deliveredString)){
+                                    continue;
+                                }
+                              
+                                //echo '<pre>';  
+                                //print_r($item->getResource()->getAttribute($attributeCode)->getStoreLabel());
+                                //print_r($deliveredString);
+                                //echo '</pre>';
+                                $attributeLabel = $item->getResource()->getAttribute($attributeCode)->getStoreLabel();
+                                $subData['label'] = $attributeLabel;
+                                $subData['value'] = $deliveredString;
+                                $specificationData[$attributeCode] = $subData;
+                            }
+                                ?>
+                            <?php if(count($specificationData) > 0 ){ ?>
+                                <div class="product-attribute-head">Specifications</div>
+                            <?php  } ?>
+
+                            <?php
+                            foreach($specificationData as $specAttribute){
+                            ?>
+                            <div class="spec-inline">
+                                <ul class="product-attribute-list">
+                                    <span><?php echo $specAttribute['label']; ?></span>
+                                    
+                                    <li><?php echo $specAttribute['value'];?></li>
+                                </ul>
+                            </div>
+                            <?php
+                            }
+                            //exit;
+                            //WORKING CODE START 
+                            ?>
+
+                    </div>
+                </div>
+            </div>
+        <?php 
+            }
+        ?>
+    </div>
+</div>

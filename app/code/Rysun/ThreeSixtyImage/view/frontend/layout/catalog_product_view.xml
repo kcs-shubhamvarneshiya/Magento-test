@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="head.additional">
+            <block class="Lyonscg\ConfigurableSimple\Block\Specifications" ifconfig="Rysunstandard/general/enabled" name="webrotatestandard" template="Rysun_ThreeSixtyImage::standard.phtml">
+                <arguments>
+                    <argument name="view_model" xsi:type="object">Rysun\ThreeSixtyImage\ViewModel\WebRotatedStandard</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

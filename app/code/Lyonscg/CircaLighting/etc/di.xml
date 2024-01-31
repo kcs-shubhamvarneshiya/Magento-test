@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="circa_lighting_order_repository_plugin"
+            type="Lyonscg\CircaLighting\Plugin\OrderRepositoryPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Quote\Api\CartRepositoryInterface">
+        <plugin name="circa_lighting_cart_repository_plugin"
+            type="Lyonscg\CircaLighting\Plugin\QuoteRepositoryPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Sales\Helper\Guest">
+        <plugin name="circa_lighting_sales_guest_form"
+                type="Lyonscg\CircaLighting\Plugin\GuestPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Framework\Session\SaveHandler\Redis\Logger">
+        <plugin name="redis_logger_plugin"
+                type="Lyonscg\CircaLighting\Plugin\RedisPlugin" sortOrder="10"/>
+    </type>
+    <type name="Magento\Customer\Block\Account\Navigation">
+        <plugin name="customer_account_retail"
+                type="Lyonscg\CircaLighting\Plugin\CustomerAccountPlugin" sortOrder="10"/>
+    </type>
+    <preference for="Magento\Customer\Model\AccountManagement" type="Lyonscg\CircaLighting\Model\AccountManagement"/>
+    <type name="Magento\Email\Model\Template\Filter">
+        <plugin name="circa_lighting_email_template_afterViewDirective_plugin"
+                type="Lyonscg\CircaLighting\Plugin\EmailTemplatePlugin"/>
+    </type>
+    <type name="Magento\Quote\Model\ResourceModel\Quote">
+        <plugin name="circa_lighting_quote_resource_model_afterPlugin"
+                type="Lyonscg\CircaLighting\Plugin\Quote\ResourceModelPlugin"
+                disabled="true"/>
+    </type>
+    <type name="Magento\Store\App\Request\StorePathInfoValidator">
+        <plugin name="circa_lightning_store_path_validator_beforePlugin" type="Lyonscg\CircaLighting\Plugin\StorePathInfoValidatorPlugin"/>
+    </type>
+    <type name="Magento\Backend\Controller\Adminhtml\System\Store\Save">
+        <plugin name="circa_lightning_store_save_afterPlugin" type="Lyonscg\CircaLighting\Plugin\WebsiteSwitcher"/>
+    </type>
+    <type name="Magento\Framework\DB\Sequence\SequenceInterface">
+        <arguments>
+            <argument name="pattern" xsi:type="string">%s%'.05d%s</argument>
+        </arguments>
+    </type>
+</config>

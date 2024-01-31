@@ -1,0 +1,20 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<?php
+    $relatedCategoriesHmtl = $block->getLayout()->createBlock('Capgemini\BloomreachWidget\Block\Widget')->setTitle('Related Categories')->setDisplayType('related-category')->toHtml();
+    $relatedItemsHtml = $block->getLayout()->createBlock('Capgemini\BloomreachWidget\Block\Widget')->setTitle('Related Items')->setDisplayType('related-item')->toHtml();
+    $relatedProductHtml =  $block->getLayout()->createBlock('Capgemini\BloomreachWidget\Block\Widget')->setTitle('Related Products')->setDisplayType('more-results')->toHtml();
+?>
+<div class="brseo">
+    <?php if(!empty($relatedCategoriesHmtl) || !empty($relatedItemsHtml) || !empty($relatedProductHtml)):?>
+        <div class="designer-cat-cms-divider"></div>
+    <?php endif; ?>
+    <?php
+        echo $relatedCategoriesHmtl;
+        echo $relatedItemsHtml;
+        echo $relatedProductHtml;
+    ?>
+</div>
+
+

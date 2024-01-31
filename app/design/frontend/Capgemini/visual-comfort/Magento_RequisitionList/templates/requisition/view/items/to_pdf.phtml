@@ -1,0 +1,58 @@
+<?php
+/**
+ * Lyonscg_RequisitionList
+ *
+ * @category  Lyons
+ * @package   Lyonscg_RequisitionList
+ * @author    Tetiana Mamchik<tanya.mamchik@capgemini.com>
+ * @copyright Copyright (c) 2020 Lyons Consulting Group (www.lyonscg.com)
+ */
+
+/** @var \Lyonscg\RequisitionList\Block\Details $block */
+
+/** @var \Magento\RequisitionList\Api\Data\RequisitionListInterface $requisitionList */
+$requisitionList = $block->getRequisitionList();
+
+$taxRate = 7; //Need to get actual tax rate
+
+/** @var \Lyonscg\RequisitionList\ViewModel\RequisitionListTotal $requisitionTotalViewModel */
+$requisitionTotalViewModel = $block->getData('viewRequisitionTotalModel');
+if (!empty($requisitionTotalViewModel)) {
+    $requisitionTotalViewModel->setRequisitionList($requisitionList)->setTaxRate($taxRate);
+}
+?>
+<div id="markup-wrapper">
+    <form id="requisition-list-markup-form">
+        <div class="markup-wrapper__header"><?= $block->escapeHtml(__('Quote Summary')) ?></div>
+        <div style="display:none;" id="quote-update-messages-container"></div>
+
+        <div class="markup-wrapper__footer">
+            <div class="total__column">
+                <div class="catalogTotal">
+                    <span class="left">Quote Total (excl. tax)</span>
+                    <span class="right"><?= (!empty($requisitionTotalViewModel)) ? $requisitionTotalViewModel->getRequisitionListSubtotal(true) : '' ?></span>
+                </div>
+            </div>
+
+            <div class="to_pdf-buttons__wrap">
+                <div class="pdf-button">
+                    <button type="button"
+                            id="pdf-btn"
+                            title="<?= $block->escapeHtmlAttr(__('Create Quote PDF')) ?>"
+                            data-mobile-label="<?= $block->escapeHtmlAttr(__('Create Quote PDF')) ?>"
+                            target="_self">
+                        <span><?= $block->escapeHtml(__('Create Quote PDF')) ?></span>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div id="popop_content_wrapper" style="display: none;">
+    <div id="cart-not-empty-popup" >
+        <div><?= $block->escapeHtml(__('Would you like to merge these items to the existing cart or replace all items in cart?')) ?></div>
+        <div><span><?= $block->escapeHtml(__('Please note:')) ?></span> <?= $block->escapeHtml(__('Once you add your quote to the cart, your quote will no longer exist. From the cart you will be able to create an order.')) ?></div>
+    </div>
+</div>

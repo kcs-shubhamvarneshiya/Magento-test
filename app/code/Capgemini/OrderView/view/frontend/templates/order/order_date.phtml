@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php $salesPadHelper = $this->helper(\Lyonscg\SalesPad\Helper\Order::class) ?>
+<?php $realOrderIncrementId = $block->getOrder()->getRealOrderId(); ?>
+<?php $realOrder = $salesPadHelper->getOrder($realOrderIncrementId); ?>
+<?php $amastyAttributes = $salesPadHelper->getAmastyOrderAttributeData($realOrder); ?>
+<?php $poNumber = $amastyAttributes['po_number'] ?? ''; ?>
+<?php $projectName = $amastyAttributes['project_name'] ?? '';?>
+
+<div class="project-data">
+    <?php if($poNumber) { ?>
+    <div>
+        <strong class="label">PO Number </strong>
+        <span><?= $poNumber ?></span>
+    </div>
+    <?php } ?>
+    <div class="order-date">
+        <strong class="label">Order Date</strong>
+        <span><?php echo $block->formatDate($block->getOrder()->getCreatedAt(), \IntlDateFormatter::LONG) ?></span>
+    </div>
+    <?php if($projectName) { ?>
+    <div>
+        <strong class="label">Project Name </strong>
+        <span><?= $projectName ?></span>
+    </div>
+    <?php } ?>
+</div>

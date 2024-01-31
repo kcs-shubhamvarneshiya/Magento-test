@@ -1,0 +1,29 @@
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Lyonscg\SocialIcons\Block\Widget\Share" id="social_icons_share">
+        <label>Social Share Icons</label>
+        <description>Get share urls for various social media platforms</description>
+        <parameters>
+            <parameter name="show_urls" xsi:type="multiselect" required="false" visible="true">
+                <label translate="true">Sharing urls to show</label>
+                <options>
+                    <option name="facebook" value="facebook" selected="true">
+                        <label translate="true">Facebook</label>
+                    </option>
+                    <option name="pinterest" value="pinterest" selected="true">
+                        <label translate="true">Pinterest</label>
+                    </option>
+                    <option name="twitter" value="twitter" selected="true">
+                        <label translate="true">Twitter</label>
+                    </option>
+                    <option name="email" value="email" selected="true">
+                        <label translate="true">Email</label>
+                    </option>
+                    <option name="design" value="design" selected="true">
+                        <label translate="true">Design</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

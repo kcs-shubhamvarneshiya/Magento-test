@@ -1,0 +1,148 @@
+.catalog-category-view, .catalog-product-view {
+    .brseo {
+        width: inherit;
+        padding: 0 30px;
+        margin: 150px auto 0;
+        box-sizing: border-box;
+
+        .widget-type {
+            font-family: 'goudy-old-style', sans-serif;
+            font-weight: 400;
+            font-size: 2.6rem;
+            line-height: 3.2rem;
+            letter-spacing: 0;
+            color: #454545;
+        }
+
+        .widget-type:first-child {
+            margin-top: 40px;
+            padding-top: 40px;
+        }
+
+        div.br-widget {
+            .br-widget.categories, .br-widget.items {
+                padding-bottom: 15px;
+            }
+
+            .br-widget.related-category, .br-widget.related-item {
+                list-style: none;
+                padding-left: 0;
+                margin-top: 10px;
+                margin-bottom: 20px;
+
+                li {
+                    display: inline-block;
+                    padding: 0 10px;
+                    border-left: solid 1px black;
+                    font-size: 1.2rem;
+                    line-height: 1.4rem;
+                }
+
+                li:first-child {
+                    padding-left: 0;
+                    border-left: none;
+                }
+
+                li:last-child {
+                    padding-right: 0;
+                }
+            }
+        }
+
+        div.br-widget.products {
+            .br-widget.more-results {
+                span {
+                    display: none;
+                }
+
+                li {
+                    display: block !important;
+                    text-align: left;
+
+                    .br-image-wrapper {
+                        background: #f8f8f8;
+                        margin-bottom: 10px;
+
+                        img {
+                            width: 240px;
+                            margin: auto;
+                            display: block;
+                            padding-top: 20px;
+                            padding-bottom: 20px;
+                        }
+                    }
+
+                    .title, .description, .view-details {
+                        width: 100%;
+                        text-align: center;
+                        display: block !important;
+                    }
+
+                    a {
+                        color: #717171;
+                        display: block;
+                        font-family: 'proxima-nova', sans-serif;
+                        font-weight: 400;
+                        font-size: 1.1rem;
+                        line-height: 1.4rem;
+                        letter-spacing: 0;
+                        margin: 0 0 7px;
+                    }
+
+                    .title {
+                        font-stretch: normal;
+                        font-style: normal;
+                        font-family: 'proxima-nova', sans-serif;
+                        font-weight: 600;
+                        font-size: 1.2rem;
+                        line-height: 1.6rem;
+                        color: #454545;
+                        letter-spacing: 0.25px;
+                        text-transform: uppercase;
+                    }
+
+                    .description {
+                        padding-top: 5px;
+                        padding-bottom: 10px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        max-width: 33ch;
+                        white-space: nowrap;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.catalog-category-view {
+    .brseo {
+        margin-top: 40px;
+    }
+}
+
+@media screen and (min-width: 1540px) {
+    .catalog-category-view, .catalog-product-view {
+        .brseo {
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+    }
+}
+
+.capgemini_bloomreach_thematic-index-index {
+    .category-top__wrapper .breadcrumbs {
+        margin: 30px auto 0 !important;
+    }
+}
+.media-width(@extremum, @break) when (@extremum ='max') and (@break =@screen__m) {
+        body.catalog-product-view {
+            .brseo {
+                width: inherit;
+                padding: 0 30px;
+                margin: 100px auto 0;
+                box-sizing: border-box;
+            }
+        }
+}

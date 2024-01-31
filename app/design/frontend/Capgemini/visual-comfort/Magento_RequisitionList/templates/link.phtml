@@ -1,0 +1,38 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/* @var $block \Magento\RequisitionList\Block\Link\Lists
+ * @var \Magento\Framework\Escaper $escaper
+ * */
+?>
+<!-- ko scope: 'requisition' -->
+<!-- ko if: canShowQuotesLink() -->
+<li>
+    <a href="<?= $escaper->escapeUrl($block->getHref()) ?>"><?= $escaper->escapeHtml('Quotes') ?></a>
+</li>
+<script type="text/javascript">
+    require([
+        'Magento_Customer/js/customer-data'
+    ], function(customerData) {
+        customerData.initStorage();
+        customerData.reload(['requisition']);
+    });
+</script>
+<!-- /ko -->
+<!-- /ko -->
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "requisition": {
+                        "component": "Magento_RequisitionList/js/requisition"
+                    }
+                }
+            }
+        }
+    }
+</script>

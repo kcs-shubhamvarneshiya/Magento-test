@@ -1,0 +1,29 @@
+<table class="options">
+    <!-- ko if: (hasDimensions()) -->
+    <thead>
+    <tr>
+        <th class="header-label" data-bind="i18n: 'Dimensions'"></th>
+        <th data-bind="i18n: 'IN'"></th>
+        <th data-bind="i18n: 'CM'"></th>
+    </tr>
+    </thead>
+    <tbody data-bind="foreach: {data: getDimensions()}">
+    <tr data-bind="css: { 'collapsible dimension-collapsible': ($index() > 4)}">
+        <td class="label" data-bind="i18n: label"></td>
+        <td data-bind="text: value"></td>
+        <td data-bind="text: metric"></td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td colspan="3" >
+            <!-- ko if: (dimCollapseElem()) -->
+            <button class="btn btn-secondary table-expand" id="dimension-expand" data-bind="click: processExpand()"><!-- ko i18n: 'Show More' --><!-- /ko --></button>
+            <!-- /ko -->
+        </td>
+    </tr>
+    </tfoot>
+    <!-- /ko -->
+    <!-- ko ifnot: (hasDimensions()) -->
+    <!-- /ko -->
+</table>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="company">
+            <group id="general">
+                <field id="business_types" translate="label" type="textarea" sortOrder="100"
+                    showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Business Types</label>
+                    <comment>Enter each Business Type on a new line.</comment>
+                </field>
+                <field id="collections" translate="label" type="textarea" sortOrder="150"
+                       showInDefault="1" showInWebsite="1" canRestore="1">
+                    <label>Collections</label>
+                    <comment>Enter each Business Type on a new line.</comment>
+                </field>
+                <field id="enable_tax_exempt_notification" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1">
+                    <label>Show Tax Exempt Notification</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Tax exempt notification block before Upload proof of trade document on company create account page.</comment>
+                </field>
+                <field id="enable_member_state" translate="label" type="select" sortOrder="300" showInDefault="1" showInWebsite="1">
+                    <label>Enable Member State</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>The Member State field will be shown on company create account page.</comment>
+                </field>
+                <field id="enable_vat_number" translate="label" type="select" sortOrder="400" showInDefault="1" showInWebsite="1">
+                    <label>Enable VAT Number</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>The VAT number field will be shown on company create account page.</comment>
+                </field>
+                <field id="member_state_countries" translate="label" type="multiselect" sortOrder="500" showInDefault="1">
+                    <label>Member State Allowed Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="tmp_files_cleanup_schedule" translate="label" type="text" sortOrder="600" showInDefault="1">
+                    <label>Temporary Files Cleanup Cron Schedule</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

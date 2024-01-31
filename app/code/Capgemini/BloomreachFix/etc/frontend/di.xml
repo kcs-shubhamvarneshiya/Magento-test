@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Bloomreach\Connector\ViewModel\Head\ScriptInit">
+        <plugin name="capgemini_bloomreach_page_title" type="Capgemini\BloomreachFix\Plugin\BloomreachTitle" sortOrder="0"/>
+    </type>
+    <type name="Magento\LayeredNavigation\Block\Navigation">
+        <plugin name="capgemini_bloomreach_fake_toolbar_to_set_collection" type="Capgemini\BloomreachFix\Plugin\Block\FakeToolbar"/>
+        <plugin name="capgemini_bloomreach_render_no_core_filters" type="Capgemini\BloomreachFix\Plugin\Block\RenderNoFilters"/>
+    </type>
+</config>

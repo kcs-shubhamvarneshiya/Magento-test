@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget class="Capgemini\BloomreachWidget\Block\Widget" id="cloudways_customwidget_samplewidget">
+        <label>Bloomreach SEO Widget</label>
+        <description>Adds related categories, items, and products to the Category or Product pages</description>
+        <parameters>
+            <parameter name="title" xsi:type="text" sort_order="10" visible="true" required="true">
+                <label translate="true">Title</label>
+            </parameter>
+            <parameter name="display_type"  xsi:type="select" sort_order="20" visible="true" required="true">
+                <label translate="true">Display Type</label>
+                <options>
+                    <option name="caption" value="">
+                        <label>Please Select</label>
+                    </option>
+                    <option name="related_categories" value="related-category">
+                        <label>Related Categories</label>
+                    </option>
+                    <option name="related_items" value="related-item">
+                        <label>Related Items</label>
+                    </option>
+                    <option name="related_products" value="more-results">
+                        <label>Related Products</label>
+                    </option>
+                </options>
+            </parameter>
+            <parameter name="base_url_parameter" xsi:type="text" sort_order="30" visible="true" required="false">
+                <label translate="true">Base Url Parameter used in Data Request</label>
+                <description>Must end with "/". Leave empty for using the current website URL.</description>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

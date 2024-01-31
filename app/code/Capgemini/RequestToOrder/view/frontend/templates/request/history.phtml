@@ -1,0 +1,106 @@
+<?php
+/** @var History $block */
+
+/** @var Escaper $escaper */
+
+use Capgemini\RequestToOrder\Api\Data\OrderRequestInterface;
+use Capgemini\RequestToOrder\Block\Request\History;
+use Magento\Framework\Escaper;
+
+?>
+<?php $requests = $block->getRequests(); ?>
+<?php
+$statuses = [
+    OrderRequestInterface::STATUS_ENABLE => 'Open',
+    OrderRequestInterface::STATUS_DISABLE => 'Submitted'
+];
+?>
+<?php if ($requests && count($requests)) : ?>
+    <div class="orequest-history-table">
+        <table class="request-to-order items data table">
+            <thead>
+            <tr>
+                <th scope="col" class="col id"><?= $escaper->escapeHtml(__('Request To Order #')) ?></th>
+                <th scope="col" class="col name"><?= $escaper->escapeHtml(__('Name')) ?></th>
+                <th scope="col" class="col email"><?= $escaper->escapeHtml(__('Email Address')) ?></th>
+                <th scope="col" class="col created_at"><?= $escaper->escapeHtml(__('Created On')) ?></th>
+                <th scope="col" class="col count"><?= $escaper->escapeHtml(__('# of Items')) ?></th>
+                <th scope="col" class="col status"><?= $escaper->escapeHtml(__('Status')) ?></th>
+                <th scope="col" class="col actions"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($requests as $request) : ?>
+                <tr>
+                    <td data-th="<?= $escaper->escapeHtml(__('Request To Order #')) ?>"
+                        class="col id"><?= $escaper->escapeHtml($request->getId()) ?></td>
+                    <td data-th="<?= $escaper->escapeHtml(__('Name')) ?>"
+                        class="col name"><?= $escaper->escapeHtml($request->getName()) ?></td>
+                    <td data-th="<?= $escaper->escapeHtml(__('Email Address')) ?>"
+                        class="col email"><?= $escaper->escapeHtml($request->getEmail()) ?></td>
+                    <td data-th="<?= $escaper->escapeHtml(__('Created On')) ?>"
+                        class="col created_at"><?= $escaper->escapeHtml(date("m.d.y", strtotime($request->getCreatedAt()))) ?></td>
+                    <td data-th="<?= $escaper->escapeHtml(__('# of Items')) ?>"
+                        class="col count"><?= $escaper->escapeHtml(count($request->getItems())) ?></td>
+                    <td data-th="<?= $escaper->escapeHtml(__('Status')) ?>"
+                        class="col status"><?= $escaper->escapeHtml($statuses[$request->getStatus()]) ?></td>
+                    <td data-th="" class="col actions">
+                        <a href="<?= $block->escapeUrl($block->getViewUrl($request)) ?>" class="action view">
+                            <span><?= $escaper->escapeHtml(__('View')) ?></span>
+                        </a>
+                    </td>
+                    <td class="col mobile-view">
+                        <div class="mobile-ore-req-info">
+                            <div class="req-tab">
+                                <label class="req-label"><?= $escaper->escapeHtml(__('Request To Order #:')) ?></label>
+                                <span class="req-txt"><?= $escaper->escapeHtml($request->getId()) ?></span>
+                            </div>
+                            <div class="req-tab">
+                                <label class="req-label"><?= $escaper->escapeHtml(__('Name : ')) ?></label>
+                                <span class="req-txt"><?= $escaper->escapeHtml($request->getName()) ?></span>
+                            </div>
+                            <div class="req-tab">
+                                <label class="req-label"><?= $escaper->escapeHtml(__('Email Address : ')) ?></label>
+                                <span class="req-txt"><?= $escaper->escapeHtml($request->getEmail()) ?></span>
+                            </div>
+                            <div class="req-tab">
+                                <label class="req-label"><?= $escaper->escapeHtml(__('Created On : ')) ?></label>
+                                <span class="req-txt"><?= $escaper->escapeHtml(date("m.d.y", strtotime($request->getCreatedAt()))) ?></span>
+                            </div>
+                            <div class="req-tab">
+                                <label class="req-label"><?= $escaper->escapeHtml(__('# of Items : ')) ?></label>
+                                <span class="req-txt"><?= $escaper->escapeHtml(count($request->getItems())) ?></span>
+                            </div>
+                            <div class="req-tab">
+                                <label class="req-label"><?= $escaper->escapeHtml(__('Status : ')) ?></label>
+                                <span class="req-txt"><?= $escaper->escapeHtml($statuses[$request->getStatus()]) ?></span>
+                            </div>
+                            <div class="req-tab">
+                                <a href="<?= $block->escapeUrl($block->getViewUrl($request)) ?>" class="action view">
+                                    <span><?= $escaper->escapeHtml(__('View')) ?></span>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php if ($block->getPagerHtml()) : ?>
+        <div class="order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+    <?php endif ?>
+<?php else : ?>
+    <div class="message info empty"><span><?= $escaper->escapeHtml("There is no Request To Order history.") ?></span><span class="action close"></span></div>
+<?php endif ?>
+
+<script>
+    require(['jquery'], function ($) {
+        //simulate close btn
+        if ($('.message.info.empty').length) {
+            $('.action.close').click(function () {
+                $('.message.info.empty').hide();
+            })
+        }
+    })
+</script>

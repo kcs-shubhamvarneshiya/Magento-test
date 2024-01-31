@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="sitesearch">
+        <field id="productlist_template_text"/>
+        <field id="price_content_tag" translate="label" type="text"
+               sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Price Content Tag</label>
+            <depends>
+                <field id="enabled">1</field>
+            </depends>
+        </field>
+        <field id="productlist_template_text_logged_in" translate="label" type="textarea"
+               sortOrder="220" showInDefault="0" showInWebsite="0" showInStore="0">
+            <label>Search Page - Product Listing Template for Logged in</label>
+            <comment><![CDATA[Template update date : <span  id="search_list_template_version_date"><strong>Oct 20,2021</strong></span>. Please update your current template. If you have added any changes then copy current template in text editor and checked "Use system value" checkbox to load latest template then merge your changes.You can follow <a href="https://documentation.bloomreach.com/sdks/magento/user-guide.html" target="_blank">documentation link</a> for more info.]]>
+            </comment>
+        </field>
+    </group>
+</include>

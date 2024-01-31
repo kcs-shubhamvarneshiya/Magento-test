@@ -1,0 +1,182 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+// phpcs:disable Magento2.Files.LineLength.MaxExceeded
+
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer */
+
+use Magento\ConfigurableProduct\Model\Product\Type\Configurable;
+
+$_item = $block->getItem();
+$product = $_item->getProduct();
+$isVisibleProduct = $product->isVisibleInSiteVisibility();
+/** @var \Magento\Msrp\Helper\Data $helper */
+$helper = $this->helper(Magento\Msrp\Helper\Data::class);
+$canApplyMsrp = $helper->isShowBeforeOrderConfirm($product) && $helper->isMinimalPriceLessMsrp($product);
+$blockObj= $block->getLayout()->createBlock('Lyonscg\CircaLighting\Block\StockStatus');
+$customHeight = $_item->getExtensionAttributes()->getCustomHeightValue();
+$customHeightHepler = $this->helper(\Capgemini\CustomHeight\Helper\PriceHeight::class);
+$availabilityInfo = $block->getData('availability_info_view_model');
+$hasBrandsAttributeError = false;
+$errorInfos = $_item->getErrorInfos();
+foreach ($errorInfos as $errorInfo) {
+    if (isset($errorInfo['origin'])
+        && $errorInfo['origin'] == 'reporting_brand') {
+        $hasBrandsAttributeError = true;
+    }
+}
+$brandText = $product->getAttributeText('brand');
+$designerText = $product->getAttributeText('designer');
+?>
+<tbody class="cart item<?= ($hasBrandsAttributeError) ? " purchase-error" : "" ?>">
+<tr class="item-info">
+    <td data-th="<?= $block->escapeHtmlAttr(__('Item')) ?>" class="col item">
+        <?php if ($block->hasProductUrl()) :?>
+        <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"
+           title="<?= $block->escapeHtmlAttr($block->getProductName()) ?>"
+           tabindex="-1"
+           class="product-item-photo">
+            <?php else :?>
+            <span class="product-item-photo">
+            <?php endif;?>
+            <?= $block->getImage($block->getProductForThumbnail(), 'cart_page_product_thumbnail')->toHtml() ?>
+            <?php if ($block->hasProductUrl()) :?>
+        </a>
+    <?php else :?>
+        </span>
+    <?php endif; ?>
+        <div class="product-item-details">
+            <strong class="product-item-name">
+                <?php if ($block->hasProductUrl()) :?>
+                    <a href="<?= $block->escapeUrl($block->getProductUrl()) ?>"><?= $block->escapeHtml($block->getProductName()) ?></a>
+                <?php else :?>
+                    <?= $block->escapeHtml($block->getProductName()) ?>
+                <?php endif; ?>
+            </strong>
+            <?php if ($brandText && $designerText):?>
+                <div class="product-item-info-extra">
+                    <span class="brand"><?= $brandText ?></span>
+                    <span class="designer"><?= $designerText ?></span>
+                </div>
+            <?php endif; ?>
+            <div class="product-item-sku">
+                <span><?= $block->escapeHtml(__('Item #:')); ?></span>
+                <?= $_item->getSku(); ?>
+            </div>
+            <div class="product-stock">
+                <?php if ($_item->getProductType() === Configurable::TYPE_CODE) : ?>
+                    <?php $itemProduct = $_item->getOptionByCode('simple_product')->getProduct()?>
+                    <span><?= $availabilityInfo->getAvailabilityFrontendInfo($itemProduct, 'label') ?>:</span> <?= $availabilityInfo->getAvailabilityFrontendInfo($itemProduct, 'value') ?>
+                <?php else : ?>
+                    <?php $itemProduct = $_item->getProduct()?>
+                    <span><?= $availabilityInfo->getAvailabilityFrontendInfo($itemProduct, 'label') ?>:</span> <?= $availabilityInfo->getAvailabilityFrontendInfo($itemProduct, 'value') ?>
+                <?php endif; ?>
+            </div>
+            <?php if ($_options = $block->getOptionList()) :?>
+                <dl class="item-options">
+                    <?php foreach ($_options as $_option) :?>
+                        <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+                        <dt><?= $block->escapeHtml($_option['label']) ?></dt>
+                        <dd>
+                            <?php if (isset($_formatedOptionValue['full_view'])) :?>
+                                <?= $block->escapeHtml($_formatedOptionValue['full_view']) ?>
+                            <?php else :?>
+                                <?= $block->escapeHtml($_formatedOptionValue['value'], ['span', 'a']) ?>
+                            <?php endif; ?>
+                        </dd>
+                    <?php endforeach; ?>
+                    <?php if ($customHeight && strlen($customHeight) > 0): ?>
+                        <dt class="ch">Custom Height</dt>
+                        <dd class="ch"><?= $customHeight?>"</dd>
+                        <?php if (strlen($customHeightHepler->getAvailabilityMessage()) > 0): ?>
+                            <dd class="ch"><?= $customHeightHepler->getAvailabilityMessage()?></dd>
+                        <?php endif;?>
+                    <?php endif;?>
+                </dl>
+            <?php endif;?>
+            <?php if ($messages = $block->getMessages()) :?>
+                <?php foreach ($messages as $message) :?>
+                    <div class= "cart item message <?= $block->escapeHtmlAttr($message['type']) ?>">
+                        <div><?= $message['text'] ?></div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </td>
+
+    <?php if ($canApplyMsrp) :?>
+        <td class="col msrp" data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>">
+                <span class="pricing msrp">
+                    <span class="msrp notice"><?= $block->escapeHtml(__('See price before order confirmation.')) ?></span>
+                    <?php $helpLinkId = 'cart-msrp-help-' . $_item->getId(); ?>
+                    <a href="#" class="action help map"
+                       id="<?= ($block->escapeHtmlAttr($helpLinkId)) ?>"
+                       data-mage-init='{"addToCart":{
+                                            "helpLinkId": "#<?= $block->escapeJs($block->escapeHtml($helpLinkId)) ?>",
+                                            "productName": "<?= $block->escapeJs($block->escapeHtml($product->getName())) ?>",
+                                            "showAddToCart": false
+                                            }
+                                        }'
+                    >
+                        <span><?= $block->escapeHtml(__("What's this?")) ?></span>
+                    </a>
+                </span>
+        </td>
+    <?php else :?>
+        <td class="col price" data-th="<?= $block->escapeHtmlAttr(__('Price')) ?>">
+            <?= $block->getUnitPriceHtml($_item) ?>
+        </td>
+    <?php endif; ?>
+    <td class="col qty" data-th="<?= $block->escapeHtmlAttr(__('Qty')) ?>">
+        <div class="field qty">
+            <div class="control qty">
+                <label for="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty">
+                    <span class="label"><?= $block->escapeHtml(__('Qty')) ?></span>
+                    <input id="cart-<?= $block->escapeHtmlAttr($_item->getId()) ?>-qty"
+                           name="cart[<?= $block->escapeHtmlAttr($_item->getId()) ?>][qty]"
+                           data-cart-item-id="<?= $block->escapeHtmlAttr($_item->getSku()) ?>"
+                           value="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
+                           type="number"
+                           size="4"
+                           step="any"
+                           title="<?= $block->escapeHtmlAttr(__('Qty')) ?>"
+                           class="input-text qty"
+                           data-validate="{required:true,'validate-greater-than-zero':true}"
+                           data-item-qty="<?= $block->escapeHtmlAttr($block->getQty()) ?>"
+                           data-role="cart-item-qty"/>
+                </label>
+            </div>
+        </div>
+    </td>
+
+    <td class="col subtotal" data-th="<?= $block->escapeHtmlAttr(__('Subtotal')) ?>">
+        <?php if ($canApplyMsrp) :?>
+            <span class="cart msrp subtotal">--</span>
+        <?php else :?>
+            <?= $block->getRowTotalHtml($_item) ?>
+        <?php endif; ?>
+    </td>
+</tr>
+<?php if (!$hasBrandsAttributeError) :?>
+    <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+    <?php if ($addInfoBlock) :?>
+        <tr class="additional-data">
+            <td colspan="4" class="full-width">
+                <?= $addInfoBlock->setItem($_item)->toHtml() ?>
+            </td>
+        </tr>
+    <?php endif;?>
+<?php endif;?>
+
+<tr class="item-actions">
+    <td colspan="4">
+        <div class="actions-toolbar">
+            <?= /* @noEscape */ $block->getActions($_item) ?>
+        </div>
+    </td>
+</tr>
+</tbody>

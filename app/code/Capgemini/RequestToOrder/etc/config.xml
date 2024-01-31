@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <rto>
+            <general>
+                <contact_information_copy><![CDATA[Questions or Comments Call Customer Service: +44 020 3925 0708]]></contact_information_copy>
+            </general>
+        </rto>
+    </default>
+</config>
